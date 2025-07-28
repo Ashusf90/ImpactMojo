@@ -1163,16 +1163,16 @@ function HomePage() {
                 Created by <strong>Varna Sri</strong> - Development economist passionate about democratizing knowledge for social impact. Building bridges between research and practice.
               </p>
               <div className="flex justify-center space-x-6">
-                <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
+                <a href="https://threads.net/@varnasr" className="text-blue-600 hover:text-blue-700 font-medium" target="_blank" rel="noopener noreferrer">
                   Threads
                 </a>
-                <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
+                <a href="https://notion.so/@varnasr" className="text-blue-600 hover:text-blue-700 font-medium" target="_blank" rel="noopener noreferrer">
                   Notion
                 </a>
-                <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
+                <a href="https://linkedin.com/in/varnasr" className="text-blue-600 hover:text-blue-700 font-medium" target="_blank" rel="noopener noreferrer">
                   LinkedIn
                 </a>
-                <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
+                <a href="https://varna.substack.com" className="text-blue-600 hover:text-blue-700 font-medium" target="_blank" rel="noopener noreferrer">
                   Substack
                 </a>
               </div>
