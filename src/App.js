@@ -1,4 +1,4 @@
-// src/App.js - Complete ImpactMojo with ALL 34 courses and correct ordering
+// src/App.js - Complete ImpactMojo with ALL components and pages
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { 
   Menu, X, Sun, Moon, Search, Bookmark, Heart, MessageCircle, 
@@ -11,7 +11,7 @@ import {
   Lightbulb, Compare, Send, Edit3, Brain, PenTool
 } from 'lucide-react';
 
-// Firebase imports (same as before)
+// Firebase imports
 import { initializeApp } from 'firebase/app';
 import { 
   getAuth, 
@@ -49,700 +49,89 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
 
-// COMPLETE COURSE DATA - ALL 34 COURSES
-const courseData = {
-  tracks: [
-    {
-      id: "research-methods",
-      name: "Research Methods", 
-      description: "Master rigorous research techniques for development",
-      color: "bg-blue-600",
-      icon: "🔬",
-      courses: ["C9", "C18", "C27"]
-    },
-    {
-      id: "data-analysis",
-      name: "Data Analysis",
-      description: "Transform data into actionable insights",
-      color: "bg-green-600", 
-      icon: "📊",
-      courses: ["C5", "C23", "C28", "C29", "C30", "C33"]
-    },
-    {
-      id: "gender-studies", 
-      name: "Gender Studies",
-      description: "Understand gender considerations in development",
-      color: "bg-purple-600",
-      icon: "⚖️",
-      courses: ["C7", "C8", "C17", "C20", "C34"]
-    },
-    {
-      id: "policy-economics",
-      name: "Policy & Economics", 
-      description: "Apply economic principles to development policy",
-      color: "bg-orange-600",
-      icon: "🏛️", 
-      courses: ["C1", "C2", "C3", "C4", "C5", "C6", "C15", "C19", "C21", "C22", "C25", "C26", "C32", "C33"]
-    }
-  ],
-
-  // ALL 34 COURSES - Complete List
-  courses: [
-    {
-      id: "C1",
-      title: "Development Economics 101",
-      track: "Policy & Economics",
-      description: "Economic principles for social impact and development",
-      quote: "Essential framework for understanding development economics",
-      level: "Intermediate",
-      duration: "4 hours",
-      content: "https://101.www.impactmojo.in/DevEcon",
-      featured: true
-    },
-    {
-      id: "C2", 
-      title: "Law and Constitution 101",
-      track: "Policy & Economics",
-      description: "Legal frameworks and constitutional principles",
-      quote: "Understanding the legal foundations of governance",
-      level: "Intermediate",
-      duration: "3.5 hours",
-      content: "https://101.www.impactmojo.in/Law&Cons",
-      featured: false
-    },
-    {
-      id: "C3",
-      title: "Climate Science 101",
-      track: "Climate & Environment", 
-      description: "Understanding climate change and environmental impacts",
-      quote: "Science-based approach to climate challenges",
-      level: "Beginner",
-      duration: "3.5 hours",
-      content: "https://101.www.impactmojo.in/ClimateScience",
-      featured: true
-    },
-    {
-      id: "C4",
-      title: "Pedagogy and Education 101",
-      track: "Education",
-      description: "Teaching methods and educational theory",
-      quote: "Transformative approaches to education and learning",
-      level: "Intermediate", 
-      duration: "4 hours",
-      content: "https://101.www.impactmojo.in/edu",
-      featured: false
-    },
-    {
-      id: "C5",
-      title: "Public Health 101",
-      track: "Public Health",
-      description: "Global health systems and policy frameworks",
-      quote: "Comprehensive view of health system challenges",
-      level: "Intermediate",
-      duration: "4 hours", 
-      content: "https://101.www.impactmojo.in/ph",
-      featured: true
-    },
-    {
-      id: "C6",
-      title: "Livelihoods 101", 
-      track: "Policy & Economics",
-      description: "Sustainable livelihood approaches and strategies",
-      quote: "Building resilient economic opportunities",
-      level: "Intermediate",
-      duration: "3.5 hours",
-      content: "https://101.www.impactmojo.in/Livelihoods",
-      featured: false
-    },
-    {
-      id: "C7",
-      title: "Gender Studies 101",
-      track: "Gender Studies",
-      description: "Introduction to gender theory and its practical implications",
-      quote: "This course opened my eyes to everyday gender dynamics",
-      level: "Beginner", 
-      duration: "3 hours",
-      content: "https://101.www.impactmojo.in/Gender",
-      featured: true
-    },
-    {
-      id: "C8",
-      title: "Women's Economic Empowerment 101",
-      track: "Gender Studies",
-      description: "Economic empowerment strategies for women",
-      quote: "Practical approaches to closing economic gender gaps",
-      level: "Intermediate",
-      duration: "3.5 hours",
-      content: "https://101.www.impactmojo.in/WEE",
-      featured: false
-    },
-    {
-      id: "C9",
-      title: "Research Ethics 101",
-      track: "Research Methods",
-      description: "Ethical considerations in development research",
-      quote: "Essential principles for responsible research",
-      level: "Intermediate",
-      duration: "3 hours",
-      content: "https://101.www.impactmojo.in/ResearchEthics", 
-      featured: false
-    },
-    {
-      id: "C10",
-      title: "Behaviour Change Communication Programming 101",
-      track: "Communications",
-      description: "Strategic communication for behavior change",
-      quote: "Evidence-based approaches to social change communication",
-      level: "Advanced",
-      duration: "4.5 hours",
-      content: "https://101.www.impactmojo.in/BCCP",
-      featured: false
-    },
-    {
-      id: "C11",
-      title: "Advocacy and Communications 101",
-      track: "Communications", 
-      description: "Strategic advocacy and communication techniques",
-      quote: "Powerful tools for social change advocacy",
-      level: "Intermediate",
-      duration: "3.5 hours",
-      content: "https://101.www.impactmojo.in/adv&comm",
-      featured: false
-    },
-    {
-      id: "C12",
-      title: "Monitoring, Evaluation, Accountability and Learning 101", 
-      track: "Research Methods",
-      description: "MEAL frameworks for development programs",
-      quote: "Comprehensive approach to program accountability",
-      level: "Advanced",
-      duration: "5 hours",
-      content: "https://101.www.impactmojo.in/MEAL",
-      featured: false
-    },
-    {
-      id: "C13",
-      title: "Visual Ethnography 101",
-      track: "Research Methods",
-      description: "Visual methods for ethnographic research",
-      quote: "Innovative approaches to understanding communities",
-      level: "Advanced", 
-      duration: "4 hours",
-      content: "https://101.www.impactmojo.in/VEthno",
-      featured: false
-    },
-    {
-      id: "C14",
-      title: "Political Economy 101",
-      track: "Policy & Economics",
-      description: "Political and economic systems analysis",
-      quote: "Understanding power dynamics in development",
-      level: "Advanced",
-      duration: "4.5 hours",
-      content: "https://101.www.impactmojo.in/polecon",
-      featured: false
-    },
-    {
-      id: "C15",
-      title: "Poverty and Inequality 101",
-      track: "Policy & Economics",
-      description: "Analysis of poverty and inequality patterns",
-      quote: "Deep dive into structural causes of inequality",
-      level: "Intermediate",
-      duration: "4 hours", 
-      content: "https://101.www.impactmojo.in/pov&inq",
-      featured: false
-    },
-    {
-      id: "C16",
-      title: "Marginalised Identities 101",
-      track: "Social Justice",
-      description: "Understanding marginalized communities and identities",
-      quote: "Critical perspectives on inclusion and representation",
-      level: "Intermediate",
-      duration: "3.5 hours",
-      content: "https://101.www.impactmojo.in/identities",
-      featured: false
-    },
-    {
-      id: "C17",
-      title: "Sexual and Reproductive Health Rights 101",
-      track: "Gender Studies", 
-      description: "SRHR frameworks and implementation strategies",
-      quote: "Comprehensive approach to reproductive rights",
-      level: "Intermediate",
-      duration: "4 hours",
-      content: "https://101.www.impactmojo.in/srhr",
-      featured: false
-    },
-    {
-      id: "C18",
-      title: "Decolonising Development 101",
-      track: "Critical Theory",
-      description: "Critical perspectives on development practice",
-      quote: "Challenging traditional development paradigms",
-      level: "Advanced",
-      duration: "4.5 hours",
-      content: "https://101.www.impactmojo.in/decolonD",
-      featured: false
-    },
-    {
-      id: "C19",
-      title: "Econometrics 101",
-      track: "Data Analysis",
-      description: "Statistical methods for economic analysis",
-      quote: "Rigorous analytical tools for development economics",
-      level: "Advanced", 
-      duration: "5 hours",
-      content: "https://101.www.impactmojo.in/econometrics",
-      featured: false
-    },
-    {
-      id: "C20",
-      title: "Care Economy 101",
-      track: "Gender Studies",
-      description: "Understanding unpaid care work and economic value",
-      quote: "Revealing the invisible economy of care",
-      level: "Intermediate",
-      duration: "3.5 hours",
-      content: "https://101.www.impactmojo.in/careeconomy",
-      featured: false
-    },
-    {
-      id: "C21",
-      title: "Environmental Justice 101", 
-      track: "Climate & Environment",
-      description: "Environmental equity and justice frameworks",
-      quote: "Connecting environmental and social justice",
-      level: "Intermediate",
-      duration: "3.5 hours",
-      content: "https://101.www.impactmojo.in/env-jus",
-      featured: false
-    },
-    {
-      id: "C22",
-      title: "Community Development 101",
-      track: "Community Development",
-      description: "Participatory approaches to community development",
-      quote: "Empowering communities for sustainable change",
-      level: "Beginner",
-      duration: "3 hours",
-      content: "https://101.www.impactmojo.in/community-dev",
-      featured: false
-    },
-    {
-      id: "C23",
-      title: "Data Literacy 101",
-      track: "Data Analysis",
-      description: "Essential skills for working with data",
-      quote: "Building confidence with data and statistics",
-      level: "Beginner", 
-      duration: "3 hours",
-      content: "https://101.www.impactmojo.in/data-lit",
-      featured: false
-    },
-    {
-      id: "C24",
-      title: "Post-Truth Politics 101",
-      track: "Political Science",
-      description: "Understanding misinformation and political discourse",
-      quote: "Navigating truth in the digital age",
-      level: "Intermediate",
-      duration: "3.5 hours",
-      content: "https://101.www.impactmojo.in/post-truth-pol",
-      featured: false
-    },
-    {
-      id: "C25",
-      title: "Global Development Architecture 101",
-      track: "Policy & Economics",
-      description: "Understanding international development systems",
-      quote: "Mapping the global development landscape",
-      level: "Advanced",
-      duration: "4.5 hours",
-      content: "https://101.www.impactmojo.in/GDArch", 
-      featured: false
-    },
-    {
-      id: "C26",
-      title: "Fundraising 101",
-      track: "Organizational Development",
-      description: "Strategic approaches to fundraising for social impact",
-      quote: "Essential skills for sustainable funding",
-      level: "Intermediate",
-      duration: "3.5 hours",
-      content: "https://101.www.impactmojo.in/fundraising",
-      featured: false
-    },
-    {
-      id: "C27",
-      title: "Qualitative Research Methods 101",
-      track: "Research Methods",
-      description: "In-depth qualitative research techniques",
-      quote: "Uncovering stories behind the numbers",
-      level: "Advanced",
-      duration: "4.5 hours",
-      content: "https://101.www.impactmojo.in/QualR",
-      featured: false
-    },
-    {
-      id: "C28",
-      title: "Exploratory Data Analysis for Household Surveys 101",
-      track: "Data Analysis",
-      description: "Analyzing household survey data effectively",
-      quote: "Extracting insights from household data",
-      level: "Advanced", 
-      duration: "4 hours",
-      content: "https://101.www.impactmojo.in/HH-EDA",
-      featured: false
-    },
-    {
-      id: "C29",
-      title: "Bivariate Analysis 101",
-      track: "Data Analysis",
-      description: "Statistical analysis of relationships between variables",
-      quote: "Understanding relationships in data",
-      level: "Advanced",
-      duration: "4 hours",
-      content: "https://101.www.impactmojo.in/bivariateA",
-      featured: false
-    },
-    {
-      id: "C30",
-      title: "Multivariate Analysis 101",
-      track: "Data Analysis", 
-      description: "Advanced statistical modeling techniques",
-      quote: "Sophisticated tools for complex analysis",
-      level: "Advanced",
-      duration: "5 hours",
-      content: "https://101.www.impactmojo.in/MultivariateA",
-      featured: false
-    },
-    {
-      id: "C31",
-      title: "Digital Ethics 101",
-      track: "Technology",
-      description: "Ethical considerations in digital technology",
-      quote: "Responsible approaches to digital innovation",
-      level: "Intermediate",
-      duration: "3 hours",
-      content: "https://101.www.impactmojo.in/DigitalEthics",
-      featured: false
-    },
-    {
-      id: "C32",
-      title: "Decent Work 101",
-      track: "Labor & Employment",
-      description: "Understanding decent work principles and implementation",
-      quote: "Building fair and sustainable employment",
-      level: "Intermediate",
-      duration: "3.5 hours",
-      content: "https://101.www.impactmojo.in/DecentWork",
-      featured: false
-    },
-    {
-      id: "C33",
-      title: "Social Welfare and Safety Nets 101",
-      track: "Policy & Economics",
-      description: "Design and implementation of social protection systems",
-      quote: "Building resilient social safety nets",
-      level: "Advanced", 
-      duration: "4.5 hours",
-      content: "https://101.www.impactmojo.in/safetynets",
-      featured: false
-    },
-    {
-      id: "C34",
-      title: "Data Feminism 101",
-      track: "Gender Studies",
-      description: "Feminist approaches to data science and analysis",
-      quote: "Challenging bias in data and algorithms",
-      level: "Advanced",
-      duration: "4 hours",
-      content: "https://101.www.impactmojo.in/DataFem",
-      featured: false
-    }
-  ],
-
-  // UPCOMING COURSES
-  upcomingCourses: [
-    {
-      id: "UC1",
-      title: "Basic English for Development Professionals",
-      description: "Professional English communication skills for global development work",
-      subtitle: "Communication skills for global impact work",
-      status: "Coming Soon!"
-    },
-    {
-      id: "UC2", 
-      title: "Technology for All (TALL)",
-      description: "Essential technology literacy for everyone in the digital age",
-      subtitle: "10 future technologies: IoT, AI, Robotics, Blockchain, Cryptocurrency, Cybersecurity, Digital Transformation, Telehealth, Edutech & Metaworld",
-      status: "Coming Soon!"
-    }
-  ],
-
-  // LABS - L1 to L10
-  labs: [
-    {
-      id: "L1",
-      title: "Climate Policy Timeline Lab",
-      topic: "Climate",
-      description: "Interactive timeline exploring climate policy evolution",
-      icon: "🌍",
-      content: "/labs/climate-timeline.html",
-      duration: "45 minutes",
-      featured: true
-    },
-    {
-      id: "L2",
-      title: "Gender Budget Analysis Lab", 
-      topic: "Gender",
-      description: "Hands-on gender-responsive budget analysis",
-      icon: "💰",
-      content: "/labs/gender-budget.html",
-      duration: "60 minutes",
-      featured: true
-    },
-    {
-      id: "L3",
-      title: "Data Visualization Lab",
-      topic: "Data",
-      description: "Create compelling data visualizations for development",
-      icon: "📊",
-      content: "/labs/data-viz.html",
-      duration: "90 minutes",
-      featured: false
-    },
-    {
-      id: "L4",
-      title: "Policy Simulation Lab",
-      topic: "Policy",
-      description: "Simulate policy impacts in real-world scenarios",
-      icon: "🏛️",
-      content: "/labs/policy-sim.html", 
-      duration: "75 minutes",
-      featured: true
-    },
-    {
-      id: "L5",
-      title: "Community Mapping Lab",
-      topic: "Community",
-      description: "Participatory mapping techniques for communities",
-      icon: "🗺️",
-      content: "/labs/community-mapping.html",
-      duration: "60 minutes",
-      featured: false
-    }
-  ],
-
-  // RESOURCES - R1 to R20
-  resources: [
-    {
-      id: "R1",
-      title: "Development Jargon Buster",
-      type: "PDF",
-      description: "Comprehensive glossary of development terms and acronyms",
-      link: "/resources/jargon-buster.pdf",
-      category: "Reference",
-      featured: true
-    },
-    {
-      id: "R2",
-      title: "Gender Analysis Toolkit",
-      type: "PDF", 
-      description: "Practical tools for conducting gender analysis",
-      link: "/resources/gender-toolkit.pdf",
-      category: "Toolkit",
-      featured: true
-    },
-    {
-      id: "R3",
-      title: "Research Ethics Checklist",
-      type: "PDF",
-      description: "Essential checklist for ethical research practices",
-      link: "/resources/ethics-checklist.pdf",
-      category: "Reference",
-      featured: false
-    },
-    {
-      id: "R4",
-      title: "Policy Brief Templates",
-      type: "PDF",
-      description: "Professional templates for policy brief writing",
-      link: "/resources/policy-templates.pdf",
-      category: "Templates",
-      featured: true
-    },
-    {
-      id: "R5",
-      title: "Data Collection Forms",
-      type: "PDF",
-      description: "Sample forms for various data collection methods",
-      link: "/resources/data-forms.pdf",
-      category: "Templates",
-      featured: false
-    }
-  ],
-
-  // FEATURED CONTENT
-  featuredContent: {
-    id: "F1",
-    title: "The Real Middle Game",
-    description: "An interactive exploration of middle-class dynamics in South Asia",
-    subtitle: "Explore our spotlight content on economic mobility and social structures",
-    type: "Interactive Game",
-    content: "/games/middle-class-game.html",
-    featured: true
-  }
-};
-
-// Quiz Questions for "Find Your Track"
-const quizQuestions = [
-  {
-    id: 1,
-    question: "What aspect of development work interests you most?",
-    options: [
-      { text: "Understanding how policies affect people", track: "policy-economics" },
-      { text: "Collecting and analyzing evidence", track: "research-methods" },
-      { text: "Working with numbers and data", track: "data-analysis" },
-      { text: "Addressing inequality and inclusion", track: "gender-studies" }
-    ]
-  },
-  {
-    id: 2,
-    question: "Which skill would you most like to develop?", 
-    options: [
-      { text: "Statistical analysis and data visualization", track: "data-analysis" },
-      { text: "Research design and methodology", track: "research-methods" },
-      { text: "Gender analysis and inclusion strategies", track: "gender-studies" },
-      { text: "Economic analysis and policy design", track: "policy-economics" }
-    ]
-  },
-  {
-    id: 3,
-    question: "What type of questions do you find most compelling?",
-    options: [
-      { text: "How can we make programs more inclusive?", track: "gender-studies" },
-      { text: "What does the data tell us?", track: "data-analysis" },
-      { text: "How can we design better policies?", track: "policy-economics" },
-      { text: "How do we know if it works?", track: "research-methods" }
-    ]
-  }
+// Course Data - ALL 34 courses
+const courseData = [
+  { id: 'C1', title: 'Development Economics 101', track: 'Policy & Economics', description: 'Core principles of development economics and their practical applications.', level: 'Beginner', duration: '2 hours' },
+  { id: 'C2', title: 'Law and Constitution 101', track: 'Policy & Economics', description: 'Understanding legal frameworks and constitutional principles.', level: 'Beginner', duration: '2.5 hours' },
+  { id: 'C3', title: 'Climate Science 101', track: 'Research Methods', description: 'Scientific foundations of climate change and environmental systems.', level: 'Beginner', duration: '3 hours' },
+  { id: 'C4', title: 'Pedagogy and Education 101', track: 'Research Methods', description: 'Teaching methodologies and educational theory.', level: 'Beginner', duration: '2 hours' },
+  { id: 'C5', title: 'Public Health 101', track: 'Policy & Economics', description: 'Fundamentals of public health systems and interventions.', level: 'Beginner', duration: '2.5 hours' },
+  { id: 'C6', title: 'Livelihoods 101', track: 'Policy & Economics', description: 'Understanding sustainable livelihood approaches.', level: 'Beginner', duration: '2 hours' },
+  { id: 'C7', title: 'Gender Studies 101', track: 'Gender Studies', description: 'Introduction to gender theory and its practical implications.', level: 'Beginner', duration: '3 hours', quote: '"Eye-opening exploration of gender norms."' },
+  { id: 'C8', title: "Women's Economic Empowerment 101", track: 'Gender Studies', description: 'Strategies and frameworks for women\'s economic participation.', level: 'Intermediate', duration: '2.5 hours' },
+  { id: 'C9', title: 'Participatory Development 101', track: 'Social Impact', description: 'Community-led approaches to development initiatives.', level: 'Intermediate', duration: '2 hours' },
+  { id: 'C10', title: 'Understanding Inequality 101', track: 'Justice & Equity', description: 'Explore the roots and manifestations of inequality in South Asian societies.', level: 'Beginner', duration: '2.5 hours' },
+  { id: 'C11', title: 'Community Development Strategies', track: 'Social Impact', description: 'Practical approaches to sustainable community development.', level: 'Intermediate', duration: '3 hours' },
+  { id: 'C12', title: 'Policy Analysis Framework', track: 'Policy & Economics', description: 'Tools and methods for effective policy analysis and evaluation.', level: 'Advanced', duration: '3.5 hours' },
+  { id: 'C13', title: 'Social Justice Theory', track: 'Justice & Equity', description: 'Theoretical foundations of social justice and its applications.', level: 'Intermediate', duration: '2.5 hours' },
+  { id: 'C14', title: 'Impact Measurement', track: 'Social Impact', description: 'Methods for measuring and evaluating social impact initiatives.', level: 'Advanced', duration: '3 hours' },
+  { id: 'C15', title: 'Microfinance Fundamentals', track: 'Policy & Economics', description: 'Understanding microfinance as a development tool.', level: 'Beginner', duration: '2 hours' },
+  { id: 'C16', title: 'Gender and Development', track: 'Gender Studies', description: 'Gender perspectives in development theory and practice.', level: 'Intermediate', duration: '2.5 hours' },
+  { id: 'C17', title: 'Research Methodology 101', track: 'Research Methods', description: 'Essential research methods for social impact work.', level: 'Beginner', duration: '3 hours' },
+  { id: 'C18', title: 'Data Analysis for Development', track: 'Research Methods', description: 'Statistical analysis techniques for development projects.', level: 'Advanced', duration: '4 hours' },
+  { id: 'C19', title: 'Environmental Justice', track: 'Justice & Equity', description: 'Intersection of environmental issues and social justice.', level: 'Intermediate', duration: '2.5 hours' },
+  { id: 'C20', title: 'Urban Planning and Development', track: 'Policy & Economics', description: 'Sustainable urban development strategies.', level: 'Advanced', duration: '3.5 hours' },
+  { id: 'C21', title: 'Rural Development Approaches', track: 'Social Impact', description: 'Strategies for rural economic and social development.', level: 'Intermediate', duration: '3 hours' },
+  { id: 'C22', title: 'Digital Divide and Technology', track: 'Research Methods', description: 'Technology access and digital equity issues.', level: 'Intermediate', duration: '2.5 hours' },
+  { id: 'C23', title: 'Healthcare Systems', track: 'Policy & Economics', description: 'Understanding healthcare delivery and policy.', level: 'Advanced', duration: '3.5 hours' },
+  { id: 'C24', title: 'Education Policy and Access', track: 'Policy & Economics', description: 'Educational systems and policy frameworks.', level: 'Intermediate', duration: '3 hours' },
+  { id: 'C25', title: 'Women in Leadership', track: 'Gender Studies', description: 'Leadership development and gender dynamics.', level: 'Intermediate', duration: '2.5 hours' },
+  { id: 'C26', title: 'Youth Development Programs', track: 'Social Impact', description: 'Designing effective youth-focused initiatives.', level: 'Intermediate', duration: '2.5 hours' },
+  { id: 'C27', title: 'Financial Inclusion', track: 'Policy & Economics', description: 'Expanding access to financial services.', level: 'Advanced', duration: '3 hours' },
+  { id: 'C28', title: 'Conflict Resolution', track: 'Justice & Equity', description: 'Mediation and peacebuilding techniques.', level: 'Advanced', duration: '4 hours' },
+  { id: 'C29', title: 'Monitoring and Evaluation', track: 'Research Methods', description: 'M&E frameworks for development projects.', level: 'Advanced', duration: '4 hours' },
+  { id: 'C30', title: 'Social Entrepreneurship', track: 'Social Impact', description: 'Building sustainable social enterprises.', level: 'Advanced', duration: '3.5 hours' },
+  { id: 'C31', title: 'Human Rights Frameworks', track: 'Justice & Equity', description: 'International human rights law and practice.', level: 'Advanced', duration: '4 hours' },
+  { id: 'C32', title: 'Agricultural Development', track: 'Policy & Economics', description: 'Sustainable agriculture and food security.', level: 'Intermediate', duration: '3 hours' },
+  { id: 'C33', title: 'Water and Sanitation', track: 'Policy & Economics', description: 'WASH programs and infrastructure development.', level: 'Intermediate', duration: '2.5 hours' },
+  { id: 'C34', title: 'Inclusive Design Research', track: 'Research Methods', description: 'User-centered research for inclusive solutions.', level: 'Advanced', duration: '3.5 hours' }
 ];
 
-// AI Tools
-const aiTools = [
-  { id: 'worksheet-gen', name: 'Worksheet Generator', icon: FileText, description: 'Generate practice worksheets' },
-  { id: 'mcq-gen', name: 'MCQ Generator', icon: PenTool, description: 'Create multiple choice questions' },
-  { id: 'writing-feedback', name: 'Writing Feedback', icon: Edit3, description: 'Get AI feedback on writing' },
-  { id: 'quiz-gen', name: 'Quiz Generator', icon: Brain, description: 'Create comprehensive quizzes' },
-  { id: 'proofreader', name: 'Proofreader', icon: CheckCircle, description: 'Professional proofreading' },
-  { id: 'trivia', name: 'Trivia Generator', icon: Gamepad2, description: 'Generate trivia questions' },
-  { id: 'quiz-yourself', name: 'Self-Assessment', icon: Target, description: 'Test your knowledge' },
-  { id: 'study-chatbot', name: 'Study Assistant', icon: Users, description: 'AI study companion' }
+// Labs Data
+const labsData = [
+  { id: 'L1', title: 'Climate Change Timeline', topic: 'Climate', description: 'Interactive timeline of climate resilience efforts.', status: 'Available' },
+  { id: 'L2', title: 'Gender Equality Simulator', topic: 'Gender', description: 'Simulate policy impacts on gender equality.', status: 'Available' },
+  { id: 'L3', title: 'Economic Mobility Lab', topic: 'Economics', description: 'Explore factors affecting economic mobility.', status: 'Coming Soon' },
+  { id: 'L4', title: 'Policy Impact Calculator', topic: 'Policy', description: 'Calculate potential impacts of policy changes.', status: 'Available' },
+  { id: 'L5', title: 'Community Mapping Tool', topic: 'Research', description: 'Map community assets and challenges.', status: 'Coming Soon' },
+  { id: 'L6', title: 'Budget Allocation Game', topic: 'Economics', description: 'Learn budget priorities through simulation.', status: 'Available' }
 ];
 
-// Music Tracks
-const musicTracks = [
-  { id: 1, title: "Focus Flow", artist: "Study Beats", duration: "3:45", src: "#" },
-  { id: 2, title: "Calm Waters", artist: "Ambient Studio", duration: "4:12", src: "#" },
-  { id: 3, title: "Deep Work", artist: "Concentration", duration: "5:30", src: "#" },
-  { id: 4, title: "Mindful Moments", artist: "Zen Sounds", duration: "3:20", src: "#" }
+// AI Tools Data
+const aiToolsData = [
+  { id: 'AI1', name: 'Policy Brief Generator', description: 'Generate structured policy briefs from your research', category: 'Writing' },
+  { id: 'AI2', name: 'Research Question Refiner', description: 'Refine and improve your research questions', category: 'Research' },
+  { id: 'AI3', name: 'Data Story Creator', description: 'Turn data insights into compelling narratives', category: 'Analysis' },
+  { id: 'AI4', name: 'Grant Proposal Assistant', description: 'Help structure and improve grant proposals', category: 'Writing' },
+  { id: 'AI5', name: 'Impact Measurement Framework', description: 'Design frameworks to measure social impact', category: 'Analysis' },
+  { id: 'AI6', name: 'Stakeholder Mapping Tool', description: 'Identify and map project stakeholders', category: 'Planning' },
+  { id: 'AI7', name: 'Literature Review Helper', description: 'Organize and synthesize academic literature', category: 'Research' },
+  { id: 'AI8', name: 'Workshop Facilitator', description: 'Plan and structure workshop sessions', category: 'Planning' }
 ];
 
-// Analytics Hook
-const useAnalytics = () => {
-  const trackPageView = (url) => {
-    if (typeof window !== 'undefined' && window.plausible) {
-      window.plausible('pageview', { u: url });
-    }
-  };
-
-  const trackEvent = (eventName, props = {}) => {
-    if (typeof window !== 'undefined' && window.plausible) {
-      window.plausible(eventName, { props });
-    }
-  };
-
-  return { trackPageView, trackEvent };
-};
-
-// PWA Hook 
-const usePWA = () => {
-  const [isInstallable, setIsInstallable] = useState(false);
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
-
-  useEffect(() => {
-    const handleBeforeInstallPrompt = (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-      setIsInstallable(true);
-    };
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-  }, []);
-
-  const installApp = async () => {
-    if (!deferredPrompt) return false;
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      setDeferredPrompt(null);
-      setIsInstallable(false);
-    }
-    return outcome === 'accepted';
-  };
-
-  return { isInstallable, installApp };
-};
-
-// Auth Context
+// Authentication Context
 const AuthContext = createContext();
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
 
-// Auth Provider with Real Firebase
-function AuthProvider({ children }) {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [bookmarks, setBookmarks] = useState([]);
-  const [notes, setNotes] = useState([]);
-  const { trackEvent } = useAnalytics();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        const userRef = doc(db, 'users', firebaseUser.uid);
-        const userSnap = await getDoc(userRef);
-        
-        if (!userSnap.exists()) {
-          await setDoc(userRef, {
-            uid: firebaseUser.uid,
-            displayName: firebaseUser.displayName,
-            email: firebaseUser.email,
-            photoURL: firebaseUser.photoURL,
-            createdAt: new Date().toISOString(),
-            lastLoginAt: new Date().toISOString()
-          });
-        } else {
-          await setDoc(userRef, {
-            lastLoginAt: new Date().toISOString()
-          }, { merge: true });
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setUser(user);
+      if (user) {
+        // Load user bookmarks
+        try {
+          const userDoc = await getDoc(doc(db, 'users', user.uid));
+          if (userDoc.exists()) {
+            setBookmarks(userDoc.data().bookmarks || []);
+          }
+        } catch (error) {
+          console.error('Error loading bookmarks:', error);
         }
-
-        setUser(firebaseUser);
-        await loadUserData(firebaseUser.uid);
       } else {
-        setUser(null);
         setBookmarks([]);
-        setNotes([]);
       }
       setLoading(false);
     });
@@ -750,31 +139,22 @@ function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  const loadUserData = async (uid) => {
-    try {
-      const bookmarksRef = collection(db, `users/${uid}/bookmarks`);
-      const bookmarksSnap = await getDocs(bookmarksRef);
-      const bookmarksData = bookmarksSnap.docs.map(doc => doc.data().itemId);
-      setBookmarks(bookmarksData);
-
-      const notesRef = collection(db, `users/${uid}/notes`);
-      const notesSnap = await getDocs(notesRef);
-      const notesData = notesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setNotes(notesData);
-    } catch (error) {
-      console.error('Error loading user data:', error);
-    }
-  };
-
   const signInWithGoogle = async () => {
     try {
-      setLoading(true);
       const result = await signInWithPopup(auth, googleProvider);
-      trackEvent('User Sign In', { method: 'google' });
-      return result;
+      const user = result.user;
+      
+      // Create or update user document
+      await setDoc(doc(db, 'users', user.uid), {
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        lastLogin: new Date()
+      }, { merge: true });
+      
+      return user;
     } catch (error) {
-      console.error('Sign in error:', error);
-      setLoading(false);
+      console.error('Error signing in:', error);
       throw error;
     }
   };
@@ -783,7 +163,8 @@ function AuthProvider({ children }) {
     try {
       await firebaseSignOut(auth);
     } catch (error) {
-      console.error('Sign out error:', error);
+      console.error('Error signing out:', error);
+      throw error;
     }
   };
 
@@ -791,162 +172,980 @@ function AuthProvider({ children }) {
     if (!user) return;
     
     try {
-      const bookmarkRef = doc(db, `users/${user.uid}/bookmarks`, itemId);
-      const bookmarkSnap = await getDoc(bookmarkRef);
+      const newBookmarks = bookmarks.includes(itemId)
+        ? bookmarks.filter(id => id !== itemId)
+        : [...bookmarks, itemId];
       
-      if (bookmarkSnap.exists()) {
-        await deleteDoc(bookmarkRef);
-        setBookmarks(prev => prev.filter(id => id !== itemId));
-      } else {
-        await setDoc(bookmarkRef, {
-          itemId,
-          createdAt: new Date().toISOString()
-        });
-        setBookmarks(prev => [...prev, itemId]);
-      }
+      setBookmarks(newBookmarks);
+      
+      await setDoc(doc(db, 'users', user.uid), {
+        bookmarks: newBookmarks
+      }, { merge: true });
     } catch (error) {
-      console.error('Error toggling bookmark:', error);
+      console.error('Error updating bookmarks:', error);
     }
   };
 
-  const addNote = async (note) => {
-    if (!user) return;
-    
-    try {
-      const noteData = {
-        ...note,
-        userId: user.uid,
-        createdAt: new Date().toISOString()
-      };
-      
-      const docRef = await addDoc(collection(db, `users/${user.uid}/notes`), noteData);
-      const newNote = { id: docRef.id, ...noteData };
-      setNotes(prev => [newNote, ...prev]);
-      return newNote;
-    } catch (error) {
-      console.error('Error adding note:', error);
-    }
+  const value = {
+    user,
+    loading,
+    signInWithGoogle,
+    signOut,
+    bookmarks,
+    toggleBookmark
   };
 
   return (
-    <AuthContext.Provider value={{
-      user, 
-      loading, 
-      bookmarks, 
-      notes, 
-      courseData,
-      signInWithGoogle, 
-      signOut, 
-      toggleBookmark, 
-      addNote
-    }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
-// Website Tour Component
-function WebsiteTour({ onComplete }) {
-  const [currentStep, setCurrentStep] = useState(0);
-  
-  const tourSteps = [
-    {
-      title: "Welcome to ImpactMojo! 📚",
-      content: "Let me show you around our platform for social impact learning.",
-      target: null
-    },
-    {
-      title: "34 Comprehensive Courses",
-      content: "Explore our library of 34 expert-curated courses covering development, policy, gender studies, and data analysis.",
-      target: ".courses-section"
-    },
-    {
-      title: "Interactive Labs",
-      content: "Practice your skills with hands-on labs including policy simulations and data visualization exercises.",
-      target: ".labs-section"
-    },
-    {
-      title: "Find Your Track Quiz",
-      content: "Not sure where to start? Take our quiz to discover your ideal learning path based on your interests.",
-      target: ".quiz-section"
-    },
-    {
-      title: "The Real Middle Game",
-      content: "Try our interactive game exploring middle-class dynamics - a unique way to understand social structures.",
-      target: ".featured-game"
-    },
-    {
-      title: "Benefits of Your Account", 
-      content: "Sign in to bookmark courses, track progress, access AI tools, and sync across devices. Plus get offline access!",
-      target: ".auth-section"
-    },
-    {
-      title: "Resources & Extras",
-      content: "Download toolkits, templates, and reference materials to support your learning journey.",
-      target: ".resources-section"
-    },
-    {
-      title: "You're All Set!",
-      content: "Ready to make an impact? Start exploring and building the skills that drive meaningful change!",
-      target: null
-    }
-  ];
+const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
 
-  const nextStep = () => {
-    if (currentStep < tourSteps.length - 1) {
-      setCurrentStep(currentStep + 1);
-    } else {
-      onComplete();
-    }
-  };
+// Course Card Component
+const CourseCard = ({ course, isBookmarked, onBookmark }) => {
+  const { user } = useAuth();
 
-  const skipTour = () => {
-    onComplete();
+  const handleCourseAccess = () => {
+    window.open(`https://101.www.impactmojo.in/${course.id}`, '_blank');
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 text-center">
-        <h3 className="text-xl font-bold mb-4">{tourSteps[currentStep].title}</h3>
-        <p className="text-gray-600 dark:text-gray-300 mb-6">
-          {tourSteps[currentStep].content}
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+      <div className="p-6">
+        <div className="flex justify-between items-start mb-4">
+          <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
+            {course.id}
+          </span>
+          {user && (
+            <button
+              onClick={() => onBookmark(course.id)}
+              className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+            >
+              <Bookmark 
+                className={`w-5 h-5 ${isBookmarked ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'}`} 
+              />
+            </button>
+          )}
+        </div>
+        
+        <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+          {course.title}
+        </h3>
+        
+        <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+          {course.description}
         </p>
         
-        <div className="flex items-center justify-center mb-4">
-          {tourSteps.map((_, index) => (
-            <div
-              key={index}
-              className={`w-2 h-2 rounded-full mx-1 ${
-                index === currentStep ? 'bg-blue-600' : 'bg-gray-300'
-              }`}
+        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+          <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">
+            {course.track}
+          </span>
+          <span className="flex items-center">
+            <Clock className="w-4 h-4 mr-1" />
+            {course.duration}
+          </span>
+        </div>
+        
+        <button
+          onClick={handleCourseAccess}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2"
+        >
+          <ExternalLink className="w-4 h-4" />
+          <span>Start Course</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// HomePage Component
+const HomePage = ({ setCurrentPage }) => {
+  const { user } = useAuth();
+  
+  const featuredCourses = courseData.slice(0, 6);
+  const tracks = [
+    { name: 'Policy & Economics', color: 'blue', courses: courseData.filter(c => c.track === 'Policy & Economics').length },
+    { name: 'Gender Studies', color: 'purple', courses: courseData.filter(c => c.track === 'Gender Studies').length },
+    { name: 'Justice & Equity', color: 'green', courses: courseData.filter(c => c.track === 'Justice & Equity').length },
+    { name: 'Social Impact', color: 'orange', courses: courseData.filter(c => c.track === 'Social Impact').length },
+    { name: 'Research Methods', color: 'red', courses: courseData.filter(c => c.track === 'Research Methods').length }
+  ];
+
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mb-8">
+            <Zap className="w-16 h-16 mx-auto mb-4 text-yellow-300" />
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              ImpactMojo
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 text-blue-100">
+              101 Knowledge Series for Social Impact
+            </p>
+            <p className="text-lg mb-8 max-w-3xl mx-auto text-blue-100">
+              A curated library exploring justice, equity, and development in South Asia. 
+              Learn from 34 courses, interactive labs, and AI-powered tools.
+            </p>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => setCurrentPage('courses')}
+              className="bg-white text-blue-600 font-bold py-3 px-8 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-center space-x-2"
+            >
+              <BookOpen className="w-5 h-5" />
+              <span>Browse Courses</span>
+            </button>
+            {user ? (
+              <button
+                onClick={() => setCurrentPage('dashboard')}
+                className="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-blue-600 transition-colors"
+              >
+                Go to Dashboard
+              </button>
+            ) : (
+              <button
+                onClick={() => setCurrentPage('about')}
+                className="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-lg hover:bg-white hover:text-blue-600 transition-colors"
+              >
+                Learn More
+              </button>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">34</div>
+              <div className="text-gray-600 dark:text-gray-300">Courses</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">6</div>
+              <div className="text-gray-600 dark:text-gray-300">Interactive Labs</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">8</div>
+              <div className="text-gray-600 dark:text-gray-300">AI Tools</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-red-600 dark:text-red-400 mb-2">Free</div>
+              <div className="text-gray-600 dark:text-gray-300">Open Source</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Learning Tracks */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+            Learning Tracks
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tracks.map(track => (
+              <div key={track.name} className="bg-white dark:bg-gray-800 rounded-lg p-6 hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{track.name}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">{track.courses} courses available</p>
+                <button
+                  onClick={() => setCurrentPage('courses')}
+                  className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
+                >
+                  Explore Track →
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Courses */}
+      <section className="py-16 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+            Featured Courses
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredCourses.map(course => (
+              <CourseCard 
+                key={course.id} 
+                course={course} 
+                isBookmarked={false}
+                onBookmark={() => {}}
+              />
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <button
+              onClick={() => setCurrentPage('courses')}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
+            >
+              View All Courses
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+// Courses Page Component
+const CoursesPage = () => {
+  const { user, bookmarks, toggleBookmark } = useAuth();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedTrack, setSelectedTrack] = useState('all');
+  const [selectedLevel, setSelectedLevel] = useState('all');
+
+  const filteredCourses = courseData.filter(course => {
+    const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         course.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesTrack = selectedTrack === 'all' || course.track === selectedTrack;
+    const matchesLevel = selectedLevel === 'all' || course.level === selectedLevel;
+    return matchesSearch && matchesTrack && matchesLevel;
+  });
+
+  const uniqueTracks = [...new Set(courseData.map(course => course.track))];
+  const uniqueLevels = [...new Set(courseData.map(course => course.level))];
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Course Catalog
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            Explore our comprehensive collection of development courses
+          </p>
+        </div>
+
+        {/* Search and Filters */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 mb-8">
+          <div className="grid md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-2">Search</label>
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Search courses..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Track</label>
+              <select
+                value={selectedTrack}
+                onChange={(e) => setSelectedTrack(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              >
+                <option value="all">All Tracks</option>
+                {uniqueTracks.map(track => (
+                  <option key={track} value={track}>{track}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Level</label>
+              <select
+                value={selectedLevel}
+                onChange={(e) => setSelectedLevel(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              >
+                <option value="all">All Levels</option>
+                {uniqueLevels.map(level => (
+                  <option key={level} value={level}>{level}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Course Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredCourses.map(course => (
+            <CourseCard
+              key={course.id}
+              course={course}
+              isBookmarked={bookmarks.includes(course.id)}
+              onBookmark={toggleBookmark}
             />
           ))}
         </div>
-        
-        <div className="flex space-x-3">
-          <button
-            onClick={skipTour}
-            className="flex-1 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-700 dark:text-gray-300 py-2 rounded-lg transition-colors"
-          >
-            Skip Tour
-          </button>
-          <button
-            onClick={nextStep}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors"
-          >
-            {currentStep === tourSteps.length - 1 ? 'Get Started!' : 'Next'}
-          </button>
+
+        {filteredCourses.length === 0 && (
+          <div className="text-center py-12">
+            <Search className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+              No courses found
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Try adjusting your search criteria
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Labs Page Component
+const LabsPage = () => {
+  const handleLabAccess = (lab) => {
+    if (lab.status === 'Available') {
+      alert(`${lab.title} - This interactive lab is coming soon!`);
+    } else {
+      alert(`${lab.title} - Coming Soon!`);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Interactive Labs
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            Hands-on practice with real-world scenarios and simulations
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {labsData.map(lab => (
+            <div key={lab.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <span className="text-sm font-bold text-green-600 dark:text-green-400">
+                    {lab.id}
+                  </span>
+                  <span className={`px-2 py-1 rounded-lg text-xs font-medium ${
+                    lab.status === 'Available' 
+                      ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                      : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                  }`}>
+                    {lab.status}
+                  </span>
+                </div>
+                
+                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+                  {lab.title}
+                </h3>
+                
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  {lab.description}
+                </p>
+                
+                <div className="mb-4">
+                  <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded text-sm">
+                    {lab.topic}
+                  </span>
+                </div>
+                
+                <button
+                  onClick={() => handleLabAccess(lab)}
+                  disabled={lab.status !== 'Available'}
+                  className={`w-full font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2 ${
+                    lab.status === 'Available'
+                      ? 'bg-green-600 hover:bg-green-700 text-white'
+                      : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  <PlayCircle className="w-4 h-4" />
+                  <span>{lab.status === 'Available' ? 'Launch Lab' : 'Coming Soon'}</span>
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
-}
+};
 
-// Navbar Component
-function Navbar({ darkMode, setDarkMode, currentPage, setCurrentPage }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showJoinTooltip, setShowJoinTooltip] = useState(false);
+// AI Tools Page Component
+const AIToolsPage = () => {
+  const { user } = useAuth();
+  const [selectedTool, setSelectedTool] = useState(null);
+  const [userInput, setUserInput] = useState('');
+  const [toolOutput, setToolOutput] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleToolUse = async () => {
+    if (!userInput.trim() || !selectedTool) return;
+    
+    setIsProcessing(true);
+    setToolOutput('');
+    
+    try {
+      // Firebase Cloud Function URL for your project
+      const response = await fetch('https://us-central1-impactmojo.cloudfunctions.net/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          toolId: selectedTool.id,
+          toolName: selectedTool.name,
+          userInput: userInput,
+          userId: user?.uid
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to process request');
+      }
+
+      const data = await response.json();
+      setToolOutput(data.output || 'Tool processed successfully!');
+    } catch (error) {
+      console.error('Error using AI tool:', error);
+      setToolOutput('Sorry, there was an error processing your request. Please try again.');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <Brain className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            AI Tools Access
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-8">
+            Please sign in to access our AI-powered tools for development work.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            AI Tools
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            AI-powered tools to enhance your development work
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Tools List */}
+          <div className="lg:col-span-1">
+            <h2 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Available Tools</h2>
+            <div className="space-y-3">
+              {aiToolsData.map(tool => (
+                <button
+                  key={tool.id}
+                  onClick={() => setSelectedTool(tool)}
+                  className={`w-full text-left p-4 rounded-lg border transition-colors ${
+                    selectedTool?.id === tool.id
+                      ? 'bg-blue-50 dark:bg-blue-900 border-blue-200 dark:border-blue-700'
+                      : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'
+                  }`}
+                >
+                  <h3 className="font-medium text-gray-900 dark:text-white">{tool.name}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{tool.description}</p>
+                  <span className="inline-block mt-2 px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded">
+                    {tool.category}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Tool Interface */}
+          <div className="lg:col-span-2">
+            {selectedTool ? (
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+                <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+                  {selectedTool.name}
+                </h2>
+                <p className="text-gray-600 dark:text-gray-300 mb-6">
+                  {selectedTool.description}
+                </p>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+                      Your Input
+                    </label>
+                    <textarea
+                      value={userInput}
+                      onChange={(e) => setUserInput(e.target.value)}
+                      placeholder={`Enter your content for ${selectedTool.name}...`}
+                      rows={6}
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    />
+                  </div>
+                  
+                  <button
+                    onClick={handleToolUse}
+                    disabled={!userInput.trim() || isProcessing}
+                    className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 px-6 rounded-lg transition-colors flex items-center space-x-2"
+                  >
+                    <Brain className="w-4 h-4" />
+                    <span>{isProcessing ? 'Processing...' : `Generate ${selectedTool.name}`}</span>
+                  </button>
+                  
+                  {toolOutput && (
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Output</label>
+                      <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border">
+                        <pre className="whitespace-pre-wrap text-sm text-gray-900 dark:text-white">{toolOutput}</pre>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
+                <Brain className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                  Select an AI Tool
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Choose a tool from the left to get started
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Dashboard Page Component
+const DashboardPage = () => {
+  const { user, bookmarks } = useAuth();
+  const bookmarkedCourses = courseData.filter(course => bookmarks.includes(course.id));
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Your Dashboard
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            Welcome back, {user?.displayName}!
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Bookmarked Courses */}
+          <div className="lg:col-span-2">
+            <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Bookmarked Courses</h2>
+            {bookmarkedCourses.length > 0 ? (
+              <div className="grid md:grid-cols-2 gap-6">
+                {bookmarkedCourses.map(course => (
+                  <CourseCard 
+                    key={course.id} 
+                    course={course} 
+                    isBookmarked={true}
+                    onBookmark={() => {}}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg">
+                <Bookmark className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                  No bookmarked courses yet
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Start bookmarking courses you're interested in!
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Profile & Stats */}
+          <div className="space-y-6">
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+              <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Profile</h3>
+              <div className="flex items-center space-x-4">
+                <img 
+                  src={user?.photoURL} 
+                  alt={user?.displayName}
+                  className="w-16 h-16 rounded-full"
+                />
+                <div>
+                  <h4 className="font-medium text-gray-900 dark:text-white">{user?.displayName}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">{user?.email}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+              <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Your Stats</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-300">Bookmarked Courses</span>
+                  <span className="font-medium text-gray-900 dark:text-white">{bookmarks.length}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-300">Learning Tracks</span>
+                  <span className="font-medium text-gray-900 dark:text-white">5</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-300">Available Tools</span>
+                  <span className="font-medium text-gray-900 dark:text-white">8</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Contact Page Component
+const ContactPage = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('https://formspree.io/f/xpwdvgzp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Contact Us
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            Get in touch with the ImpactMojo team
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Contact Form */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+            <h2 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">Send us a message</h2>
+            
+            {submitted ? (
+              <div className="text-center py-8">
+                <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                  Message sent successfully!
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  We'll get back to you as soon as possible.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
+                    Message
+                  </label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={6}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  />
+                </div>
+                
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                </button>
+              </form>
+            )}
+          </div>
+
+          {/* Contact Info */}
+          <div className="space-y-6">
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+              <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Get in Touch</h3>
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3">
+                  <Mail className="w-5 h-5 text-blue-600" />
+                  <span className="text-gray-600 dark:text-gray-300">hello@impactmojo.in</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Globe className="w-5 h-5 text-blue-600" />
+                  <span className="text-gray-600 dark:text-gray-300">www.impactmojo.in</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Github className="w-5 h-5 text-blue-600" />
+                  <a 
+                    href="https://github.com/Varnasr/ImpactMojo" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-gray-600 dark:text-gray-300 hover:text-blue-600"
+                  >
+                    GitHub Repository
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+              <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Office Hours</h3>
+              <div className="space-y-2 text-gray-600 dark:text-gray-300">
+                <p>Monday - Friday: 9:00 AM - 6:00 PM IST</p>
+                <p>Saturday: 10:00 AM - 4:00 PM IST</p>
+                <p>Sunday: Closed</p>
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+              <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Follow Us</h3>
+              <div className="flex space-x-4">
+                <a href="#" className="text-gray-400 hover:text-blue-600">
+                  <Twitter className="w-6 h-6" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-blue-600">
+                  <Linkedin className="w-6 h-6" />
+                </a>
+                <a href="https://github.com/Varnasr/ImpactMojo" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-600">
+                  <Github className="w-6 h-6" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// About Page Component
+const AboutPage = () => {
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            About ImpactMojo
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            101 Knowledge Series for Social Impact
+          </p>
+        </div>
+
+        <div className="space-y-8">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Our Mission</h2>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+              ImpactMojo is a curated library of knowledge decks exploring justice, equity, and development 
+              in South Asia. We aim to democratize access to high-quality educational content that helps 
+              build understanding of complex social issues and empowers individuals to create positive change 
+              in their communities.
+            </p>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">What We Offer</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">📚 34 Comprehensive Courses</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  From development economics to gender studies, our courses cover essential topics for social impact work.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">🔬 Interactive Labs</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Hands-on simulations and tools to practice concepts in real-world scenarios.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">🤖 AI-Powered Tools</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Smart tools to help with research, writing, and analysis for development work.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">🌏 South Asia Focus</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Context-specific content that addresses the unique challenges and opportunities in the region.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Learning Tracks</h2>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h3 className="font-medium text-blue-600 dark:text-blue-400">Policy & Economics</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  Economic theory, policy analysis, and development frameworks
+                </p>
+              </div>
+              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h3 className="font-medium text-purple-600 dark:text-purple-400">Gender Studies</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  Gender theory, women's empowerment, and inclusive development
+                </p>
+              </div>
+              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h3 className="font-medium text-green-600 dark:text-green-400">Justice & Equity</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  Social justice frameworks, inequality analysis, and human rights
+                </p>
+              </div>
+              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h3 className="font-medium text-orange-600 dark:text-orange-400">Social Impact</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  Community development, impact measurement, and social innovation
+                </p>
+              </div>
+              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h3 className="font-medium text-red-600 dark:text-red-400">Research Methods</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  Research design, data analysis, and evidence-based practice
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Open Source</h2>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+              ImpactMojo is released under the MIT License, making it free for everyone to use, modify, and distribute. 
+              We believe in the power of open collaboration to improve education and welcome contributions from the community.
+            </p>
+            <a
+              href="https://github.com/Varnasr/ImpactMojo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              <Github className="w-5 h-5" />
+              <span>View Source Code</span>
+            </a>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Disclaimer</h2>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+              ImpactMojo is an educational resource and does not provide official certifications or endorsements. 
+              The content is designed for learning purposes and should be supplemented with formal education and 
+              professional development as appropriate for your goals.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Navigation Component 
+const Navigation = ({ darkMode, setDarkMode, currentPage, setCurrentPage }) => {
   const { user, signInWithGoogle, signOut } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
     { id: 'home', label: 'Home', requiresAuth: false },
@@ -959,30 +1158,32 @@ function Navbar({ darkMode, setDarkMode, currentPage, setCurrentPage }) {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
+    <nav className="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+          {/* Logo */}
           <div className="flex items-center">
             <button
               onClick={() => setCurrentPage('home')}
-              className="text-xl font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+              className="flex items-center space-x-2 text-xl font-bold text-blue-600 dark:text-blue-400"
             >
-              📚 ImpactMojo
+              <Zap className="w-8 h-8" />
+              <span>ImpactMojo</span>
             </button>
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => {
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-6">
+            {navItems.map(item => {
               if (item.requiresAuth && !user) return null;
-              
               return (
                 <button
                   key={item.id}
                   onClick={() => setCurrentPage(item.id)}
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     currentPage === item.id
-                      ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                      ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
                 >
                   {item.label}
@@ -991,96 +1192,72 @@ function Navbar({ darkMode, setDarkMode, currentPage, setCurrentPage }) {
             })}
           </div>
 
+          {/* Right side controls */}
           <div className="flex items-center space-x-4">
+            {/* Dark mode toggle */}
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
             >
               {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
 
+            {/* Authentication */}
             {user ? (
-              <div className="relative group">
-                <button className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                  <img
-                    src={user.photoURL || 'https://via.placeholder.com/32'}
-                    alt={user.displayName}
-                    className="w-8 h-8 rounded-full"
-                  />
-                  <span className="hidden md:block text-sm font-medium">
-                    {user.displayName?.split(' ')[0]}
-                  </span>
+              <div className="flex items-center space-x-3">
+                <img 
+                  src={user.photoURL} 
+                  alt={user.displayName}
+                  className="w-8 h-8 rounded-full"
+                />
+                <button
+                  onClick={signOut}
+                  className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span className="hidden sm:block">Sign Out</span>
                 </button>
-                
-                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                  <div className="py-2">
-                    <button
-                      onClick={() => setCurrentPage('dashboard')}
-                      className="flex items-center space-x-2 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      <User className="w-4 h-4" />
-                      <span>Dashboard</span>
-                    </button>
-                    <button
-                      onClick={signOut}
-                      className="flex items-center space-x-2 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      <span>Sign Out</span>
-                    </button>
-                  </div>
-                </div>
               </div>
             ) : (
-              <div className="relative auth-section">
-                <button
-                  onClick={signInWithGoogle}
-                  onMouseEnter={() => setShowJoinTooltip(true)}
-                  onMouseLeave={() => setShowJoinTooltip(false)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
-                >
-                  Join / Login
-                </button>
-                
-                {showJoinTooltip && (
-                  <div className="absolute top-full right-0 mt-2 w-64 bg-gray-800 text-white p-3 rounded-lg shadow-lg text-sm z-50">
-                    <div className="absolute -top-1 right-4 w-2 h-2 bg-gray-800 rotate-45"></div>
-                    <strong>Join ImpactMojo!</strong>
-                    <p className="mt-1">Sign in with Google to access your dashboard, save bookmarks, use AI tools, and track your learning progress.</p>
-                  </div>
-                )}
-              </div>
+              <button
+                onClick={signInWithGoogle}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2"
+              >
+                <User className="w-4 h-4" />
+                <span>Sign In</span>
+              </button>
             )}
 
+            {/* Mobile menu button */}
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 dark:border-gray-700">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navItems.map((item) => {
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex flex-col space-y-2">
+              {navItems.map(item => {
                 if (item.requiresAuth && !user) return null;
-                
                 return (
                   <button
                     key={item.id}
                     onClick={() => {
                       setCurrentPage(item.id);
-                      setMobileMenuOpen(false);
+                      setIsMenuOpen(false);
                     }}
-                    className={`flex items-center space-x-2 w-full px-3 py-2 rounded-lg transition-colors ${
-                      currentPage === item.id 
-                        ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    className={`text-left px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                      currentPage === item.id
+                        ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                     }`}
                   >
-                    <span>{item.label}</span>
+                    {item.label}
                   </button>
                 );
               })}
@@ -1090,370 +1267,18 @@ function Navbar({ darkMode, setDarkMode, currentPage, setCurrentPage }) {
       </div>
     </nav>
   );
-}
-
-// Featured Game Card Component
-function FeaturedGameCard() {
-  return (
-    <div className="featured-game bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg p-8 mb-16">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-4">🎮 The Real Middle Game</h2>
-        <p className="text-xl mb-6 opacity-90">
-          An interactive exploration of middle-class dynamics in South Asia
-        </p>
-        <p className="text-lg mb-8 opacity-75">
-          Navigate economic choices, social pressures, and systemic barriers in this thought-provoking game about social mobility.
-        </p>
-        <button 
-          onClick={() => window.open(courseData.featuredContent.content, '_blank')}
-          className="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-        >
-          <PlayCircle className="w-5 h-5 inline mr-2" />
-          Play The Game
-        </button>
-      </div>
-    </div>
-  );
-}
-
-// Course Card Component  
-function CourseCard({ course, showQuote = false }) {
-  const { user, bookmarks, toggleBookmark } = useAuth();
-  const { trackEvent } = useAnalytics();
-  const isBookmarked = bookmarks.includes(course.id);
-
-  const handleCourseClick = () => {
-    trackEvent('Course Viewed', { course_id: course.id, course_title: course.title });
-    if (course.content) {
-      window.open(course.content, '_blank');
-    }
-  };
-
-  const handleBookmarkClick = (e) => {
-    e.stopPropagation();
-    if (!user) {
-      alert('Please sign in to bookmark courses');
-      return;
-    }
-    const action = isBookmarked ? 'removed' : 'added';
-    trackEvent('Bookmark Toggle', { item_id: course.id, item_type: 'course', action });
-    toggleBookmark(course.id);
-  };
-
-  return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer">
-      <div className="flex justify-between items-start mb-4">
-        <div className="flex-1">
-          <div className="flex items-center space-x-2 mb-2">
-            <span className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 px-2 py-1 rounded text-sm font-medium">
-              {course.id}
-            </span>
-            {course.featured && (
-              <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-400 px-2 py-1 rounded text-sm font-medium">
-                Featured
-              </span>
-            )}
-          </div>
-          <h3 className="text-xl font-bold mb-2">{course.title}</h3>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">{course.track}</p>
-        </div>
-        
-        <button
-          onClick={handleBookmarkClick}
-          disabled={!user}
-          className={`p-2 rounded-lg transition-colors ${
-            isBookmarked 
-              ? 'bg-blue-100 dark:bg-blue-900 text-blue-600' 
-              : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-          }`}
-        >
-          <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} />
-        </button>
-      </div>
-      
-      <p className="text-gray-600 dark:text-gray-300 mb-4">{course.description}</p>
-      
-      {showQuote && course.quote && (
-        <blockquote className="border-l-4 border-blue-600 pl-4 mb-4 italic text-gray-700 dark:text-gray-300">
-          "{course.quote}"
-        </blockquote>
-      )}
-      
-      <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
-        <span className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">{course.level}</span>
-        <span>{course.duration}</span>
-      </div>
-      
-      <button 
-        onClick={handleCourseClick}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors"
-      >
-        Start Learning
-      </button>
-    </div>
-  );
-}
-
-// Track Card Component
-function TrackCard({ track }) {
-  const { courseData } = useAuth();
-  const trackCourses = courseData.courses.filter(course => 
-    track.courses.includes(course.id)
-  );
-
-  return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center hover:shadow-lg transition-all cursor-pointer">
-      <div className={`w-16 h-16 ${track.color} rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-4`}>
-        {track.icon}
-      </div>
-      <h3 className="text-xl font-bold mb-2">{track.name}</h3>
-      <p className="text-gray-600 dark:text-gray-300 mb-4">{track.description}</p>
-      <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-        {trackCourses.length} courses available
-      </p>
-      <ChevronRight className="w-5 h-5 mx-auto text-gray-400" />
-    </div>
-  );
-}
-
-// Home Page Component - CORRECT ORDERING
-function HomePage({ setCurrentPage }) {
-  const { courseData } = useAuth();
-  const featuredCourses = courseData.courses.filter(course => course.featured);
-
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-purple-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            101 Knowledge Series
-            <br />
-            <span className="text-blue-200">for Social Impact</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 opacity-90">
-            A curated library of knowledge decks exploring justice, equity, and development in South Asia
-          </p>
-          <button
-            onClick={() => setCurrentPage('courses')}
-            className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors"
-          >
-            Start Learning Today
-          </button>
-        </div>
-      </section>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
-        
-        {/* 1. FEATURED CONTENT - The Real Middle Game */}
-        <FeaturedGameCard />
-
-        {/* 2. FIND YOUR TRACK QUIZ */}
-        <section className="quiz-section bg-white dark:bg-gray-800 py-16 rounded-lg">
-          <div className="max-w-4xl mx-auto text-center px-6">
-            <h2 className="text-3xl font-bold mb-6">🧭 Find Your Own Track</h2>
-            <p className="text-lg mb-8 text-gray-600 dark:text-gray-300">
-              Not sure where to start? Take our interactive quiz to discover the learning path that fits your interests and goals.
-            </p>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
-              <PlayCircle className="w-5 h-5 inline mr-2" />
-              Take the Quiz
-            </button>
-          </div>
-        </section>
-
-        {/* 3. FOUR LEARNING TRACKS */}
-        <section className="tracks-section">
-          <h2 className="text-3xl font-bold text-center mb-12">Four Learning Tracks</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {courseData.tracks.map((track) => (
-              <TrackCard key={track.id} track={track} />
-            ))}
-          </div>
-        </section>
-
-        {/* 4. COURSES LIST - Popular Courses */}
-        <section className="courses-section">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Popular Courses</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
-              Highlighted selection with learner testimonials from our 34-course library
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredCourses.map((course) => (
-              <CourseCard key={course.id} course={course} showQuote={true} />
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <button
-              onClick={() => setCurrentPage('courses')}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-            >
-              View All 34 Courses
-            </button>
-          </div>
-        </section>
-
-        {/* 5. LABS LIST */}
-        <section className="labs-section bg-white dark:bg-gray-800 py-16 rounded-lg">
-          <div className="max-w-7xl mx-auto px-6">
-            <h2 className="text-3xl font-bold text-center mb-12">Interactive Labs</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {courseData.labs.slice(0, 3).map((lab) => (
-                <div key={lab.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-all cursor-pointer">
-                  <div className="text-4xl mb-4">{lab.icon}</div>
-                  <h3 className="text-xl font-bold mb-2">{lab.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{lab.description}</p>
-                  <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
-                    <span className="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded">{lab.topic}</span>
-                    <span>{lab.duration}</span>
-                  </div>
-                  <button 
-                    onClick={() => window.open(lab.content, '_blank')}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg transition-colors"
-                  >
-                    Launch Lab
-                  </button>
-                </div>
-              ))}
-            </div>
-            <div className="text-center mt-8">
-              <button
-                onClick={() => setCurrentPage('labs')}
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-              >
-                View All Labs
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* 6. RESOURCES/EXTRAS */}
-        <section className="resources-section">
-          <h2 className="text-3xl font-bold text-center mb-12">Resources & Extras</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {courseData.resources.filter(r => r.featured).map((resource) => (
-              <div key={resource.id} className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all">
-                <h3 className="text-xl font-bold mb-2">{resource.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">{resource.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">{resource.type}</span>
-                  <button 
-                    onClick={() => window.open(resource.link, '_blank')}
-                    className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors text-sm"
-                  >
-                    <Download className="w-4 h-4 inline mr-1" />
-                    Download
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* 7. UPCOMING COURSES */}
-        <section className="bg-white dark:bg-gray-800 py-16 rounded-lg">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-3xl font-bold mb-4">Coming Soon</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">New content in development</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {courseData.upcomingCourses.map((course) => (
-                <div key={course.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 opacity-75">
-                  <h3 className="text-xl font-bold mb-2">{course.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-2">{course.description}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{course.subtitle}</p>
-                  <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-full text-sm">
-                    {course.status}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 8. SOCIAL MEDIA & ABOUT MAKER */}
-        <section className="text-center">
-          <div className="bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-lg p-8">
-            <img 
-              src="/images/varna-photo.jpg" 
-              alt="Varna Sri Raman" 
-              className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-              onError={(e) => {
-                e.target.src = 'https://via.placeholder.com/96/4F46E5/FFFFFF?text=VS';
-              }}
-            />
-            <h3 className="text-xl font-bold mb-2">About the Creator</h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              ImpactMojo is curated and crafted by Varna Sri Raman, an expert in development economics and social impact.
-            </p>
-            
-            {/* Social Media Links with Sharing Scripts */}
-            <div className="flex justify-center space-x-4">
-              <button 
-                onClick={() => window.open('https://threads.net/@varnasriraman', '_blank')}
-                className="bg-gray-800 hover:bg-gray-900 text-white p-3 rounded-full transition-colors"
-                title="Follow on Threads"
-              >
-                <MessageCircle className="w-5 h-5" />
-              </button>
-              <button 
-                onClick={() => window.open('https://varna.notion.site/', '_blank')}
-                className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full transition-colors"
-                title="Visit Notion Blog"
-              >
-                <FileText className="w-5 h-5" />
-              </button>
-              <button 
-                onClick={() => {
-                  const shareText = "Check out ImpactMojo - 101 Knowledge Series for Social Impact! 📚 Free courses on development, policy, gender studies & data analysis. Perfect for development professionals! 🌟";
-                  const shareUrl = "https://impactmojo.in";
-                  if (navigator.share) {
-                    navigator.share({ title: 'ImpactMojo', text: shareText, url: shareUrl });
-                  } else {
-                    navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
-                    alert('Link copied to clipboard!');
-                  }
-                }}
-                className="bg-green-600 hover:bg-green-700 text-white p-3 rounded-full transition-colors"
-                title="Share ImpactMojo"
-              >
-                <Share2 className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-  );
-}
-
-// Continue with other components (Courses, Labs, Dashboard, etc. - same as before but using complete data)
-// ... [Include all other components from previous version]
+};
 
 // Main App Component
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [currentPage, setCurrentPage] = useState('home');
   const [showCookieConsent, setShowCookieConsent] = useState(true);
-  const [showTour, setShowTour] = useState(false);
-  const { trackPageView } = useAnalytics();
 
   useEffect(() => {
     const savedDarkMode = localStorage.getItem('darkMode');
     if (savedDarkMode) {
       setDarkMode(JSON.parse(savedDarkMode));
-    }
-
-    const cookiesAccepted = localStorage.getItem('cookiesAccepted');
-    if (cookiesAccepted) {
-      setShowCookieConsent(false);
-    }
-
-    // Check if user has seen tour
-    const tourCompleted = localStorage.getItem('impactmojo_tour_completed');
-    if (!tourCompleted) {
-      setTimeout(() => setShowTour(true), 2000);
     }
   }, []);
 
@@ -1466,28 +1291,24 @@ function App() {
     }
   }, [darkMode]);
 
-  useEffect(() => {
-    const url = `${window.location.origin}/${currentPage}`;
-    trackPageView(url);
-  }, [currentPage, trackPageView]);
-
-  const completeTour = () => {
-    setShowTour(false);
-    localStorage.setItem('impactmojo_tour_completed', 'true');
-  };
-
   const handleCookieAccept = () => {
-    localStorage.setItem('cookiesAccepted', 'true');
     setShowCookieConsent(false);
+    localStorage.setItem('cookieConsent', 'true');
   };
+
+  useEffect(() => {
+    const cookieConsent = localStorage.getItem('cookieConsent');
+    if (cookieConsent) {
+      setShowCookieConsent(false);
+    }
+  }, []);
 
   return (
     <AuthProvider>
-      <div className={`min-h-screen transition-colors ${darkMode ? 'dark' : ''}`}>
-        <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
-          
-          <Navbar 
-            darkMode={darkMode} 
+      <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
+        <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors">
+          <Navigation 
+            darkMode={darkMode}
             setDarkMode={setDarkMode}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
@@ -1495,11 +1316,13 @@ function App() {
           
           <main className="pt-0">
             {currentPage === 'home' && <HomePage setCurrentPage={setCurrentPage} />}
-            {/* Add other pages here using the complete course data */}
+            {currentPage === 'courses' && <CoursesPage />}
+            {currentPage === 'labs' && <LabsPage />}
+            {currentPage === 'dashboard' && <DashboardPage />}
+            {currentPage === 'ai-tools' && <AIToolsPage />}
+            {currentPage === 'contact' && <ContactPage />}
+            {currentPage === 'about' && <AboutPage />}
           </main>
-
-          {/* Website Tour */}
-          {showTour && <WebsiteTour onComplete={completeTour} />}
 
           {/* Cookie Consent */}
           {showCookieConsent && (
