@@ -1,4 +1,4 @@
-// src/App.js - Complete ImpactMojo with ALL components and pages
+// src/App.js - Complete ImpactMojo with ALL components and pages + PREMIUM FEATURES
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { 
   Menu, X, Sun, Moon, Search, Bookmark, Heart, MessageCircle, 
@@ -421,7 +421,7 @@ const courseData = [
   },
 ];
 
-// ✅ REAL LAB DATA (10 Interactive Labs) - Updated from Project Files
+// ✅ PREMIUM LAB DATA (12 Interactive Labs) - Updated with Premium Features
 const labsData = [
   {
     id: "L1",
@@ -533,10 +533,50 @@ const labsData = [
     duration: 80,
     status: "Available"
   },
+  // 🌟 NEW PREMIUM LABS
+  {
+    id: "L11",
+    title: "Statistical Assistant Lab",
+    description: "AI-powered statistical analysis and interpretation support.",
+    url: "https://stats-assistant-lab.netlify.app/",
+    icon: "bar-chart",
+    category: "Data Analysis",
+    difficulty: "Advanced",
+    duration: 90,
+    status: "Available",
+    isPremium: true,
+    password: "STATS2025"
+  },
+  {
+    id: "L12",
+    title: "Qualitative Field Notes Lab",
+    description: "Advanced tools for qualitative data collection and analysis.",
+    url: "https://qual-fieldnotes-lab.netlify.app/",
+    icon: "edit",
+    category: "Research Methods",
+    difficulty: "Intermediate",
+    duration: 75,
+    status: "Available",
+    isPremium: true,
+    password: "QUAL2025"
+  }
 ];
 
-// ✅ NEW HANDOUTS DATA (Based on Project Files Structure)
+// ✅ ENHANCED HANDOUTS DATA with Featured Content
 const handoutsData = [
+  // 🌟 FEATURED HANDOUT
+  {
+    id: "H0",
+    title: "The Real Middle Game",
+    category: "Premium Content",
+    type: "Interactive Guide",
+    description: "Advanced strategic framework for navigating complex development challenges.",
+    url: "https://www.therealmidevthree.com/",
+    track: "All Tracks",
+    isFeatured: true,
+    isPremium: true
+  },
+
   // Cross Cutting Resources
   {
     id: "H1",
@@ -815,17 +855,211 @@ const handoutsData = [
   }
 ];
 
-// AI Tools Data
+// 🌟 ENHANCED AI TOOLS DATA (13 Premium Tools)
 const aiToolsData = [
-  { id: 'AI1', name: 'Policy Brief Generator', description: 'Generate structured policy briefs from your research', category: 'Writing' },
-  { id: 'AI2', name: 'Research Question Refiner', description: 'Refine and improve your research questions', category: 'Research' },
-  { id: 'AI3', name: 'Data Story Creator', description: 'Turn data insights into compelling narratives', category: 'Analysis' },
-  { id: 'AI4', name: 'Grant Proposal Assistant', description: 'Help structure and improve grant proposals', category: 'Writing' },
-  { id: 'AI5', name: 'Impact Measurement Framework', description: 'Design frameworks to measure social impact', category: 'Analysis' },
-  { id: 'AI6', name: 'Stakeholder Mapping Tool', description: 'Identify and map project stakeholders', category: 'Planning' },
-  { id: 'AI7', name: 'Literature Review Helper', description: 'Organize and synthesize academic literature', category: 'Research' },
-  { id: 'AI8', name: 'Workshop Facilitator', description: 'Plan and structure workshop sessions', category: 'Planning' }
+  { id: 'AI1', name: 'Text Proofreader', description: 'Advanced proofreading for academic and professional texts', category: 'Writing' },
+  { id: 'AI2', name: 'Sentence Starter Generator', description: 'Generate compelling opening sentences for any content', category: 'Writing' },
+  { id: 'AI3', name: 'Policy Brief Generator', description: 'Generate structured policy briefs from your research', category: 'Writing' },
+  { id: 'AI4', name: 'Research Question Refiner', description: 'Refine and improve your research questions', category: 'Research' },
+  { id: 'AI5', name: 'Data Story Creator', description: 'Turn data insights into compelling narratives', category: 'Analysis' },
+  { id: 'AI6', name: 'Grant Proposal Assistant', description: 'Help structure and improve grant proposals', category: 'Writing' },
+  { id: 'AI7', name: 'Impact Measurement Framework', description: 'Design frameworks to measure social impact', category: 'Analysis' },
+  { id: 'AI8', name: 'Stakeholder Mapping Tool', description: 'Identify and map project stakeholders', category: 'Planning' },
+  { id: 'AI9', name: 'Literature Review Helper', description: 'Organize and synthesize academic literature', category: 'Research' },
+  { id: 'AI10', name: 'Workshop Facilitator', description: 'Plan and structure workshop sessions', category: 'Planning' },
+  { id: 'AI11', name: 'Survey Design Assistant', description: 'Create effective surveys and questionnaires', category: 'Research' },
+  { id: 'AI12', name: 'Statistical Analysis Helper', description: 'Guide statistical analysis and interpretation', category: 'Analysis' },
+  { id: 'AI13', name: 'Communication Optimizer', description: 'Optimize content for different audiences and platforms', category: 'Writing' }
 ];
+
+// 🌟 PREMIUM PATHWAY QUIZ COMPONENT
+const PremiumPathwayQuiz = ({ user }) => {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [showResults, setShowResults] = useState(false);
+  const [recommendedPath, setRecommendedPath] = useState(null);
+
+  const questions = [
+    {
+      id: 1,
+      text: "What's your primary area of interest?",
+      options: [
+        { value: "gender", label: "Gender equality and social justice" },
+        { value: "policy", label: "Policy analysis and governance" },
+        { value: "research", label: "Research methods and evaluation" },
+        { value: "data", label: "Data analysis and statistics" }
+      ]
+    },
+    {
+      id: 2,
+      text: "What's your current experience level?",
+      options: [
+        { value: "beginner", label: "New to development work" },
+        { value: "intermediate", label: "Some experience in the field" },
+        { value: "advanced", label: "Seasoned professional" },
+        { value: "expert", label: "Looking for advanced specialization" }
+      ]
+    },
+    {
+      id: 3,
+      text: "What type of learning do you prefer?",
+      options: [
+        { value: "theory", label: "Theoretical frameworks and concepts" },
+        { value: "practical", label: "Hands-on tools and applications" },
+        { value: "mixed", label: "Combination of theory and practice" },
+        { value: "research", label: "Academic research and methodology" }
+      ]
+    }
+  ];
+
+  const calculateRecommendation = () => {
+    const { 1: interest, 2: level, 3: style } = answers;
+    
+    const recommendations = {
+      gender: {
+        title: "Gender Studies Track",
+        description: "Focus on gender equality, women's empowerment, and inclusive development",
+        courses: ["C1", "C2", "C3", "C4", "C5", "C6"],
+        labs: ["L7", "L8"],
+        color: "purple"
+      },
+      policy: {
+        title: "Policy Analysis Track", 
+        description: "Develop expertise in policy frameworks, economics, and governance",
+        courses: ["C7", "C8", "C14", "C15", "C16", "C17"],
+        labs: ["L3", "L5", "L6"],
+        color: "blue"
+      },
+      research: {
+        title: "Research Methods Track",
+        description: "Master research design, ethics, and evaluation methodologies",
+        courses: ["C9", "C10", "C12", "C22", "C27", "C31"],
+        labs: ["L7", "L9", "L12"],
+        color: "green"
+      },
+      data: {
+        title: "Data Analysis Track",
+        description: "Build skills in statistics, econometrics, and data interpretation",
+        courses: ["C19", "C23", "C28", "C29", "C30"],
+        labs: ["L11"],
+        color: "red"
+      }
+    };
+
+    setRecommendedPath(recommendations[interest]);
+    setShowResults(true);
+  };
+
+  if (!user) return null;
+
+  if (showResults && recommendedPath) {
+    return (
+      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8">
+            <Award className="w-16 h-16 mx-auto mb-4 text-yellow-300" />
+            <h2 className="text-3xl font-bold mb-4">Your Personalized Learning Path</h2>
+            <div className={`inline-block px-4 py-2 rounded-full bg-${recommendedPath.color}-100 text-${recommendedPath.color}-800 mb-4`}>
+              {recommendedPath.title}
+            </div>
+            <p className="text-xl mb-8">{recommendedPath.description}</p>
+            <div className="grid md:grid-cols-2 gap-6 text-left">
+              <div>
+                <h4 className="font-bold mb-2">Recommended Courses</h4>
+                <p className="text-sm opacity-90">{recommendedPath.courses.length} courses tailored for you</p>
+              </div>
+              <div>
+                <h4 className="font-bold mb-2">Interactive Labs</h4>
+                <p className="text-sm opacity-90">{recommendedPath.labs.length} hands-on learning experiences</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setShowResults(false)}
+              className="mt-6 bg-white text-purple-600 px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+            >
+              Retake Quiz
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-8">
+          <Target className="w-16 h-16 mx-auto mb-4 text-yellow-300" />
+          <h2 className="text-3xl font-bold mb-4">Find Your Learning Path</h2>
+          <p className="text-xl text-blue-100">Premium pathway recommendation for logged-in users</p>
+        </div>
+
+        <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-8">
+          <div className="mb-6">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold">Question {currentQuestion + 1} of {questions.length}</h3>
+              <div className="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">
+                {Math.round(((currentQuestion + 1) / questions.length) * 100)}%
+              </div>
+            </div>
+            <div className="w-full bg-white bg-opacity-20 rounded-full h-2">
+              <div 
+                className="bg-yellow-300 h-2 rounded-full transition-all duration-300"
+                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+              ></div>
+            </div>
+          </div>
+
+          <div className="mb-8">
+            <h4 className="text-xl mb-6">{questions[currentQuestion].text}</h4>
+            <div className="space-y-3">
+              {questions[currentQuestion].options.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => setAnswers({...answers, [questions[currentQuestion].id]: option.value})}
+                  className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                    answers[questions[currentQuestion].id] === option.value
+                      ? 'border-yellow-300 bg-white bg-opacity-20'
+                      : 'border-white border-opacity-30 hover:border-opacity-50 hover:bg-white hover:bg-opacity-10'
+                  }`}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex justify-between">
+            <button
+              onClick={() => setCurrentQuestion(currentQuestion - 1)}
+              disabled={currentQuestion === 0}
+              className="px-6 py-2 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              Previous
+            </button>
+            {currentQuestion === questions.length - 1 ? (
+              <button
+                onClick={calculateRecommendation}
+                disabled={!answers[questions[currentQuestion].id]}
+                className="px-6 py-2 rounded-lg bg-yellow-500 text-purple-900 font-bold hover:bg-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                Get My Path
+              </button>
+            ) : (
+              <button
+                onClick={() => setCurrentQuestion(currentQuestion + 1)}
+                disabled={!answers[questions[currentQuestion].id]}
+                className="px-6 py-2 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                Next
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // Authentication Context
 const AuthContext = createContext();
@@ -954,8 +1188,9 @@ const CourseCard = ({ course, isBookmarked, onBookmark }) => {
           </span>
           <div className="flex items-center space-x-2">
             {course.isPremium && (
-              <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 rounded font-medium">
-                Premium
+              <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 rounded font-medium flex items-center space-x-1">
+                <Star className="w-3 h-3" />
+                <span>Premium</span>
               </span>
             )}
             {user && (
@@ -1012,6 +1247,7 @@ const HandoutCard = ({ handout }) => {
   const getTypeIcon = (type) => {
     switch (type.toLowerCase()) {
       case 'html': return <FileText className="w-5 h-5" />;
+      case 'interactive guide': return <Star className="w-5 h-5" />;
       case 'pdf': return <FileText className="w-5 h-5" />;
       case 'excel': return <BarChart className="w-5 h-5" />;
       case 'r': return <Settings className="w-5 h-5" />;
@@ -1023,6 +1259,7 @@ const HandoutCard = ({ handout }) => {
   const getTypeColor = (type) => {
     switch (type.toLowerCase()) {
       case 'html': return 'text-blue-600 dark:text-blue-400';
+      case 'interactive guide': return 'text-purple-600 dark:text-purple-400';
       case 'pdf': return 'text-red-600 dark:text-red-400'; 
       case 'excel': return 'text-green-600 dark:text-green-400';
       case 'r': return 'text-purple-600 dark:text-purple-400';
@@ -1032,8 +1269,12 @@ const HandoutCard = ({ handout }) => {
   };
 
   const handleDownload = () => {
-    // For now, show alert since files need to be uploaded
-    alert(`${handout.title} - File will be available after upload to GitHub. URL: ${handout.url}`);
+    if (handout.isPremium) {
+      window.open(handout.url, '_blank');
+    } else {
+      // For now, show alert since files need to be uploaded
+      alert(`${handout.title} - File will be available after upload to GitHub. URL: ${handout.url}`);
+    }
   };
 
   return (
@@ -1043,8 +1284,16 @@ const HandoutCard = ({ handout }) => {
           <span className="text-sm font-bold text-green-600 dark:text-green-400">
             {handout.id}
           </span>
-          <div className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-700 ${getTypeColor(handout.type)}`}>
-            {getTypeIcon(handout.type)}
+          <div className="flex items-center space-x-2">
+            {handout.isPremium && (
+              <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 rounded font-medium flex items-center space-x-1">
+                <Star className="w-3 h-3" />
+                <span>Premium</span>
+              </span>
+            )}
+            <div className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-700 ${getTypeColor(handout.type)}`}>
+              {getTypeIcon(handout.type)}
+            </div>
           </div>
         </div>
         
@@ -1074,7 +1323,7 @@ const HandoutCard = ({ handout }) => {
           className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2"
         >
           <Download className="w-4 h-4" />
-          <span>Download</span>
+          <span>{handout.isPremium ? 'Access Premium' : 'Download'}</span>
         </button>
       </div>
     </div>
@@ -1108,7 +1357,7 @@ const HomePage = ({ setCurrentPage }) => {
             </p>
             <p className="text-lg mb-8 max-w-3xl mx-auto text-blue-100">
               A curated library exploring justice, equity, and development in South Asia. 
-              Learn from 37 courses, 10 interactive labs, and comprehensive handouts.
+              Learn from 37 courses, 12 interactive labs, and comprehensive handouts.
             </p>
           </div>
           
@@ -1148,11 +1397,11 @@ const HomePage = ({ setCurrentPage }) => {
               <div className="text-gray-600 dark:text-gray-300">Courses</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">10</div>
+              <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">12</div>
               <div className="text-gray-600 dark:text-gray-300">Interactive Labs</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">29</div>
+              <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">30</div>
               <div className="text-gray-600 dark:text-gray-300">Handouts</div>
             </div>
             <div>
@@ -1162,6 +1411,9 @@ const HomePage = ({ setCurrentPage }) => {
           </div>
         </div>
       </section>
+
+      {/* 🌟 PREMIUM PATHWAY QUIZ */}
+      <PremiumPathwayQuiz user={user} />
 
       {/* Learning Tracks */}
       <section className="py-16 bg-gray-50 dark:bg-gray-900">
@@ -1319,10 +1571,24 @@ const CoursesPage = () => {
   );
 };
 
-// Labs Page Component
+// 🌟 ENHANCED Labs Page Component with Premium Features
 const LabsPage = () => {
+  const { user } = useAuth();
+
   const handleLabAccess = (lab) => {
-    if (lab.status === 'Available') {
+    if (lab.isPremium && !user) {
+      alert('Please sign in to access premium labs.');
+      return;
+    }
+    
+    if (lab.isPremium) {
+      const password = prompt(`This is a premium lab. Please enter the access password:`);
+      if (password === lab.password) {
+        window.open(lab.url, '_blank');
+      } else if (password !== null) {
+        alert('Incorrect password. Please contact support for access.');
+      }
+    } else if (lab.status === 'Available') {
       window.open(lab.url, '_blank');
     } else {
       alert(`${lab.title} - Coming Soon!`);
@@ -1337,7 +1603,7 @@ const LabsPage = () => {
             Interactive Labs
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            10 hands-on labs for real-world practice and skill development
+            12 hands-on labs for real-world practice and skill development
           </p>
         </div>
 
@@ -1349,13 +1615,21 @@ const LabsPage = () => {
                   <span className="text-sm font-bold text-green-600 dark:text-green-400">
                     {lab.id}
                   </span>
-                  <span className={`px-2 py-1 rounded-lg text-xs font-medium ${
-                    lab.status === 'Available' 
-                      ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                      : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                  }`}>
-                    {lab.status}
-                  </span>
+                  <div className="flex items-center space-x-2">
+                    {lab.isPremium && (
+                      <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 rounded font-medium flex items-center space-x-1">
+                        <Star className="w-3 h-3" />
+                        <span>Premium</span>
+                      </span>
+                    )}
+                    <span className={`px-2 py-1 rounded-lg text-xs font-medium ${
+                      lab.status === 'Available' 
+                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                        : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                    }`}>
+                      {lab.status}
+                    </span>
+                  </div>
                 </div>
                 
                 <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
@@ -1396,7 +1670,7 @@ const LabsPage = () => {
                   }`}
                 >
                   <PlayCircle className="w-4 h-4" />
-                  <span>{lab.status === 'Available' ? 'Launch Lab' : 'Coming Soon'}</span>
+                  <span>{lab.status === 'Available' ? (lab.isPremium ? 'Launch Premium Lab' : 'Launch Lab') : 'Coming Soon'}</span>
                 </button>
               </div>
             </div>
@@ -1407,7 +1681,7 @@ const LabsPage = () => {
   );
 };
 
-// NEW Handouts Page Component
+// 🌟 ENHANCED Handouts Page Component with Featured Content
 const HandoutsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -1423,6 +1697,7 @@ const HandoutsPage = () => {
 
   const uniqueCategories = [...new Set(handoutsData.map(handout => handout.category))];
   const uniqueTracks = [...new Set(handoutsData.map(handout => handout.track))];
+  const featuredHandout = handoutsData.find(handout => handout.isFeatured);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
@@ -1481,9 +1756,47 @@ const HandoutsPage = () => {
           </div>
         </div>
 
+        {/* 🌟 FEATURED CONTENT SECTION */}
+        {featuredHandout && (
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+              <Star className="w-6 h-6 text-yellow-500 mr-2" />
+              Featured Resource
+            </h2>
+            <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl p-8 text-white">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <span className="px-3 py-1 bg-yellow-400 text-purple-900 rounded-full text-sm font-bold">
+                      Premium
+                    </span>
+                    <span className="px-3 py-1 bg-white bg-opacity-20 rounded-full text-sm">
+                      {featuredHandout.type}
+                    </span>
+                  </div>
+                  <h3 className="text-3xl font-bold mb-4">{featuredHandout.title}</h3>
+                  <p className="text-xl mb-6 text-blue-100">{featuredHandout.description}</p>
+                  <button
+                    onClick={() => window.open(featuredHandout.url, '_blank')}
+                    className="bg-white text-purple-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors flex items-center space-x-2"
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                    <span>Access Featured Resource</span>
+                  </button>
+                </div>
+                <div className="ml-8 hidden md:block">
+                  <div className="w-24 h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                    <Star className="w-12 h-12 text-yellow-300" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Handouts Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredHandouts.map(handout => (
+          {filteredHandouts.filter(handout => !handout.isFeatured).map(handout => (
             <HandoutCard
               key={handout.id}
               handout={handout}
@@ -1491,7 +1804,7 @@ const HandoutsPage = () => {
           ))}
         </div>
 
-        {filteredHandouts.length === 0 && (
+        {filteredHandouts.filter(handout => !handout.isFeatured).length === 0 && (
           <div className="text-center py-12">
             <Search className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
@@ -1589,7 +1902,7 @@ const AIToolsPage = () => {
             AI Tools
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            AI-powered tools to enhance your development work
+            13 AI-powered tools to enhance your development work
           </p>
         </div>
 
@@ -1746,20 +2059,12 @@ const DashboardPage = () => {
               <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Your Stats</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Bookmarked Courses</span>
-                  <span className="font-medium text-gray-900 dark:text-white">{bookmarks.length}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Learning Tracks</span>
-                  <span className="font-medium text-gray-900 dark:text-white">4</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Available Labs</span>
-                  <span className="font-medium text-gray-900 dark:text-white">10</span>
-                </div>
-                <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-300">Handouts</span>
-                  <span className="font-medium text-gray-900 dark:text-white">29</span>
+                  <span className="font-medium text-gray-900 dark:text-white">30</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-300">AI Tools</span>
+                  <span className="font-medium text-gray-900 dark:text-white">13</span>
                 </div>
               </div>
             </div>
@@ -2001,13 +2306,13 @@ const AboutPage = () => {
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">🔬 10 Interactive Labs</h3>
+                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">🔬 12 Interactive Labs</h3>
                 <p className="text-gray-600 dark:text-gray-300">
                   Hands-on simulations and tools to practice concepts in real-world scenarios.
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">📁 29 Handouts & Resources</h3>
+                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">📁 30 Handouts & Resources</h3>
                 <p className="text-gray-600 dark:text-gray-300">
                   Downloadable guides, templates, and reference materials for practical application.
                 </p>
@@ -2091,7 +2396,7 @@ const Navigation = ({ darkMode, setDarkMode, currentPage, setCurrentPage }) => {
     { id: 'home', label: 'Home', requiresAuth: false },
     { id: 'courses', label: 'Courses', requiresAuth: false },
     { id: 'labs', label: 'Labs', requiresAuth: false },
-    { id: 'handouts', label: 'Handouts', requiresAuth: false }, // Changed from 'Resources' to 'Handouts'
+    { id: 'handouts', label: 'Handouts', requiresAuth: false },
     { id: 'dashboard', label: 'Dashboard', requiresAuth: true },
     { id: 'ai-tools', label: 'AI Tools', requiresAuth: true },
     { id: 'contact', label: 'Contact', requiresAuth: false },
@@ -2305,4 +2610,16 @@ function App() {
   );
 }
 
-export default App;
+export default App;-gray-600 dark:text-gray-300">Bookmarked Courses</span>
+                  <span className="font-medium text-gray-900 dark:text-white">{bookmarks.length}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-300">Learning Tracks</span>
+                  <span className="font-medium text-gray-900 dark:text-white">4</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-300">Available Labs</span>
+                  <span className="font-medium text-gray-900 dark:text-white">12</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text
