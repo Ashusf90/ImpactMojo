@@ -1,4 +1,4 @@
-// src/App.js - Complete ImpactMojo with ALL components and pages
+// src/App.js - Complete ImpactMojo with ALL components and enhanced AI Tools
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { 
   Menu, X, Sun, Moon, Search, Bookmark, Heart, MessageCircle, 
@@ -8,7 +8,8 @@ import {
   Github, Coffee, Zap, TrendingUp, Award, Filter, Calendar,
   FileText, BarChart, Settings, ArrowRight, CheckCircle,
   AlertCircle, Info, HelpCircle, Share2, PlayCircle, Scale,
-  Lightbulb, Compare, Send, Edit3, Brain, PenTool, FolderOpen
+  Lightbulb, Compare, Send, Edit3, Brain, PenTool, FolderOpen,
+  Loader2, Copy, Sparkles, Wand2, Bot, Puzzle, Trophy, Shield
 } from 'lucide-react';
 
 // Firebase imports
@@ -815,7 +816,7 @@ const handoutsData = [
   }
 ];
 
-// AI Tools Data - Complete 16 tools with detailed instructions  
+// 🤖 ENHANCED AI Tools Data - Complete 16 tools with detailed instructions and prompts
 const aiToolsData = [
   // Enhanced existing 8 tools
   { 
@@ -823,98 +824,450 @@ const aiToolsData = [
     name: 'Policy Brief Generator', 
     description: 'Generate structured policy briefs from your research data and analysis', 
     category: 'Writing',
-    instructions: 'Enter your research topic, key findings, and recommendations. The tool will create a professional policy brief with executive summary, background, analysis, and policy recommendations sections.',
-    howToUse: 'Steps: 1) Input policy topic/issue 2) Add key research findings 3) Include stakeholder information 4) Specify target audience 5) Generate structured brief'
+    instructions: 'Enter your policy topic, target audience, key findings, and main recommendations. The tool will create a professional policy brief with executive summary, background, analysis, and recommendations.',
+    howToUse: 'Steps: 1) Enter policy topic (e.g., "Climate Change Adaptation in Urban Areas") 2) Specify target audience (e.g., "City Mayors and Urban Planners") 3) Add 3-5 key findings 4) List main recommendations 5) Generate professional brief',
+    promptTemplate: `Create a comprehensive policy brief on: {topic}
+
+Target Audience: {audience}
+Key Findings: {findings}
+Recommendations: {recommendations}
+
+Please structure as:
+1. Executive Summary (200 words)
+2. Background & Context (300 words)
+3. Analysis of Key Issues (400 words)
+4. Policy Recommendations (300 words)
+5. Implementation Steps (200 words)
+
+Use professional policy language and include specific, actionable recommendations.`,
+    systemMessage: 'You are a senior policy analyst with expertise in public policy and government relations. Create professional, evidence-based policy documents with clear recommendations and implementation strategies.',
+    exampleInput: `Topic: Digital Skills Training for Rural Communities
+Audience: Regional Development Officers
+Key Findings: 
+- 67% lack basic digital literacy
+- Limited internet infrastructure 
+- Youth migration to cities due to lack of opportunities
+Recommendations:
+- Mobile training units
+- Public-private partnerships
+- Subsidized internet access`,
+    icon: FileText,
+    color: 'blue'
   },
   { 
     id: 'AI2', 
     name: 'Research Question Refiner', 
     description: 'Refine and improve your research questions for better focus and clarity', 
     category: 'Research',
-    instructions: 'Paste your draft research question(s). The tool will analyze for clarity, specificity, feasibility, and suggest improvements to make them more focused and researchable.',
-    howToUse: 'Steps: 1) Enter initial research question 2) Specify research field 3) Indicate study type 4) Get refined suggestions'
+    instructions: 'Paste your draft research question(s) and specify your field of study, methodology preference, and scope. The tool will analyze and suggest improvements for clarity, feasibility, and academic rigor.',
+    howToUse: 'Steps: 1) Enter your draft research question 2) Specify academic field 3) Indicate preferred methodology (qualitative/quantitative/mixed) 4) Set scope (local/national/global) 5) Get refined suggestions with rationale',
+    promptTemplate: `Refine and improve this research question: "{question}"
+
+Research Field: {field}
+Methodology: {methodology}
+Scope: {scope}
+Current Academic Level: {level}
+
+Please provide:
+1. Analysis of the current question (strengths/weaknesses)
+2. 3 refined alternative versions
+3. Explanation of improvements made
+4. Feasibility assessment
+5. Suggested sub-questions if applicable
+
+Focus on making questions more specific, measurable, and academically rigorous.`,
+    systemMessage: 'You are a research methodology expert with expertise in academic research design across multiple disciplines. Help refine research questions for clarity, feasibility, and academic rigor.',
+    exampleInput: `Question: How does social media affect young people?
+Field: Digital Sociology
+Methodology: Mixed Methods
+Scope: National (teenagers aged 13-18)
+Level: Graduate thesis`,
+    icon: Search,
+    color: 'green'
   },
   { 
     id: 'AI3', 
     name: 'Data Story Creator', 
     description: 'Turn data insights into compelling narratives and visualizations', 
     category: 'Analysis',
-    instructions: 'Upload your data or describe key findings. The tool helps create narrative structures that make your data accessible and engaging for your target audience.',
-    howToUse: 'Steps: 1) Input data/findings 2) Define audience 3) Choose story format 4) Select key messages 5) Generate narrative'
+    instructions: 'Describe your data, key findings, and target audience. The tool creates narrative structures with suggested visualizations, compelling storylines, and clear takeaway messages.',
+    howToUse: 'Steps: 1) Describe your data/findings 2) Specify target audience 3) Choose narrative style (analytical/persuasive/educational) 4) Set complexity level 5) Generate story structure with visualization suggestions',
+    promptTemplate: `Create a compelling data story from: {data}
+
+Key Findings: {findings}
+Target Audience: {audience}
+Narrative Style: {style}
+Complexity Level: {complexity}
+
+Please provide:
+1. Executive summary (key message in 50 words)
+2. Story structure with 5-7 main points
+3. Suggested visualizations for each point
+4. Compelling opening and closing
+5. Call-to-action recommendations
+6. Data presentation tips
+
+Make it engaging and accessible to the target audience.`,
+    systemMessage: 'You are a data storytelling expert who transforms complex data into engaging narratives. You understand visualization best practices and how to communicate insights effectively to different audiences.',
+    exampleInput: `Data: Survey of 1,200 remote workers across 15 countries
+Findings: 
+- 78% report higher productivity at home
+- 65% struggle with work-life balance
+- 43% feel disconnected from colleagues
+Audience: HR Directors and Team Managers
+Style: Persuasive (for policy change)`,
+    icon: BarChart,
+    color: 'purple'
   },
   { 
     id: 'AI4', 
     name: 'Grant Proposal Assistant', 
     description: 'Help structure and improve grant proposals with proven frameworks', 
     category: 'Writing',
-    instructions: 'Provide your project idea, budget range, and target funder. The tool structures proposals with compelling problem statements, methodology, and impact projections.',
-    howToUse: 'Steps: 1) Describe project concept 2) Enter budget requirements 3) Specify funder type 4) Add timeline 5) Generate framework'
+    instructions: 'Provide your project concept, target funder type, budget range, and timeline. The tool creates structured proposals with compelling problem statements, clear methodologies, and realistic budgets.',
+    howToUse: 'Steps: 1) Describe project concept clearly 2) Specify funder type (government/foundation/corporate) 3) Enter budget range 4) Set project timeline 5) Generate complete proposal framework',
+    promptTemplate: `Create a grant proposal framework for: {project}
+
+Funder Type: {funder}
+Budget Range: {budget}
+Timeline: {timeline}
+Target Population: {population}
+Expected Impact: {impact}
+
+Please structure as:
+1. Executive Summary (250 words)
+2. Problem Statement with evidence (400 words)
+3. Project Description & Methodology (500 words)
+4. Goals, Objectives & Outcomes (300 words)
+5. Budget Justification outline (200 words)
+6. Sustainability Plan (200 words)
+7. Evaluation Framework (200 words)
+
+Include specific metrics and evidence-based justifications.`,
+    systemMessage: 'You are a grant writing specialist with 15+ years experience securing funding from government agencies, foundations, and corporate sponsors. You understand funder priorities and write compelling, evidence-based proposals.',
+    exampleInput: `Project: Mobile Health Clinic for Rural Maternal Care
+Funder: Private Foundation (health focus)
+Budget: $150,000 - $300,000
+Timeline: 2 years
+Population: Pregnant women in remote areas (500+ beneficiaries)
+Impact: Reduce maternal mortality by 40%`,
+    icon: TrendingUp,
+    color: 'blue'
   },
   { 
     id: 'AI5', 
     name: 'Impact Measurement Framework', 
     description: 'Design comprehensive frameworks to measure and evaluate social impact', 
     category: 'Analysis',
-    instructions: 'Define your program goals and activities. The tool creates logic models, identifies key indicators, and suggests measurement approaches for tracking social impact.',
-    howToUse: 'Steps: 1) Enter program objectives 2) List activities 3) Define beneficiaries 4) Specify timeframe 5) Generate framework'
+    instructions: 'Define your program goals, activities, target beneficiaries, and timeframe. The tool creates logic models, identifies key indicators, and suggests measurement approaches.',
+    howToUse: 'Steps: 1) Enter program objectives clearly 2) List main activities/interventions 3) Define target beneficiaries 4) Specify measurement timeframe 5) Generate complete M&E framework with indicators',
+    promptTemplate: `Create an impact measurement framework for: {program}
+
+Program Goals: {goals}
+Main Activities: {activities}
+Target Beneficiaries: {beneficiaries}
+Timeframe: {timeframe}
+Budget for M&E: {budget}
+
+Please provide:
+1. Logic Model (inputs → activities → outputs → outcomes → impact)
+2. Key Performance Indicators (KPIs) for each level
+3. Data collection methods and timeline
+4. Baseline and target metrics
+5. Evaluation questions for each outcome
+6. Reporting framework and frequency
+7. Risk assumptions and mitigation
+
+Include both quantitative and qualitative indicators.`,
+    systemMessage: 'You are a monitoring and evaluation specialist with expertise in social impact measurement. You design rigorous frameworks that capture both quantitative outcomes and qualitative changes in complex social programs.',
+    exampleInput: `Program: Digital Literacy Training for Senior Citizens
+Goals: Improve digital inclusion and reduce social isolation
+Activities: Weekly computer classes, one-on-one support, peer mentoring
+Beneficiaries: 200 seniors (65+) in rural communities
+Timeframe: 12 months
+Budget: $25,000 for M&E activities`,
+    icon: Target,
+    color: 'red'
   },
   { 
     id: 'AI6', 
     name: 'Stakeholder Mapping Tool', 
     description: 'Identify and map project stakeholders with influence and interest analysis', 
     category: 'Planning',
-    instructions: 'Describe your project or initiative. The tool identifies relevant stakeholders, analyzes their influence/interest levels, and suggests engagement strategies.',
-    howToUse: 'Steps: 1) Describe project scope 2) List known stakeholders 3) Define objectives 4) Specify area 5) Generate stakeholder map'
+    instructions: 'Describe your project, sector, and geographic scope. The tool identifies relevant stakeholders, analyzes their influence/interest levels, and suggests engagement strategies.',
+    howToUse: 'Steps: 1) Describe project scope and objectives 2) Specify sector and location 3) List known stakeholders 4) Define project phase (planning/implementation/evaluation) 5) Generate comprehensive stakeholder map',
+    promptTemplate: `Create a stakeholder mapping for: {project}
+
+Project Scope: {scope}
+Sector: {sector}
+Location: {location}
+Project Phase: {phase}
+Known Stakeholders: {known}
+
+Please provide:
+1. Comprehensive stakeholder list by category:
+   - Primary stakeholders (directly affected)
+   - Secondary stakeholders (indirectly affected)
+   - Key stakeholders (decision makers)
+2. Influence vs Interest matrix mapping
+3. Engagement strategy for each stakeholder type
+4. Communication plan recommendations
+5. Potential risks and mitigation strategies
+6. Timeline for stakeholder engagement
+
+Include both supportive and potentially resistant stakeholders.`,
+    systemMessage: 'You are a stakeholder engagement specialist with expertise in complex multi-stakeholder projects. You understand power dynamics, influence mapping, and effective engagement strategies across different sectors.',
+    exampleInput: `Project: Community Solar Energy Installation
+Scope: 500-household renewable energy project
+Sector: Clean Energy/Rural Development
+Location: Rural county in Kenya
+Phase: Planning and feasibility
+Known: Local chief, utility company, environmental NGO`,
+    icon: Users,
+    color: 'green'
   },
   { 
     id: 'AI7', 
     name: 'Literature Review Helper', 
     description: 'Organize and synthesize academic literature with thematic analysis', 
     category: 'Research',
-    instructions: 'Input research topic and key papers. The tool organizes sources by themes, identifies gaps, and creates synthesis summaries for comprehensive reviews.',
-    howToUse: 'Steps: 1) Enter research topic 2) Add paper abstracts 3) Specify scope 4) Choose organization method 5) Generate synthesis'
+    instructions: 'Enter your research topic, key papers/abstracts, and review scope. The tool organizes sources by themes, identifies gaps, and creates synthesis summaries.',
+    howToUse: 'Steps: 1) Enter research topic/question 2) Paste abstracts or paper summaries 3) Specify review scope (systematic/narrative) 4) Choose organization method 5) Generate thematic synthesis',
+    promptTemplate: `Organize and synthesize literature on: {topic}
+
+Research Question: {question}
+Key Papers/Abstracts: {papers}
+Review Type: {type}
+Time Period: {period}
+Scope: {scope}
+
+Please provide:
+1. Thematic organization of literature
+2. Key themes and sub-themes identified
+3. Summary of main findings by theme
+4. Identification of research gaps
+5. Methodological patterns observed
+6. Conflicting findings and debates
+7. Future research directions
+8. Suggested outline for literature review section
+
+Include proper academic synthesis, not just summaries.`,
+    systemMessage: 'You are an academic researcher with expertise in literature reviews and systematic analysis. You help organize complex literature into coherent themes and identify patterns, gaps, and synthesis opportunities.',
+    exampleInput: `Topic: Impact of Microfinance on Women's Empowerment
+Question: How does access to microfinance affect women's decision-making power in developing countries?
+Papers: [paste 5-10 abstracts]
+Type: Systematic review
+Period: 2015-2023
+Scope: Developing countries, randomized controlled trials`,
+    icon: BookOpen,
+    color: 'indigo'
   },
   { 
     id: 'AI8', 
     name: 'Workshop Facilitator', 
     description: 'Plan and structure effective workshop sessions with activities and timelines', 
     category: 'Planning',
-    instructions: 'Specify workshop objectives, duration, and participant type. The tool creates detailed agendas with activities, timing, materials, and facilitation tips.',
-    howToUse: 'Steps: 1) Define goals 2) Set duration/participants 3) Choose activities 4) Specify outcomes 5) Generate agenda'
+    instructions: 'Specify workshop objectives, duration, participant type, and preferred format. The tool creates detailed agendas with activities, timing, materials, and facilitation tips.',
+    howToUse: 'Steps: 1) Define clear workshop goals 2) Set duration and participant count 3) Choose participant type/level 4) Specify format (in-person/virtual/hybrid) 5) Generate complete facilitation guide',
+    promptTemplate: `Design a workshop on: {topic}
+
+Objectives: {objectives}
+Duration: {duration}
+Participants: {participants} ({count} people)
+Format: {format}
+Experience Level: {level}
+Desired Outcomes: {outcomes}
+
+Please provide:
+1. Detailed agenda with time allocations
+2. Learning objectives for each session
+3. Interactive activities and exercises
+4. Materials and resources needed
+5. Facilitation tips and techniques
+6. Engagement strategies for different learning styles
+7. Assessment/feedback methods
+8. Follow-up recommendations
+
+Include specific instructions for facilitator and participant handouts.`,
+    systemMessage: 'You are an experienced workshop facilitator and adult learning specialist. You design engaging, interactive sessions that achieve clear learning outcomes through proven facilitation techniques and adult learning principles.',
+    exampleInput: `Topic: Design Thinking for Social Innovation
+Objectives: Teach human-centered design methods to nonprofit leaders
+Duration: 6 hours (full day)
+Participants: NGO program managers and directors (20 people)
+Format: In-person
+Level: Beginner to intermediate
+Outcomes: Participants can apply design thinking to their programs`,
+    icon: Users,
+    color: 'orange'
   },
 
-  // New 8 tools from developer brief
+  // New 8 tools with enhanced prompts
   { 
     id: 'AI9', 
     name: 'Worksheet Generator', 
     description: 'Generate educational worksheets with various question types on any topic', 
     category: 'Teaching',
-    instructions: 'Enter your topic, difficulty level, and preferred question types. The tool creates printable worksheets with instructions, varied exercises, and answer keys.',
-    howToUse: 'Steps: 1) Enter subject/topic 2) Select difficulty 3) Choose question types 4) Set question count 5) Generate worksheet'
+    instructions: 'Specify your subject, topic, grade level, and question types. Include learning objectives and desired difficulty. The tool creates ready-to-print worksheets with answer keys.',
+    howToUse: 'Steps: 1) Enter subject and specific topic 2) Select grade level 3) Choose question types (multiple choice, short answer, etc.) 4) Set number of questions 5) Generate printable worksheet with answer key',
+    promptTemplate: `Create an educational worksheet on: {topic}
+
+Subject: {subject}
+Grade Level: {grade}
+Number of Questions: {questions}
+Question Types: {types}
+Learning Objectives: {objectives}
+Difficulty Level: {difficulty}
+
+Please create:
+1. Worksheet title and clear instructions
+2. {questions} questions in specified formats
+3. Appropriate difficulty progression
+4. Clear formatting for printing
+5. Complete answer key with explanations
+6. Extension activities for advanced students
+7. Modification suggestions for struggling learners
+
+Format for easy printing and classroom use. Include engaging, age-appropriate content.`,
+    systemMessage: 'You are an experienced educational content creator who designs engaging worksheets aligned with curriculum standards. You understand different learning styles and create age-appropriate, pedagogically sound materials.',
+    exampleInput: `Topic: Photosynthesis Process
+Subject: Biology
+Grade: 9th grade (14-15 years)
+Questions: 15 questions
+Types: Multiple choice (5), Short answer (5), Diagram labeling (5)
+Objectives: Students understand inputs/outputs of photosynthesis
+Difficulty: Intermediate`,
+    icon: FileText,
+    color: 'blue'
   },
   { 
     id: 'AI10', 
     name: 'Choice Board Generator', 
     description: 'Create activity choice boards for differentiated learning with multiple options', 
     category: 'Teaching',
-    instructions: 'Provide learning topic and objectives. The tool creates a grid of diverse activities for different learning styles (visual, auditory, kinesthetic, reading/writing).',
-    howToUse: 'Steps: 1) Enter learning topic 2) Define objectives 3) Choose board size 4) Specify grade level 5) Generate choice board'
+    instructions: 'Enter your learning topic, objectives, and grade level. The tool creates a grid of diverse activities for different learning styles (visual, auditory, kinesthetic, reading/writing).',
+    howToUse: 'Steps: 1) Enter learning topic and unit 2) Define 2-3 key learning objectives 3) Choose grade level 4) Select board size (3x3 or 4x4) 5) Generate choice board with varied activities',
+    promptTemplate: `Create a choice board for: {topic}
+
+Learning Unit: {unit}
+Grade Level: {grade}
+Learning Objectives: {objectives}
+Board Size: {size}
+Subject Area: {subject}
+Duration: {duration}
+
+Create a {size} choice board with activities covering:
+1. Visual learners (diagrams, infographics, videos)
+2. Auditory learners (presentations, podcasts, discussions)
+3. Kinesthetic learners (hands-on, movement, building)
+4. Reading/Writing learners (essays, reports, creative writing)
+
+Each activity should:
+- Align with learning objectives
+- Be age-appropriate and engaging
+- Include clear instructions and success criteria
+- Offer different difficulty levels
+- Be completable in specified timeframe
+
+Include one required center activity and varied optional activities.`,
+    systemMessage: 'You are a differentiated instruction specialist who creates engaging choice boards that accommodate multiple learning styles while maintaining academic rigor and clear learning objectives.',
+    exampleInput: `Topic: Ancient Egypt Civilization
+Unit: Ancient Civilizations - Egypt chapter
+Grade: 6th grade (11-12 years)
+Objectives: 1) Understand Egyptian social structure 2) Explain mummification process 3) Analyze pyramid construction
+Size: 3x3 grid (9 activities)
+Subject: Social Studies
+Duration: 2-week unit`,
+    icon: Gamepad2,
+    color: 'purple'
   },
   { 
     id: 'AI11', 
     name: 'Multiple Choice Assessment Generator', 
     description: 'Generate comprehensive MCQ assessments from content with answer keys', 
     category: 'Assessment',
-    instructions: 'Paste content (text, article, chapter) or enter topics. The tool creates multiple-choice questions with 4 options each, ensuring correct answers and plausible distractors.',
-    howToUse: 'Steps: 1) Input source content 2) Set question count 3) Choose difficulty 4) Specify grade level 5) Generate MCQ assessment'
+    instructions: 'Paste content text or enter key topics to assess. Specify question count, difficulty, and cognitive levels (remember, understand, apply, analyze). Creates balanced assessments with detailed answer explanations.',
+    howToUse: 'Steps: 1) Paste source content or list key concepts 2) Set number of questions (10-50) 3) Choose difficulty distribution 4) Select cognitive levels to assess 5) Generate MCQ test with detailed answer key',
+    promptTemplate: `Create a multiple-choice assessment from: {content}
+
+Key Topics to Assess: {topics}
+Number of Questions: {questions}
+Grade Level: {grade}
+Cognitive Levels: {cognitive}
+Difficulty Distribution: {difficulty}
+
+Create {questions} multiple-choice questions that:
+1. Cover all key topics proportionally
+2. Include 4 plausible answer choices each
+3. Test different cognitive levels (remember, understand, apply, analyze)
+4. Avoid trick questions or ambiguous wording
+5. Include variety in question formats
+6. Progress from easier to more challenging
+
+Provide:
+- Complete question set with A/B/C/D choices
+- Answer key with correct letters
+- Detailed explanations for correct answers
+- Rationale for why other options are incorrect
+- Alignment to specific learning objectives`,
+    systemMessage: 'You are an assessment design expert who creates fair, valid, and reliable multiple-choice tests. You understand cognitive taxonomies and write clear questions that accurately measure student learning.',
+    exampleInput: `Content: [Paste chapter text on Cellular Respiration]
+Topics: Glycolysis, Citric Acid Cycle, Electron Transport Chain, ATP production
+Questions: 20 questions
+Grade: 11th grade Biology
+Cognitive: 30% remember, 40% understand, 20% apply, 10% analyze
+Difficulty: 25% easy, 50% medium, 25% challenging`,
+    icon: CheckCircle,
+    color: 'green'
   },
   { 
     id: 'AI12', 
     name: 'Writing Feedback Tool', 
     description: 'Provide detailed AI-powered feedback on student writing with improvement suggestions', 
     category: 'Assessment',
-    instructions: 'Paste student writing sample. The tool analyzes grammar, structure, clarity, and content, providing constructive feedback with specific improvements.',
-    howToUse: 'Steps: 1) Paste writing sample 2) Select writing type 3) Choose grade level 4) Set feedback focus 5) Generate feedback'
+    instructions: 'Paste student writing sample and specify writing type, grade level, and feedback focus areas. The tool analyzes content, structure, grammar, and style with specific improvement suggestions.',
+    howToUse: 'Steps: 1) Paste student writing sample 2) Select writing type (essay, report, creative, etc.) 3) Choose grade level 4) Set feedback focus (content, organization, mechanics) 5) Generate detailed feedback with suggestions',
+    promptTemplate: `Provide detailed feedback on this student writing:
+
+{writing}
+
+Writing Type: {type}
+Grade Level: {grade}
+Assignment Requirements: {requirements}
+Focus Areas: {focus}
+Feedback Style: {style}
+
+Please provide:
+1. Overall impression and strengths (positive feedback first)
+2. Content and Ideas Analysis:
+   - Clarity of main idea/thesis
+   - Supporting evidence and examples
+   - Depth of analysis
+3. Organization and Structure:
+   - Introduction effectiveness
+   - Paragraph structure and transitions
+   - Conclusion strength
+4. Language and Style:
+   - Sentence variety and flow
+   - Word choice and vocabulary
+   - Voice and tone appropriateness
+5. Mechanics and Grammar:
+   - Grammar and punctuation errors
+   - Spelling and capitalization
+6. Specific Improvement Suggestions:
+   - 3-5 concrete next steps
+   - Examples of better alternatives
+7. Grade-appropriate learning goals for revision
+
+Keep feedback constructive, specific, and encouraging.`,
+    systemMessage: 'You are an experienced writing teacher who provides constructive, specific feedback that helps students improve. You balance encouragement with clear guidance for improvement, adapting your feedback style to the student\'s grade level.',
+    exampleInput: `Writing: [Paste 250-word student essay on "The Importance of Recycling"]
+Type: Persuasive essay
+Grade: 8th grade
+Requirements: 5-paragraph structure, 3 supporting arguments, MLA format
+Focus: Content development and organization
+Style: Encouraging but thorough`,
+    icon: Edit3,
+    color: 'blue'
   },
   { 
     id: 'AI13', 
@@ -922,15 +1275,81 @@ const aiToolsData = [
     description: 'Advanced grammar, spelling, and style checking for any text content', 
     category: 'Writing',
     instructions: 'Paste any text needing proofreading. The tool corrects grammar, spelling, punctuation, and improves clarity while maintaining original meaning and tone.',
-    howToUse: 'Steps: 1) Paste text to proofread 2) Select text type 3) Choose correction level 4) Generate corrected version'
+    howToUse: 'Steps: 1) Paste text to proofread 2) Select text type (academic, business, creative) 3) Choose correction level (light/thorough) 4) Specify tone to maintain 5) Get corrected version with explanations',
+    promptTemplate: `Proofread and improve this text:
+
+{text}
+
+Text Type: {type}
+Correction Level: {level}
+Maintain Tone: {tone}
+Target Audience: {audience}
+Specific Concerns: {concerns}
+
+Please provide:
+1. Corrected version with all improvements
+2. Summary of changes made:
+   - Grammar corrections
+   - Spelling fixes
+   - Punctuation improvements
+   - Clarity enhancements
+   - Style adjustments
+3. Explanation of major corrections
+4. Suggestions for further improvement
+5. Original meaning preservation confirmation
+
+Focus on clarity, correctness, and readability while maintaining the author's voice and intent.`,
+    systemMessage: 'You are a professional editor and proofreader with expertise in grammar, style, and clarity. You improve text while preserving the author\'s voice and intent, providing clear explanations for your corrections.',
+    exampleInput: `Text: [Paste email, essay, or document to proofread]
+Type: Professional business email
+Level: Thorough correction
+Tone: Professional but friendly
+Audience: Company executives
+Concerns: Grammar errors and unclear sentences`,
+    icon: Shield,
+    color: 'red'
   },
   { 
     id: 'AI14', 
     name: 'Sentence Starter Generator', 
     description: 'Generate engaging opening sentences and writing prompts to overcome writer\'s block', 
     category: 'Writing',
-    instructions: 'Enter writing topic or theme. The tool generates multiple engaging sentence starters and prompts suitable for essays, creative writing, or academic assignments.',
-    howToUse: 'Steps: 1) Enter topic/theme 2) Choose writing type 3) Set starter count 4) Specify audience level 5) Generate starters'
+    instructions: 'Enter writing topic, type, and target audience. The tool generates multiple engaging sentence starters and prompts suitable for essays, creative writing, or academic assignments.',
+    howToUse: 'Steps: 1) Enter topic or theme 2) Choose writing type (narrative, persuasive, expository, creative) 3) Select grade/audience level 4) Set number of starters needed 5) Generate varied sentence starters',
+    promptTemplate: `Generate sentence starters for: {topic}
+
+Writing Type: {type}
+Audience/Grade Level: {audience}
+Purpose: {purpose}
+Number of Starters: {count}
+Style Preference: {style}
+
+Create {count} engaging sentence starters that:
+1. Hook the reader immediately
+2. Match the writing type and purpose
+3. Are appropriate for the audience level
+4. Offer different approaches (question, statistic, anecdote, bold statement, etc.)
+5. Inspire creative thinking
+6. Are specific enough to provide direction
+
+Include variety in:
+- Question starters
+- Statistical openers
+- Anecdotal beginnings
+- Bold statement openers
+- Descriptive scene setters
+- Thought-provoking scenarios
+
+Each starter should be followed by a brief explanation of why it's effective and what direction the writing could take.`,
+    systemMessage: 'You are a creative writing coach who helps writers overcome blocks with engaging, inspiring prompts. You understand different writing genres and create starters that spark creativity while meeting academic or professional requirements.',
+    exampleInput: `Topic: Environmental Conservation
+Type: Persuasive essay
+Audience: High school students (grades 9-12)
+Purpose: Convince peers to adopt eco-friendly habits
+Count: 8 sentence starters
+Style: Engaging and relatable to teenagers`,
+    icon: PenTool,
+    color: 'green'
   },
   { 
     id: 'AI15', 
@@ -938,7 +1357,41 @@ const aiToolsData = [
     description: 'Create Jeopardy-style quiz games with categories and point values for classroom review', 
     category: 'Games',
     instructions: 'Enter review topic and preferred categories. The tool creates a complete Jeopardy game with 5 questions per category, increasing in difficulty from $100-$500.',
-    howToUse: 'Steps: 1) Enter main topic 2) Choose categories (3-5) 3) Set difficulty range 4) Specify grade level 5) Generate Jeopardy game'
+    howToUse: 'Steps: 1) Enter main topic/unit 2) Choose 4-6 categories 3) Set difficulty range 4) Specify grade level 5) Generate complete Jeopardy game with questions and answers',
+    promptTemplate: `Create a Jeopardy review game for: {topic}
+
+Main Subject/Unit: {unit}
+Categories: {categories}
+Grade Level: {grade}
+Point Values: {points}
+Total Questions: {total}
+
+Create a complete Jeopardy game with:
+1. {categories} categories related to {topic}
+2. 5 questions per category (${points[0]} to ${points[4]})
+3. Questions that increase in difficulty with point value
+4. Answers in proper Jeopardy format ("What is..." or "Who is...")
+5. Clear, unambiguous questions appropriate for grade level
+6. Good mix of factual recall and application questions
+
+Format each category as:
+**CATEGORY NAME**
+$100: [Question] 
+Answer: [Response in Jeopardy format]
+$200: [Question]
+Answer: [Response]
+[Continue through $500]
+
+Include instructions for gameplay and any needed materials.`,
+    systemMessage: 'You are a game-based learning specialist who creates engaging educational games. You understand how to balance fun with learning objectives and create questions that are challenging but fair for the target grade level.',
+    exampleInput: `Topic: American Civil War
+Unit: Civil War causes, battles, and consequences
+Categories: Key Battles, Important Figures, Causes of War, Technology, Reconstruction
+Grade: 8th grade History
+Points: $100, $200, $300, $400, $500
+Total: 25 questions (5 categories × 5 questions)`,
+    icon: Trophy,
+    color: 'yellow'
   },
   { 
     id: 'AI16', 
@@ -946,7 +1399,54 @@ const aiToolsData = [
     description: 'Design educational escape room experiences with interconnected puzzles and storylines', 
     category: 'Games',
     instructions: 'Provide educational topic and learning objectives. The tool creates an immersive storyline with 5-7 interconnected puzzles that teach key concepts while engaging students.',
-    howToUse: 'Steps: 1) Enter educational topic 2) Define learning objectives 3) Choose theme 4) Set difficulty 5) Generate escape room'
+    howToUse: 'Steps: 1) Enter educational topic 2) Define 3-4 key learning objectives 3) Choose theme/storyline 4) Set difficulty and time limit 5) Generate complete escape room with puzzle solutions',
+    promptTemplate: `Design an educational escape room for: {topic}
+
+Learning Objectives: {objectives}
+Theme/Storyline: {theme}
+Grade Level: {grade}
+Time Limit: {time}
+Group Size: {size}
+Available Technology: {tech}
+
+Create an immersive escape room experience with:
+
+1. **Engaging Storyline**:
+   - Clear mission/scenario that motivates students
+   - Connection between theme and educational content
+   - Sense of urgency and purpose
+
+2. **5-7 Interconnected Puzzles**:
+   - Each puzzle teaches/reinforces learning objectives
+   - Increasing difficulty progression
+   - Variety of puzzle types (codes, riddles, physical, digital)
+   - Clear connection between puzzles
+   - Final challenge that synthesizes all learning
+
+3. **Complete Implementation Guide**:
+   - Room setup instructions and materials list
+   - Detailed puzzle instructions and solutions
+   - Facilitator guide with hints system
+   - Student handouts and clue sheets
+   - Assessment rubric for learning objectives
+   - Alternative versions for different ability levels
+
+4. **Learning Integration**:
+   - Clear connections between each puzzle and curriculum
+   - Debrief questions to reinforce learning
+   - Extension activities for early finishers
+
+Ensure all puzzles are solvable, age-appropriate, and directly tied to learning goals.`,
+    systemMessage: 'You are an immersive learning experience designer who creates educational escape rooms. You understand game mechanics, puzzle design, and how to seamlessly integrate curriculum content into engaging storylines that promote deep learning.',
+    exampleInput: `Topic: Chemical Bonding and Molecular Structure
+Objectives: 1) Identify ionic vs covalent bonds 2) Predict molecular shapes 3) Understand electronegativity 4) Apply bonding theory to real compounds
+Theme: Secret laboratory - students are chemists who must prevent a dangerous reaction
+Grade: 10th grade Chemistry
+Time: 45 minutes
+Size: Groups of 4-5 students
+Tech: Tablets available for digital clues/simulations`,
+    icon: Puzzle,
+    color: 'purple'
   }
 ];
 
@@ -1199,6 +1699,83 @@ const HandoutCard = ({ handout }) => {
           <Download className="w-4 h-4" />
           <span>Download</span>
         </button>
+      </div>
+    </div>
+  );
+};
+
+// 🎨 ENHANCED AI Tool Card Component
+const AIToolCard = ({ tool, isSelected, onSelect }) => {
+  const IconComponent = tool.icon;
+  
+  const getCategoryColor = (category) => {
+    switch (category) {
+      case 'Writing': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
+      case 'Research': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
+      case 'Analysis': return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
+      case 'Planning': return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
+      case 'Teaching': return 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200';
+      case 'Assessment': return 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200';
+      case 'Games': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+    }
+  };
+
+  const getColorClass = (color) => {
+    switch (color) {
+      case 'blue': return 'text-blue-600 dark:text-blue-400';
+      case 'green': return 'text-green-600 dark:text-green-400';
+      case 'purple': return 'text-purple-600 dark:text-purple-400';
+      case 'red': return 'text-red-600 dark:text-red-400';
+      case 'orange': return 'text-orange-600 dark:text-orange-400';
+      case 'indigo': return 'text-indigo-600 dark:text-indigo-400';
+      case 'yellow': return 'text-yellow-600 dark:text-yellow-400';
+      default: return 'text-gray-600 dark:text-gray-400';
+    }
+  };
+
+  return (
+    <div 
+      className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 cursor-pointer border-2 ${
+        isSelected ? 'border-blue-500 dark:border-blue-400' : 'border-transparent'
+      }`}
+      onClick={() => onSelect(tool)}
+    >
+      <div className="p-6">
+        <div className="flex justify-between items-start mb-4">
+          <span className="text-sm font-bold text-purple-600 dark:text-purple-400">
+            {tool.id}
+          </span>
+          <div className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-700 ${getColorClass(tool.color)}`}>
+            <IconComponent className="w-5 h-5" />
+          </div>
+        </div>
+        
+        <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+          {tool.name}
+        </h3>
+        
+        <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+          {tool.description}
+        </p>
+        
+        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+          <span className={`px-2 py-1 rounded font-medium ${getCategoryColor(tool.category)}`}>
+            {tool.category}
+          </span>
+          <div className="flex items-center space-x-1">
+            <Sparkles className="w-4 h-4 text-purple-500" />
+            <span className="text-purple-600 dark:text-purple-400 font-medium">AI Powered</span>
+          </div>
+        </div>
+        
+        <div className={`text-center py-2 px-4 rounded-lg border-2 border-dashed transition-colors ${
+          isSelected 
+            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300' 
+            : 'border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-blue-300 hover:text-blue-600'
+        }`}>
+          {isSelected ? 'Selected - Ready to Use!' : 'Click to Select'}
+        </div>
       </div>
     </div>
   );
@@ -1645,13 +2222,26 @@ const HandoutsPage = () => {
   );
 };
 
-// AI Tools Page Component
+// 🤖 ENHANCED AI Tools Page Component with Beautiful Card Layout
 const AIToolsPage = () => {
   const { user } = useAuth();
   const [selectedTool, setSelectedTool] = useState(null);
   const [userInput, setUserInput] = useState('');
   const [toolOutput, setToolOutput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [showExample, setShowExample] = useState(false);
+
+  // Filter tools based on search and category
+  const filteredTools = aiToolsData.filter(tool => {
+    const matchesSearch = tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         tool.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || tool.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const uniqueCategories = [...new Set(aiToolsData.map(tool => tool.category))];
 
   const handleToolUse = async () => {
     if (!userInput.trim() || !selectedTool) return;
@@ -1660,6 +2250,13 @@ const AIToolsPage = () => {
     setToolOutput('');
     
     try {
+      // Enhanced prompt using the tool's template
+      let enhancedPrompt = userInput;
+      if (selectedTool.promptTemplate) {
+        // Simple replacement for now - you could make this more sophisticated
+        enhancedPrompt = selectedTool.promptTemplate.replace(/{[^}]+}/g, userInput);
+      }
+
       // Firebase Cloud Function URL for your project
       const response = await fetch('https://us-central1-impactmojo.cloudfunctions.net/chat', {
         method: 'POST',
@@ -1669,7 +2266,8 @@ const AIToolsPage = () => {
         body: JSON.stringify({
           toolId: selectedTool.id,
           toolName: selectedTool.name,
-          userInput: userInput,
+          userInput: enhancedPrompt,
+          systemMessage: selectedTool.systemMessage || 'You are a helpful educational assistant.',
           userId: user?.uid
         })
       });
@@ -1688,17 +2286,28 @@ const AIToolsPage = () => {
     }
   };
 
+  const handleCopyOutput = () => {
+    navigator.clipboard.writeText(toolOutput);
+    // You could add a toast notification here
+  };
+
   if (!user) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <Brain className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            AI Tools Access
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-8">
-            Please sign in to access our AI-powered tools for development work.
-          </p>
+        <div className="text-center max-w-md mx-auto px-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+            <Brain className="w-16 h-16 text-purple-500 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              AI Tools Access
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-8">
+              Please sign in to access our AI-powered tools for development work. Transform your ideas into professional content with 16 specialized AI assistants.
+            </p>
+            <div className="flex items-center justify-center space-x-2 text-purple-600 dark:text-purple-400">
+              <Sparkles className="w-5 h-5" />
+              <span className="font-medium">16 AI-Powered Tools Available</span>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -1707,97 +2316,268 @@ const AIToolsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            AI Tools
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300">
-            AI-powered tools to enhance your development work
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <div className="flex items-center justify-center space-x-3 mb-4">
+            <Brain className="w-10 h-10 text-purple-600" />
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+              AI Tools
+            </h1>
+            <Sparkles className="w-8 h-8 text-yellow-500" />
+          </div>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
+            16 AI-powered tools to enhance your development work
           </p>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Tools List */}
-          <div className="lg:col-span-1">
-            <h2 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Available Tools</h2>
-            <div className="space-y-3">
-              {aiToolsData.map(tool => (
-                <button
-                  key={tool.id}
-                  onClick={() => setSelectedTool(tool)}
-                  className={`w-full text-left p-4 rounded-lg border transition-colors ${
-                    selectedTool?.id === tool.id
-                      ? 'bg-blue-50 dark:bg-blue-900 border-blue-200 dark:border-blue-700'
-                      : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'
-                  }`}
-                >
-                  <h3 className="font-medium text-gray-900 dark:text-white">{tool.name}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{tool.description}</p>
-                  <span className="inline-block mt-2 px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded">
-                    {tool.category}
-                  </span>
-                </button>
-              ))}
+          <div className="flex items-center justify-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex items-center space-x-2">
+              <Bot className="w-4 h-4" />
+              <span>Advanced AI Models</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Shield className="w-4 h-4" />
+              <span>Privacy Protected</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Zap className="w-4 h-4" />
+              <span>Instant Results</span>
             </div>
           </div>
+        </div>
 
-          {/* Tool Interface */}
-          <div className="lg:col-span-2">
-            {selectedTool ? (
-              <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
-                <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
-                  {selectedTool.name}
-                </h2>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
+        {!selectedTool ? (
+          <>
+            {/* Search and Filters */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 mb-8 shadow-lg">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Search Tools</label>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <input
+                      type="text"
+                      placeholder="Search AI tools..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Category</label>
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  >
+                    <option value="all">All Categories</option>
+                    {uniqueCategories.map(category => (
+                      <option key={category} value={category}>{category}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* Tools Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredTools.map(tool => (
+                <AIToolCard
+                  key={tool.id}
+                  tool={tool}
+                  isSelected={false}
+                  onSelect={setSelectedTool}
+                />
+              ))}
+            </div>
+
+            {filteredTools.length === 0 && (
+              <div className="text-center py-12">
+                <Search className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                  No tools found
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Try adjusting your search criteria
+                </p>
+              </div>
+            )}
+          </>
+        ) : (
+          /* Tool Interface */
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Tool Info Sidebar */}
+            <div className="lg:col-span-1">
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg sticky top-8">
+                <button
+                  onClick={() => {
+                    setSelectedTool(null);
+                    setUserInput('');
+                    setToolOutput('');
+                    setShowExample(false);
+                  }}
+                  className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white mb-4"
+                >
+                  <ArrowRight className="w-4 h-4 transform rotate-180" />
+                  <span>Back to Tools</span>
+                </button>
+
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-700`}>
+                    <selectedTool.icon className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                      {selectedTool.name}
+                    </h3>
+                    <span className="text-sm text-purple-600 dark:text-purple-400 font-medium">
+                      {selectedTool.category}
+                    </span>
+                  </div>
+                </div>
+
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
                   {selectedTool.description}
                 </p>
-                
+
+                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg mb-4">
+                  <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2 flex items-center">
+                    <Info className="w-4 h-4 mr-2" />
+                    How to Use:
+                  </h4>
+                  <p className="text-blue-800 dark:text-blue-200 text-sm">
+                    {selectedTool.howToUse}
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                    <Lightbulb className="w-4 h-4 mr-2" />
+                    Instructions:
+                  </h4>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">
+                    {selectedTool.instructions}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Main Tool Interface */}
+            <div className="lg:col-span-2">
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                    {selectedTool.name}
+                  </h2>
+                  <div className="flex items-center space-x-2">
+                    <Sparkles className="w-5 h-5 text-purple-500" />
+                    <span className="text-purple-600 dark:text-purple-400 font-medium">AI Powered</span>
+                  </div>
+                </div>
+
+                {/* Example Toggle */}
+                {selectedTool.exampleInput && (
+                  <div className="mb-6">
+                    <button
+                      onClick={() => setShowExample(!showExample)}
+                      className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                    >
+                      <HelpCircle className="w-4 h-4" />
+                      <span>{showExample ? 'Hide Example' : 'Show Example Input'}</span>
+                    </button>
+                    
+                    {showExample && (
+                      <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border-l-4 border-blue-500">
+                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          Example Input:
+                        </p>
+                        <pre className="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-wrap mb-3">
+                          {selectedTool.exampleInput}
+                        </pre>
+                        <button
+                          onClick={() => setUserInput(selectedTool.exampleInput)}
+                          className="text-xs bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 px-3 py-1 rounded hover:bg-blue-200 dark:hover:bg-blue-700 transition-colors"
+                        >
+                          Use This Example
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Input Form */}
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">
-                      Your Input
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Your Input:
                     </label>
                     <textarea
                       value={userInput}
                       onChange={(e) => setUserInput(e.target.value)}
-                      placeholder={`Enter your content for ${selectedTool.name}...`}
-                      rows={6}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      placeholder={`Enter your information for ${selectedTool.name}...`}
+                      rows={8}
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
                     />
                   </div>
                   
-                  <button
-                    onClick={handleToolUse}
-                    disabled={!userInput.trim() || isProcessing}
-                    className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 px-6 rounded-lg transition-colors flex items-center space-x-2"
-                  >
-                    <Brain className="w-4 h-4" />
-                    <span>{isProcessing ? 'Processing...' : `Generate ${selectedTool.name}`}</span>
-                  </button>
-                  
-                  {toolOutput && (
-                    <div>
-                      <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">Output</label>
-                      <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border">
-                        <pre className="whitespace-pre-wrap text-sm text-gray-900 dark:text-white">{toolOutput}</pre>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <button
+                      onClick={handleToolUse}
+                      disabled={!userInput.trim() || isProcessing}
+                      className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-medium py-3 px-6 rounded-lg transition-all flex items-center justify-center space-x-2 disabled:cursor-not-allowed"
+                    >
+                      {isProcessing ? (
+                        <>
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                          <span>Processing...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Wand2 className="w-5 h-5" />
+                          <span>Generate with AI</span>
+                        </>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setUserInput('');
+                        setToolOutput('');
+                      }}
+                      className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      Clear All
+                    </button>
+                  </div>
+                </div>
+
+                {/* Output Display */}
+                {toolOutput && (
+                  <div className="mt-8 border-t pt-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                        <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                        Generated Result
+                      </h3>
+                      <button
+                        onClick={handleCopyOutput}
+                        className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                      >
+                        <Copy className="w-4 h-4" />
+                        <span>Copy</span>
+                      </button>
+                    </div>
+                    <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg border">
+                      <div className="prose dark:prose-invert max-w-none">
+                        <pre className="whitespace-pre-wrap text-sm text-gray-700 dark:text-gray-300 font-normal leading-relaxed">
+                          {toolOutput}
+                        </pre>
                       </div>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
-                <Brain className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-                  Select an AI Tool
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Choose a tool from the left to get started
-                </p>
-              </div>
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
@@ -1883,6 +2663,10 @@ const DashboardPage = () => {
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-300">Handouts</span>
                   <span className="font-medium text-gray-900 dark:text-white">29</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-300">AI Tools</span>
+                  <span className="font-medium text-gray-900 dark:text-white">16</span>
                 </div>
               </div>
             </div>
@@ -2130,15 +2914,15 @@ const AboutPage = () => {
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">📁 29 Handouts & Resources</h3>
+                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">📋 29 Handouts & Resources</h3>
                 <p className="text-gray-600 dark:text-gray-300">
                   Downloadable guides, templates, and reference materials for practical application.
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">🌏 South Asia Focus</h3>
+                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">🤖 16 AI Tools</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Context-specific content that addresses the unique challenges and opportunities in the region.
+                  AI-powered assistants for writing, research, analysis, and educational content creation.
                 </p>
               </div>
             </div>
