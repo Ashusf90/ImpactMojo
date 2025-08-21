@@ -49,52 +49,490 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
 
-// Course Data - ALL 34 courses
+// ✅ REAL COURSE DATA (37 Courses) - Updated from Project Files
 const courseData = [
-  { id: 'C1', title: 'Development Economics 101', track: 'Policy & Economics', description: 'Core principles of development economics and their practical applications.', level: 'Beginner', duration: '2 hours' },
-  { id: 'C2', title: 'Law and Constitution 101', track: 'Policy & Economics', description: 'Understanding legal frameworks and constitutional principles.', level: 'Beginner', duration: '2.5 hours' },
-  { id: 'C3', title: 'Climate Science 101', track: 'Research Methods', description: 'Scientific foundations of climate change and environmental systems.', level: 'Beginner', duration: '3 hours' },
-  { id: 'C4', title: 'Pedagogy and Education 101', track: 'Research Methods', description: 'Teaching methodologies and educational theory.', level: 'Beginner', duration: '2 hours' },
-  { id: 'C5', title: 'Public Health 101', track: 'Policy & Economics', description: 'Fundamentals of public health systems and interventions.', level: 'Beginner', duration: '2.5 hours' },
-  { id: 'C6', title: 'Livelihoods 101', track: 'Policy & Economics', description: 'Understanding sustainable livelihood approaches.', level: 'Beginner', duration: '2 hours' },
-  { id: 'C7', title: 'Gender Studies 101', track: 'Gender Studies', description: 'Introduction to gender theory and its practical implications.', level: 'Beginner', duration: '3 hours', quote: '"Eye-opening exploration of gender norms."' },
-  { id: 'C8', title: "Women's Economic Empowerment 101", track: 'Gender Studies', description: 'Strategies and frameworks for women\'s economic participation.', level: 'Intermediate', duration: '2.5 hours' },
-  { id: 'C9', title: 'Participatory Development 101', track: 'Social Impact', description: 'Community-led approaches to development initiatives.', level: 'Intermediate', duration: '2 hours' },
-  { id: 'C10', title: 'Understanding Inequality 101', track: 'Justice & Equity', description: 'Explore the roots and manifestations of inequality in South Asian societies.', level: 'Beginner', duration: '2.5 hours' },
-  { id: 'C11', title: 'Community Development Strategies', track: 'Social Impact', description: 'Practical approaches to sustainable community development.', level: 'Intermediate', duration: '3 hours' },
-  { id: 'C12', title: 'Policy Analysis Framework', track: 'Policy & Economics', description: 'Tools and methods for effective policy analysis and evaluation.', level: 'Advanced', duration: '3.5 hours' },
-  { id: 'C13', title: 'Social Justice Theory', track: 'Justice & Equity', description: 'Theoretical foundations of social justice and its applications.', level: 'Intermediate', duration: '2.5 hours' },
-  { id: 'C14', title: 'Impact Measurement', track: 'Social Impact', description: 'Methods for measuring and evaluating social impact initiatives.', level: 'Advanced', duration: '3 hours' },
-  { id: 'C15', title: 'Microfinance Fundamentals', track: 'Policy & Economics', description: 'Understanding microfinance as a development tool.', level: 'Beginner', duration: '2 hours' },
-  { id: 'C16', title: 'Gender and Development', track: 'Gender Studies', description: 'Gender perspectives in development theory and practice.', level: 'Intermediate', duration: '2.5 hours' },
-  { id: 'C17', title: 'Research Methodology 101', track: 'Research Methods', description: 'Essential research methods for social impact work.', level: 'Beginner', duration: '3 hours' },
-  { id: 'C18', title: 'Data Analysis for Development', track: 'Research Methods', description: 'Statistical analysis techniques for development projects.', level: 'Advanced', duration: '4 hours' },
-  { id: 'C19', title: 'Environmental Justice', track: 'Justice & Equity', description: 'Intersection of environmental issues and social justice.', level: 'Intermediate', duration: '2.5 hours' },
-  { id: 'C20', title: 'Urban Planning and Development', track: 'Policy & Economics', description: 'Sustainable urban development strategies.', level: 'Advanced', duration: '3.5 hours' },
-  { id: 'C21', title: 'Rural Development Approaches', track: 'Social Impact', description: 'Strategies for rural economic and social development.', level: 'Intermediate', duration: '3 hours' },
-  { id: 'C22', title: 'Digital Divide and Technology', track: 'Research Methods', description: 'Technology access and digital equity issues.', level: 'Intermediate', duration: '2.5 hours' },
-  { id: 'C23', title: 'Healthcare Systems', track: 'Policy & Economics', description: 'Understanding healthcare delivery and policy.', level: 'Advanced', duration: '3.5 hours' },
-  { id: 'C24', title: 'Education Policy and Access', track: 'Policy & Economics', description: 'Educational systems and policy frameworks.', level: 'Intermediate', duration: '3 hours' },
-  { id: 'C25', title: 'Women in Leadership', track: 'Gender Studies', description: 'Leadership development and gender dynamics.', level: 'Intermediate', duration: '2.5 hours' },
-  { id: 'C26', title: 'Youth Development Programs', track: 'Social Impact', description: 'Designing effective youth-focused initiatives.', level: 'Intermediate', duration: '2.5 hours' },
-  { id: 'C27', title: 'Financial Inclusion', track: 'Policy & Economics', description: 'Expanding access to financial services.', level: 'Advanced', duration: '3 hours' },
-  { id: 'C28', title: 'Conflict Resolution', track: 'Justice & Equity', description: 'Mediation and peacebuilding techniques.', level: 'Advanced', duration: '4 hours' },
-  { id: 'C29', title: 'Monitoring and Evaluation', track: 'Research Methods', description: 'M&E frameworks for development projects.', level: 'Advanced', duration: '4 hours' },
-  { id: 'C30', title: 'Social Entrepreneurship', track: 'Social Impact', description: 'Building sustainable social enterprises.', level: 'Advanced', duration: '3.5 hours' },
-  { id: 'C31', title: 'Human Rights Frameworks', track: 'Justice & Equity', description: 'International human rights law and practice.', level: 'Advanced', duration: '4 hours' },
-  { id: 'C32', title: 'Agricultural Development', track: 'Policy & Economics', description: 'Sustainable agriculture and food security.', level: 'Intermediate', duration: '3 hours' },
-  { id: 'C33', title: 'Water and Sanitation', track: 'Policy & Economics', description: 'WASH programs and infrastructure development.', level: 'Intermediate', duration: '2.5 hours' },
-  { id: 'C34', title: 'Inclusive Design Research', track: 'Research Methods', description: 'User-centered research for inclusive solutions.', level: 'Advanced', duration: '3.5 hours' }
+  {
+    id: "C1",
+    title: "Gender Studies 101",
+    track: "Gender Studies",
+    description: "Introduction to gender theory and its practical implications.",
+    url: "https://101.www.impactmojo.in/gender-studies",
+    level: "Beginner",
+    duration: "2 hours",
+    quote: '"Eye-opening exploration of gender norms."',
+  },
+  {
+    id: "C2",
+    title: "Women's Economic Empowerment 101",
+    track: "Gender Studies",
+    description: "Strategies and frameworks for women's economic participation.",
+    url: "https://101.www.impactmojo.in/WEE",
+    level: "Intermediate",
+    duration: "2.5 hours",
+    quote: '"Essential for inclusive development."',
+  },
+  {
+    id: "C3",
+    title: "LGBTQ+ Rights and Inclusion 101",
+    track: "Gender Studies",
+    description: "Understanding LGBTQ+ issues and building inclusive communities.",
+    url: "https://101.www.impactmojo.in/LGBTQ",
+    level: "Beginner",
+    duration: "2 hours",
+    quote: '"Building bridges through understanding."',
+  },
+  {
+    id: "C4",
+    title: "Masculinities and Development 101",
+    track: "Gender Studies",
+    description: "Exploring masculinities and their role in development.",
+    url: "https://101.www.impactmojo.in/masculinities",
+    level: "Intermediate",
+    duration: "2.5 hours",
+    quote: '"Critical perspective on gender roles."',
+  },
+  {
+    id: "C5",
+    title: "Gender-based Violence Prevention 101",
+    track: "Gender Studies",
+    description: "Strategies for preventing and responding to gender-based violence.",
+    url: "https://101.www.impactmojo.in/GBV-prevention",
+    level: "Intermediate",
+    duration: "3 hours",
+    quote: '"Life-saving knowledge and skills."',
+  },
+  {
+    id: "C6",
+    title: "Care Work and Gender 101",
+    track: "Gender Studies",
+    description: "Understanding unpaid care work and its gendered dimensions.",
+    url: "https://101.www.impactmojo.in/care-work",
+    level: "Beginner",
+    duration: "2 hours",
+    quote: '"Recognizing invisible contributions."',
+  },
+  {
+    id: "C7",
+    title: "Policy Analysis 101",
+    track: "Policy Analysis",
+    description: "Frameworks and tools for effective policy analysis.",
+    url: "https://101.www.impactmojo.in/PolicyA",
+    level: "Intermediate",
+    duration: "3 hours",
+    quote: '"Essential for evidence-based policy."',
+  },
+  {
+    id: "C8",
+    title: "Policy Design and Implementation 101",
+    track: "Policy Analysis",
+    description: "From policy design to effective implementation strategies.",
+    url: "https://101.www.impactmojo.in/policy-design",
+    level: "Advanced",
+    duration: "3.5 hours",
+    quote: '"Bridging theory and practice."',
+  },
+  {
+    id: "C9",
+    title: "Research Ethics 101",
+    track: "Research Methods",
+    description: "Ethical considerations in research and evaluation.",
+    url: "https://101.www.impactmojo.in/ResearchEthics",
+    level: "Beginner", 
+    duration: "2 hours",
+    quote: '"Foundation for responsible research."',
+  },
+  {
+    id: "C10",
+    title: "Behaviour Change Communication Programming 101",
+    track: "Research Methods",
+    description: "Designing effective behavior change interventions.",
+    url: "https://101.www.impactmojo.in/BCCP",
+    level: "Intermediate",
+    duration: "3 hours",
+    quote: '"Practical guide to behavior change."',
+  },
+  {
+    id: "C12",
+    title: "Monitoring, Evaluation, Accountability and Learning 101",
+    track: "Research Methods",
+    description: "MEAL frameworks and implementation strategies.",
+    url: "https://101.www.impactmojo.in/MEAL",
+    level: "Intermediate",
+    duration: "4 hours",
+    quote: '"Critical for program accountability."',
+  },
+  {
+    id: "C13",
+    title: "Visual Ethnography 101",
+    track: "Research Methods",
+    description: "Using visual methods in ethnographic research.",
+    url: "https://101.www.impactmojo.in/VEthno",
+    level: "Intermediate",
+    duration: "3 hours",
+    quote: '"Innovative approach to research."',
+  },
+  {
+    id: "C14",
+    title: "Development Economics 101",
+    track: "Policy Analysis",
+    description: "Core principles of development economics and their applications.",
+    url: "https://101.www.impactmojo.in/DevEcon",
+    level: "Intermediate",
+    duration: "3.5 hours",
+    quote: '"Foundation for economic analysis."',
+  },
+  {
+    id: "C15",
+    title: "Public Health 101",
+    track: "Policy Analysis",
+    description: "Fundamentals of public health systems and interventions.",
+    url: "https://101.www.impactmojo.in/public-health",
+    level: "Beginner",
+    duration: "2.5 hours",
+    quote: '"Health as a human right."',
+  },
+  {
+    id: "C16",
+    title: "Climate Change 101",
+    track: "Policy Analysis",
+    description: "Understanding climate science and policy responses.",
+    url: "https://101.www.impactmojo.in/climate",
+    level: "Beginner",
+    duration: "2.5 hours",
+    quote: '"Urgent knowledge for our times."',
+  },
+  {
+    id: "C17",
+    title: "Human Rights 101",
+    track: "Policy Analysis",
+    description: "International human rights frameworks and applications.",
+    url: "https://101.www.impactmojo.in/HumanRights",
+    level: "Beginner",
+    duration: "2.5 hours",
+    quote: '"Universal principles for dignity."',
+  },
+  {
+    id: "C18",
+    title: "Education Policy and Access 101",
+    track: "Policy Analysis",
+    description: "Educational systems, access, and policy frameworks.",
+    url: "https://101.www.impactmojo.in/education-policy",
+    level: "Intermediate",
+    duration: "3 hours",
+    quote: '"Education as empowerment."',
+  },
+  {
+    id: "C19",
+    title: "Econometrics 101",
+    track: "Data Analysis",
+    description: "Statistical methods for economic analysis.",
+    url: "https://101.www.impactmojo.in/econometrics",
+    level: "Advanced",
+    duration: "4 hours",
+    quote: '"Essential for economic research."',
+  },
+  {
+    id: "C20",
+    title: "Law and Constitution 101",
+    track: "Policy Analysis",
+    description: "Understanding legal frameworks and constitutional principles.",
+    url: "https://101.www.impactmojo.in/law-constitution",
+    level: "Intermediate",
+    duration: "3 hours",
+    quote: '"Rule of law foundations."',
+  },
+  {
+    id: "C21",
+    title: "Livelihoods and Sustainable Development 101",
+    track: "Policy Analysis",
+    description: "Understanding sustainable livelihood approaches and frameworks.",
+    url: "https://101.www.impactmojo.in/livelihoods",
+    level: "Intermediate",
+    duration: "2.5 hours",
+    quote: '"Pathways out of poverty."',
+  },
+  {
+    id: "C22",
+    title: "Community Development 101",
+    track: "Research Methods", 
+    description: "Participatory approaches to community-led development.",
+    url: "https://101.www.impactmojo.in/community-dev",
+    level: "Beginner",
+    duration: "2 hours",
+    quote: '"Essential for grassroots work."',
+  },
+  {
+    id: "C23",
+    title: "Data Literacy 101",
+    track: "Data Analysis",
+    description: "Essential skills for understanding and using data effectively.",
+    url: "https://101.www.impactmojo.in/data-lit",
+    level: "Beginner",
+    duration: "2 hours",
+    quote: '"Foundation for data-driven work."',
+  },
+  {
+    id: "C24",
+    title: "Understanding Inequality 101",
+    track: "Policy Analysis",
+    description: "Roots and manifestations of inequality in societies.",
+    url: "https://101.www.impactmojo.in/inequality",
+    level: "Intermediate",
+    duration: "2.5 hours",
+    quote: '"Critical for social justice."',
+  },
+  {
+    id: "C25",
+    title: "Financial Inclusion 101",
+    track: "Policy Analysis",
+    description: "Expanding access to financial services for development.",
+    url: "https://101.www.impactmojo.in/financial-inclusion",
+    level: "Intermediate",
+    duration: "2.5 hours",
+    quote: '"Banking the unbanked."',
+  },
+  {
+    id: "C26",
+    title: "Social Protection 101",
+    track: "Policy Analysis",
+    description: "Social safety nets and protection systems.",
+    url: "https://101.www.impactmojo.in/social-protection",
+    level: "Intermediate",
+    duration: "3 hours",
+    quote: '"Security for vulnerable populations."',
+  },
+  {
+    id: "C27",
+    title: "Qualitative Research Methods 101",
+    track: "Research Methods",
+    description: "Comprehensive guide to qualitative research approaches.",
+    url: "https://101.www.impactmojo.in/QualR",
+    level: "Intermediate",
+    duration: "4 hours",
+    quote: '"Deep dive into qualitative methods."',
+  },
+  {
+    id: "C28",
+    title: "Exploratory Data Analysis for Household Surveys 101",
+    track: "Data Analysis",
+    description: "Statistical analysis techniques for household survey data.",
+    url: "https://101.www.impactmojo.in/HH-EDA",
+    level: "Intermediate",
+    duration: "3.5 hours",
+    quote: '"Practical guide to survey analysis."',
+  },
+  {
+    id: "C29",
+    title: "Bivariate Analysis 101",
+    track: "Data Analysis",
+    description: "Statistical techniques for analyzing relationships between variables.",
+    url: "https://101.www.impactmojo.in/bivariateA",
+    level: "Intermediate",
+    duration: "3 hours",
+    quote: '"Essential for correlation analysis."',
+  },
+  {
+    id: "C30",
+    title: "Multivariate Analysis 101",
+    track: "Data Analysis",
+    description: "Advanced statistical methods for complex data analysis.",
+    url: "https://101.www.impactmojo.in/MultivariateA",
+    level: "Advanced",
+    duration: "4 hours",
+    quote: '"Advanced statistical techniques."',
+  },
+  {
+    id: "C31",
+    title: "Digital Ethics 101",
+    track: "Research Methods",
+    description: "Ethical considerations in digital technology and data use.",
+    url: "https://101.www.impactmojo.in/DigitalEthics",
+    level: "Intermediate",
+    duration: "2.5 hours",
+    quote: '"Critical for digital age research."',
+  },
+  {
+    id: "C32",
+    title: "Conflict, Peace and Security 101",
+    track: "Policy Analysis",
+    description: "Understanding conflict dynamics and peacebuilding approaches.",
+    url: "https://101.www.impactmojo.in/conflict-peace",
+    level: "Advanced",
+    duration: "3.5 hours",
+    quote: '"Building sustainable peace."',
+  },
+  {
+    id: "C33",
+    title: "Urban Studies 101",
+    track: "Policy Analysis",
+    description: "Urban development challenges and sustainable city planning.",
+    url: "https://101.www.impactmojo.in/urban-studies",
+    level: "Intermediate",
+    duration: "3 hours",
+    quote: '"Cities as engines of change."',
+  },
+  {
+    id: "C34",
+    title: "Agriculture and Food Security 101",
+    track: "Policy Analysis",
+    description: "Agricultural systems, food security, and rural development.",
+    url: "https://101.www.impactmojo.in/agriculture",
+    level: "Intermediate",
+    duration: "3 hours",
+    quote: '"Feeding the world sustainably."',
+  },
+
+  // Premium Courses
+  {
+    id: "C35",
+    title: "Observation to Insight 101",
+    track: "Research Methods",
+    description: "Transforming observational data into actionable insights.",
+    url: "https://101.www.impactmojo.in/obs2insight",
+    level: "Advanced",
+    duration: "3.5 hours",
+    isPremium: true,
+    password: "OBS2025",
+    quote: '"Premium methodology for researchers."',
+  },
+  {
+    id: "C36",
+    title: "Item Response Theory 101",
+    track: "Data Analysis",
+    description: "Advanced psychometric theory for test and survey development.",
+    url: "https://101.www.impactmojo.in/IRT",
+    level: "Advanced",
+    duration: "4 hours",
+    isPremium: true,
+    password: "IRT2025",
+    quote: '"Advanced psychometric methods."',
+  },
+  {
+    id: "C37",
+    title: "Social Emotional Learning 101",
+    track: "Research Methods",
+    description: "SEL frameworks and implementation in educational contexts.",
+    url: "https://101.www.impactmojo.in/SEL",
+    level: "Intermediate",
+    duration: "3 hours",
+    isPremium: true,
+    password: "SEL2025",
+    quote: '"Cutting-edge educational approach."',
+  },
 ];
 
-// Labs Data
+// ✅ REAL LAB DATA (10 Interactive Labs) - Updated from Project Files
 const labsData = [
-  { id: 'L1', title: 'Climate Change Timeline', topic: 'Climate', description: 'Interactive timeline of climate resilience efforts.', status: 'Available' },
-  { id: 'L2', title: 'Gender Equality Simulator', topic: 'Gender', description: 'Simulate policy impacts on gender equality.', status: 'Available' },
-  { id: 'L3', title: 'Economic Mobility Lab', topic: 'Economics', description: 'Explore factors affecting economic mobility.', status: 'Coming Soon' },
-  { id: 'L4', title: 'Policy Impact Calculator', topic: 'Policy', description: 'Calculate potential impacts of policy changes.', status: 'Available' },
-  { id: 'L5', title: 'Community Mapping Tool', topic: 'Research', description: 'Map community assets and challenges.', status: 'Coming Soon' },
-  { id: 'L6', title: 'Budget Allocation Game', topic: 'Economics', description: 'Learn budget priorities through simulation.', status: 'Available' }
+  {
+    id: "L1",
+    title: "Risk Assessment and Mitigation Lab",
+    description: "Interactive tools for assessing and managing project risks.",
+    url: "https://impactrisk-mitigation.netlify.app/",
+    icon: "shield",
+    category: "Risk Management",
+    difficulty: "Intermediate",
+    duration: 60,
+    status: "Available"
+  },
+  {
+    id: "L2", 
+    title: "Resource Mobilisation and Sustainability Lab",
+    description: "Strategies for sustainable resource mobilization.",
+    url: "https://rm-sustainability4impact.netlify.app/",
+    icon: "dollar-sign",
+    category: "Financial Planning",
+    difficulty: "Advanced",
+    duration: 75,
+    status: "Available"
+  },
+  {
+    id: "L3",
+    title: "Policy and Advocacy Lab",
+    description: "Tools for effective policy advocacy and engagement.",
+    url: "https://pol-advocacy4impact.netlify.app/",
+    icon: "megaphone",
+    category: "Policy Analysis", 
+    difficulty: "Intermediate",
+    duration: 65,
+    status: "Available"
+  },
+  {
+    id: "L4",
+    title: "Partnership and Collaboration Lab",
+    description: "Framework for building effective partnerships.",
+    url: "https://impact-partnerships.netlify.app/",
+    icon: "handshake",
+    category: "Stakeholder Engagement",
+    difficulty: "Intermediate",
+    duration: 55,
+    status: "Available"
+  },
+  {
+    id: "L5",
+    title: "MLE Framework Workbench",
+    description: "Monitoring, Learning and Evaluation framework design.",
+    url: "https://mle-frameworkdesign.netlify.app/",
+    icon: "wrench",
+    category: "Monitoring & Evaluation",
+    difficulty: "Advanced",
+    duration: 90,
+    status: "Available"
+  },
+  {
+    id: "L6",
+    title: "MLE Framework Builder Lab", 
+    description: "Build comprehensive MLE frameworks for your projects.",
+    url: "https://mle-plan-lab.netlify.app/",
+    icon: "build", 
+    category: "Monitoring & Evaluation",
+    difficulty: "Advanced",
+    duration: 85,
+    status: "Available"
+  },
+  {
+    id: "L7",
+    title: "Community Engagement Lab",
+    description: "Tools for meaningful community engagement and participation.",
+    url: "https://community-engagement.netlify.app/",
+    icon: "users",
+    category: "Community Development",
+    difficulty: "Intermediate", 
+    duration: 60,
+    status: "Available"
+  },
+  {
+    id: "L8",
+    title: "Impact Storytelling Lab",
+    description: "Craft compelling narratives about your impact work.",
+    url: "https://impact-storytelling.netlify.app/",
+    icon: "book-open",
+    category: "Communications",
+    difficulty: "Beginner",
+    duration: 45,
+    status: "Available"
+  },
+  {
+    id: "L9",
+    title: "Innovation and Design Thinking Lab",
+    description: "Apply design thinking to development challenges.",
+    url: "https://impactdesign-thinking.netlify.app/",
+    icon: "lightbulb",
+    category: "Innovation",
+    difficulty: "Intermediate",
+    duration: 70,
+    status: "Available"
+  },
+  {
+    id: "L10",
+    title: "TOC Workbench",
+    description: "Theory of Change development and visualization tools.",
+    url: "https://toc-workbench.netlify.app/",
+    icon: "target",
+    category: "Strategic Planning",
+    difficulty: "Advanced",
+    duration: 80,
+    status: "Available"
+  },
 ];
 
 // AI Tools Data
@@ -215,7 +653,16 @@ const CourseCard = ({ course, isBookmarked, onBookmark }) => {
   const { user } = useAuth();
 
   const handleCourseAccess = () => {
-    window.open(`https://101.www.impactmojo.in/${course.id}`, '_blank');
+    if (course.isPremium) {
+      const password = prompt(`This is a premium course. Please enter the access password:`);
+      if (password === course.password) {
+        window.open(course.url, '_blank');
+      } else if (password !== null) {
+        alert('Incorrect password. Please contact support for access.');
+      }
+    } else {
+      window.open(course.url, '_blank');
+    }
   };
 
   return (
@@ -225,16 +672,23 @@ const CourseCard = ({ course, isBookmarked, onBookmark }) => {
           <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
             {course.id}
           </span>
-          {user && (
-            <button
-              onClick={() => onBookmark(course.id)}
-              className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-            >
-              <Bookmark 
-                className={`w-5 h-5 ${isBookmarked ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'}`} 
-              />
-            </button>
-          )}
+          <div className="flex items-center space-x-2">
+            {course.isPremium && (
+              <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 rounded font-medium">
+                Premium
+              </span>
+            )}
+            {user && (
+              <button
+                onClick={() => onBookmark(course.id)}
+                className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+              >
+                <Bookmark 
+                  className={`w-5 h-5 ${isBookmarked ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'}`} 
+                />
+              </button>
+            )}
+          </div>
         </div>
         
         <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
@@ -244,6 +698,12 @@ const CourseCard = ({ course, isBookmarked, onBookmark }) => {
         <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
           {course.description}
         </p>
+        
+        {course.quote && (
+          <blockquote className="text-sm italic text-blue-600 dark:text-blue-400 mb-4 border-l-2 border-blue-200 pl-3">
+            {course.quote}
+          </blockquote>
+        )}
         
         <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
           <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">
@@ -273,11 +733,10 @@ const HomePage = ({ setCurrentPage }) => {
   
   const featuredCourses = courseData.slice(0, 6);
   const tracks = [
-    { name: 'Policy & Economics', color: 'blue', courses: courseData.filter(c => c.track === 'Policy & Economics').length },
     { name: 'Gender Studies', color: 'purple', courses: courseData.filter(c => c.track === 'Gender Studies').length },
-    { name: 'Justice & Equity', color: 'green', courses: courseData.filter(c => c.track === 'Justice & Equity').length },
-    { name: 'Social Impact', color: 'orange', courses: courseData.filter(c => c.track === 'Social Impact').length },
-    { name: 'Research Methods', color: 'red', courses: courseData.filter(c => c.track === 'Research Methods').length }
+    { name: 'Policy Analysis', color: 'blue', courses: courseData.filter(c => c.track === 'Policy Analysis').length },
+    { name: 'Research Methods', color: 'green', courses: courseData.filter(c => c.track === 'Research Methods').length },
+    { name: 'Data Analysis', color: 'red', courses: courseData.filter(c => c.track === 'Data Analysis').length }
   ];
 
   return (
@@ -295,7 +754,7 @@ const HomePage = ({ setCurrentPage }) => {
             </p>
             <p className="text-lg mb-8 max-w-3xl mx-auto text-blue-100">
               A curated library exploring justice, equity, and development in South Asia. 
-              Learn from 34 courses, interactive labs, and AI-powered tools.
+              Learn from 37 courses, 10 interactive labs, and AI-powered tools.
             </p>
           </div>
           
@@ -331,11 +790,11 @@ const HomePage = ({ setCurrentPage }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">34</div>
+              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">37</div>
               <div className="text-gray-600 dark:text-gray-300">Courses</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">6</div>
+              <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">10</div>
               <div className="text-gray-600 dark:text-gray-300">Interactive Labs</div>
             </div>
             <div>
@@ -356,7 +815,7 @@ const HomePage = ({ setCurrentPage }) => {
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
             Learning Tracks
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {tracks.map(track => (
               <div key={track.name} className="bg-white dark:bg-gray-800 rounded-lg p-6 hover:shadow-lg transition-shadow">
                 <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{track.name}</h3>
@@ -429,7 +888,7 @@ const CoursesPage = () => {
             Course Catalog
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            Explore our comprehensive collection of development courses
+            Explore our comprehensive collection of 37 development courses
           </p>
         </div>
 
@@ -510,7 +969,7 @@ const CoursesPage = () => {
 const LabsPage = () => {
   const handleLabAccess = (lab) => {
     if (lab.status === 'Available') {
-      alert(`${lab.title} - This interactive lab is coming soon!`);
+      window.open(lab.url, '_blank');
     } else {
       alert(`${lab.title} - Coming Soon!`);
     }
@@ -524,7 +983,7 @@ const LabsPage = () => {
             Interactive Labs
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            Hands-on practice with real-world scenarios and simulations
+            10 hands-on labs for real-world practice and skill development
           </p>
         </div>
 
@@ -553,9 +1012,23 @@ const LabsPage = () => {
                   {lab.description}
                 </p>
                 
+                <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">
+                    {lab.category}
+                  </span>
+                  <span className="flex items-center">
+                    <Clock className="w-4 h-4 mr-1" />
+                    {lab.duration} min
+                  </span>
+                </div>
+                
                 <div className="mb-4">
-                  <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded text-sm">
-                    {lab.topic}
+                  <span className={`text-xs px-2 py-1 rounded ${
+                    lab.difficulty === 'Beginner' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                    lab.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
+                    'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                  }`}>
+                    {lab.difficulty}
                   </span>
                 </div>
                 
@@ -809,10 +1282,14 @@ const DashboardPage = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-300">Learning Tracks</span>
-                  <span className="font-medium text-gray-900 dark:text-white">5</span>
+                  <span className="font-medium text-gray-900 dark:text-white">4</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Available Tools</span>
+                  <span className="text-gray-600 dark:text-gray-300">Available Labs</span>
+                  <span className="font-medium text-gray-900 dark:text-white">10</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-300">AI Tools</span>
                   <span className="font-medium text-gray-900 dark:text-white">8</span>
                 </div>
               </div>
@@ -1049,13 +1526,13 @@ const AboutPage = () => {
             <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">What We Offer</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">📚 34 Comprehensive Courses</h3>
+                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">📚 37 Comprehensive Courses</h3>
                 <p className="text-gray-600 dark:text-gray-300">
                   From development economics to gender studies, our courses cover essential topics for social impact work.
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">🔬 Interactive Labs</h3>
+                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">🔬 10 Interactive Labs</h3>
                 <p className="text-gray-600 dark:text-gray-300">
                   Hands-on simulations and tools to practice concepts in real-world scenarios.
                 </p>
@@ -1079,33 +1556,27 @@ const AboutPage = () => {
             <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Learning Tracks</h2>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-                <h3 className="font-medium text-blue-600 dark:text-blue-400">Policy & Economics</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                  Economic theory, policy analysis, and development frameworks
-                </p>
-              </div>
-              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                 <h3 className="font-medium text-purple-600 dark:text-purple-400">Gender Studies</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                   Gender theory, women's empowerment, and inclusive development
                 </p>
               </div>
               <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-                <h3 className="font-medium text-green-600 dark:text-green-400">Justice & Equity</h3>
+                <h3 className="font-medium text-blue-600 dark:text-blue-400">Policy Analysis</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                  Social justice frameworks, inequality analysis, and human rights
+                  Policy frameworks, economic theory, and governance
                 </p>
               </div>
               <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-                <h3 className="font-medium text-orange-600 dark:text-orange-400">Social Impact</h3>
+                <h3 className="font-medium text-green-600 dark:text-green-400">Research Methods</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                  Community development, impact measurement, and social innovation
+                  Research design, ethics, and community engagement approaches
                 </p>
               </div>
               <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-                <h3 className="font-medium text-red-600 dark:text-red-400">Research Methods</h3>
+                <h3 className="font-medium text-red-600 dark:text-red-400">Data Analysis</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                  Research design, data analysis, and evidence-based practice
+                  Statistical methods, econometrics, and data literacy
                 </p>
               </div>
             </div>
