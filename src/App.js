@@ -8,7 +8,7 @@ import {
   Github, Coffee, Zap, TrendingUp, Award, Filter, Calendar,
   FileText, BarChart, Settings, ArrowRight, CheckCircle,
   AlertCircle, Info, HelpCircle, Share2, PlayCircle, Scale,
-  Lightbulb, Compare, Send, Edit3, Brain, PenTool
+  Lightbulb, Compare, Send, Edit3, Brain, PenTool, FolderOpen
 } from 'lucide-react';
 
 // Firebase imports
@@ -535,6 +535,286 @@ const labsData = [
   },
 ];
 
+// ✅ NEW HANDOUTS DATA (Based on Project Files Structure)
+const handoutsData = [
+  // Cross Cutting Resources
+  {
+    id: "H1",
+    title: "Case Study Template",
+    category: "Cross Cutting Resources",
+    type: "HTML",
+    description: "Template for developing comprehensive case studies.",
+    url: "/handouts/cross-cutting/case-studies/case_study_template.html",
+    track: "All Tracks"
+  },
+  {
+    id: "H2",
+    title: "Case Study Worksheets",
+    category: "Cross Cutting Resources", 
+    type: "HTML",
+    description: "Interactive worksheets for case study analysis.",
+    url: "/handouts/cross-cutting/case-studies/case_study_worksheets.html",
+    track: "All Tracks"
+  },
+  {
+    id: "H3",
+    title: "Communication Guide",
+    category: "Cross Cutting Resources",
+    type: "HTML", 
+    description: "Best practices for effective development communication.",
+    url: "/handouts/cross-cutting/communications/communication_guide.html",
+    track: "All Tracks"
+  },
+  {
+    id: "H4",
+    title: "Local Application Worksheet",
+    category: "Cross Cutting Resources",
+    type: "HTML",
+    description: "Adapt global concepts to local contexts.",
+    url: "/handouts/cross-cutting/local-application/local_application_worksheet.html",
+    track: "All Tracks"
+  },
+  {
+    id: "H5",
+    title: "Software Tools Guide",
+    category: "Cross Cutting Resources",
+    type: "HTML",
+    description: "Essential software tools for development work.",
+    url: "/handouts/cross-cutting/software-tools/software_tools_guide.html",
+    track: "All Tracks"
+  },
+
+  // Data Analysis Track
+  {
+    id: "H6",
+    title: "Bivariate Analysis Guide",
+    category: "Data Analysis",
+    type: "HTML",
+    description: "Comprehensive guide to bivariate statistical analysis.",
+    url: "/handouts/data-analysis/bivariate/bivariate_analysis_guide.html",
+    track: "Data Analysis"
+  },
+  {
+    id: "H7",
+    title: "Data Literacy Handout",
+    category: "Data Analysis",
+    type: "HTML",
+    description: "Essential concepts for data literacy and understanding.",
+    url: "/handouts/data-analysis/data-literacy/data_literacy_handout.html",
+    track: "Data Analysis"
+  },
+  {
+    id: "H8",
+    title: "Econometrics Formula Sheet",
+    category: "Data Analysis",
+    type: "HTML",
+    description: "Quick reference for econometric formulas and methods.",
+    url: "/handouts/data-analysis/econometrics/econometrics_formula_sheet.html",
+    track: "Data Analysis"
+  },
+  {
+    id: "H9",
+    title: "EDA Survey Analysis",
+    category: "Data Analysis", 
+    type: "HTML",
+    description: "Exploratory data analysis techniques for survey data.",
+    url: "/handouts/data-analysis/eda/eda_survey_handout_1.html",
+    track: "Data Analysis"
+  },
+  {
+    id: "H10",
+    title: "Multivariate Analysis Template",
+    category: "Data Analysis",
+    type: "HTML", 
+    description: "Template for multivariate statistical analysis.",
+    url: "/handouts/data-analysis/multivariate/multivariate_analysis_template.html",
+    track: "Data Analysis"
+  },
+  {
+    id: "H11",
+    title: "R Scripts Collection",
+    category: "Data Analysis",
+    type: "R",
+    description: "Collection of R scripts for data analysis tasks.",
+    url: "/handouts/data-analysis/scripts/r-scripts.zip",
+    track: "Data Analysis"
+  },
+  {
+    id: "H12",
+    title: "Python Code Samples", 
+    category: "Data Analysis",
+    type: "Python",
+    description: "Python code examples for data analysis and visualization.",
+    url: "/handouts/data-analysis/scripts/python-samples.zip",
+    track: "Data Analysis"
+  },
+  {
+    id: "H13",
+    title: "Excel Analysis Templates",
+    category: "Data Analysis",
+    type: "Excel", 
+    description: "Ready-to-use Excel templates for statistical analysis.",
+    url: "/handouts/data-analysis/excel/excel-templates.zip",
+    track: "Data Analysis"
+  },
+
+  // Gender Studies Track
+  {
+    id: "H14",
+    title: "Care Economy Analysis",
+    category: "Gender Studies",
+    type: "HTML",
+    description: "Framework for analyzing care economy dynamics.",
+    url: "/handouts/gender-studies/care-economy/care_economy_handout_1.html",
+    track: "Gender Studies"
+  },
+  {
+    id: "H15",
+    title: "Data Feminism in Practice",
+    category: "Gender Studies",
+    type: "HTML", 
+    description: "Applying data feminism principles to research.",
+    url: "/handouts/gender-studies/data-feminism/data_feminism_handout_1.html",
+    track: "Gender Studies"
+  },
+  {
+    id: "H16",
+    title: "Gender Studies Quick Reference",
+    category: "Gender Studies",
+    type: "HTML",
+    description: "Key concepts and frameworks in gender studies.",
+    url: "/handouts/gender-studies/gender-studies/gender_studies_quick_reference.html",
+    track: "Gender Studies"
+  },
+
+  // Policy Analysis Track  
+  {
+    id: "H17",
+    title: "Development Economics Problem Sets",
+    category: "Policy Analysis",
+    type: "HTML",
+    description: "Practice problems for development economics concepts.",
+    url: "/handouts/policy-economics/development-economics/development_economics_problem_sets.html",
+    track: "Policy Analysis"
+  },
+  {
+    id: "H18",
+    title: "Livelihood Assessment Toolkit",
+    category: "Policy Analysis",
+    type: "HTML",
+    description: "Tools for comprehensive livelihood assessments.",
+    url: "/handouts/policy-economics/livelihoods/livelihood_assessment_toolkit.html",
+    track: "Policy Analysis"
+  },
+  {
+    id: "H19",
+    title: "Policy Tracking Sheet",
+    category: "Policy Analysis",
+    type: "HTML",
+    description: "Template for tracking policy developments and impacts.",
+    url: "/handouts/policy-economics/policy-tracking/policy_tracking_sheet.html",
+    track: "Policy Analysis"
+  },
+  {
+    id: "H20",
+    title: "Political Economy Framework",
+    category: "Policy Analysis",
+    type: "HTML",
+    description: "Framework for political economy analysis.",
+    url: "/handouts/policy-economics/political-economy/political_economy_handout_1.html",
+    track: "Policy Analysis"
+  },
+
+  // Research Methods Track
+  {
+    id: "H21",
+    title: "Research Assumptions Checklist",
+    category: "Research Methods",
+    type: "HTML",
+    description: "Checklist for identifying and validating research assumptions.",
+    url: "/handouts/research-methods/assumptions/assumptions_checklist.html", 
+    track: "Research Methods"
+  },
+  {
+    id: "H22",
+    title: "MLE Framework Guide",
+    category: "Research Methods",
+    type: "HTML",
+    description: "Guide to Monitoring, Learning, and Evaluation frameworks.",
+    url: "/handouts/research-methods/mle/mel_handout_1.html",
+    track: "Research Methods"
+  },
+  {
+    id: "H23",
+    title: "Qualitative Research Handbook",
+    category: "Research Methods",
+    type: "HTML",
+    description: "Comprehensive handbook for qualitative research methods.",
+    url: "/handouts/research-methods/qualitative/qualitative_research_handout.html",
+    track: "Research Methods"
+  },
+  {
+    id: "H24",
+    title: "Research Design Worksheet",
+    category: "Research Methods",
+    type: "HTML", 
+    description: "Step-by-step worksheet for research design planning.",
+    url: "/handouts/research-methods/design/research_design_worksheet.html",
+    track: "Research Methods"
+  },
+
+  // Thematic Areas
+  {
+    id: "H25",
+    title: "Climate Change Impact Assessment",
+    category: "Thematic Areas",
+    type: "HTML",
+    description: "Tools for assessing climate change impacts in South Asia.",
+    url: "/handouts/thematic/climate/climate_change_handout_1.html",
+    track: "Policy Analysis"
+  },
+  {
+    id: "H26",
+    title: "Environmental Justice Framework",
+    category: "Thematic Areas", 
+    type: "HTML",
+    description: "Framework for environmental justice analysis.",
+    url: "/handouts/thematic/environmental-justice/environmental_justice_handout_1.html",
+    track: "Policy Analysis"
+  },
+  {
+    id: "H27",
+    title: "Constitutional Analysis Guide",
+    category: "Thematic Areas",
+    type: "HTML",
+    description: "Guide to constitutional law and analysis.",
+    url: "/handouts/thematic/constitution/constitution_handout_1.html",
+    track: "Policy Analysis"
+  },
+
+  // Quick References
+  {
+    id: "H28", 
+    title: "Quick Reference Cards",
+    category: "Quick Reference",
+    type: "HTML",
+    description: "Collection of quick reference cards for key concepts.",
+    url: "/handouts/quick-reference/quick_reference_cards.html",
+    track: "All Tracks"
+  },
+
+  // Education & Pedagogy
+  {
+    id: "H29",
+    title: "Education & Pedagogy Guide",
+    category: "Education",
+    type: "HTML",
+    description: "Best practices in education and pedagogical approaches.", 
+    url: "/handouts/education/education_pedagogy_handout.html",
+    track: "Research Methods"
+  }
+];
+
 // AI Tools Data
 const aiToolsData = [
   { id: 'AI1', name: 'Policy Brief Generator', description: 'Generate structured policy briefs from your research', category: 'Writing' },
@@ -727,6 +1007,80 @@ const CourseCard = ({ course, isBookmarked, onBookmark }) => {
   );
 };
 
+// Handout Card Component  
+const HandoutCard = ({ handout }) => {
+  const getTypeIcon = (type) => {
+    switch (type.toLowerCase()) {
+      case 'html': return <FileText className="w-5 h-5" />;
+      case 'pdf': return <FileText className="w-5 h-5" />;
+      case 'excel': return <BarChart className="w-5 h-5" />;
+      case 'r': return <Settings className="w-5 h-5" />;
+      case 'python': return <Settings className="w-5 h-5" />;
+      default: return <FolderOpen className="w-5 h-5" />;
+    }
+  };
+
+  const getTypeColor = (type) => {
+    switch (type.toLowerCase()) {
+      case 'html': return 'text-blue-600 dark:text-blue-400';
+      case 'pdf': return 'text-red-600 dark:text-red-400'; 
+      case 'excel': return 'text-green-600 dark:text-green-400';
+      case 'r': return 'text-purple-600 dark:text-purple-400';
+      case 'python': return 'text-yellow-600 dark:text-yellow-400';
+      default: return 'text-gray-600 dark:text-gray-400';
+    }
+  };
+
+  const handleDownload = () => {
+    // For now, show alert since files need to be uploaded
+    alert(`${handout.title} - File will be available after upload to GitHub. URL: ${handout.url}`);
+  };
+
+  return (
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+      <div className="p-6">
+        <div className="flex justify-between items-start mb-4">
+          <span className="text-sm font-bold text-green-600 dark:text-green-400">
+            {handout.id}
+          </span>
+          <div className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-700 ${getTypeColor(handout.type)}`}>
+            {getTypeIcon(handout.type)}
+          </div>
+        </div>
+        
+        <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+          {handout.title}
+        </h3>
+        
+        <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+          {handout.description}
+        </p>
+        
+        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+          <span className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded">
+            {handout.category}
+          </span>
+          <span className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded">
+            {handout.type}
+          </span>
+        </div>
+        
+        <div className="mb-4">
+          <span className="text-xs text-gray-500 dark:text-gray-400">Track: {handout.track}</span>
+        </div>
+        
+        <button
+          onClick={handleDownload}
+          className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2"
+        >
+          <Download className="w-4 h-4" />
+          <span>Download</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
 // HomePage Component
 const HomePage = ({ setCurrentPage }) => {
   const { user } = useAuth();
@@ -754,7 +1108,7 @@ const HomePage = ({ setCurrentPage }) => {
             </p>
             <p className="text-lg mb-8 max-w-3xl mx-auto text-blue-100">
               A curated library exploring justice, equity, and development in South Asia. 
-              Learn from 37 courses, 10 interactive labs, and AI-powered tools.
+              Learn from 37 courses, 10 interactive labs, and comprehensive handouts.
             </p>
           </div>
           
@@ -798,8 +1152,8 @@ const HomePage = ({ setCurrentPage }) => {
               <div className="text-gray-600 dark:text-gray-300">Interactive Labs</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">8</div>
-              <div className="text-gray-600 dark:text-gray-300">AI Tools</div>
+              <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">29</div>
+              <div className="text-gray-600 dark:text-gray-300">Handouts</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-red-600 dark:text-red-400 mb-2">Free</div>
@@ -1053,6 +1407,121 @@ const LabsPage = () => {
   );
 };
 
+// NEW Handouts Page Component
+const HandoutsPage = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedTrack, setSelectedTrack] = useState('all');
+
+  const filteredHandouts = handoutsData.filter(handout => {
+    const matchesSearch = handout.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         handout.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || handout.category === selectedCategory;
+    const matchesTrack = selectedTrack === 'all' || handout.track === selectedTrack;
+    return matchesSearch && matchesCategory && matchesTrack;
+  });
+
+  const uniqueCategories = [...new Set(handoutsData.map(handout => handout.category))];
+  const uniqueTracks = [...new Set(handoutsData.map(handout => handout.track))];
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Handouts & Resources
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            Downloadable guides, templates, and reference materials for your development work
+          </p>
+        </div>
+
+        {/* Search and Filters */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 mb-8">
+          <div className="grid md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-2">Search</label>
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Search handouts..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Category</label>
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              >
+                <option value="all">All Categories</option>
+                {uniqueCategories.map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-2">Track</label>
+              <select
+                value={selectedTrack}
+                onChange={(e) => setSelectedTrack(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              >
+                <option value="all">All Tracks</option>
+                {uniqueTracks.map(track => (
+                  <option key={track} value={track}>{track}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Handouts Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredHandouts.map(handout => (
+            <HandoutCard
+              key={handout.id}
+              handout={handout}
+            />
+          ))}
+        </div>
+
+        {filteredHandouts.length === 0 && (
+          <div className="text-center py-12">
+            <Search className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+              No handouts found
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Try adjusting your search criteria
+            </p>
+          </div>
+        )}
+
+        {/* Upload Notice */}
+        <div className="mt-8 bg-yellow-50 dark:bg-yellow-900 border border-yellow-200 dark:border-yellow-700 rounded-lg p-6">
+          <div className="flex items-start">
+            <AlertCircle className="w-5 h-5 text-yellow-600 dark:text-yellow-400 mr-3 mt-0.5" />
+            <div>
+              <h3 className="text-sm font-medium text-yellow-800 dark:text-yellow-200 mb-1">
+                Files Currently Being Uploaded
+              </h3>
+              <p className="text-sm text-yellow-700 dark:text-yellow-300">
+                Handout files are being uploaded to the repository. Download links will be active once the files are available.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // AI Tools Page Component
 const AIToolsPage = () => {
   const { user } = useAuth();
@@ -1289,8 +1758,8 @@ const DashboardPage = () => {
                   <span className="font-medium text-gray-900 dark:text-white">10</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">AI Tools</span>
-                  <span className="font-medium text-gray-900 dark:text-white">8</span>
+                  <span className="text-gray-600 dark:text-gray-300">Handouts</span>
+                  <span className="font-medium text-gray-900 dark:text-white">29</span>
                 </div>
               </div>
             </div>
@@ -1538,9 +2007,9 @@ const AboutPage = () => {
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">🤖 AI-Powered Tools</h3>
+                <h3 className="text-lg font-medium mb-2 text-gray-900 dark:text-white">📁 29 Handouts & Resources</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Smart tools to help with research, writing, and analysis for development work.
+                  Downloadable guides, templates, and reference materials for practical application.
                 </p>
               </div>
               <div>
@@ -1622,6 +2091,7 @@ const Navigation = ({ darkMode, setDarkMode, currentPage, setCurrentPage }) => {
     { id: 'home', label: 'Home', requiresAuth: false },
     { id: 'courses', label: 'Courses', requiresAuth: false },
     { id: 'labs', label: 'Labs', requiresAuth: false },
+    { id: 'handouts', label: 'Handouts', requiresAuth: false }, // Changed from 'Resources' to 'Handouts'
     { id: 'dashboard', label: 'Dashboard', requiresAuth: true },
     { id: 'ai-tools', label: 'AI Tools', requiresAuth: true },
     { id: 'contact', label: 'Contact', requiresAuth: false },
@@ -1789,6 +2259,7 @@ function App() {
             {currentPage === 'home' && <HomePage setCurrentPage={setCurrentPage} />}
             {currentPage === 'courses' && <CoursesPage />}
             {currentPage === 'labs' && <LabsPage />}
+            {currentPage === 'handouts' && <HandoutsPage />}
             {currentPage === 'dashboard' && <DashboardPage />}
             {currentPage === 'ai-tools' && <AIToolsPage />}
             {currentPage === 'contact' && <ContactPage />}
