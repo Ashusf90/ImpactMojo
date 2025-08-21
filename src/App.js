@@ -1367,8 +1367,8 @@ Point Values: {points}
 Total Questions: {total}
 
 Create a complete Jeopardy game with:
-1. {categories} categories related to {topic}
-2. 5 questions per category (${points[0]} to ${points[4]})
+1. 5 categories related to {topic}
+2. 5 questions per category ($100 to $500)
 3. Questions that increase in difficulty with point value
 4. Answers in proper Jeopardy format ("What is..." or "Who is...")
 5. Clear, unambiguous questions appropriate for grade level
