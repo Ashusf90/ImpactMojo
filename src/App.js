@@ -10,7 +10,7 @@ import {
   AlertCircle, Info, HelpCircle, Share2, PlayCircle, Scale,
   Lightbulb, Compare, Send, Edit3, Brain, PenTool, FolderOpen,
   Loader2, Copy, Sparkles, Wand2, Bot, Puzzle, Trophy, Shield, Code, ArrowLeft,
-  ClipboardList, DollarSign, Megaphone, Wrench, Handshake  // Fixed: Removed 'Build', added 'Handshake'
+  ClipboardList, DollarSign, Megaphone, Wrench, Handshake
 } from 'lucide-react';
 
 // React Router imports
@@ -434,7 +434,7 @@ const courseData = [
     isPremium: true,
     password: "SEL2025",
     quote: '"Cutting-edge educational approach."',
-  },
+  }
 ];
 
 // ✅ REAL LAB DATA (10 Interactive Labs) - Updated from Project Files
@@ -477,7 +477,7 @@ const labsData = [
     title: "Partnership and Collaboration Lab",
     description: "Framework for building effective partnerships.",
     url: "https://impact-partnerships.netlify.app/",
-    icon: Handshake, // Fixed: Added Handshake icon
+    icon: Handshake,
     category: "Stakeholder Engagement",
     difficulty: "Intermediate",
     duration: 55,
@@ -499,7 +499,7 @@ const labsData = [
     title: "MLE Framework Builder Lab", 
     description: "Build comprehensive MLE frameworks for your projects.",
     url: "https://mle-plan-lab.netlify.app/",
-    icon: Wrench, // Fixed: Changed from 'build' to Wrench
+    icon: Wrench,
     category: "Monitoring & Evaluation",
     difficulty: "Advanced",
     duration: 85,
@@ -548,7 +548,7 @@ const labsData = [
     difficulty: "Advanced",
     duration: 80,
     status: "Available"
-  },
+  }
 ];
 
 // ✅ NEW HANDOUTS DATA (Based on GitHub Repository Structure)
