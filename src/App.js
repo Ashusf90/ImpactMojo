@@ -1227,22 +1227,36 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [bookmarks, setBookmarks] = useState([]);
+  const [isPremium, setIsPremium] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
       if (user) {
-        // Load user bookmarks
+        // Load user data
         try {
           const userDoc = await getDoc(doc(db, 'users', user.uid));
           if (userDoc.exists()) {
-            setBookmarks(userDoc.data().bookmarks || []);
+            const userData = userDoc.data();
+            setBookmarks(userData.bookmarks || []);
+            setIsPremium(userData.isPremium || false);
+          } else {
+            // Create user document
+            await setDoc(doc(db, 'users', user.uid), {
+              name: user.displayName,
+              email: user.email,
+              photoURL: user.photoURL,
+              bookmarks: [],
+              isPremium: false,
+              createdAt: new Date()
+            });
           }
         } catch (error) {
-          console.error('Error loading bookmarks:', error);
+          console.error('Error loading user data:', error);
         }
       } else {
         setBookmarks([]);
+        setIsPremium(false);
       }
       setLoading(false);
     });
@@ -1301,6 +1315,7 @@ const AuthProvider = ({ children }) => {
       user,
       loading,
       bookmarks,
+      isPremium,
       signInWithGoogle,
       signOut,
       toggleBookmark
@@ -1357,76 +1372,101 @@ const usePage = () => {
 
 // Navigation Component
 const Navigation = () => {
-  const { user, signOut, signInWithGoogle } = useAuth();
+  const { user, signOut, signInWithGoogle, isPremium } = useAuth();
   const { currentPage, setCurrentPage, darkMode, setDarkMode } = usePage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white dark:bg-gray-800 shadow-md">
+    <nav className="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
-              <div className="h-8 w-8 rounded-md bg-indigo-600 flex items-center justify-center">
-                <span className="text-white font-bold">IM</span>
+              <div className="h-8 w-8 rounded-md bg-white flex items-center justify-center">
+                <span className="text-indigo-600 font-bold">IM</span>
               </div>
-              <span className="ml-2 text-xl font-bold text-gray-900 dark:text-white">ImpactMojo</span>
+              <span className="ml-2 text-xl font-bold text-white">ImpactMojo</span>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <button
                 onClick={() => setCurrentPage('home')}
-                className={`${currentPage === 'home' ? 'border-indigo-500 text-gray-900 dark:text-white' : 'border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-200'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+                className={`${currentPage === 'home' ? 'border-white text-white' : 'border-transparent text-indigo-200 hover:text-white hover:border-indigo-300'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
               >
                 Home
               </button>
+              {user && (
+                <button
+                  onClick={() => setCurrentPage('dashboard')}
+                  className={`${currentPage === 'dashboard' ? 'border-white text-white' : 'border-transparent text-indigo-200 hover:text-white hover:border-indigo-300'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+                >
+                  Dashboard
+                </button>
+              )}
               <button
                 onClick={() => setCurrentPage('courses')}
-                className={`${currentPage === 'courses' ? 'border-indigo-500 text-gray-900 dark:text-white' : 'border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-200'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+                className={`${currentPage === 'courses' ? 'border-white text-white' : 'border-transparent text-indigo-200 hover:text-white hover:border-indigo-300'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
               >
                 Courses
               </button>
               <button
                 onClick={() => setCurrentPage('labs')}
-                className={`${currentPage === 'labs' ? 'border-indigo-500 text-gray-900 dark:text-white' : 'border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-200'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+                className={`${currentPage === 'labs' ? 'border-white text-white' : 'border-transparent text-indigo-200 hover:text-white hover:border-indigo-300'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
               >
                 Labs
               </button>
               <button
-                onClick={() => setCurrentPage('ai-tools')}
-                className={`${currentPage === 'ai-tools' ? 'border-indigo-500 text-gray-900 dark:text-white' : 'border-transparent text-gray-500 dark:text-gray-300 hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-200'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+                onClick={() => setCurrentPage('resources')}
+                className={`${currentPage === 'resources' ? 'border-white text-white' : 'border-transparent text-indigo-200 hover:text-white hover:border-indigo-300'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
               >
-                AI Tools
+                Resources
               </button>
+              {user && (
+                <button
+                  onClick={() => setCurrentPage('ai-tools')}
+                  className={`${currentPage === 'ai-tools' ? 'border-white text-white' : 'border-transparent text-indigo-200 hover:text-white hover:border-indigo-300'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium flex items-center`}
+                >
+                  AI Tools
+                  {!isPremium && <span className="ml-1 bg-yellow-400 text-yellow-900 text-xs px-1.5 py-0.5 rounded-full">PRO</span>}
+                </button>
+              )}
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             {/* Theme toggle button */}
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded-full text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="p-2 rounded-full text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             >
               {darkMode ? (
-                <Sun className="h-5 w-5 text-yellow-400" /> // Sun icon in yellow for dark mode
+                <Sun className="h-5 w-5 text-yellow-400" />
               ) : (
-                <Moon className="h-5 w-5 text-gray-700" /> // Moon icon in gray for light mode
+                <Moon className="h-5 w-5 text-indigo-200" />
               )}
             </button>
 
             {/* Authentication button */}
             {user ? (
               <div className="ml-3 relative">
-                <div>
-                  <button className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    <span className="sr-only">Open user menu</span>
+                <div className="flex items-center space-x-3">
+                  <div className="flex items-center">
                     <img className="h-8 w-8 rounded-full" src={user.photoURL} alt={user.displayName} />
+                    <span className="ml-2 text-white text-sm font-medium hidden md:block">{user.displayName}</span>
+                    {isPremium && (
+                      <span className="ml-1 bg-yellow-400 text-yellow-900 text-xs px-1.5 py-0.5 rounded-full">PRO</span>
+                    )}
+                  </div>
+                  <button
+                    onClick={signOut}
+                    className="text-indigo-200 hover:text-white text-sm font-medium"
+                  >
+                    Sign Out
                   </button>
                 </div>
-                {/* User dropdown menu would go here if needed */}
               </div>
             ) : (
               <button
                 onClick={signInWithGoogle}
-                className="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
               >
                 Sign In
               </button>
@@ -1435,7 +1475,7 @@ const Navigation = () => {
           <div className="-mr-2 flex items-center sm:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="inline-flex items-center justify-center p-2 rounded-md text-indigo-200 hover:text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             >
               <span className="sr-only">Open main menu</span>
               {mobileMenuOpen ? (
@@ -1450,34 +1490,51 @@ const Navigation = () => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="sm:hidden">
+        <div className="sm:hidden bg-indigo-700">
           <div className="pt-2 pb-3 space-y-1">
             <button
               onClick={() => { setCurrentPage('home'); setMobileMenuOpen(false); }}
-              className={`${currentPage === 'home' ? 'bg-indigo-50 border-indigo-500 text-indigo-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium`}
+              className={`${currentPage === 'home' ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-600 hover:text-white'} block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium`}
             >
               Home
             </button>
+            {user && (
+              <button
+                onClick={() => { setCurrentPage('dashboard'); setMobileMenuOpen(false); }}
+                className={`${currentPage === 'dashboard' ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-600 hover:text-white'} block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium`}
+              >
+                Dashboard
+              </button>
+            )}
             <button
               onClick={() => { setCurrentPage('courses'); setMobileMenuOpen(false); }}
-              className={`${currentPage === 'courses' ? 'bg-indigo-50 border-indigo-500 text-indigo-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium`}
+              className={`${currentPage === 'courses' ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-600 hover:text-white'} block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium`}
             >
               Courses
             </button>
             <button
               onClick={() => { setCurrentPage('labs'); setMobileMenuOpen(false); }}
-              className={`${currentPage === 'labs' ? 'bg-indigo-50 border-indigo-500 text-indigo-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium`}
+              className={`${currentPage === 'labs' ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-600 hover:text-white'} block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium`}
             >
               Labs
             </button>
             <button
-              onClick={() => { setCurrentPage('ai-tools'); setMobileMenuOpen(false); }}
-              className={`${currentPage === 'ai-tools' ? 'bg-indigo-50 border-indigo-500 text-indigo-700' : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium`}
+              onClick={() => { setCurrentPage('resources'); setMobileMenuOpen(false); }}
+              className={`${currentPage === 'resources' ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-600 hover:text-white'} block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium`}
             >
-              AI Tools
+              Resources
             </button>
+            {user && (
+              <button
+                onClick={() => { setCurrentPage('ai-tools'); setMobileMenuOpen(false); }}
+                className={`${currentPage === 'ai-tools' ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-600 hover:text-white'} block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium flex items-center`}
+              >
+                AI Tools
+                {!isPremium && <span className="ml-2 bg-yellow-400 text-yellow-900 text-xs px-1.5 py-0.5 rounded-full">PRO</span>}
+              </button>
+            )}
           </div>
-          <div className="pt-4 pb-3 border-t border-gray-200">
+          <div className="pt-4 pb-3 border-t border-indigo-800">
             <div className="flex items-center px-4">
               {user ? (
                 <>
@@ -1485,26 +1542,26 @@ const Navigation = () => {
                     <img className="h-10 w-10 rounded-full" src={user.photoURL} alt={user.displayName} />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium text-gray-800">{user.displayName}</div>
-                    <div className="text-sm font-medium text-gray-500">{user.email}</div>
+                    <div className="text-base font-medium text-white">{user.displayName}</div>
+                    <div className="text-sm font-medium text-indigo-200">{user.email}</div>
                   </div>
                 </>
               ) : (
-                <div className="text-base font-medium text-gray-800">Not signed in</div>
+                <div className="text-base font-medium text-white">Not signed in</div>
               )}
             </div>
             <div className="mt-3 space-y-1">
               {user ? (
                 <button
                   onClick={signOut}
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+                  className="block px-4 py-2 text-base font-medium text-indigo-200 hover:text-white hover:bg-indigo-600"
                 >
                   Sign out
                 </button>
               ) : (
                 <button
                   onClick={signInWithGoogle}
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+                  className="block px-4 py-2 text-base font-medium text-indigo-200 hover:text-white hover:bg-indigo-600"
                 >
                   Sign in
                 </button>
@@ -1520,14 +1577,16 @@ const Navigation = () => {
 // Home Page Component
 const HomePage = () => {
   const { darkMode, setCurrentPage } = usePage();
+  const { user, isPremium } = useAuth();
   
   return (
-    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-white'}`}>
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-b from-indigo-50 to-white'}`}>
+      <Navigation />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
             <span className="block">Welcome to</span>
-            <span className="block text-indigo-600 dark:text-indigo-400">ImpactMojo</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">ImpactMojo</span>
           </h1>
           <p className="mt-3 max-w-md mx-auto text-base text-gray-500 dark:text-gray-400 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
             Your platform for development learning and tools. Explore courses, labs, and AI-powered tools to enhance your impact.
@@ -1536,26 +1595,29 @@ const HomePage = () => {
             <div className="rounded-md shadow">
               <button
                 onClick={() => setCurrentPage('courses')}
-                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 md:py-4 md:text-lg md:px-10"
               >
                 Get started
               </button>
             </div>
-            <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-              <button
-                onClick={() => setCurrentPage('ai-tools')}
-                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 md:py-4 md:text-lg md:px-10"
-              >
-                Try AI Tools
-              </button>
-            </div>
+            {user && (
+              <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+                <button
+                  onClick={() => setCurrentPage('ai-tools')}
+                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 md:py-4 md:text-lg md:px-10"
+                >
+                  Try AI Tools
+                  {!isPremium && <span className="ml-2 bg-yellow-400 text-yellow-900 text-xs px-1.5 py-0.5 rounded-full">PRO</span>}
+                </button>
+              </div>
+            )}
           </div>
         </div>
         
         <div className="mt-16">
           <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white text-center">Featured Content</h2>
           <div className="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-3 lg:max-w-none">
-            <div className="flex flex-col rounded-lg shadow-lg overflow-hidden">
+            <div className="flex flex-col rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="flex-1 bg-white dark:bg-gray-800 p-6 flex flex-col justify-between">
                 <div className="flex-1">
                   <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
@@ -1577,10 +1639,10 @@ const HomePage = () => {
               </div>
             </div>
             
-            <div className="flex flex-col rounded-lg shadow-lg overflow-hidden">
+            <div className="flex flex-col rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
               <div className="flex-1 bg-white dark:bg-gray-800 p-6 flex flex-col justify-between">
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
+                  <p className="text-sm font-medium text-green-600 dark:text-green-400">
                     <span>Lab</span>
                   </p>
                   <h3 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">Gender Timeline: Climate Edition</h3>
@@ -1591,7 +1653,7 @@ const HomePage = () => {
                 <div className="mt-6">
                   <button
                     onClick={() => setCurrentPage('labs')}
-                    className="text-base font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300"
+                    className="text-base font-medium text-green-600 dark:text-green-400 hover:text-green-500 dark:hover:text-green-300"
                   >
                     Explore labs
                   </button>
@@ -1599,29 +1661,217 @@ const HomePage = () => {
               </div>
             </div>
             
-            <div className="flex flex-col rounded-lg shadow-lg overflow-hidden">
-              <div className="flex-1 bg-white dark:bg-gray-800 p-6 flex flex-col justify-between">
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
-                    <span>AI Tool</span>
-                  </p>
-                  <h3 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">Theory of Change Builder</h3>
-                  <p className="mt-3 text-base text-gray-500 dark:text-gray-400">
-                    Develop comprehensive Theory of Change frameworks with clear pathways from activities to impact.
-                  </p>
+            {user && (
+              <div className="flex flex-col rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div className="flex-1 bg-white dark:bg-gray-800 p-6 flex flex-col justify-between">
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-purple-600 dark:text-purple-400">
+                      <span>AI Tool</span>
+                      {!isPremium && <span className="ml-1 bg-yellow-400 text-yellow-900 text-xs px-1.5 py-0.5 rounded-full">PRO</span>}
+                    </p>
+                    <h3 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">Theory of Change Builder</h3>
+                    <p className="mt-3 text-base text-gray-500 dark:text-gray-400">
+                      Develop comprehensive Theory of Change frameworks with clear pathways from activities to impact.
+                    </p>
+                  </div>
+                  <div className="mt-6">
+                    <button
+                      onClick={() => setCurrentPage('ai-tools')}
+                      className="text-base font-medium text-purple-600 dark:text-purple-400 hover:text-purple-500 dark:hover:text-purple-300"
+                    >
+                      Try AI Tools
+                    </button>
+                  </div>
                 </div>
-                <div className="mt-6">
-                  <button
-                    onClick={() => setCurrentPage('ai-tools')}
-                    className="text-base font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300"
-                  >
-                    Try AI Tools
-                  </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Dashboard Page Component
+const DashboardPage = () => {
+  const { darkMode } = usePage();
+  const { user, bookmarks, isPremium } = useAuth();
+  
+  if (!user) {
+    return (
+      <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-b from-indigo-50 to-white'}`}>
+        <Navigation />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center">
+            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Please sign in to access your dashboard</h1>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  return (
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-b from-indigo-50 to-white'}`}>
+      <Navigation />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-8">
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Dashboard</h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">Welcome back, {user.displayName}!</p>
+        </div>
+        
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                  <BookOpen className="h-6 w-6 text-white" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Courses Completed</dt>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">12</dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0 bg-green-500 rounded-md p-3">
+                  <Target className="h-6 w-6 text-white" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Labs Completed</dt>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">5</dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0 bg-purple-500 rounded-md p-3">
+                  <Bot className="h-6 w-6 text-white" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">AI Tools Used</dt>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">8</dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0 bg-yellow-500 rounded-md p-3">
+                  <Bookmark className="h-6 w-6 text-white" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Bookmarks</dt>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">{bookmarks.length}</dd>
+                  </dl>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Recent Activity</h2>
+            <div className="space-y-4">
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-6 w-6 rounded-full bg-green-100 dark:bg-green-900">
+                    <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                  </div>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">Completed Gender Studies 101</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">2 days ago</p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 dark:bg-blue-900">
+                    <PlayCircle className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                  </div>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">Started Theory of Change Builder</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">3 days ago</p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-6 w-6 rounded-full bg-purple-100 dark:bg-purple-900">
+                    <Bookmark className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                  </div>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">Bookmarked Climate Science 101</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">5 days ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Recommended For You</h2>
+            <div className="space-y-4">
+              <div className="flex items-center">
+                <div className="flex-shrink-0 h-10 w-10 rounded-md bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center">
+                  <BookOpen className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white">Women's Economic Empowerment 101</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Based on your interest in Gender Studies</p>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="flex-shrink-0 h-10 w-10 rounded-md bg-green-100 dark:bg-green-900 flex items-center justify-center">
+                  <Target className="h-6 w-6 text-green-600 dark:text-green-400" />
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white">Policy Advocacy Impact Lab</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Based on your completed courses</p>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="flex-shrink-0 h-10 w-10 rounded-md bg-purple-100 dark:bg-purple-900 flex items-center justify-center">
+                  <Bot className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white">Grant Proposal Writer</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Popular among users like you</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {!isPremium && (
+          <div className="mt-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-lg shadow-lg p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900">Upgrade to Premium</h3>
+                <p className="mt-1 text-gray-800">Unlock all AI tools and premium content</p>
+              </div>
+              <button className="px-4 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 transition-colors">
+                Upgrade Now
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -1630,21 +1880,43 @@ const HomePage = () => {
 // Courses Page Component
 const CoursesPage = () => {
   const { darkMode, setCurrentPage } = usePage();
-  const { bookmarks, toggleBookmark } = useAuth();
+  const { bookmarks, toggleBookmark, isPremium } = useAuth();
   
   // Get unique tracks
   const tracks = [...new Set(courseData.map(course => course.track))];
   
   return (
-    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-white'}`}>
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-b from-indigo-50 to-white'}`}>
+      <Navigation />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center">
+        <div className="text-center mb-12">
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
             Development Courses
           </h1>
           <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 dark:text-gray-400 sm:mt-4">
             Explore our comprehensive library of courses designed for development professionals.
           </p>
+        </div>
+        
+        <div className="mb-8 flex flex-wrap gap-2 justify-center">
+          <button className="px-4 py-2 bg-indigo-600 text-white rounded-full text-sm font-medium">
+            All Courses
+          </button>
+          <button className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600">
+            Beginner
+          </button>
+          <button className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600">
+            Intermediate
+          </button>
+          <button className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600">
+            Advanced
+          </button>
+          {!isPremium && (
+            <button className="px-4 py-2 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full text-sm font-medium flex items-center">
+              <Star className="h-4 w-4 mr-1" />
+              Premium
+            </button>
+          )}
         </div>
         
         <div className="mt-12">
@@ -1659,9 +1931,16 @@ const CoursesPage = () => {
                       <div className="p-6">
                         <div className="flex justify-between items-start">
                           <div>
-                            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
-                              {course.level}
-                            </span>
+                            <div className="flex items-center space-x-2">
+                              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
+                                {course.level}
+                              </span>
+                              {course.isPremium && !isPremium && (
+                                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">
+                                  PRO
+                                </span>
+                              )}
+                            </div>
                             <h3 className="mt-3 text-lg font-medium text-gray-900 dark:text-white">{course.title}</h3>
                             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{course.description}</p>
                           </div>
@@ -1719,15 +1998,31 @@ const LabsPage = () => {
   const categories = [...new Set(labsData.map(lab => lab.category))];
   
   return (
-    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-white'}`}>
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-b from-indigo-50 to-white'}`}>
+      <Navigation />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center">
+        <div className="text-center mb-12">
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
             Interactive Labs
           </h1>
           <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 dark:text-gray-400 sm:mt-4">
             Hands-on learning experiences to apply development concepts in practice.
           </p>
+        </div>
+        
+        <div className="mb-8 flex flex-wrap gap-2 justify-center">
+          <button className="px-4 py-2 bg-green-600 text-white rounded-full text-sm font-medium">
+            All Labs
+          </button>
+          <button className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600">
+            Beginner
+          </button>
+          <button className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600">
+            Intermediate
+          </button>
+          <button className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600">
+            Advanced
+          </button>
         </div>
         
         <div className="mt-12">
@@ -1793,15 +2088,131 @@ const LabsPage = () => {
   );
 };
 
-// AI Tools Page Component
-const AIToolsPage = () => {
-  const { darkMode, setCurrentPage } = usePage();
-  const { bookmarks, toggleBookmark } = useAuth();
+// Resources Page Component
+const ResourcesPage = () => {
+  const { darkMode } = usePage();
   
   return (
-    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-white'}`}>
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-b from-indigo-50 to-white'}`}>
+      <Navigation />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center">
+        <div className="text-center mb-12">
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+            Resources
+          </h1>
+          <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 dark:text-gray-400 sm:mt-4">
+            Access our collection of development resources, guides, and toolkits.
+          </p>
+        </div>
+        
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div className="p-6">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-100 dark:bg-blue-900 mb-4">
+                <FileText className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Development Frameworks</h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-4">Comprehensive guides to major development frameworks and approaches.</p>
+              <button className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium">
+                Explore Resources
+              </button>
+            </div>
+          </div>
+          
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div className="p-6">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-green-100 dark:bg-green-900 mb-4">
+                <BookOpen className="h-6 w-6 text-green-600 dark:text-green-400" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Toolkits & Templates</h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-4">Ready-to-use templates and toolkits for development practitioners.</p>
+              <button className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium">
+                Download Toolkits
+              </button>
+            </div>
+          </div>
+          
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div className="p-6">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-purple-100 dark:bg-purple-900 mb-4">
+                <Globe className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Case Studies</h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-4">Real-world examples of successful development projects and initiatives.</p>
+              <button className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium">
+                Read Case Studies
+              </button>
+            </div>
+          </div>
+          
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div className="p-6">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-yellow-100 dark:bg-yellow-900 mb-4">
+                <Users className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Community Resources</h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-4">Connect with other development professionals and share knowledge.</p>
+              <button className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium">
+                Join Community
+              </button>
+            </div>
+          </div>
+          
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div className="p-6">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-red-100 dark:bg-red-900 mb-4">
+                <Calendar className="h-6 w-6 text-red-600 dark:text-red-400" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Events & Webinars</h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-4">Upcoming events, workshops, and learning opportunities.</p>
+              <button className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium">
+                View Events
+              </button>
+            </div>
+          </div>
+          
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div className="p-6">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-100 dark:bg-indigo-900 mb-4">
+                <Mail className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Newsletter</h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-4">Stay updated with the latest resources and insights in development.</p>
+              <button className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium">
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// AI Tools Page Component
+const AIToolsPage = () => {
+  const { darkMode } = usePage();
+  const { user, bookmarks, toggleBookmark, isPremium } = useAuth();
+  
+  if (!user) {
+    return (
+      <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-b from-indigo-50 to-white'}`}>
+        <Navigation />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center">
+            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Please sign in to access AI Tools</h1>
+            <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">AI Tools are available exclusively for logged-in users.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  return (
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-b from-indigo-50 to-white'}`}>
+      <Navigation />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
             AI-Powered Tools
           </h1>
@@ -1810,7 +2221,21 @@ const AIToolsPage = () => {
           </p>
         </div>
         
-        <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {!isPremium && (
+          <div className="mb-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-lg shadow-lg p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900">Upgrade to Premium</h3>
+                <p className="mt-1 text-gray-800">Unlock all AI tools and premium features</p>
+              </div>
+              <button className="px-4 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 transition-colors">
+                Upgrade Now
+              </button>
+            </div>
+          </div>
+        )}
+        
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {aiToolsData.map(tool => (
             <div key={tool.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
               <div className="p-6">
@@ -1821,27 +2246,44 @@ const AIToolsPage = () => {
                     </div>
                     <h3 className="ml-3 text-lg font-medium text-gray-900 dark:text-white">{tool.title}</h3>
                   </div>
-                  <button 
-                    onClick={() => toggleBookmark(tool.id)}
-                    className="text-gray-400 hover:text-yellow-500 focus:outline-none"
-                  >
-                    {bookmarks.includes(tool.id) ? (
-                      <Bookmark className="h-5 w-5 text-yellow-500 fill-current" />
-                    ) : (
-                      <Bookmark className="h-5 w-5" />
+                  <div className="flex items-center space-x-2">
+                    {!isPremium && (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">
+                        PRO
+                      </span>
                     )}
-                  </button>
+                    <button 
+                      onClick={() => toggleBookmark(tool.id)}
+                      className="text-gray-400 hover:text-yellow-500 focus:outline-none"
+                    >
+                      {bookmarks.includes(tool.id) ? (
+                        <Bookmark className="h-5 w-5 text-yellow-500 fill-current" />
+                      ) : (
+                        <Bookmark className="h-5 w-5" />
+                      )}
+                    </button>
+                  </div>
                 </div>
                 
                 <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">{tool.description}</p>
                 
                 <div className="mt-6">
-                  <button
-                    onClick={() => setCurrentPage('ai-tools')}
-                    className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    Try This Tool
-                  </button>
+                  {!isPremium ? (
+                    <button
+                      onClick={() => {}}
+                      className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-gray-500 bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                      disabled
+                    >
+                      Upgrade to Unlock
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {}}
+                      className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      Try This Tool
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -1859,7 +2301,7 @@ const AppContent = () => {
 
   if (loading) {
     return (
-      <div className={`min-h-screen flex items-center justify-center ${darkMode ? 'dark bg-gray-900' : 'bg-white'}`}>
+      <div className={`min-h-screen flex items-center justify-center ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-b from-indigo-50 to-white'}`}>
         <Loader2 className="h-12 w-12 animate-spin text-indigo-600" />
       </div>
     );
@@ -1867,10 +2309,11 @@ const AppContent = () => {
 
   return (
     <div className={darkMode ? 'dark' : ''}>
-      <Navigation />
       {currentPage === 'home' && <HomePage />}
+      {currentPage === 'dashboard' && <DashboardPage />}
       {currentPage === 'courses' && <CoursesPage />}
       {currentPage === 'labs' && <LabsPage />}
+      {currentPage === 'resources' && <ResourcesPage />}
       {currentPage === 'ai-tools' && <AIToolsPage />}
     </div>
   );
