@@ -471,7 +471,7 @@ const Dashboard = () => {
               <div key={index} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow">
                 <h3 className="font-medium text-gray-900 dark:text-chalk-white font-sans mb-2">{resource.title}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 font-sans mb-3">{resource.description}</p>
-                <a
+                
                   href={resource.url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -602,6 +602,125 @@ const Home = () => {
   );
 };
 
+// Simple Courses Page Component
+const CoursesPage = () => {
+  const { darkMode } = usePage();
+  const { user, toggleBookmark, bookmarks } = useAuth();
+  
+  return (
+    <div className={`min-h-screen font-sans ${darkMode ? 'dark bg-chalkboard-dark' : 'bg-chalk-white'}`}>
+      <Navigation />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-chalk-white mb-4 font-heading">
+            Development Courses
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-sans">
+            Comprehensive learning resources for development practitioners and changemakers.
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {courseData.map((course) => (
+            <div key={course.id} className="bg-white dark:bg-chalkboard-dark rounded-lg shadow hover:shadow-lg transition-shadow p-6">
+              <div className="flex items-center justify-between mb-3">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent-blue text-white font-sans">
+                  {course.id}
+                </span>
+                {user && (
+                  <button
+                    onClick={() => toggleBookmark(course.id)}
+                    className={`p-1 rounded font-sans ${bookmarks.includes(course.id) ? 'text-yellow-500' : 'text-gray-400'} hover:text-yellow-500`}
+                  >
+                    <Bookmark className="h-5 w-5" />
+                  </button>
+                )}
+              </div>
+              
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-chalk-white mb-2 font-sans">
+                {course.title}
+              </h3>
+              
+              <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 font-sans">
+                {course.description}
+              </p>
+              
+              <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4 font-sans">
+                <span>{course.level}</span>
+                <span>{course.duration}</span>
+              </div>
+              
+              <button className="w-full bg-accent-blue text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors font-sans">
+                Access Course
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Simple Labs Page Component  
+const LabsPage = () => {
+  const { darkMode } = usePage();
+  const { user, toggleBookmark, bookmarks } = useAuth();
+  
+  return (
+    <div className={`min-h-screen font-sans ${darkMode ? 'dark bg-chalkboard-dark' : 'bg-chalk-white'}`}>
+      <Navigation />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-chalk-white mb-4 font-heading">
+            Interactive Labs
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-sans">
+            Hands-on exercises and case studies for practical skill development.
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {labsData.map((lab) => (
+            <div key={lab.id} className="bg-white dark:bg-chalkboard-dark rounded-lg shadow hover:shadow-lg transition-shadow p-6">
+              <div className="flex items-center justify-between mb-3">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-600 text-white font-sans">
+                  {lab.id}
+                </span>
+                {user && (
+                  <button
+                    onClick={() => toggleBookmark(lab.id)}
+                    className={`p-1 rounded font-sans ${bookmarks.includes(lab.id) ? 'text-yellow-500' : 'text-gray-400'} hover:text-yellow-500`}
+                  >
+                    <Target className="h-5 w-5" />
+                  </button>
+                )}
+              </div>
+              
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-chalk-white mb-2 font-sans">
+                {lab.title}
+              </h3>
+              
+              <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 font-sans">
+                {lab.description}
+              </p>
+              
+              <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4 font-sans">
+                <span>{lab.topic}</span>
+                <span>{lab.difficulty || 'Interactive'}</span>
+              </div>
+              
+              <button className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors font-sans flex items-center justify-center">
+                <PlayCircle className="h-4 w-4 mr-2" />
+                Start Lab
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Main App Content Component
 const AppContent = () => {
   const { currentPage, darkMode } = usePage();
@@ -619,8 +738,8 @@ const AppContent = () => {
     <div className={darkMode ? 'dark' : ''}>
       {currentPage === 'home' && <Home />}
       {currentPage === 'dashboard' && <Dashboard />}
-      {currentPage === 'courses' && <div>Courses Page</div>}
-      {currentPage === 'labs' && <div>Labs Page</div>}
+      {currentPage === 'courses' && <CoursesPage />}
+      {currentPage === 'labs' && <LabsPage />}
       {currentPage === 'resources' && <ResourcesPage />}
       {currentPage === 'ai-tools' && <AIToolsPage />}
     </div>
