@@ -27,4 +27,186 @@ html, body {
 }
 
 .font-heading {
-  font-family: 'Dancing Script', cursive
+  font-family: 'Dancing Script', cursive;
+}
+
+/* Custom Color Classes */
+.bg-chalkboard-dark {
+  background-color: #2c3e50;
+}
+
+.bg-chalk-white {
+  background-color: #f8f9fa;
+}
+
+.text-chalk-white {
+  color: #f8f9fa;
+}
+
+.bg-accent-blue {
+  background-color: #3498db;
+}
+
+.text-accent-blue {
+  color: #3498db;
+}
+
+.bg-accent-green {
+  background-color: #2ecc71;
+}
+
+.bg-accent-yellow {
+  background-color: #f1c40f;
+}
+
+.bg-accent-purple {
+  background-color: #9b59b6;
+}
+
+/* Dark Mode Base */
+.dark {
+  background-color: #2c3e50;
+  color: #f8f9fa;
+}
+
+/* Loading Spinner */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Button Hover States */
+.hover\:bg-blue-700:hover {
+  background-color: #2980b9;
+}
+
+.hover\:bg-gray-50:hover {
+  background-color: #f9fafb;
+}
+
+.dark .hover\:bg-gray-700:hover {
+  background-color: #374151;
+}
+
+/* Text Color Utilities */
+.text-gray-900 {
+  color: #111827;
+}
+
+.text-gray-600 {
+  color: #4b5563;
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}
+
+.text-gray-400 {
+  color: #9ca3af;
+}
+
+.text-gray-300 {
+  color: #d1d5db;
+}
+
+/* Dark mode text overrides */
+.dark .text-gray-900 {
+  color: #f8f9fa;
+}
+
+.dark .text-gray-600 {
+  color: #d1d5db;
+}
+
+.dark .text-gray-500 {
+  color: #9ca3af;
+}
+
+.dark .text-gray-400 {
+  color: #6b7280;
+}
+
+.dark .text-gray-300 {
+  color: #d1d5db;
+}
+
+/* Background utilities */
+.bg-white {
+  background-color: #ffffff;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+
+.bg-gray-100 {
+  background-color: #f3f4f6;
+}
+
+.bg-gray-700 {
+  background-color: #374151;
+}
+
+/* Dark mode background overrides */
+.dark .bg-white {
+  background-color: #2c3e50;
+}
+
+.dark .bg-gray-50 {
+  background-color: #374151;
+}
+
+.dark .bg-gray-100 {
+  background-color: #374151;
+}
+
+/* Border utilities */
+.border-gray-200 {
+  border-color: #e5e7eb;
+}
+
+.border-gray-700 {
+  border-color: #374151;
+}
+
+.dark .border-gray-200 {
+  border-color: #374151;
+}
+
+/* Shadow utilities */
+.shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Transition utilities */
+.transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-shadow {
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
