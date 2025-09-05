@@ -6,11 +6,11 @@ import {
   Clock, CheckCircle, PlayCircle, Bot, Trophy, 
   Headphones, MapPin, Library, Music, Download, 
   Search, Plus, Edit3, Save, Filter, BookmarkIcon, Tag,
-  AlertTriangle
+  Install, AlertTriangle
 } from 'lucide-react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as firebaseSignOut, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, setDoc, getDoc, updateDoc, deleteField, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc } from 'firebase/firestore';
 
 // Data imports
 import { courseData, upcomingCourses } from './data/course-data';
@@ -36,33 +36,26 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
 
-// PWA Installation
-let deferredPrompt;
-
 // Track definitions with courses and resources
 const trackDefinitions = {
   "Research Methods": {
     description: "Learn qualitative and quantitative research methods for development work.",
     courses: ["research-ethics-101", "qualitative-research-methods-101", "visual-ethnography-101"],
-    resourcesUrl: "https://github.com/Varnasr/ImpactMojo/tree/main/Handouts/Research%20Methods",
     color: "blue"
   },
   "Data Analysis": {
     description: "Master data analysis techniques for measuring social impact.",
     courses: ["data-literacy-101", "exploratory-data-analysis-for-household-surveys-101", "bivariate-analysis-101", "multivariate-analysis-101", "econometrics-101"],
-    resourcesUrl: "https://github.com/Varnasr/ImpactMojo/tree/main/Handouts/Data%20Analysis",
     color: "green"
   },
   "Gender Studies": {
     description: "Explore gender dynamics and women's empowerment in development.",
     courses: ["gender-studies-101", "womens-economic-empowerment-101", "sexual-and-reproductive-health-rights-101", "care-economy-101"],
-    resourcesUrl: "https://github.com/Varnasr/ImpactMojo/tree/main/Handouts/Gender%20Studies",
     color: "purple"
   },
   "Policy & Economics": {
     description: "Understand policy frameworks and economic systems in development.",
     courses: ["development-economics-101", "law-and-constitution-101", "political-economy-101", "poverty-and-inequality-101", "global-development-architecture-101"],
-    resourcesUrl: "https://github.com/Varnasr/ImpactMojo/tree/main/Handouts/Policy%20Economics",
     color: "orange"
   }
 };
@@ -479,7 +472,6 @@ const PageProvider = ({ children }) => {
   useEffect(() => {
     const handleBeforeInstallPrompt = (e) => {
       e.preventDefault();
-      deferredPrompt = e;
       setInstallPrompt(e);
       setShowInstallPrompt(true);
     };
@@ -492,10 +484,9 @@ const PageProvider = ({ children }) => {
   }, []);
 
   const handleInstallClick = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      deferredPrompt = null;
+    if (installPrompt) {
+      installPrompt.prompt();
+      const { outcome } = await installPrompt.userChoice;
       setInstallPrompt(null);
       setShowInstallPrompt(false);
     }
@@ -517,37 +508,33 @@ export const usePage = () => {
   return context;
 };
 
-// PWA Install Banner Component
-const PWAInstallBanner = () => {
-  const { showInstallPrompt, setShowInstallPrompt, handleInstallClick } = usePage();
+// Global Modal Context
+const ModalContext = createContext();
+const ModalProvider = ({ children }) => {
+  const [activeModal, setActiveModal] = useState(null);
+  const [modalData, setModalData] = useState(null);
 
-  if (!showInstallPrompt) return null;
+  const openModal = (modalType, data = null) => {
+    setActiveModal(modalType);
+    setModalData(data);
+  };
+
+  const closeModal = () => {
+    setActiveModal(null);
+    setModalData(null);
+  };
 
   return (
-    <div className="fixed top-16 left-4 right-4 z-50 bg-blue-600 text-white p-4 rounded-lg shadow-lg flex items-center justify-between">
-      <div className="flex items-center space-x-3">
-        <Download className="h-6 w-6" />
-        <div>
-          <h3 className="font-semibold">Install ImpactMojo</h3>
-          <p className="text-sm text-blue-100">Get the app for better experience</p>
-        </div>
-      </div>
-      <div className="flex space-x-2">
-        <button
-          onClick={handleInstallClick}
-          className="bg-white text-blue-600 px-4 py-2 rounded font-medium hover:bg-blue-50"
-        >
-          Install
-        </button>
-        <button
-          onClick={() => setShowInstallPrompt(false)}
-          className="text-blue-100 hover:text-white"
-        >
-          <X className="h-5 w-5" />
-        </button>
-      </div>
-    </div>
+    <ModalContext.Provider value={{ activeModal, modalData, openModal, closeModal }}>
+      {children}
+    </ModalContext.Provider>
   );
+};
+
+export const useModal = () => {
+  const context = useContext(ModalContext);
+  if (!context) throw new Error('useModal must be used within ModalProvider');
+  return context;
 };
 
 // Track Selection Modal Component
@@ -575,18 +562,6 @@ const TrackModal = ({ isOpen, onClose, track }) => {
         
         <div className="p-6">
           <p className="text-gray-600 dark:text-gray-300 mb-6">{trackInfo.description}</p>
-          
-          <div className="mb-6">
-            <a
-              href={trackInfo.resourcesUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors"
-            >
-              <ExternalLink className="h-5 w-5 mr-2" />
-              View {track} Resources
-            </a>
-          </div>
           
           <div className="grid gap-4 md:grid-cols-2">
             {trackCourses.map((course) => (
@@ -1543,6 +1518,108 @@ const SuggestCourseModal = ({ isOpen, onClose }) => {
   );
 };
 
+// Global Floating Action Buttons
+const GlobalFABs = () => {
+  const { getCurrentBookmarks, getCurrentComparisons } = useAuth();
+  const { openModal } = useModal();
+  
+  const bookmarks = getCurrentBookmarks();
+  const comparisons = getCurrentComparisons();
+
+  return (
+    <>
+      {/* Feedback FAB */}
+      <button
+        onClick={() => openModal('feedback')}
+        className="fixed bottom-48 right-4 z-40 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition-colors"
+        title="Send Feedback"
+        aria-label="Send feedback"
+      >
+        <MessageCircle className="h-6 w-6" />
+      </button>
+
+      {/* Suggest Course FAB */}
+      <button
+        onClick={() => openModal('suggest')}
+        className="fixed bottom-32 right-4 z-40 bg-purple-500 hover:bg-purple-600 text-white p-3 rounded-full shadow-lg transition-colors"
+        title="Suggest a Course"
+        aria-label="Suggest a course"
+      >
+        <Plus className="h-6 w-6" />
+      </button>
+
+      {/* Bookmark FAB */}
+      <button
+        onClick={() => openModal('bookmarks')}
+        className="fixed bottom-16 right-4 z-40 bg-yellow-500 hover:bg-yellow-600 text-white p-3 rounded-full shadow-lg transition-colors"
+        title="View Bookmarks"
+        aria-label="View bookmarks"
+      >
+        <Bookmark className="h-6 w-6" fill={bookmarks.length > 0 ? 'currentColor' : 'none'} />
+        {bookmarks.length > 0 && (
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+            {bookmarks.length}
+          </span>
+        )}
+      </button>
+      
+      {/* Compare FAB */}
+      <button
+        onClick={() => openModal('comparison')}
+        className="fixed bottom-0 right-4 z-40 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg transition-colors"
+        title="Compare Items"
+        aria-label="Compare items"
+      >
+        <Target className="h-6 w-6" fill={comparisons.length > 0 ? 'currentColor' : 'none'} />
+        {comparisons.length > 0 && (
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+            {comparisons.length}
+          </span>
+        )}
+      </button>
+    </>
+  );
+};
+
+// Global Modal Manager
+const GlobalModals = () => {
+  const { activeModal, modalData, closeModal } = useModal();
+
+  return (
+    <>
+      <TrackModal 
+        isOpen={activeModal === 'track'} 
+        onClose={closeModal}
+        track={modalData}
+      />
+      <QuizModal 
+        isOpen={activeModal === 'quiz'} 
+        onClose={closeModal}
+      />
+      <CornellNotesModal 
+        isOpen={activeModal === 'notes'} 
+        onClose={closeModal}
+      />
+      <ComparisonModal 
+        isOpen={activeModal === 'comparison'} 
+        onClose={closeModal}
+      />
+      <BookmarkModal 
+        isOpen={activeModal === 'bookmarks'} 
+        onClose={closeModal}
+      />
+      <FeedbackModal 
+        isOpen={activeModal === 'feedback'} 
+        onClose={closeModal}
+      />
+      <SuggestCourseModal 
+        isOpen={activeModal === 'suggest'} 
+        onClose={closeModal}
+      />
+    </>
+  );
+};
+
 // Navigation Component
 export const Navigation = () => {
   const { user, signOut, signInWithGoogle, isPremium } = useAuth();
@@ -1710,13 +1787,11 @@ export const Navigation = () => {
   );
 };
 
-// Dashboard Component
+// Dashboard Component (Fixed dark mode colors)
 const Dashboard = () => {
   const { darkMode } = usePage();
   const { user, isPremium, customPathway, notes, getCurrentBookmarks, getCurrentComparisons } = useAuth();
-  const [showNotesModal, setShowNotesModal] = useState(false);
-  const [showComparisonModal, setShowComparisonModal] = useState(false);
-  const [showQuizModal, setShowQuizModal] = useState(false);
+  const { openModal } = useModal();
   
   const bookmarks = getCurrentBookmarks();
   const comparisons = getCurrentComparisons();
@@ -1741,18 +1816,18 @@ const Dashboard = () => {
           <p className="mt-2 text-gray-600 dark:text-gray-300">Welcome back, {user.displayName}!</p>
         </div>
         
-        {/* Stats Cards */}
+        {/* Stats Cards - Fixed colors for dark mode */}
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 mb-8">
           {[
-            { title: 'Courses Bookmarked', value: bookmarks.filter(b => b.type === 'course').length, icon: BookOpen, color: 'blue' },
-            { title: 'Labs Bookmarked', value: bookmarks.filter(b => b.type === 'lab').length, icon: Target, color: 'green' },
-            { title: 'Notes Created', value: notes.length, icon: Edit3, color: 'purple' },
-            { title: 'Items Comparing', value: comparisons.length, icon: Target, color: 'yellow' }
+            { title: 'Courses Bookmarked', value: bookmarks.filter(b => b.type === 'course').length, icon: BookOpen, color: 'bg-blue-500' },
+            { title: 'Labs Bookmarked', value: bookmarks.filter(b => b.type === 'lab').length, icon: Target, color: 'bg-green-500' },
+            { title: 'Notes Created', value: notes.length, icon: Edit3, color: 'bg-purple-500' },
+            { title: 'Items Comparing', value: comparisons.length, icon: Target, color: 'bg-indigo-500' }
           ].map((stat, index) => (
             <div key={index} className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
               <div className="p-3 sm:p-5">
                 <div className="flex items-center">
-                  <div className={`flex-shrink-0 bg-${stat.color}-500 rounded-md p-2 sm:p-3`}>
+                  <div className={`flex-shrink-0 ${stat.color} rounded-md p-2 sm:p-3`}>
                     <stat.icon className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
                   </div>
                   <div className="ml-3 sm:ml-5 w-0 flex-1">
@@ -1797,7 +1872,7 @@ const Dashboard = () => {
                         {bookmark.tags && bookmark.tags.length > 0 && (
                           <div className="flex gap-1 mt-1 flex-wrap">
                             {bookmark.tags.slice(0, 2).map((tag, index) => (
-                              <span key={index} className="text-xs px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded">
+                              <span key={index} className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 rounded">
                                 {tag}
                               </span>
                             ))}
@@ -1849,7 +1924,7 @@ const Dashboard = () => {
                   </div>
                 ))}
                 <button
-                  onClick={() => setShowNotesModal(true)}
+                  onClick={() => openModal('notes')}
                   className="w-full text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium text-center py-2"
                 >
                   View All Notes
@@ -1860,7 +1935,7 @@ const Dashboard = () => {
                 <Library className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-500 dark:text-gray-400 mb-4">No notes yet</p>
                 <button
-                  onClick={() => setShowNotesModal(true)}
+                  onClick={() => openModal('notes')}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium"
                 >
                   Create Your First Note
@@ -1904,7 +1979,7 @@ const Dashboard = () => {
                   ) : null;
                 })}
                 <button
-                  onClick={() => setShowComparisonModal(true)}
+                  onClick={() => openModal('comparison')}
                   className="w-full text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium text-center py-2"
                 >
                   View Comparison
@@ -1950,7 +2025,7 @@ const Dashboard = () => {
                 <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-500 dark:text-gray-400 mb-4">No courses in your pathway yet</p>
                 <button 
-                  onClick={() => setShowQuizModal(true)}
+                  onClick={() => openModal('quiz')}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium"
                 >
                   Find Your Track
@@ -1960,7 +2035,7 @@ const Dashboard = () => {
           </div>
         </div>
         
-        {/* Study Music */}
+        {/* Study Music - Fixed colors */}
         <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg shadow-lg p-4 sm:p-6 text-white mb-8">
           <div className="flex items-center justify-between flex-col sm:flex-row gap-4">
             <div className="text-center sm:text-left">
@@ -1979,8 +2054,8 @@ const Dashboard = () => {
           </div>
         </div>
         
-        {/* Premium Features Info */}
-        <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-lg shadow-lg p-4 sm:p-6">
+        {/* Premium Features Info - Fixed colors */}
+        <div className="bg-gradient-to-r from-emerald-400 to-cyan-500 rounded-lg shadow-lg p-4 sm:p-6">
           <div className="flex items-center justify-between flex-col sm:flex-row gap-4">
             <div className="text-center sm:text-left">
               <h3 className="text-lg sm:text-xl font-bold text-gray-900">You have Premium Access!</h3>
@@ -1990,11 +2065,6 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      
-      {/* Modals */}
-      <CornellNotesModal isOpen={showNotesModal} onClose={() => setShowNotesModal(false)} />
-      <ComparisonModal isOpen={showComparisonModal} onClose={() => setShowComparisonModal(false)} />
-      <QuizModal isOpen={showQuizModal} onClose={() => setShowQuizModal(false)} />
     </div>
   );
 };
@@ -2002,79 +2072,16 @@ const Dashboard = () => {
 // Home Page Component
 const Home = () => {
   const { darkMode, setCurrentPage } = usePage();
-  const { user, isPremium, getCurrentBookmarks, getCurrentComparisons } = useAuth();
-  const [selectedTrack, setSelectedTrack] = useState(null);
-  const [showTrackModal, setShowTrackModal] = useState(false);
-  const [showBookmarkModal, setShowBookmarkModal] = useState(false);
-  const [showComparisonModal, setShowComparisonModal] = useState(false);
-  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
-  const [showSuggestionModal, setShowSuggestionModal] = useState(false);
+  const { user, isPremium } = useAuth();
+  const { openModal } = useModal();
   
-  const bookmarks = getCurrentBookmarks();
-  const comparisons = getCurrentComparisons();
-
   const handleTrackClick = (track) => {
-    setSelectedTrack(track);
-    setShowTrackModal(true);
+    openModal('track', track);
   };
   
   return (
     <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       <Navigation />
-      <PWAInstallBanner />
-      
-      {/* Floating Action Buttons for all users */}
-      <>
-        {/* Feedback FAB */}
-        <button
-          onClick={() => setShowFeedbackModal(true)}
-          className="fixed bottom-32 right-4 z-40 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition-colors"
-          title="Send Feedback"
-          aria-label="Send feedback"
-        >
-          <MessageCircle className="h-6 w-6" />
-        </button>
-
-        {/* Suggest Course FAB */}
-        <button
-          onClick={() => setShowSuggestionModal(true)}
-          className="fixed bottom-48 right-4 z-40 bg-purple-500 hover:bg-purple-600 text-white p-3 rounded-full shadow-lg transition-colors"
-          title="Suggest a Course"
-          aria-label="Suggest a course"
-        >
-          <Plus className="h-6 w-6" />
-        </button>
-
-        {/* Bookmark FAB */}
-        <button
-          onClick={() => setShowBookmarkModal(true)}
-          className="fixed bottom-20 right-4 z-40 bg-yellow-500 hover:bg-yellow-600 text-white p-3 rounded-full shadow-lg transition-colors"
-          title="View Bookmarks"
-          aria-label="View bookmarks"
-        >
-          <Bookmark className="h-6 w-6" fill={bookmarks.length > 0 ? 'currentColor' : 'none'} />
-          {bookmarks.length > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-              {bookmarks.length}
-            </span>
-          )}
-        </button>
-        
-        {/* Compare FAB */}
-        <button
-          onClick={() => setShowComparisonModal(true)}
-          className="fixed bottom-4 right-4 z-40 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg transition-colors"
-          title="Compare Items"
-          aria-label="Compare items"
-        >
-          <Target className="h-6 w-6" fill={comparisons.length > 0 ? 'currentColor' : 'none'} />
-          {comparisons.length > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-              {comparisons.length}
-            </span>
-          )}
-        </button>
-      </>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         <div className="text-center">
@@ -2147,17 +2154,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      
-      {/* Modals */}
-      <TrackModal 
-        isOpen={showTrackModal} 
-        onClose={() => setShowTrackModal(false)} 
-        track={selectedTrack} 
-      />
-      <BookmarkModal isOpen={showBookmarkModal} onClose={() => setShowBookmarkModal(false)} />
-      <ComparisonModal isOpen={showComparisonModal} onClose={() => setShowComparisonModal(false)} />
-      <FeedbackModal isOpen={showFeedbackModal} onClose={() => setShowFeedbackModal(false)} />
-      <SuggestCourseModal isOpen={showSuggestionModal} onClose={() => setShowSuggestionModal(false)} />
     </div>
   );
 };
@@ -2439,15 +2435,21 @@ const AppContent = () => {
       {currentPage === 'labs' && <LabsPage />}
       {currentPage === 'resources' && <ResourcesPage />}
       {currentPage === 'ai-tools' && <AIToolsPage />}
+      
+      {/* Global FABs on all pages */}
+      <GlobalFABs />
+      
+      {/* Global Modals */}
+      <GlobalModals />
     </div>
   );
 };
 
-// Main App Component
+// Main App Component with PWA registration
 const App = () => {
   useEffect(() => {
     // Register service worker for PWA
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
           .then((registration) => {
@@ -2458,12 +2460,28 @@ const App = () => {
           });
       });
     }
+    
+    // Add Plausible analytics script
+    const script = document.createElement('script');
+    script.async = true;
+    script.defer = true;
+    script.setAttribute('data-domain', 'impactmojo.in');
+    script.src = 'https://plausible.io/js/script.js';
+    document.head.appendChild(script);
+    
+    return () => {
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
+    };
   }, []);
 
   return (
     <AuthProvider>
       <PageProvider>
-        <AppContent />
+        <ModalProvider>
+          <AppContent />
+        </ModalProvider>
       </PageProvider>
     </AuthProvider>
   );
