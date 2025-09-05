@@ -2,42 +2,34 @@
 export const premiumResources = [
   {
     id: "PR1",
-    title: "Stat Assistant",
-    description: "Statistical analysis tool for development research.",
-    url: "https://101.www.impactmojo.in/IMStatsAssist",
-    category: "Analysis Tools",
-    icon: "bar-chart"
+    title: "Field Notes from a Development Economist",
+    description: "Personal insights and reflections from field experiences in development economics.",
+    url: "https://101.www.impactmojo.in/margin-muse",
+    category: "Field Research",
+    icon: "book-open"
   },
   {
     id: "PR2",
-    title: "Qualitative Analysis Lab",
-    description: "Advanced qualitative data analysis workspace.",
+    title: "Qualitative Research Lab",
+    description: "Advanced qualitative data analysis workspace and methodological tools.",
     url: "https://101.www.impactmojo.in/IMQualLab",
     category: "Research Tools",
     icon: "flask"
   },
   {
     id: "PR3",
-    title: "Fieldnotes and Insights",
-    description: "Organize and analyze field research notes.",
-    url: "https://101.www.impactmojo.in/margin-muse",
-    category: "Field Research",
-    icon: "book-open"
+    title: "Statistical Analysis Assistant",
+    description: "Comprehensive statistical analysis tool for development research and evaluation.",
+    url: "https://101.www.impactmojo.in/IMStatsAssist",
+    category: "Analysis Tools",
+    icon: "bar-chart"
   },
   {
     id: "PR4",
     title: "The Real Middle Game",
-    description: "Strategic insights for development practitioners.",
+    description: "Strategic insights and practical guidance for navigating the complexities of development practice.",
     url: "https://101.www.impactmojo.in/theREALmiddlegame",
     category: "Strategy",
     icon: "target"
-  },
-  {
-    id: "PR5",
-    title: "Observation to Insight",
-    description: "Transform field observations into actionable insights.",
-    url: "https://101.www.impactmojo.in/obs2insight",
-    category: "Analysis",
-    icon: "lightbulb"
   }
 ];
