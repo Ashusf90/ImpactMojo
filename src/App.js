@@ -1789,7 +1789,7 @@ export const Navigation = () => {
 
 // Dashboard Component (Fixed dark mode colors)
 const Dashboard = () => {
-  const { darkMode } = usePage();
+  const { darkMode, setCurrentPage } = usePage(); // FIXED: Added setCurrentPage here
   const { user, isPremium, customPathway, notes, getCurrentBookmarks, getCurrentComparisons } = useAuth();
   const { openModal } = useModal();
   
