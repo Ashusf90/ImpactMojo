@@ -1,11 +1,12 @@
 // src/data/course-data.js
 export const courseData = [
+  // Gender Studies Track
   {
     id: "C1",
     title: "Gender Studies 101",
     track: "Gender Studies",
     description: "Introduction to gender theory and its practical implications.",
-    url: "https://101.www.impactmojo.in/gender-studies",
+    url: "https://101.www.impactmojo.in/Gender",
     level: "Beginner",
     duration: "2 hours",
     quote: '"Eye-opening exploration of gender norms."',
@@ -22,26 +23,6 @@ export const courseData = [
   },
   {
     id: "C3",
-    title: "LGBTQ+ Rights and Inclusion 101",
-    track: "Gender Studies",
-    description: "Understanding LGBTQ+ issues and building inclusive communities.",
-    url: "https://101.www.impactmojo.in/LGBTQ",
-    level: "Beginner",
-    duration: "2 hours",
-    quote: '"Building bridges through understanding."',
-  },
-  {
-    id: "C4",
-    title: "Masculinities and Development 101",
-    track: "Gender Studies",
-    description: "Exploring masculinities and their role in development.",
-    url: "https://101.www.impactmojo.in/masculinities",
-    level: "Intermediate",
-    duration: "2 hours",
-    quote: '"Redefining strength and vulnerability."',
-  },
-  {
-    id: "C5",
     title: "Care Economy 101",
     track: "Gender Studies",
     description: "Understanding the economics of care work and its societal value.",
@@ -51,7 +32,7 @@ export const courseData = [
     quote: '"Making invisible work visible."',
   },
   {
-    id: "C6",
+    id: "C4",
     title: "Data Feminism 101",
     track: "Gender Studies",
     description: "Applying feminist principles to data science and analysis.",
@@ -61,7 +42,19 @@ export const courseData = [
     quote: '"Data has gender - let\'s talk about it."',
   },
   {
-    id: "C7",
+    id: "C5",
+    title: "Marginalized Identities 101",
+    track: "Gender Studies",
+    description: "Understanding and addressing marginalization.",
+    url: "https://101.www.impactmojo.in/identities",
+    level: "Intermediate",
+    duration: "2.5 hours",
+    quote: '"Centering the margins."',
+  },
+
+  // Policy and Economics Track
+  {
+    id: "C6",
     title: "Development Economics 101",
     track: "Policy and Economics",
     description: "Foundations of development economics for practitioners.",
@@ -71,7 +64,7 @@ export const courseData = [
     quote: '"Economics meets social impact."',
   },
   {
-    id: "C8",
+    id: "C7",
     title: "Political Economy 101",
     track: "Policy and Economics",
     description: "Understanding political economy dynamics in development.",
@@ -81,7 +74,7 @@ export const courseData = [
     quote: '"Where politics meets economics."',
   },
   {
-    id: "C9",
+    id: "C8",
     title: "Poverty and Inequality 101",
     track: "Policy and Economics",
     description: "Measuring and addressing poverty and inequality.",
@@ -91,7 +84,7 @@ export const courseData = [
     quote: '"Understanding the wealth gap."',
   },
   {
-    id: "C10",
+    id: "C9",
     title: "Livelihoods 101",
     track: "Policy and Economics",
     description: "Sustainable livelihoods framework and applications.",
@@ -101,7 +94,7 @@ export const courseData = [
     quote: '"Building economic resilience."',
   },
   {
-    id: "C11",
+    id: "C10",
     title: "Social Welfare and Safety Nets 101",
     track: "Policy and Economics",
     description: "Design and implementation of social protection systems.",
@@ -111,7 +104,7 @@ export const courseData = [
     quote: '"Protecting the vulnerable."',
   },
   {
-    id: "C12",
+    id: "C11",
     title: "Fundraising 101",
     track: "Policy and Economics",
     description: "Strategic fundraising for development organizations.",
@@ -121,7 +114,7 @@ export const courseData = [
     quote: '"Turning vision into resources."',
   },
   {
-    id: "C13",
+    id: "C12",
     title: "Decent Work 101",
     track: "Policy and Economics",
     description: "ILO's decent work agenda and labor rights.",
@@ -131,15 +124,27 @@ export const courseData = [
     quote: '"Work with dignity for all."',
   },
   {
-    id: "C14",
-    title: "Marginalized Identities 101",
+    id: "C13",
+    title: "Law and Constitution 101",
     track: "Policy and Economics",
-    description: "Understanding and addressing marginalization.",
-    url: "https://101.www.impactmojo.in/identities",
+    description: "Legal frameworks for development work.",
+    url: "https://101.www.impactmojo.in/Law&Cons",
     level: "Intermediate",
     duration: "2.5 hours",
-    quote: '"Centering the margins."',
+    quote: '"Justice through law."',
   },
+  {
+    id: "C14",
+    title: "Global Development Architecture 101",
+    track: "Policy and Economics",
+    description: "Understanding global development institutions.",
+    url: "https://101.www.impactmojo.in/GDArch",
+    level: "Intermediate",
+    duration: "2.5 hours",
+    quote: '"The big picture of aid."',
+  },
+
+  // Data Analysis Track
   {
     id: "C15",
     title: "Data Literacy 101",
@@ -212,6 +217,8 @@ export const courseData = [
     quote: '"Precision in measurement."',
     isPremium: true
   },
+
+  // Research Methods Track
   {
     id: "C22",
     title: "Research Ethics 101",
@@ -254,7 +261,7 @@ export const courseData = [
   },
   {
     id: "C26",
-    title: "Behavior Change Communication Programming 101",
+    title: "Behaviour Change Communication Programming 101",
     track: "Research Methods",
     description: "Designing effective behavior change interventions.",
     url: "https://101.www.impactmojo.in/BCCP",
@@ -264,6 +271,18 @@ export const courseData = [
   },
   {
     id: "C27",
+    title: "Advocacy and Communications 101",
+    track: "Research Methods",
+    description: "Strategic advocacy and communication approaches.",
+    url: "https://101.www.impactmojo.in/adv&comm",
+    level: "Intermediate",
+    duration: "2.5 hours",
+    quote: '"Voice for change."',
+  },
+
+  // Thematic Areas Track
+  {
+    id: "C28",
     title: "Climate Science 101",
     track: "Thematic Areas",
     description: "Understanding climate change and its impacts.",
@@ -273,7 +292,7 @@ export const courseData = [
     quote: '"Our planet, our future."',
   },
   {
-    id: "C28",
+    id: "C29",
     title: "Environmental Justice 101",
     track: "Thematic Areas",
     description: "Intersection of environment and social justice.",
@@ -283,7 +302,7 @@ export const courseData = [
     quote: '"Justice for people and planet."',
   },
   {
-    id: "C29",
+    id: "C30",
     title: "Public Health 101",
     track: "Thematic Areas",
     description: "Foundations of public health in development.",
@@ -293,7 +312,7 @@ export const courseData = [
     quote: '"Health for all."',
   },
   {
-    id: "C30",
+    id: "C31",
     title: "Sexual and Reproductive Health Rights 101",
     track: "Thematic Areas",
     description: "Understanding SRHR in development contexts.",
@@ -303,7 +322,7 @@ export const courseData = [
     quote: '"Rights, dignity, choice."',
   },
   {
-    id: "C31",
+    id: "C32",
     title: "Digital Ethics 101",
     track: "Thematic Areas",
     description: "Ethical considerations in digital development.",
@@ -311,16 +330,6 @@ export const courseData = [
     level: "Intermediate",
     duration: "2 hours",
     quote: '"Technology with conscience."',
-  },
-  {
-    id: "C32",
-    title: "Law and Constitution 101",
-    track: "Thematic Areas",
-    description: "Legal frameworks for development work.",
-    url: "https://101.www.impactmojo.in/Law&Cons",
-    level: "Intermediate",
-    duration: "2.5 hours",
-    quote: '"Justice through law."',
   },
   {
     id: "C33",
@@ -354,16 +363,6 @@ export const courseData = [
   },
   {
     id: "C36",
-    title: "Global Development Architecture 101",
-    track: "Thematic Areas",
-    description: "Understanding global development institutions.",
-    url: "https://101.www.impactmojo.in/GDArch",
-    level: "Intermediate",
-    duration: "2.5 hours",
-    quote: '"The big picture of aid."',
-  },
-  {
-    id: "C37",
     title: "Social Emotional Learning 101",
     track: "Thematic Areas",
     description: "SEL approaches in development programs.",
@@ -374,8 +373,8 @@ export const courseData = [
     isPremium: true
   },
   {
-    id: "C38",
-    title: "English for Development",
+    id: "C37",
+    title: "English for Development Professionals 101",
     track: "Thematic Areas",
     description: "Essential English language skills for development professionals.",
     url: "https://101.www.impactmojo.in/eng4dev",
@@ -383,6 +382,16 @@ export const courseData = [
     duration: "3 hours",
     quote: '"Language as a tool for change."',
     isPremium: true
+  },
+  {
+    id: "C38",
+    title: "Pedagogy and Education 101",
+    track: "Thematic Areas",
+    description: "Educational theory and practice for development contexts.",
+    url: "https://101.www.impactmojo.in/edu",
+    level: "Intermediate",
+    duration: "2.5 hours",
+    quote: '"Teaching for transformation."',
   }
 ];
 
