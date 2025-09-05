@@ -1447,7 +1447,7 @@ const SuggestCourseModal = ({ isOpen, onClose }) => {
               value={formData.title}
               onChange={(e) => setFormData({...formData, title: e.target.value})}
               required
-              placeholder="e.g., Digital Marketing 101"
+              placeholder="e.g., Community Development 101"
               className="w-full p-2 border dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             />
           </div>
@@ -2035,6 +2035,23 @@ const Dashboard = () => {
           </div>
         </div>
         
+        {/* AI Tools Section - Fixed styling */}
+        <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-4 sm:p-6 mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">AI-Powered Tools</h2>
+            <Bot className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+          </div>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            Access our suite of AI tools to enhance your development work and learning.
+          </p>
+          <button
+            onClick={() => setCurrentPage('ai-tools')}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium transition-colors"
+          >
+            Explore AI Tools
+          </button>
+        </div>
+        
         {/* Study Music - Fixed colors */}
         <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg shadow-lg p-4 sm:p-6 text-white mb-8">
           <div className="flex items-center justify-between flex-col sm:flex-row gap-4">
@@ -2151,6 +2168,16 @@ const Home = () => {
                 <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base">{trackInfo.description}</p>
               </button>
             ))}
+          </div>
+          
+          {/* Find Your Track CTA */}
+          <div className="text-center mt-8">
+            <button
+              onClick={() => openModal('quiz')}
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md font-medium text-lg"
+            >
+              Find Your Track
+            </button>
           </div>
         </div>
       </div>
