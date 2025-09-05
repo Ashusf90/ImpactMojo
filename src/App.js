@@ -471,7 +471,7 @@ const Dashboard = () => {
               <div key={index} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow">
                 <h3 className="font-medium text-gray-900 dark:text-chalk-white font-sans mb-2">{resource.title}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 font-sans mb-3">{resource.description}</p>
-                
+                <a
                   href={resource.url}
                   target="_blank"
                   rel="noopener noreferrer"
