@@ -666,13 +666,13 @@ Please create:
    - Extension activities for early finishers
 Ensure all puzzles are solvable, age-appropriate, and directly tied to learning goals.`,
     systemMessage: 'You are an immersive learning experience designer who creates educational escape rooms. You understand game mechanics, puzzle design, and how to seamlessly integrate curriculum content into engaging storylines that promote deep learning.',
-    exampleInput: `Topic: Chemical Bonding and Molecular Structure
-Objectives: 1) Identify ionic vs covalent bonds 2) Predict molecular shapes 3) Understand electronegativity 4) Apply bonding theory to real compounds
-Theme: Secret laboratory - students are chemists who must prevent a dangerous reaction
-Grade: 10th grade Chemistry
-Time: 45 minutes
-Size: Groups of 4-5 students
-Tech: Tablets available for digital clues/simulations`,
+    exampleInput: `Topic: Rural Water Management and Community Health
+Objectives: 1) Understand water cycle and contamination sources 2) Identify community-based solutions 3) Learn about water governance structures 4) Apply collaborative problem-solving for resource management
+Theme: Village crisis - participants are development workers who must solve a water shortage before the harvest season
+Audience: Community development practitioners and students
+Time: 60 minutes
+Size: Groups of 4-6 participants
+Tech: Tablets available for mapping exercises and data analysis`,
     icon: 'Puzzle',
     color: 'purple'
   }
