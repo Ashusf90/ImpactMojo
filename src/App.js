@@ -2527,10 +2527,9 @@ const CoursesPage = () => {
     </div>
   );
 };
-// Continuing from where your current App.js ends...
 
 // Quiz questions for "Find Your Track" (completing the definition)
-const quizQuestions = [
+
   {
     id: 1,
     question: "What interests you most about development work?",
