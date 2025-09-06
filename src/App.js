@@ -29,7 +29,7 @@ const gamesData = [
   }
 ];
 
-// Updated Premium Resources Data (with corrected URLs and Real Middle removed)
+// Updated Premium Resources Data (with corrected URLs)
 const updatedPremiumResources = [
   {
     id: "PR1",
@@ -104,217 +104,140 @@ const AuthProvider = ({ children }) => {
     try {
       const userDoc = await getDoc(doc(db, 'users', uid));
       if (userDoc.exists()) {
-        const data = userDoc.data();
-        setBookmarks(data.bookmarks || []);
-        setComparisons(data.comparisons || []);
-        setCustomPathway(data.customPathway || []);
-        setNotes(data.notes || []);
+        const userData = userDoc.data();
+        setBookmarks(userData.bookmarks || []);
+        setComparisons(userData.comparisons || []);
+        setCustomPathway(userData.customPathway || []);
+        setNotes(userData.notes || []);
       }
     } catch (error) {
       console.error('Error loading user data:', error);
     }
   };
 
-  const signInWithGoogle = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const userData = {
-        uid: result.user.uid,
-        email: result.user.email,
-        displayName: result.user.displayName,
-        photoURL: result.user.photoURL,
-        bookmarks: [],
-        comparisons: [],
-        customPathway: [],
-        notes: []
-      };
-      await setDoc(doc(db, 'users', result.user.uid), userData, { merge: true });
-    } catch (error) {
-      console.error('Error signing in:', error);
-    }
-  };
-
-  const signOut = async () => {
-    try {
-      await firebaseSignOut(auth);
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
-
-  const toggleBookmark = async (itemId, itemType) => {
-    if (!user) return;
-    try {
-      const existingIndex = bookmarks.findIndex(b => b.id === itemId && b.type === itemType);
-      let newBookmarks;
-      
-      if (existingIndex >= 0) {
-        newBookmarks = bookmarks.filter((_, index) => index !== existingIndex);
-      } else {
-        newBookmarks = [...bookmarks, { id: itemId, type: itemType, dateAdded: new Date(), tags: [] }];
+  const saveUserData = async (data) => {
+    if (user) {
+      try {
+        await setDoc(doc(db, 'users', user.uid), data, { merge: true });
+      } catch (error) {
+        console.error('Error saving user data:', error);
       }
-      
-      await updateDoc(doc(db, 'users', user.uid), { bookmarks: newBookmarks });
-      setBookmarks(newBookmarks);
-    } catch (error) {
-      console.error('Error toggling bookmark:', error);
     }
   };
 
-  const toggleComparison = async (itemId, itemType) => {
-    if (!user) return;
-    try {
-      const existingIndex = comparisons.findIndex(c => c.id === itemId && c.type === itemType);
-      let newComparisons;
-      
-      if (existingIndex >= 0) {
-        newComparisons = comparisons.filter((_, index) => index !== existingIndex);
-      } else if (comparisons.length < 3) {
-        newComparisons = [...comparisons, { id: itemId, type: itemType }];
-      } else {
-        return; // Max 3 items for comparison
+  const addBookmark = (item) => {
+    const newBookmarks = [...bookmarks, item];
+    setBookmarks(newBookmarks);
+    saveUserData({ bookmarks: newBookmarks });
+  };
+
+  const removeBookmark = (itemId) => {
+    const newBookmarks = bookmarks.filter(b => b.id !== itemId);
+    setBookmarks(newBookmarks);
+    saveUserData({ bookmarks: newBookmarks });
+  };
+
+  const isBookmarked = (itemId) => {
+    return bookmarks.some(b => b.id === itemId);
+  };
+
+  const toggleComparison = (item) => {
+    const isInComparison = comparisons.some(c => c.id === item.id);
+    let newComparisons;
+    
+    if (isInComparison) {
+      newComparisons = comparisons.filter(c => c.id !== item.id);
+    } else {
+      if (comparisons.length >= 3) {
+        alert('You can only compare up to 3 items');
+        return;
       }
-      
-      await updateDoc(doc(db, 'users', user.uid), { comparisons: newComparisons });
-      setComparisons(newComparisons);
-    } catch (error) {
-      console.error('Error toggling comparison:', error);
+      newComparisons = [...comparisons, item];
     }
+    
+    setComparisons(newComparisons);
+    saveUserData({ comparisons: newComparisons });
   };
 
-  const getCurrentBookmarks = () => bookmarks;
+  const isInComparison = (itemId) => {
+    return comparisons.some(c => c.id === itemId);
+  };
+
   const getCurrentComparisons = () => comparisons;
-  const isPremium = () => user !== null;
 
-  const updateBookmarkTags = async (bookmarkId, newTags) => {
-    if (!user) return;
-    try {
-      const newBookmarks = bookmarks.map(bookmark => 
-        bookmark.id === bookmarkId 
-          ? { ...bookmark, tags: newTags }
-          : bookmark
-      );
-      await updateDoc(doc(db, 'users', user.uid), { bookmarks: newBookmarks });
-      setBookmarks(newBookmarks);
-    } catch (error) {
-      console.error('Error updating bookmark tags:', error);
-    }
-  };
-  
-  const addToPathway = async (courseId) => {
-    if (!user) return;
-    try {
-      const newPathway = [...customPathway, courseId];
-      await updateDoc(doc(db, 'users', user.uid), { customPathway: newPathway });
-      setCustomPathway(newPathway);
-    } catch (error) {
-      console.error('Error adding to pathway:', error);
-    }
+  const addToPathway = (item) => {
+    const newPathway = [...customPathway, { ...item, addedAt: new Date() }];
+    setCustomPathway(newPathway);
+    saveUserData({ customPathway: newPathway });
   };
 
-  const setRecommendedTrack = async (track, courses) => {
-    if (!user) return;
-    try {
-      await updateDoc(doc(db, 'users', user.uid), { 
-        recommendedTrack: track,
-        customPathway: courses
-      });
-      setCustomPathway(courses);
-    } catch (error) {
-      console.error('Error setting recommended track:', error);
-    }
-  };
-  
-  const saveNote = async (note) => {
-    if (!user) return;
-    try {
-      const newNote = {
-        ...note,
-        id: Date.now().toString(),
-        dateCreated: new Date(),
-        lastModified: new Date()
-      };
-      const newNotes = [...notes, newNote];
-      await updateDoc(doc(db, 'users', user.uid), { notes: newNotes });
-      setNotes(newNotes);
-      return newNote.id;
-    } catch (error) {
-      console.error('Error saving note:', error);
-    }
+  const removeFromPathway = (itemId) => {
+    const newPathway = customPathway.filter(p => p.id !== itemId);
+    setCustomPathway(newPathway);
+    saveUserData({ customPathway: newPathway });
   };
 
-  const updateNote = async (noteId, updates) => {
-    if (!user) return;
-    try {
-      const newNotes = notes.map(note => 
-        note.id === noteId 
-          ? { ...note, ...updates, lastModified: new Date() }
-          : note
-      );
-      await updateDoc(doc(db, 'users', user.uid), { notes: newNotes });
-      setNotes(newNotes);
-    } catch (error) {
-      console.error('Error updating note:', error);
-    }
+  const addNote = async (note) => {
+    const newNote = {
+      ...note,
+      id: Date.now().toString(),
+      createdAt: new Date(),
+      lastModified: new Date()
+    };
+    const newNotes = [...notes, newNote];
+    setNotes(newNotes);
+    saveUserData({ notes: newNotes });
+  };
+
+  const updateNote = async (noteId, updatedNote) => {
+    const newNotes = notes.map(note => 
+      note.id === noteId 
+        ? { ...note, ...updatedNote, lastModified: new Date() }
+        : note
+    );
+    setNotes(newNotes);
+    saveUserData({ notes: newNotes });
   };
 
   const deleteNote = async (noteId) => {
-    if (!user) return;
-    try {
-      const newNotes = notes.filter(note => note.id !== noteId);
-      await updateDoc(doc(db, 'users', user.uid), { notes: newNotes });
-      setNotes(newNotes);
-    } catch (error) {
-      console.error('Error deleting note:', error);
-    }
+    const newNotes = notes.filter(note => note.id !== noteId);
+    setNotes(newNotes);
+    saveUserData({ notes: newNotes });
   };
 
-  const submitFeedback = async (feedbackData) => {
-    try {
-      // Submit to Formspree
-      const response = await fetch('https://formspree.io/f/xpwdvgzp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          type: 'feedback',
-          message: feedbackData.message,
-          email: feedbackData.email || (user ? user.email : 'anonymous'),
-          name: feedbackData.name || (user ? user.displayName : 'anonymous'),
-          userId: user ? user.uid : 'anonymous',
-          timestamp: new Date().toISOString()
-        }),
-      });
-
-      if (response.ok) {
-        return { success: true };
-      } else {
-        throw new Error('Failed to submit feedback');
-      }
-    } catch (error) {
-      console.error('Error submitting feedback:', error);
-      return { success: false, error: error.message };
-    }
-  };
+  const isPremium = true; // For now, everyone has premium access
 
   return (
     <AuthContext.Provider value={{
-      user, loading, bookmarks, comparisons, customPathway, notes,
-      signInWithGoogle, signOut, toggleBookmark, toggleComparison,
-      getCurrentBookmarks, getCurrentComparisons, isPremium,
-      updateBookmarkTags, addToPathway, setRecommendedTrack,
-      saveNote, updateNote, deleteNote, submitFeedback
+      user,
+      loading,
+      bookmarks,
+      comparisons,
+      customPathway,
+      notes,
+      addBookmark,
+      removeBookmark,
+      isBookmarked,
+      toggleComparison,
+      isInComparison,
+      getCurrentComparisons,
+      addToPathway,
+      removeFromPathway,
+      addNote,
+      updateNote,
+      deleteNote,
+      isPremium
     }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
+const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error('useAuth must be used within AuthProvider');
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
   return context;
 };
 
@@ -322,30 +245,19 @@ export const useAuth = () => {
 const PageContext = createContext();
 const PageProvider = ({ children }) => {
   const [currentPage, setCurrentPage] = useState('home');
-  const [darkMode, setDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('darkMode');
-      if (saved !== null) return JSON.parse(saved);
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return false;
-  });
-  const [installPrompt, setInstallPrompt] = useState(null);
+  const [darkMode, setDarkMode] = useState(false);
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
+    const isDark = localStorage.getItem('darkMode') === 'true';
+    setDarkMode(isDark);
+  }, []);
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e) => {
       e.preventDefault();
-      setInstallPrompt(e);
+      setDeferredPrompt(e);
       setShowInstallPrompt(true);
     };
 
@@ -353,31 +265,46 @@ const PageProvider = ({ children }) => {
     return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
   }, []);
 
-  const handleInstallClick = async () => {
-    if (installPrompt) {
-      const result = await installPrompt.prompt();
-      setInstallPrompt(null);
-      setShowInstallPrompt(false);
+  const toggleDarkMode = () => {
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+    localStorage.setItem('darkMode', newDarkMode);
+  };
+
+  const handleInstallClick = () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => {
+        setDeferredPrompt(null);
+        setShowInstallPrompt(false);
+      });
     }
   };
-  
+
   return (
-    <PageContext.Provider value={{ 
-      currentPage, setCurrentPage, darkMode, setDarkMode,
-      installPrompt, showInstallPrompt, setShowInstallPrompt, handleInstallClick
+    <PageContext.Provider value={{
+      currentPage,
+      setCurrentPage,
+      darkMode,
+      toggleDarkMode,
+      showInstallPrompt,
+      setShowInstallPrompt,
+      handleInstallClick
     }}>
       {children}
     </PageContext.Provider>
   );
 };
 
-export const usePage = () => {
+const usePage = () => {
   const context = useContext(PageContext);
-  if (!context) throw new Error('usePage must be used within PageProvider');
+  if (!context) {
+    throw new Error('usePage must be used within a PageProvider');
+  }
   return context;
 };
 
-// Global Modal Context
+// Modal Context
 const ModalContext = createContext();
 const ModalProvider = ({ children }) => {
   const [activeModal, setActiveModal] = useState(null);
@@ -394,569 +321,433 @@ const ModalProvider = ({ children }) => {
   };
 
   return (
-    <ModalContext.Provider value={{ activeModal, modalData, openModal, closeModal }}>
+    <ModalContext.Provider value={{
+      activeModal,
+      modalData,
+      openModal,
+      closeModal
+    }}>
       {children}
     </ModalContext.Provider>
   );
 };
 
-export const useModal = () => {
+const useModal = () => {
   const context = useContext(ModalContext);
-  if (!context) throw new Error('useModal must be used within ModalProvider');
+  if (!context) {
+    throw new Error('useModal must be used within a ModalProvider');
+  }
   return context;
 };
 
-// Home Page Component
-const Home = () => {
-  const { setCurrentPage } = usePage();
+// Auth functions
+const signInWithGoogle = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+  } catch (error) {
+    console.error('Error signing in:', error);
+  }
+};
+
+const signOut = async () => {
+  try {
+    await firebaseSignOut(auth);
+  } catch (error) {
+    console.error('Error signing out:', error);
+  }
+};
+
+// Navigation Component
+const Navigation = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { currentPage, setCurrentPage, darkMode, toggleDarkMode } = usePage();
+  const { user } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navigation />
-      
-      {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-        <div className="text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white">
-            <span className="block">Development Education</span>
-            <span className="block text-blue-600">Made Accessible</span>
-          </h1>
-          <p className="mt-6 max-w-3xl mx-auto text-xl text-gray-600 dark:text-gray-300">
-            Learn development economics, policy analysis, and impact evaluation through interactive courses, 
-            hands-on labs, and real-world case studies.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+    <nav className="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex items-center">
+            <button
+              onClick={() => setCurrentPage('home')}
+              className="text-xl font-bold text-blue-600 dark:text-blue-400"
+            >
+              ImpactMojo
+            </button>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            <button
+              onClick={() => setCurrentPage('home')}
+              className={`px-3 py-2 text-sm font-medium ${
+                currentPage === 'home'
+                  ? 'text-blue-600 dark:text-blue-400'
+                  : 'text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white'
+              }`}
+            >
+              Home
+            </button>
             <button
               onClick={() => setCurrentPage('courses')}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-medium transition-colors"
+              className={`px-3 py-2 text-sm font-medium ${
+                currentPage === 'courses'
+                  ? 'text-blue-600 dark:text-blue-400'
+                  : 'text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white'
+              }`}
             >
-              Explore Courses
+              Courses
             </button>
             <button
               onClick={() => setCurrentPage('labs')}
-              className="border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 px-8 py-3 rounded-md text-lg font-medium transition-colors"
+              className={`px-3 py-2 text-sm font-medium ${
+                currentPage === 'labs'
+                  ? 'text-blue-600 dark:text-blue-400'
+                  : 'text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white'
+              }`}
             >
-              Try Labs
+              Labs
+            </button>
+            <button
+              onClick={() => setCurrentPage('games')}
+              className={`px-3 py-2 text-sm font-medium ${
+                currentPage === 'games'
+                  ? 'text-blue-600 dark:text-blue-400'
+                  : 'text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white'
+              }`}
+            >
+              Games
+            </button>
+            <button
+              onClick={() => setCurrentPage('ai-tools')}
+              className={`px-3 py-2 text-sm font-medium ${
+                currentPage === 'ai-tools'
+                  ? 'text-blue-600 dark:text-blue-400'
+                  : 'text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white'
+              }`}
+            >
+              AI Tools
+            </button>
+            {user && (
+              <button
+                onClick={() => setCurrentPage('dashboard')}
+                className={`px-3 py-2 text-sm font-medium ${
+                  currentPage === 'dashboard'
+                    ? 'text-blue-600 dark:text-blue-400'
+                    : 'text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white'
+                }`}
+              >
+                Dashboard
+              </button>
+            )}
+          </div>
+
+          <div className="hidden md:flex items-center space-x-4">
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
+              aria-label="Toggle dark mode"
+            >
+              {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </button>
+            {user ? (
+              <div className="flex items-center space-x-3">
+                <img
+                  src={user.photoURL}
+                  alt={user.displayName}
+                  className="h-8 w-8 rounded-full"
+                />
+                <button
+                  onClick={signOut}
+                  className="text-sm font-medium text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={signInWithGoogle}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+              >
+                Sign In
+              </button>
+            )}
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 text-gray-500 dark:text-gray-300"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
-        {/* Featured Content */}
-        <div className="mt-20">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white text-center mb-12">
-            Featured Learning Experiences
-          </h2>
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Featured Courses */}
-            {courseData.slice(0, 2).map((course) => (
-              <div key={course.id} className="flex flex-col rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-gray-800">
-                <div className="flex-1 p-6 flex flex-col justify-between">
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                      <span>Course</span>
-                    </p>
-                    <h3 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">{course.title}</h3>
-                    <p className="mt-3 text-base text-gray-600 dark:text-gray-300">{course.description}</p>
-                  </div>
-                  <div className="mt-6">
-                    <button
-                      onClick={() => setCurrentPage('courses')}
-                      className="text-base font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
-                    >
-                      Explore courses
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-            
-            {/* Add Games Section Featured Item */}
-            <div className="flex flex-col rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-gray-800">
-              <div className="flex-1 p-6 flex flex-col justify-between">
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-green-600 dark:text-green-400">
-                    <span>Game</span>
-                  </p>
-                  <h3 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">Interactive Learning</h3>
-                  <p className="mt-3 text-base text-gray-600 dark:text-gray-300">Engage with development concepts through interactive games and simulations.</p>
-                </div>
-                <div className="mt-6">
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              <button
+                onClick={() => {
+                  setCurrentPage('home');
+                  setIsOpen(false);
+                }}
+                className="block px-3 py-2 text-base font-medium text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
+              >
+                Home
+              </button>
+              <button
+                onClick={() => {
+                  setCurrentPage('courses');
+                  setIsOpen(false);
+                }}
+                className="block px-3 py-2 text-base font-medium text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
+              >
+                Courses
+              </button>
+              <button
+                onClick={() => {
+                  setCurrentPage('labs');
+                  setIsOpen(false);
+                }}
+                className="block px-3 py-2 text-base font-medium text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
+              >
+                Labs
+              </button>
+              <button
+                onClick={() => {
+                  setCurrentPage('games');
+                  setIsOpen(false);
+                }}
+                className="block px-3 py-2 text-base font-medium text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
+              >
+                Games
+              </button>
+              <button
+                onClick={() => {
+                  setCurrentPage('ai-tools');
+                  setIsOpen(false);
+                }}
+                className="block px-3 py-2 text-base font-medium text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
+              >
+                AI Tools
+              </button>
+              {user && (
+                <button
+                  onClick={() => {
+                    setCurrentPage('dashboard');
+                    setIsOpen(false);
+                  }}
+                  className="block px-3 py-2 text-base font-medium text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
+                >
+                  Dashboard
+                </button>
+              )}
+              <div className="flex items-center justify-between px-3 py-2">
+                <button
+                  onClick={toggleDarkMode}
+                  className="p-2 text-gray-500 dark:text-gray-300"
+                  aria-label="Toggle dark mode"
+                >
+                  {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                </button>
+                {user ? (
                   <button
-                    onClick={() => setCurrentPage('games')}
-                    className="text-base font-medium text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300"
+                    onClick={signOut}
+                    className="text-sm font-medium text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
                   >
-                    Play games
+                    Sign Out
                   </button>
-                </div>
+                ) : (
+                  <button
+                    onClick={signInWithGoogle}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                  >
+                    Sign In
+                  </button>
+                )}
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
-    </div>
-  );
-};
-
-// Courses Page Component
-const CoursesPage = () => {
-  const { user, toggleBookmark, toggleComparison, getCurrentBookmarks, getCurrentComparisons } = useAuth();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedTrack, setSelectedTrack] = useState('');
-  
-  const bookmarks = getCurrentBookmarks();
-  const comparisons = getCurrentComparisons();
-
-  const filteredCourses = courseData.filter(course => {
-    const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesTrack = !selectedTrack || course.track === selectedTrack;
-    return matchesSearch && matchesTrack;
-  });
-
-  const tracks = [...new Set(courseData.map(course => course.track))];
-
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navigation />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Courses</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-300">
-            Comprehensive development economics and policy courses
-          </p>
-        </div>
-
-        {/* Search and Filter */}
-        <div className="mb-8 flex flex-col sm:flex-row gap-4">
-          <div className="flex-1">
-            <input
-              type="text"
-              placeholder="Search courses..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-            />
-          </div>
-          <select
-            value={selectedTrack}
-            onChange={(e) => setSelectedTrack(e.target.value)}
-            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-          >
-            <option value="">All Tracks</option>
-            {tracks.map(track => (
-              <option key={track} value={track}>{track}</option>
-            ))}
-          </select>
-        </div>
-
-        {/* Course Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredCourses.map((course) => {
-            const isBookmarked = bookmarks.some(b => b.id === course.id && b.type === 'course');
-            const isComparing = comparisons.some(c => c.id === course.id && c.type === 'course');
-            
-            return (
-              <div key={course.id} className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
-                <div className="px-4 py-5 sm:p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-sm font-medium text-blue-600 dark:text-blue-400">{course.id}</span>
-                    <div className="flex gap-2">
-                      {user && (
-                        <>
-                          <button
-                            onClick={() => toggleBookmark(course.id, 'course')}
-                            className={`p-1 rounded ${isBookmarked ? 'text-yellow-500' : 'text-gray-400 hover:text-yellow-500'}`}
-                          >
-                            <Bookmark className="h-4 w-4" fill={isBookmarked ? 'currentColor' : 'none'} />
-                          </button>
-                          <button
-                            onClick={() => toggleComparison(course.id, 'course')}
-                            className={`p-1 rounded ${isComparing ? 'text-blue-500' : 'text-gray-400 hover:text-blue-500'}`}
-                            disabled={!isComparing && comparisons.length >= 3}
-                          >
-                            <Target className="h-4 w-4" fill={isComparing ? 'currentColor' : 'none'} />
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">{course.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{course.description}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{course.track}</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{course.duration}</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Labs Page Component
-const LabsPage = () => {
-  const { user, toggleBookmark, toggleComparison, getCurrentBookmarks, getCurrentComparisons } = useAuth();
-  const [searchTerm, setSearchTerm] = useState('');
-  
-  const bookmarks = getCurrentBookmarks();
-  const comparisons = getCurrentComparisons();
-
-  const filteredLabs = labsData.filter(lab => 
-    lab.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    lab.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navigation />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Labs</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-300">
-            Hands-on practice with development tools and methodologies
-          </p>
-        </div>
-
-        {/* Search */}
-        <div className="mb-8">
-          <input
-            type="text"
-            placeholder="Search labs..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full max-w-md px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-          />
-        </div>
-
-        {/* Labs Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredLabs.map((lab) => {
-            const isBookmarked = bookmarks.some(b => b.id === lab.id && b.type === 'lab');
-            const isComparing = comparisons.some(c => c.id === lab.id && c.type === 'lab');
-            
-            return (
-              <div key={lab.id} className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
-                <div className="px-4 py-5 sm:p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-sm font-medium text-green-600 dark:text-green-400">{lab.id}</span>
-                    <div className="flex gap-2">
-                      {user && (
-                        <>
-                          <button
-                            onClick={() => toggleBookmark(lab.id, 'lab')}
-                            className={`p-1 rounded ${isBookmarked ? 'text-yellow-500' : 'text-gray-400 hover:text-yellow-500'}`}
-                          >
-                            <Bookmark className="h-4 w-4" fill={isBookmarked ? 'currentColor' : 'none'} />
-                          </button>
-                          <button
-                            onClick={() => toggleComparison(lab.id, 'lab')}
-                            className={`p-1 rounded ${isComparing ? 'text-blue-500' : 'text-gray-400 hover:text-blue-500'}`}
-                            disabled={!isComparing && comparisons.length >= 3}
-                          >
-                            <Target className="h-4 w-4" fill={isComparing ? 'currentColor' : 'none'} />
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">{lab.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{lab.description}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{lab.topic}</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{lab.level}</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Resources Page Component
-const ResourcesPage = () => {
-  const { user, toggleBookmark, getCurrentBookmarks } = useAuth();
-  const [searchTerm, setSearchTerm] = useState('');
-  
-  const bookmarks = getCurrentBookmarks();
-
-  const filteredResources = updatedPremiumResources.filter(resource => 
-    resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    resource.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navigation />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Resources</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-300">
-            Essential tools and references for development professionals
-          </p>
-        </div>
-
-        {/* Search */}
-        <div className="mb-8">
-          <input
-            type="text"
-            placeholder="Search resources..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full max-w-md px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-          />
-        </div>
-
-        {/* Resources Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredResources.map((resource) => {
-            const isBookmarked = bookmarks.some(b => b.id === resource.id && b.type === 'resource');
-            
-            return (
-              <div key={resource.id} className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
-                <div className="px-4 py-5 sm:p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-sm font-medium text-purple-600 dark:text-purple-400">{resource.id}</span>
-                    <div className="flex gap-2">
-                      {user && (
-                        <button
-                          onClick={() => toggleBookmark(resource.id, 'resource')}
-                          className={`p-1 rounded ${isBookmarked ? 'text-yellow-500' : 'text-gray-400 hover:text-yellow-500'}`}
-                        >
-                          <Bookmark className="h-4 w-4" fill={isBookmarked ? 'currentColor' : 'none'} />
-                        </button>
-                      )}
-                      <a
-                        href={resource.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-1 rounded text-gray-400 hover:text-blue-500"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">{resource.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{resource.description}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{resource.category}</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{resource.access}</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// NEW: Games Page Component
-const GamesPage = () => {
-  const { user, toggleBookmark, toggleComparison, getCurrentBookmarks, getCurrentComparisons } = useAuth();
-  const [searchTerm, setSearchTerm] = useState('');
-  
-  const bookmarks = getCurrentBookmarks();
-  const comparisons = getCurrentComparisons();
-
-  const filteredGames = gamesData.filter(game => 
-    game.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    game.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navigation />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Games</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-300">
-            Interactive learning experiences and strategic simulations
-          </p>
-        </div>
-
-        {/* Search */}
-        <div className="mb-8">
-          <input
-            type="text"
-            placeholder="Search games..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full max-w-md px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-          />
-        </div>
-
-        {/* Games Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredGames.map((game) => {
-            const isBookmarked = bookmarks.some(b => b.id === game.id && b.type === 'game');
-            const isComparing = comparisons.some(c => c.id === game.id && c.type === 'game');
-            
-            return (
-              <div key={game.id} className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
-                <div className="px-4 py-5 sm:p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-sm font-medium text-green-600 dark:text-green-400">{game.id}</span>
-                    <div className="flex gap-2">
-                      {user && (
-                        <>
-                          <button
-                            onClick={() => toggleBookmark(game.id, 'game')}
-                            className={`p-1 rounded ${isBookmarked ? 'text-yellow-500' : 'text-gray-400 hover:text-yellow-500'}`}
-                          >
-                            <Bookmark className="h-4 w-4" fill={isBookmarked ? 'currentColor' : 'none'} />
-                          </button>
-                          <button
-                            onClick={() => toggleComparison(game.id, 'game')}
-                            className={`p-1 rounded ${isComparing ? 'text-blue-500' : 'text-gray-400 hover:text-blue-500'}`}
-                            disabled={!isComparing && comparisons.length >= 3}
-                          >
-                            <Target className="h-4 w-4" fill={isComparing ? 'currentColor' : 'none'} />
-                          </button>
-                        </>
-                      )}
-                      <a
-                        href={game.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-1 rounded text-gray-400 hover:text-blue-500"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">{game.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{game.description}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{game.category}</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{game.difficulty}</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
+    </nav>
   );
 };
 
 // Dashboard Component
 const Dashboard = () => {
-  const { user, getCurrentBookmarks, getCurrentComparisons } = useAuth();
   const { darkMode, setCurrentPage } = usePage();
-  const bookmarks = getCurrentBookmarks();
-  const comparisons = getCurrentComparisons();
-  const { notes } = useAuth();
+  const { user, bookmarks, notes, getCurrentComparisons } = useAuth();
   const { openModal } = useModal();
+  const comparisons = getCurrentComparisons();
 
   if (!user) {
     return (
       <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
         <Navigation />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Please sign in to access your dashboard</h1>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center">
+            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">
+              Sign in to access your dashboard
+            </h1>
+            <button
+              onClick={signInWithGoogle}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium"
+            >
+              Sign In with Google
+            </button>
+          </div>
         </div>
       </div>
     );
   }
-  
+
   return (
     <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       <Navigation />
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
+        {/* Welcome Header */}
         <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">Dashboard</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-300">Welcome back, {user.displayName}!</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+            Welcome back, {user.displayName?.split(' ')[0]}!
+          </h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">
+            Continue your learning journey with personalized tools and content.
+          </p>
+          <button
+            onClick={() => setCurrentPage('ai-tools')}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium transition-colors"
+          >
+            Explore AI Tools
+          </button>
         </div>
         
-        {/* Stats Cards - Fixed colors for dark mode */}
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 mb-8">
-          {[
-            { title: 'Courses Bookmarked', value: bookmarks.filter(b => b.type === 'course').length, icon: BookOpen, color: 'bg-blue-500' },
-            { title: 'Labs Bookmarked', value: bookmarks.filter(b => b.type === 'lab').length, icon: Target, color: 'bg-green-500' },
-            { title: 'Notes Created', value: notes.length, icon: Edit3, color: 'bg-purple-500' },
-            { title: 'Items Comparing', value: comparisons.length, icon: Target, color: 'bg-indigo-500' }
-          ].map((stat, index) => (
-            <div key={index} className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
-              <div className="p-3 sm:p-5">
-                <div className="flex items-center">
-                  <div className={`flex-shrink-0 ${stat.color} rounded-md p-2 sm:p-3`}>
-                    <stat.icon className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
-                  </div>
-                  <div className="ml-3 sm:ml-5 w-0 flex-1">
-                    <dl>
-                      <dt className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 truncate">{stat.title}</dt>
-                      <dd className="text-lg font-medium text-gray-900 dark:text-white">{stat.value}</dd>
-                    </dl>
-                  </div>
+        {/* Study Music - Fixed colors */}
+        <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg shadow-lg p-4 sm:p-6 text-white mb-8">
+          <div className="flex items-center justify-between flex-col sm:flex-row gap-4">
+            <div className="text-center sm:text-left">
+              <h2 className="text-lg sm:text-xl font-bold">Lo-Fi Study Beats</h2>
+              <p className="mt-1">Focus better with our curated study playlist</p>
+            </div>
+            <a
+              href="https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-purple-600 px-4 py-2 rounded-md font-medium flex items-center hover:bg-gray-100 transition-colors"
+            >
+              <Music className="mr-2 h-5 w-5" />
+              Play on Spotify
+            </a>
+          </div>
+        </div>
+        
+        {/* Premium Features Info */}
+        <div className="bg-gradient-to-r from-emerald-400 to-cyan-500 rounded-lg shadow-lg p-4 sm:p-6 mb-8">
+          <div className="flex items-center justify-between flex-col sm:flex-row gap-4">
+            <div className="text-center sm:text-left">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900">You have Premium Access!</h3>
+              <p className="mt-1 text-gray-800">Enjoy all features including AI Tools, Notes, and Comparisons</p>
+            </div>
+            <Trophy className="h-12 w-12 text-gray-900 flex-shrink-0" />
+          </div>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <Bookmark className="h-6 w-6 text-yellow-400" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+                      Bookmarks
+                    </dt>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">
+                      {bookmarks.length}
+                    </dd>
+                  </dl>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-        
-        {/* Main Features */}
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 mb-8">
-          {/* Bookmarks */}
-          <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-4 sm:p-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4">Your Bookmarks</h2>
-            {bookmarks.length > 0 ? (
-              <div className="space-y-3">
-                {bookmarks.slice(0, 5).map((bookmark) => {
-                  const getItemData = (id, type) => {
-                    switch (type) {
-                      case 'course':
-                        return courseData.find(item => item.id === id);
-                      case 'lab':
-                        return labsData.find(item => item.id === id);
-                      case 'resource':
-                        return updatedPremiumResources.find(item => item.id === id);
-                      case 'game':
-                        return gamesData.find(item => item.id === id);
-                      default:
-                        return null;
-                    }
-                  };
-                  
-                  const item = getItemData(bookmark.id, bookmark.type);
-                  return item ? (
-                    <div key={`${bookmark.id}-${bookmark.type}`} className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <h3 className="font-medium text-gray-900 dark:text-white truncate">{item.title}</h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 capitalize">{bookmark.type}</p>
-                    </div>
-                  ) : null;
-                })}
-                <button
-                  onClick={() => openModal('bookmarks')}
-                  className="w-full text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium text-center py-2"
-                >
-                  View All Bookmarks
-                </button>
-              </div>
-            ) : (
-              <div className="text-center py-8">
-                <Bookmark className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500 dark:text-gray-400 mb-4">No bookmarks yet</p>
-                <button
-                  onClick={() => setCurrentPage('courses')}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium"
-                >
-                  Explore Courses
-                </button>
-              </div>
-            )}
           </div>
 
-          {/* Notes */}
+          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <FileText className="h-6 w-6 text-blue-400" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+                      Notes
+                    </dt>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">
+                      {notes.length}
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <Target className="h-6 w-6 text-green-400" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+                      Comparisons
+                    </dt>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">
+                      {comparisons.length}/3
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div className="p-5">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <Bot className="h-6 w-6 text-purple-400" />
+                </div>
+                <div className="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+                      AI Access
+                    </dt>
+                    <dd className="text-lg font-medium text-gray-900 dark:text-white">
+                      Premium
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Recent Activity */}
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 mb-8">
+          {/* Recent Notes */}
           <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-4 sm:p-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4">Recent Notes</h2>
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              Recent Notes
+            </h2>
             {notes.length > 0 ? (
               <div className="space-y-3">
                 {notes.slice(0, 3).map((note) => (
@@ -985,6 +776,34 @@ const Dashboard = () => {
                 >
                   Create Your First Note
                 </button>
+              </div>
+            )}
+          </div>
+
+          {/* Bookmarked Items */}
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-4 sm:p-6">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              Bookmarked Items
+            </h2>
+            {bookmarks.length > 0 ? (
+              <div className="space-y-3">
+                {bookmarks.slice(0, 3).map((bookmark) => (
+                  <div key={bookmark.id} className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <h3 className="font-medium text-gray-900 dark:text-white truncate">{bookmark.title}</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 capitalize">{bookmark.type}</p>
+                  </div>
+                ))}
+                <button
+                  onClick={() => openModal('bookmarks')}
+                  className="w-full text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium text-center py-2"
+                >
+                  View All Bookmarks
+                </button>
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <Bookmark className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-500 dark:text-gray-400">No bookmarks yet</p>
               </div>
             )}
           </div>
@@ -1043,18 +862,1092 @@ const Dashboard = () => {
   );
 };
 
-// AI Tools Page Component (placeholder)
-const AIToolsPage = () => {
+// Home Page Component
+const Home = () => {
+  const { darkMode, setCurrentPage } = usePage();
+  const { user, isPremium } = useAuth();
+  const { openModal } = useModal();
+  
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       <Navigation />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         <div className="text-center">
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">AI Tools</h1>
-          <p className="mt-4 text-gray-600 dark:text-gray-300">AI-powered tools coming soon!</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
+            Welcome to <span className="text-blue-600">ImpactMojo</span>
+          </h1>
+          <p className="mt-3 max-w-md mx-auto text-base text-gray-600 dark:text-gray-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+            Your platform for development learning and tools. Explore courses, labs, games, and AI-powered tools to enhance your impact.
+          </p>
+          <button
+            onClick={() => setCurrentPage('ai-tools')}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium transition-colors mt-6"
+          >
+            Explore AI Tools
+          </button>
+        </div>
+        
+        {/* Study Music - Fixed colors */}
+        <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg shadow-lg p-4 sm:p-6 text-white mb-8 mt-12">
+          <div className="flex items-center justify-between flex-col sm:flex-row gap-4">
+            <div className="text-center sm:text-left">
+              <h2 className="text-lg sm:text-xl font-bold">Lo-Fi Study Beats</h2>
+              <p className="mt-1">Focus better with our curated study playlist</p>
+            </div>
+            <a
+              href="https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-purple-600 px-4 py-2 rounded-md font-medium flex items-center hover:bg-gray-100 transition-colors"
+            >
+              <Music className="mr-2 h-5 w-5" />
+              Play on Spotify
+            </a>
+          </div>
+        </div>
+        
+        {/* Premium Features Info */}
+        <div className="bg-gradient-to-r from-emerald-400 to-cyan-500 rounded-lg shadow-lg p-4 sm:p-6">
+          <div className="flex items-center justify-between flex-col sm:flex-row gap-4">
+            <div className="text-center sm:text-left">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900">You have Premium Access!</h3>
+              <p className="mt-1 text-gray-800">Enjoy all features including AI Tools, Notes, and Comparisons</p>
+            </div>
+            <Trophy className="h-12 w-12 text-gray-900 flex-shrink-0" />
+          </div>
         </div>
       </div>
     </div>
+  );
+};
+
+// AI Tools Page Component
+const AIToolsPage = () => {
+  const { darkMode } = usePage();
+  const { user } = useAuth();
+
+  if (!user) {
+    return (
+      <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+        <Navigation />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center">
+            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">
+              Sign in to access AI Tools
+            </h1>
+            <button
+              onClick={signInWithGoogle}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium"
+            >
+              Sign In with Google
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+      <Navigation />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">AI Tools</h1>
+          <p className="mt-4 text-gray-600 dark:text-gray-300">Powerful AI-powered tools for development professionals</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {updatedPremiumResources.map((tool) => (
+            <div key={tool.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+              <div className="flex items-center mb-4">
+                <Bot className="h-8 w-8 text-blue-600 mr-3" />
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{tool.title}</h3>
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">{tool.description}</p>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-500 dark:text-gray-400">{tool.category}</span>
+                <a
+                  href={tool.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Launch Tool
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Courses Page Component
+const CoursesPage = () => {
+  const { darkMode } = usePage();
+  const { toggleComparison, isInComparison, addBookmark, removeBookmark, isBookmarked } = useAuth();
+
+  const handleBookmark = (course) => {
+    const bookmarkItem = { ...course, type: 'course' };
+    if (isBookmarked(course.id)) {
+      removeBookmark(course.id);
+    } else {
+      addBookmark(bookmarkItem);
+    }
+  };
+
+  const handleCompare = (course) => {
+    const compareItem = { ...course, type: 'course' };
+    toggleComparison(compareItem);
+  };
+
+  return (
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+      <Navigation />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Courses</h1>
+          <p className="mt-4 text-gray-600 dark:text-gray-300">Comprehensive learning materials on development topics</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {courseData.map((course) => (
+            <div key={course.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{course.title}</h3>
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => handleBookmark(course)}
+                    className={`p-2 rounded-full ${
+                      isBookmarked(course.id)
+                        ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-900'
+                        : 'text-gray-400 hover:text-yellow-500'
+                    }`}
+                    aria-label="Bookmark course"
+                  >
+                    <Bookmark className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => handleCompare(course)}
+                    className={`p-2 rounded-full ${
+                      isInComparison(course.id)
+                        ? 'text-blue-500 bg-blue-100 dark:bg-blue-900'
+                        : 'text-gray-400 hover:text-blue-500'
+                    }`}
+                    aria-label="Add to comparison"
+                  >
+                    <Target className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">{course.description}</p>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-500 dark:text-gray-400">{course.track}</span>
+                <a
+                  href={course.content}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  View Course
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Labs Page Component
+const LabsPage = () => {
+  const { darkMode } = usePage();
+  const { toggleComparison, isInComparison, addBookmark, removeBookmark, isBookmarked } = useAuth();
+
+  const handleBookmark = (lab) => {
+    const bookmarkItem = { ...lab, type: 'lab' };
+    if (isBookmarked(lab.id)) {
+      removeBookmark(lab.id);
+    } else {
+      addBookmark(bookmarkItem);
+    }
+  };
+
+  const handleCompare = (lab) => {
+    const compareItem = { ...lab, type: 'lab' };
+    toggleComparison(compareItem);
+  };
+
+  return (
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+      <Navigation />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Labs</h1>
+          <p className="mt-4 text-gray-600 dark:text-gray-300">Interactive learning experiences and practical tools</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {labsData.map((lab) => (
+            <div key={lab.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{lab.title}</h3>
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => handleBookmark(lab)}
+                    className={`p-2 rounded-full ${
+                      isBookmarked(lab.id)
+                        ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-900'
+                        : 'text-gray-400 hover:text-yellow-500'
+                    }`}
+                    aria-label="Bookmark lab"
+                  >
+                    <Bookmark className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => handleCompare(lab)}
+                    className={`p-2 rounded-full ${
+                      isInComparison(lab.id)
+                        ? 'text-blue-500 bg-blue-100 dark:bg-blue-900'
+                        : 'text-gray-400 hover:text-blue-500'
+                    }`}
+                    aria-label="Add to comparison"
+                  >
+                    <Target className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">{lab.description}</p>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-500 dark:text-gray-400">{lab.category}</span>
+                <a
+                  href={lab.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Open Lab
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Games Page Component
+const GamesPage = () => {
+  const { darkMode } = usePage();
+  const { toggleComparison, isInComparison, addBookmark, removeBookmark, isBookmarked } = useAuth();
+
+  const handleBookmark = (game) => {
+    const bookmarkItem = { ...game, type: 'game' };
+    if (isBookmarked(game.id)) {
+      removeBookmark(game.id);
+    } else {
+      addBookmark(bookmarkItem);
+    }
+  };
+
+  const handleCompare = (game) => {
+    const compareItem = { ...game, type: 'game' };
+    toggleComparison(compareItem);
+  };
+
+  return (
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+      <Navigation />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Games</h1>
+          <p className="mt-4 text-gray-600 dark:text-gray-300">Interactive games for development learning</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {gamesData.map((game) => (
+            <div key={game.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+              <div className="flex justify-between items-start mb-4">
+                <div className="flex items-center">
+                  <Gamepad2 className="h-6 w-6 text-green-600 mr-2" />
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{game.title}</h3>
+                </div>
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => handleBookmark(game)}
+                    className={`p-2 rounded-full ${
+                      isBookmarked(game.id)
+                        ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-900'
+                        : 'text-gray-400 hover:text-yellow-500'
+                    }`}
+                    aria-label="Bookmark game"
+                  >
+                    <Bookmark className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => handleCompare(game)}
+                    className={`p-2 rounded-full ${
+                      isInComparison(game.id)
+                        ? 'text-blue-500 bg-blue-100 dark:bg-blue-900'
+                        : 'text-gray-400 hover:text-blue-500'
+                    }`}
+                    aria-label="Add to comparison"
+                  >
+                    <Target className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">{game.description}</p>
+              <div className="flex justify-between items-center mb-4">
+                <span className="text-sm text-gray-500 dark:text-gray-400">{game.category}</span>
+                <span className="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">{game.difficulty}</span>
+              </div>
+              <a
+                href={game.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center justify-center"
+              >
+                <Gamepad2 className="h-4 w-4 mr-2" />
+                Play Game
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Cornell Notes Modal Component
+const CornellNotesModal = ({ isOpen, onClose }) => {
+  const { notes, addNote, updateNote, deleteNote } = useAuth();
+  const [selectedNote, setSelectedNote] = useState(null);
+  const [isCreating, setIsCreating] = useState(false);
+  const [noteForm, setNoteForm] = useState({
+    title: '',
+    course: '',
+    topic: '',
+    mainNotes: '',
+    cues: '',
+    summary: ''
+  });
+
+  useEffect(() => {
+    if (!isOpen) {
+      setSelectedNote(null);
+      setIsCreating(false);
+      setNoteForm({
+        title: '',
+        course: '',
+        topic: '',
+        mainNotes: '',
+        cues: '',
+        summary: ''
+      });
+    }
+  }, [isOpen]);
+
+  const handleCreateNew = () => {
+    setIsCreating(true);
+    setSelectedNote(null);
+  };
+
+  const handleSelectNote = (note) => {
+    setSelectedNote(note);
+    setIsCreating(false);
+    setNoteForm({
+      title: note.title || '',
+      course: note.course || '',
+      topic: note.topic || '',
+      mainNotes: note.mainNotes || '',
+      cues: note.cues || '',
+      summary: note.summary || ''
+    });
+  };
+
+  const handleSave = async () => {
+    if (!noteForm.title.trim()) {
+      alert('Please enter a title for your note');
+      return;
+    }
+
+    if (selectedNote) {
+      await updateNote(selectedNote.id, noteForm);
+    } else {
+      await addNote(noteForm);
+    }
+
+    setIsCreating(false);
+    setSelectedNote(null);
+    setNoteForm({
+      title: '',
+      course: '',
+      topic: '',
+      mainNotes: '',
+      cues: '',
+      summary: ''
+    });
+  };
+
+  const handleDelete = async () => {
+    if (selectedNote && window.confirm('Are you sure you want to delete this note?')) {
+      await deleteNote(selectedNote.id);
+      setSelectedNote(null);
+      setIsCreating(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-7xl w-full h-[90vh] flex flex-col">
+        <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Cornell Notes</h2>
+          <button 
+            onClick={onClose} 
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+            aria-label="Close notes"
+          >
+            <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+          </button>
+        </div>
+        
+        <div className="flex flex-1 overflow-hidden">
+          {/* Notes List */}
+          <div className="w-1/3 border-r dark:border-gray-700 p-4 overflow-y-auto">
+            <div className="mb-4">
+              <button
+                onClick={handleCreateNew}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium flex items-center justify-center"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                New Note
+              </button>
+            </div>
+            
+            <div className="space-y-2">
+              {notes.map((note) => (
+                <div
+                  key={note.id}
+                  onClick={() => handleSelectNote(note)}
+                  className={`p-3 rounded-lg cursor-pointer border ${
+                    selectedNote?.id === note.id
+                      ? 'bg-blue-50 dark:bg-blue-900 border-blue-200 dark:border-blue-800'
+                      : 'bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600'
+                  }`}
+                >
+                  <h3 className="font-medium text-gray-900 dark:text-white truncate">{note.title}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{note.course}</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                    {new Date(note.lastModified?.toDate?.() || note.lastModified).toLocaleDateString()}
+                  </p>
+                </div>
+              ))}
+              
+              {notes.length === 0 && (
+                <p className="text-gray-500 dark:text-gray-400 text-center py-8">
+                  No notes yet. Create your first note!
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Note Editor */}
+          <div className="flex-1 p-4">
+            {(selectedNote || isCreating) ? (
+              <div className="h-full flex flex-col">
+                {/* Note Header */}
+                <div className="mb-4 space-y-2">
+                  <input
+                    type="text"
+                    placeholder="Note Title"
+                    value={noteForm.title}
+                    onChange={(e) => setNoteForm({ ...noteForm, title: e.target.value })}
+                    className="w-full text-lg font-medium border-none bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none"
+                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="Course"
+                      value={noteForm.course}
+                      onChange={(e) => setNoteForm({ ...noteForm, course: e.target.value })}
+                      className="flex-1 text-sm border border-gray-300 dark:border-gray-600 rounded px-3 py-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Topic"
+                      value={noteForm.topic}
+                      onChange={(e) => setNoteForm({ ...noteForm, topic: e.target.value })}
+                      className="flex-1 text-sm border border-gray-300 dark:border-gray-600 rounded px-3 py-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                {/* Cornell Notes Layout */}
+                <div className="flex-1 grid grid-cols-4 gap-4">
+                  {/* Cues Column */}
+                  <div className="col-span-1">
+                    <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Cues & Questions</h3>
+                    <textarea
+                      placeholder="Key points, questions, keywords..."
+                      value={noteForm.cues}
+                      onChange={(e) => setNoteForm({ ...noteForm, cues: e.target.value })}
+                      className="w-full h-full border border-gray-300 dark:border-gray-600 rounded p-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"
+                    />
+                  </div>
+
+                  {/* Main Notes Column */}
+                  <div className="col-span-3">
+                    <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Notes</h3>
+                    <textarea
+                      placeholder="Detailed notes, explanations, examples..."
+                      value={noteForm.mainNotes}
+                      onChange={(e) => setNoteForm({ ...noteForm, mainNotes: e.target.value })}
+                      className="w-full h-full border border-gray-300 dark:border-gray-600 rounded p-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Summary Section */}
+                <div className="mt-4">
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Summary</h3>
+                  <textarea
+                    placeholder="Summarize the main concepts and key takeaways..."
+                    value={noteForm.summary}
+                    onChange={(e) => setNoteForm({ ...noteForm, summary: e.target.value })}
+                    rows={3}
+                    className="w-full border border-gray-300 dark:border-gray-600 rounded p-3 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"
+                  />
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex justify-between mt-4">
+                  <div>
+                    {selectedNote && (
+                      <button
+                        onClick={handleDelete}
+                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </div>
+                  <button
+                    onClick={handleSave}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md text-sm font-medium flex items-center"
+                  >
+                    <Save className="h-4 w-4 mr-2" />
+                    Save Note
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="h-full flex items-center justify-center text-gray-500 dark:text-gray-400">
+                <div className="text-center">
+                  <BookOpen className="h-16 w-16 mx-auto mb-4 opacity-50" />
+                  <p>Select a note to view or create a new one</p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Enhanced Comparison Modal Component
+const ComparisonModal = ({ isOpen, onClose }) => {
+  const { getCurrentComparisons, toggleComparison } = useAuth();
+  const comparisons = getCurrentComparisons();
+  
+  const getItemData = (id, type) => {
+    switch (type) {
+      case 'course':
+        return courseData.find(item => item.id === id);
+      case 'lab':
+        return labsData.find(item => item.id === id);
+      case 'resource':
+        return updatedPremiumResources.find(item => item.id === id);
+      case 'game':
+        return gamesData.find(item => item.id === id);
+      default:
+        return null;
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-6xl w-full max-h-[90vh] overflow-auto">
+        <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Compare Items ({comparisons.length}/3)</h2>
+          <button 
+            onClick={onClose} 
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+            aria-label="Close comparison"
+          >
+            <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+          </button>
+        </div>
+        
+        <div className="p-4">
+          {comparisons.length === 0 ? (
+            <div className="text-center py-12">
+              <Target className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No items to compare</h3>
+              <p className="text-gray-500 dark:text-gray-400">
+                Add items to comparison using the compare button on courses, labs, or resources.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {comparisons.map((comp) => {
+                const item = getItemData(comp.id, comp.type);
+                if (!item) return null;
+                
+                return (
+                  <div key={`${comp.id}-${comp.type}`} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <h3 className="font-semibold text-gray-900 dark:text-white">{item.title}</h3>
+                        <span className="text-sm text-blue-600 dark:text-blue-400 capitalize">{comp.type}</span>
+                      </div>
+                      <button
+                        onClick={() => toggleComparison(comp)}
+                        className="text-red-500 hover:text-red-700 p-1"
+                        aria-label="Remove from comparison"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                    
+                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                      {item.description}
+                    </p>
+                    
+                    <div className="space-y-2 text-sm">
+                      {comp.type === 'course' && (
+                        <div>
+                          <span className="font-medium text-gray-900 dark:text-white">Track: </span>
+                          <span className="text-gray-600 dark:text-gray-300">{item.track}</span>
+                        </div>
+                      )}
+                      {comp.type === 'lab' && (
+                        <div>
+                          <span className="font-medium text-gray-900 dark:text-white">Category: </span>
+                          <span className="text-gray-600 dark:text-gray-300">{item.category}</span>
+                        </div>
+                      )}
+                      {comp.type === 'game' && (
+                        <>
+                          <div>
+                            <span className="font-medium text-gray-900 dark:text-white">Category: </span>
+                            <span className="text-gray-600 dark:text-gray-300">{item.category}</span>
+                          </div>
+                          <div>
+                            <span className="font-medium text-gray-900 dark:text-white">Difficulty: </span>
+                            <span className="text-gray-600 dark:text-gray-300">{item.difficulty}</span>
+                          </div>
+                        </>
+                      )}
+                      {comp.type === 'resource' && (
+                        <div>
+                          <span className="font-medium text-gray-900 dark:text-white">Category: </span>
+                          <span className="text-gray-600 dark:text-gray-300">{item.category}</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="mt-4">
+                      <a
+                        href={item.url || item.content}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium"
+                      >
+                        Open {comp.type}
+                        <ExternalLink className="h-3 w-3 ml-1" />
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Bookmark Modal Component
+const BookmarkModal = ({ isOpen, onClose }) => {
+  const { bookmarks, removeBookmark } = useAuth();
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
+        <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Bookmarked Items</h2>
+          <button 
+            onClick={onClose} 
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+            aria-label="Close bookmarks"
+          >
+            <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+          </button>
+        </div>
+        
+        <div className="p-4">
+          {bookmarks.length === 0 ? (
+            <div className="text-center py-12">
+              <Bookmark className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No bookmarks yet</h3>
+              <p className="text-gray-500 dark:text-gray-400">
+                Bookmark courses, labs, and resources to save them for later.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {bookmarks.map((bookmark) => (
+                <div key={bookmark.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <h3 className="font-medium text-gray-900 dark:text-white">{bookmark.title}</h3>
+                      <p className="text-sm text-blue-600 dark:text-blue-400 capitalize mt-1">{bookmark.type}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">{bookmark.description}</p>
+                      <a
+                        href={bookmark.url || bookmark.content}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium mt-2"
+                      >
+                        Open {bookmark.type}
+                        <ExternalLink className="h-3 w-3 ml-1" />
+                      </a>
+                    </div>
+                    <button
+                      onClick={() => removeBookmark(bookmark.id)}
+                      className="text-red-500 hover:text-red-700 p-1 ml-2"
+                      aria-label="Remove bookmark"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Feedback Modal Component
+const FeedbackModal = ({ isOpen, onClose }) => {
+  const [feedback, setFeedback] = useState('');
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user && user.email) {
+      setEmail(user.email);
+    }
+  }, [user]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('feedback', feedback);
+      formData.append('email', email);
+      formData.append('timestamp', new Date().toISOString());
+
+      const response = await fetch('https://formspree.io/f/xpwdvgzp', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        alert('Thank you for your feedback!');
+        setFeedback('');
+        onClose();
+      } else {
+        alert('There was an error submitting your feedback. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+      alert('There was an error submitting your feedback. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full">
+        <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Send Feedback</h2>
+          <button 
+            onClick={onClose} 
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+            aria-label="Close feedback"
+          >
+            <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+          </button>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="p-4">
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            />
+          </div>
+          
+          <div className="mb-4">
+            <label htmlFor="feedback" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Feedback
+            </label>
+            <textarea
+              id="feedback"
+              value={feedback}
+              onChange={(e) => setFeedback(e.target.value)}
+              required
+              rows={5}
+              placeholder="Share your thoughts, suggestions, or report any issues..."
+              className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"
+            />
+          </div>
+          
+          <div className="flex justify-end space-x-3">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-md font-medium"
+            >
+              {isSubmitting ? 'Sending...' : 'Send Feedback'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+// Suggest Course Modal Component
+const SuggestCourseModal = ({ isOpen, onClose }) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [track, setTrack] = useState('');
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user && user.email) {
+      setEmail(user.email);
+    }
+  }, [user]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('description', description);
+      formData.append('track', track);
+      formData.append('email', email);
+      formData.append('timestamp', new Date().toISOString());
+
+      const response = await fetch('https://formspree.io/f/xpwdvgzp', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        alert('Thank you for your course suggestion!');
+        setTitle('');
+        setDescription('');
+        setTrack('');
+        onClose();
+      } else {
+        alert('There was an error submitting your suggestion. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting suggestion:', error);
+      alert('There was an error submitting your suggestion. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full">
+        <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Suggest a Course</h2>
+          <button 
+            onClick={onClose} 
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+            aria-label="Close suggestion form"
+          >
+            <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+          </button>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="p-4">
+          <div className="mb-4">
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Course Title
+            </label>
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+              placeholder="e.g., Gender Equality in Rural Development"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            />
+          </div>
+          
+          <div className="mb-4">
+            <label htmlFor="track" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Suggested Track
+            </label>
+            <select
+              id="track"
+              value={track}
+              onChange={(e) => setTrack(e.target.value)}
+              className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            >
+              <option value="">Select a track</option>
+              <option value="Gender & Equity">Gender & Equity</option>
+              <option value="Climate & Environment">Climate & Environment</option>
+              <option value="Health & Wellbeing">Health & Wellbeing</option>
+              <option value="MEL & Evaluation">MEL & Evaluation</option>
+            </select>
+          </div>
+          
+          <div className="mb-4">
+            <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Description
+            </label>
+            <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              rows={4}
+              placeholder="Describe what this course should cover and why it would be valuable..."
+              className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"
+            />
+          </div>
+          
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            />
+          </div>
+          
+          <div className="flex justify-end space-x-3">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-md font-medium"
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit Suggestion'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+// Global Modal Manager
+const GlobalModals = () => {
+  const { activeModal, modalData, closeModal } = useModal();
+
+  return (
+    <>
+      <CornellNotesModal 
+        isOpen={activeModal === 'notes'} 
+        onClose={closeModal}
+      />
+      <ComparisonModal 
+        isOpen={activeModal === 'comparison'} 
+        onClose={closeModal}
+      />
+      <BookmarkModal 
+        isOpen={activeModal === 'bookmarks'} 
+        onClose={closeModal}
+      />
+      <FeedbackModal 
+        isOpen={activeModal === 'feedback'} 
+        onClose={closeModal}
+      />
+      <SuggestCourseModal 
+        isOpen={activeModal === 'suggest'} 
+        onClose={closeModal}
+      />
+    </>
   );
 };
 
@@ -1092,7 +1985,7 @@ const GlobalFABs = () => {
       {/* Feedback FAB */}
       <button
         onClick={() => openModal('feedback')}
-        className="fixed top-20 right-4 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg z-40"
+        className="fixed bottom-4 right-4 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg z-40"
         aria-label="Send feedback"
       >
         <MessageCircle className="h-6 w-6" />
@@ -1101,447 +1994,11 @@ const GlobalFABs = () => {
       {/* Suggest Course FAB */}
       <button
         onClick={() => openModal('suggest')}
-        className="fixed top-20 left-4 bg-purple-500 hover:bg-purple-600 text-white p-3 rounded-full shadow-lg z-40"
-        aria-label="Suggest course"
+        className="fixed bottom-4 left-4 bg-purple-500 hover:bg-purple-600 text-white p-3 rounded-full shadow-lg z-40"
+        aria-label="Suggest a course"
       >
         <Plus className="h-6 w-6" />
       </button>
-    </>
-  );
-};
-
-// Modal Components (simplified for space)
-const BookmarkModal = ({ isOpen, onClose }) => {
-  const { getCurrentBookmarks } = useAuth();
-  const bookmarks = getCurrentBookmarks();
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-auto">
-        <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Your Bookmarks</h2>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
-            <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-          </button>
-        </div>
-        <div className="p-4">
-          {bookmarks.length === 0 ? (
-            <p className="text-gray-500 dark:text-gray-400 text-center py-8">No bookmarks yet</p>
-          ) : (
-            <div className="space-y-3">
-              {bookmarks.map((bookmark) => {
-                const getItemData = (id, type) => {
-                  switch (type) {
-                    case 'course':
-                      return courseData.find(item => item.id === id);
-                    case 'lab':
-                      return labsData.find(item => item.id === id);
-                    case 'resource':
-                      return updatedPremiumResources.find(item => item.id === id);
-                    case 'game':
-                      return gamesData.find(item => item.id === id);
-                    default:
-                      return null;
-                  }
-                };
-                
-                const item = getItemData(bookmark.id, bookmark.type);
-                return item ? (
-                  <div key={`${bookmark.id}-${bookmark.type}`} className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                    <h3 className="font-medium text-gray-900 dark:text-white">{item.title}</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 capitalize">{bookmark.type}</p>
-                  </div>
-                ) : null;
-              })}
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const ComparisonModal = ({ isOpen, onClose }) => {
-  const { getCurrentComparisons } = useAuth();
-  const comparisons = getCurrentComparisons();
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-6xl w-full max-h-[90vh] overflow-auto">
-        <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Compare Items ({comparisons.length}/3)</h2>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
-            <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-          </button>
-        </div>
-        <div className="p-4">
-          {comparisons.length === 0 ? (
-            <div className="text-center py-8">
-              <Target className="h-16 w-16 mx-auto mb-4 opacity-50 text-gray-400" />
-              <p className="text-gray-500 dark:text-gray-400">No items selected for comparison</p>
-            </div>
-          ) : (
-            <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${comparisons.length}, 1fr)` }}>
-              {comparisons.map(comp => {
-                const getItemData = (id, type) => {
-                  switch (type) {
-                    case 'course':
-                      return courseData.find(item => item.id === id);
-                    case 'lab':
-                      return labsData.find(item => item.id === id);
-                    case 'resource':
-                      return updatedPremiumResources.find(item => item.id === id);
-                    case 'game':
-                      return gamesData.find(item => item.id === id);
-                    default:
-                      return null;
-                  }
-                };
-                
-                const item = getItemData(comp.id, comp.type);
-                return item ? (
-                  <div key={`${comp.id}-${comp.type}`} className="border dark:border-gray-600 rounded-lg p-4">
-                    <span className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded">
-                      {comp.type.toUpperCase()}
-                    </span>
-                    <h3 className="font-bold mb-2 text-gray-900 dark:text-white">{item.title}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">{item.description}</p>
-                  </div>
-                ) : null;
-              })}
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const FeedbackModal = ({ isOpen, onClose }) => {
-  const [message, setMessage] = useState('');
-  const [submitting, setSubmitting] = useState(false);
-  const { submitFeedback } = useAuth();
-
-  if (!isOpen) return null;
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    const result = await submitFeedback({ message });
-    if (result.success) {
-      setMessage('');
-      onClose();
-    }
-    setSubmitting(false);
-  };
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full">
-        <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Send Feedback</h2>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
-            <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-          </button>
-        </div>
-        <form onSubmit={handleSubmit} className="p-4">
-          <textarea
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Your feedback..."
-            className="w-full h-32 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-            required
-          />
-          <div className="flex justify-end gap-2 mt-4">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={submitting}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md disabled:opacity-50"
-            >
-              {submitting ? 'Sending...' : 'Send'}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-// Simple placeholder modals for other FABs
-const SuggestCourseModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Suggest a Course</h2>
-          <button onClick={onClose}>
-            <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-          </button>
-        </div>
-        <p className="text-gray-600 dark:text-gray-300">Course suggestion feature coming soon!</p>
-      </div>
-    </div>
-  );
-};
-
-// Placeholder modals
-const TrackModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6">
-        <button onClick={onClose}><X className="h-5 w-5" /></button>
-        <p>Track modal content</p>
-      </div>
-    </div>
-  );
-};
-
-const QuizModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6">
-        <button onClick={onClose}><X className="h-5 w-5" /></button>
-        <p>Quiz modal content</p>
-      </div>
-    </div>
-  );
-};
-
-const BrowseModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6">
-        <button onClick={onClose}><X className="h-5 w-5" /></button>
-        <p>Browse modal content</p>
-      </div>
-    </div>
-  );
-};
-
-const CornellNotesModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6">
-        <button onClick={onClose}><X className="h-5 w-5" /></button>
-        <p>Notes modal content</p>
-      </div>
-    </div>
-  );
-};
-
-// Navigation Component
-const Navigation = () => {
-  const { user, signOut, signInWithGoogle, isPremium } = useAuth();
-  const { currentPage, setCurrentPage, darkMode, setDarkMode } = usePage();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
-  return (
-    <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md border-b dark:border-gray-700">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center">
-              <div className="h-8 w-8 rounded-md bg-blue-600 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">IM</span>
-              </div>
-              <span className="ml-2 text-xl font-bold text-gray-900 dark:text-white">ImpactMojo</span>
-            </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              {['home', 'courses', 'labs', 'resources', 'games'].map((page) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`${currentPage === page ? 'border-blue-600 text-gray-900 dark:text-white' : 'border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium capitalize`}
-                >
-                  {page}
-                </button>
-              ))}
-              {user && (
-                <>
-                  <button
-                    onClick={() => setCurrentPage('dashboard')}
-                    className={`${currentPage === 'dashboard' ? 'border-blue-600 text-gray-900 dark:text-white' : 'border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
-                  >
-                    Dashboard
-                  </button>
-                  <button
-                    onClick={() => setCurrentPage('ai-tools')}
-                    className={`${currentPage === 'ai-tools' ? 'border-blue-600 text-gray-900 dark:text-white' : 'border-transparent text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white'} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
-                  >
-                    AI Tools
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-          
-          <div className="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded-full text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600"
-              aria-label="Toggle theme"
-            >
-              {darkMode ? <Sun className="h-5 w-5 text-yellow-400" /> : <Moon className="h-5 w-5" />}
-            </button>
-            
-            {user ? (
-              <div className="relative">
-                <button className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-                  <img className="h-8 w-8 rounded-full" src={user.photoURL} alt={user.displayName} />
-                  <span className="text-sm font-medium">{user.displayName}</span>
-                </button>
-                <button
-                  onClick={signOut}
-                  className="ml-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
-                >
-                  Sign Out
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={signInWithGoogle}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-              >
-                Sign In
-              </button>
-            )}
-          </div>
-
-          <div className="sm:hidden flex items-center">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
-            >
-              {mobileMenuOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
-            </button>
-          </div>
-        </div>
-      </div>
-      
-      {/* Mobile menu - UPDATED to include 'games' */}
-      {mobileMenuOpen && (
-        <div className="sm:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-700">
-          <div className="pt-2 pb-3 space-y-1">
-            {['home', 'courses', 'labs', 'resources', 'games'].map((page) => (
-              <button
-                key={page}
-                onClick={() => { setCurrentPage(page); setMobileMenuOpen(false); }}
-                className={`${currentPage === page ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'} block w-full text-left pl-3 pr-4 py-2 text-base font-medium capitalize`}
-              >
-                {page}
-              </button>
-            ))}
-            {user && (
-              <>
-                <button
-                  onClick={() => { setCurrentPage('dashboard'); setMobileMenuOpen(false); }}
-                  className={`${currentPage === 'dashboard' ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'} block w-full text-left pl-3 pr-4 py-2 text-base font-medium`}
-                >
-                  Dashboard
-                </button>
-                <button
-                  onClick={() => { setCurrentPage('ai-tools'); setMobileMenuOpen(false); }}
-                  className={`${currentPage === 'ai-tools' ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'} block w-full text-left pl-3 pr-4 py-2 text-base font-medium`}
-                >
-                  AI Tools
-                </button>
-              </>
-            )}
-          </div>
-          
-          <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex items-center px-4">
-              {user ? (
-                <>
-                  <img className="h-10 w-10 rounded-full" src={user.photoURL} alt={user.displayName} />
-                  <div className="ml-3">
-                    <div className="text-base font-medium text-gray-900 dark:text-white">{user.displayName}</div>
-                    <div className="text-sm font-medium text-gray-500 dark:text-gray-300">{user.email}</div>
-                  </div>
-                </>
-              ) : (
-                <div className="text-base font-medium text-gray-900 dark:text-white">Not signed in</div>
-              )}
-            </div>
-            <div className="mt-3">
-              {user ? (
-                <button
-                  onClick={signOut}
-                  className="block px-4 py-2 text-base font-medium text-gray-500 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white"
-                >
-                  Sign Out
-                </button>
-              ) : (
-                <button
-                  onClick={signInWithGoogle}
-                  className="block px-4 py-2 text-base font-medium text-gray-500 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white"
-                >
-                  Sign In
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-    </nav>
-  );
-};
-
-// Global Modal Manager
-const GlobalModals = () => {
-  const { activeModal, modalData, closeModal } = useModal();
-
-  return (
-    <>
-      <TrackModal 
-        isOpen={activeModal === 'track'} 
-        onClose={closeModal}
-        track={modalData}
-      />
-      <QuizModal 
-        isOpen={activeModal === 'quiz'} 
-        onClose={closeModal}
-      />
-      <BrowseModal 
-        isOpen={activeModal === 'browse'} 
-        onClose={closeModal}
-      />
-      <CornellNotesModal 
-        isOpen={activeModal === 'notes'} 
-        onClose={closeModal}
-      />
-      <ComparisonModal 
-        isOpen={activeModal === 'comparison'} 
-        onClose={closeModal}
-      />
-      <BookmarkModal 
-        isOpen={activeModal === 'bookmarks'} 
-        onClose={closeModal}
-      />
-      <FeedbackModal 
-        isOpen={activeModal === 'feedback'} 
-        onClose={closeModal}
-      />
-      <SuggestCourseModal 
-        isOpen={activeModal === 'suggest'} 
-        onClose={closeModal}
-      />
     </>
   );
 };
@@ -1590,67 +2047,36 @@ const AppContent = () => {
       </div>
     );
   }
-  
+
+  const renderCurrentPage = () => {
+    switch (currentPage) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'courses':
+        return <CoursesPage />;
+      case 'labs':
+        return <LabsPage />;
+      case 'games':
+        return <GamesPage />;
+      case 'ai-tools':
+        return <AIToolsPage />;
+      default:
+        return <Home />;
+    }
+  };
+
   return (
     <div className={darkMode ? 'dark' : ''}>
-      <PWAInstallPrompt />
-      
-      {currentPage === 'home' && <Home />}
-      {currentPage === 'dashboard' && <Dashboard />}
-      {currentPage === 'courses' && <CoursesPage />}
-      {currentPage === 'labs' && <LabsPage />}
-      {currentPage === 'resources' && <ResourcesPage />}
-      {currentPage === 'games' && <GamesPage />}
-      {currentPage === 'ai-tools' && <AIToolsPage />}
-      
-      {/* Global FABs on all pages */}
+      {renderCurrentPage()}
       <GlobalFABs />
-      
-      {/* Global Modals */}
       <GlobalModals />
-      
-      {/* Counter.dev Analytics */}
-      <script 
-        src="https://cdn.counter.dev/script.js" 
-        data-id="bb8c35b6-8f3d-4a72-8b0a-4dd67d95f84a" 
-        data-utcoffset="5.5"
-        async
-      />
+      <PWAInstallPrompt />
     </div>
   );
 };
 
-// Main App Component with PWA registration
-const App = () => {
-  useEffect(() => {
-    // Register service worker for PWA
-    if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then((registration) => {
-            console.log('SW registered: ', registration);
-          })
-          .catch((registrationError) => {
-            console.log('SW registration failed: ', registrationError);
-          });
-      });
-    }
-    
-    // Add Plausible analytics script
-    const script = document.createElement('script');
-    script.async = true;
-    script.defer = true;
-    script.setAttribute('data-domain', 'impactmojo.in');
-    script.src = 'https://plausible.io/js/script.js';
-    document.head.appendChild(script);
-    
-    return () => {
-      if (document.head.contains(script)) {
-        document.head.removeChild(script);
-      }
-    };
-  }, []);
-
+// Main App Component
+function App() {
   return (
     <AuthProvider>
       <PageProvider>
@@ -1660,6 +2086,6 @@ const App = () => {
       </PageProvider>
     </AuthProvider>
   );
-};
+}
 
 export default App;
