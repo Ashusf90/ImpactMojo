@@ -8,7 +8,7 @@ import {
   Search, Plus, Edit3, Save, Filter, BookmarkIcon, Tag,
   Install, AlertTriangle, ChevronDown, ChevronRight, Gamepad2,
   BarChart, Star, ArrowRight, Calendar, TrendingUp, Scale, 
-  Award, Puzzle, Zap
+  Award, Puzzle, Zap, Send, Lightbulb
 } from 'lucide-react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as firebaseSignOut, onAuthStateChanged } from 'firebase/auth';
@@ -18,8 +18,16 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc } from
 import { courseData, upcomingCourses } from './data/course-data';
 import { labsData } from './data/labs-data';
 import { premiumResources } from './data/premium-resources-data';
-
 import { aiToolsData } from './data/ai-tools-data';
+
+// NEW COMPONENT IMPORTS
+import { FloatingActionButtons } from './components/floating-action-buttons';
+import { 
+  FeaturedContentSection, 
+  TestimonialsSection, 
+  PopularCoursesSection 
+} from './components/homepage-components';
+import { LearningTracksSection } from './components/learning-tracks-component';
 
 // Updated Games Data
 const gamesData = [
@@ -142,16 +150,6 @@ const browseByTimeCommitment = {
   }
 };
 
-// Function to generate mock active learner counts
-const getActiveLearnerCount = (courseId) => {
-  // Generate consistent mock numbers based on course ID
-  const hash = courseId.split('').reduce((a, b) => {
-    a = ((a << 5) - a) + b.charCodeAt(0);
-    return a & a;
-  }, 0);
-  return Math.abs(hash % 500) + 100; // Between 100-600 learners
-};
-
 // Auth Context
 const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
@@ -194,126 +192,155 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const saveUserData = async (data) => {
-    if (user) {
-      try {
-        await setDoc(doc(db, 'users', user.uid), data, { merge: true });
-      } catch (error) {
-        console.error('Error saving user data:', error);
-      }
+  const signIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      return result.user;
+    } catch (error) {
+      console.error('Error signing in:', error);
+      throw error;
     }
   };
 
-  const addBookmark = (item) => {
-    const newBookmarks = [...bookmarks, item];
-    setBookmarks(newBookmarks);
-    saveUserData({ bookmarks: newBookmarks });
+  const signOut = async () => {
+    try {
+      await firebaseSignOut(auth);
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
 
-  const removeBookmark = (itemId) => {
-    const newBookmarks = bookmarks.filter(b => b.id !== itemId);
+  const addBookmark = async (item) => {
+    if (!user) return;
+    const newBookmarks = [...bookmarks, { ...item, bookmarkedAt: new Date().toISOString() }];
     setBookmarks(newBookmarks);
-    saveUserData({ bookmarks: newBookmarks });
+    try {
+      await updateDoc(doc(db, 'users', user.uid), { bookmarks: newBookmarks });
+    } catch (error) {
+      console.error('Error saving bookmark:', error);
+    }
   };
 
-  const toggleBookmark = (itemId) => {
-    const isBookmarked = bookmarks.some(b => b.id === itemId);
-    if (isBookmarked) {
-      removeBookmark(itemId);
-    } else {
-      // Find the item and add it
-      const item = courseData.find(c => c.id === itemId) || 
-                   labsData.find(l => l.id === itemId) ||
-                   aiToolsData.find(t => t.id === itemId);
-      if (item) {
-        addBookmark(item);
-      }
+  const removeBookmark = async (itemId) => {
+    if (!user) return;
+    const newBookmarks = bookmarks.filter(item => item.id !== itemId);
+    setBookmarks(newBookmarks);
+    try {
+      await updateDoc(doc(db, 'users', user.uid), { bookmarks: newBookmarks });
+    } catch (error) {
+      console.error('Error removing bookmark:', error);
     }
   };
 
   const isBookmarked = (itemId) => {
-    return bookmarks.some(b => b.id === itemId);
+    return bookmarks.some(item => item.id === itemId);
   };
 
-  const toggleComparison = (item) => {
-    const isInComparison = comparisons.some(c => c.id === item.id);
-    if (isInComparison) {
-      const newComparisons = comparisons.filter(c => c.id !== item.id);
-      setComparisons(newComparisons);
-      saveUserData({ comparisons: newComparisons });
-    } else {
-      const newComparisons = [...comparisons, item];
-      setComparisons(newComparisons);
-      saveUserData({ comparisons: newComparisons });
+  const addToComparison = async (item) => {
+    if (!user) return;
+    const newComparisons = [...comparisons, item];
+    setComparisons(newComparisons);
+    try {
+      await updateDoc(doc(db, 'users', user.uid), { comparisons: newComparisons });
+    } catch (error) {
+      console.error('Error saving comparison:', error);
     }
   };
 
-  const isInComparison = (itemId) => {
-    return comparisons.some(c => c.id === itemId);
-  };
-
-  const addToPathway = (courseId) => {
-    if (!customPathway.includes(courseId)) {
-      const newPathway = [...customPathway, courseId];
-      setCustomPathway(newPathway);
-      saveUserData({ customPathway: newPathway });
+  const removeFromComparison = async (itemId) => {
+    if (!user) return;
+    const newComparisons = comparisons.filter(item => item.id !== itemId);
+    setComparisons(newComparisons);
+    try {
+      await updateDoc(doc(db, 'users', user.uid), { comparisons: newComparisons });
+    } catch (error) {
+      console.error('Error removing comparison:', error);
     }
   };
 
-  const removeFromPathway = (courseId) => {
+  const addToPathway = async (courseId) => {
+    if (!user) return;
+    const newPathway = [...customPathway, courseId];
+    setCustomPathway(newPathway);
+    try {
+      await updateDoc(doc(db, 'users', user.uid), { customPathway: newPathway });
+    } catch (error) {
+      console.error('Error saving pathway:', error);
+    }
+  };
+
+  const removeFromPathway = async (courseId) => {
+    if (!user) return;
     const newPathway = customPathway.filter(id => id !== courseId);
     setCustomPathway(newPathway);
-    saveUserData({ customPathway: newPathway });
+    try {
+      await updateDoc(doc(db, 'users', user.uid), { customPathway: newPathway });
+    } catch (error) {
+      console.error('Error removing from pathway:', error);
+    }
   };
 
   const addNote = async (note) => {
+    if (!user) return;
     const newNote = {
-      ...note,
       id: Date.now().toString(),
+      ...note,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
-    
     const newNotes = [...notes, newNote];
     setNotes(newNotes);
-    saveUserData({ notes: newNotes });
-    return newNote;
+    try {
+      await updateDoc(doc(db, 'users', user.uid), { notes: newNotes });
+    } catch (error) {
+      console.error('Error saving note:', error);
+    }
   };
 
-  const updateNote = async (noteId, updatedContent) => {
+  const updateNote = async (noteId, updatedNote) => {
+    if (!user) return;
     const newNotes = notes.map(note => 
       note.id === noteId 
-        ? { ...note, ...updatedContent, updatedAt: new Date().toISOString() }
+        ? { ...note, ...updatedNote, updatedAt: new Date().toISOString() }
         : note
     );
     setNotes(newNotes);
-    saveUserData({ notes: newNotes });
+    try {
+      await updateDoc(doc(db, 'users', user.uid), { notes: newNotes });
+    } catch (error) {
+      console.error('Error updating note:', error);
+    }
   };
 
   const deleteNote = async (noteId) => {
+    if (!user) return;
     const newNotes = notes.filter(note => note.id !== noteId);
     setNotes(newNotes);
-    saveUserData({ notes: newNotes });
+    try {
+      await updateDoc(doc(db, 'users', user.uid), { notes: newNotes });
+    } catch (error) {
+      console.error('Error deleting note:', error);
+    }
   };
 
-  // Premium status - for now, all logged-in users have premium
-  const isPremium = !!user;
+  const isPremium = user && user.email && user.email.includes('@'); // Simplified check
 
   const value = {
     user,
     loading,
+    signIn,
+    signOut,
     bookmarks,
-    comparisons,
-    customPathway,
-    notes,
     addBookmark,
     removeBookmark,
-    toggleBookmark,
     isBookmarked,
-    toggleComparison,
-    isInComparison,
+    comparisons,
+    addToComparison,
+    removeFromComparison,
+    customPathway,
     addToPathway,
     removeFromPathway,
+    notes,
     addNote,
     updateNote,
     deleteNote,
@@ -323,9 +350,9 @@ const AuthProvider = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = () => {
+const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
@@ -336,25 +363,16 @@ const PageContext = createContext();
 const PageProvider = ({ children }) => {
   const [currentPage, setCurrentPage] = useState('home');
   const [darkMode, setDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('darkMode') === 'true';
-    }
-    return false;
+    const saved = localStorage.getItem('darkMode');
+    return saved ? JSON.parse(saved) : false;
   });
-  const [searchQuery, setSearchQuery] = useState('');
-  const [browseMode, setBrowseMode] = useState('role');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('darkMode', darkMode.toString());
-      if (typeof document !== 'undefined' && document.documentElement) {
-        if (darkMode) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      }
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
 
@@ -364,48 +382,25 @@ const PageProvider = ({ children }) => {
     currentPage,
     setCurrentPage,
     darkMode,
-    setDarkMode,
-    toggleDarkMode,
-    searchQuery,
-    setSearchQuery,
-    browseMode,
-    setBrowseMode,
-    mobileMenuOpen,
-    setMobileMenuOpen
+    toggleDarkMode
   };
 
   return <PageContext.Provider value={value}>{children}</PageContext.Provider>;
 };
 
-export const usePage = () => {
+const usePage = () => {
   const context = useContext(PageContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('usePage must be used within a PageProvider');
   }
   return context;
 };
 
-// Sign in/out functions
-const signInWithGoogle = async () => {
-  try {
-    await signInWithPopup(auth, googleProvider);
-  } catch (error) {
-    console.error('Error signing in:', error);
-  }
-};
-
-const signOut = async () => {
-  try {
-    await firebaseSignOut(auth);
-  } catch (error) {
-    console.error('Error signing out:', error);
-  }
-};
-
 // Navigation Component
-export const Navigation = () => {
-  const { currentPage, setCurrentPage, darkMode, toggleDarkMode, mobileMenuOpen, setMobileMenuOpen } = usePage();
-  const { user } = useAuth();
+const Navigation = () => {
+  const { currentPage, setCurrentPage, darkMode, toggleDarkMode } = usePage();
+  const { user, signIn, signOut } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50">
@@ -418,20 +413,13 @@ export const Navigation = () => {
                 className="flex items-center space-x-2"
               >
                 <img 
-                  src="/assets/android-chrome-192x192.png"
+                  src="/assets/ImpactMojo Logo.png"
                   alt="ImpactMojo Logo"
                   className="h-8 w-8"
                   onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextElementSibling.style.display = 'block';
+                    e.target.src = "/assets/android-chrome-192x192.png";
                   }}
                 />
-                <span 
-                  className="text-2xl font-bold text-blue-600 dark:text-blue-400"
-                  style={{ display: 'none' }}
-                >
-                  ImpactMojo
-                </span>
                 <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                   ImpactMojo
                 </span>
@@ -465,58 +453,62 @@ export const Navigation = () => {
               )}
             </div>
           </div>
-          
           <div className="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-full text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600"
-              aria-label="Toggle theme"
+              className="p-2 text-gray-400 hover:text-gray-500 dark:text-gray-300 dark:hover:text-white"
             >
-              {darkMode ? <Sun className="h-5 w-5 text-yellow-400" /> : <Moon className="h-5 w-5" />}
+              {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
-            
             {user ? (
               <div className="flex items-center space-x-3">
-                <img className="h-8 w-8 rounded-full" src={user.photoURL} alt={user.displayName} />
-                <span className="text-gray-700 dark:text-gray-300 text-sm">{user.displayName}</span>
+                <img 
+                  src={user.photoURL} 
+                  alt={user.displayName}
+                  className="h-8 w-8 rounded-full"
+                />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {user.displayName}
+                </span>
                 <button
                   onClick={signOut}
-                  className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm font-medium"
+                  className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm"
                 >
                   Sign Out
                 </button>
               </div>
             ) : (
               <button
-                onClick={signInWithGoogle}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                onClick={signIn}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 Sign In
               </button>
             )}
           </div>
-
           <div className="sm:hidden flex items-center">
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600"
-              aria-expanded="false"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-gray-400 hover:text-gray-500 dark:text-gray-300 dark:hover:text-white"
             >
-              {mobileMenuOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
       </div>
-      
+
       {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="sm:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-700">
+      {isMenuOpen && (
+        <div className="sm:hidden">
           <div className="pt-2 pb-3 space-y-1">
             {['home', 'courses', 'labs', 'games', 'resources'].map((page) => (
               <button
                 key={page}
-                onClick={() => { setCurrentPage(page); setMobileMenuOpen(false); }}
-                className={`${currentPage === page ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'} block w-full text-left pl-3 pr-4 py-2 text-base font-medium capitalize`}
+                onClick={() => {
+                  setCurrentPage(page);
+                  setIsMenuOpen(false);
+                }}
+                className={`${currentPage === page ? 'bg-blue-50 border-blue-500 text-blue-700 dark:bg-blue-900 dark:text-blue-200' : 'border-transparent text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-700 dark:hover:text-white'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium w-full text-left capitalize`}
               >
                 {page}
               </button>
@@ -524,53 +516,60 @@ export const Navigation = () => {
             {user && (
               <>
                 <button
-                  onClick={() => { setCurrentPage('dashboard'); setMobileMenuOpen(false); }}
-                  className={`${currentPage === 'dashboard' ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'} block w-full text-left pl-3 pr-4 py-2 text-base font-medium`}
+                  onClick={() => {
+                    setCurrentPage('dashboard');
+                    setIsMenuOpen(false);
+                  }}
+                  className={`${currentPage === 'dashboard' ? 'bg-blue-50 border-blue-500 text-blue-700 dark:bg-blue-900 dark:text-blue-200' : 'border-transparent text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-700 dark:hover:text-white'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium w-full text-left`}
                 >
                   Dashboard
                 </button>
                 <button
-                  onClick={() => { setCurrentPage('ai-tools'); setMobileMenuOpen(false); }}
-                  className={`${currentPage === 'ai-tools' ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'} block w-full text-left pl-3 pr-4 py-2 text-base font-medium`}
+                  onClick={() => {
+                    setCurrentPage('ai-tools');
+                    setIsMenuOpen(false);
+                  }}
+                  className={`${currentPage === 'ai-tools' ? 'bg-blue-50 border-blue-500 text-blue-700 dark:bg-blue-900 dark:text-blue-200' : 'border-transparent text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-700 dark:hover:text-white'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium w-full text-left`}
                 >
                   AI Tools
                 </button>
               </>
             )}
           </div>
-          
-          <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex items-center px-4">
-              {user ? (
-                <>
-                  <img className="h-10 w-10 rounded-full" src={user.photoURL} alt={user.displayName} />
-                  <div className="ml-3">
-                    <div className="text-base font-medium text-gray-900 dark:text-white">{user.displayName}</div>
-                    <div className="text-sm font-medium text-gray-500 dark:text-gray-300">{user.email}</div>
-                  </div>
-                </>
-              ) : (
-                <div className="text-base font-medium text-gray-900 dark:text-white">Not signed in</div>
-              )}
-            </div>
-            <div className="mt-3 space-y-1">
+          <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-600">
+            <div className="flex items-center px-4 space-x-3">
               <button
                 onClick={toggleDarkMode}
-                className="block px-4 py-2 text-base font-medium text-gray-500 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left"
+                className="p-2 text-gray-400 hover:text-gray-500 dark:text-gray-300 dark:hover:text-white"
               >
-                {darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </button>
               {user ? (
-                <button
-                  onClick={signOut}
-                  className="block px-4 py-2 text-base font-medium text-red-600 hover:text-red-800 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left"
-                >
-                  Sign Out
-                </button>
+                <>
+                  <img 
+                    src={user.photoURL} 
+                    alt={user.displayName}
+                    className="h-8 w-8 rounded-full"
+                  />
+                  <div className="flex-1">
+                    <div className="text-base font-medium text-gray-800 dark:text-white">
+                      {user.displayName}
+                    </div>
+                    <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+                      {user.email}
+                    </div>
+                  </div>
+                  <button
+                    onClick={signOut}
+                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm"
+                  >
+                    Sign Out
+                  </button>
+                </>
               ) : (
                 <button
-                  onClick={signInWithGoogle}
-                  className="block px-4 py-2 text-base font-medium text-blue-600 hover:text-blue-800 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left"
+                  onClick={signIn}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium w-full"
                 >
                   Sign In with Google
                 </button>
@@ -583,230 +582,10 @@ export const Navigation = () => {
   );
 };
 
-// AI Tools Page Component  
-const AIToolsPage = () => {
-  const { darkMode } = usePage();
-  const { user, bookmarks, toggleBookmark, isPremium } = useAuth();
-  const [selectedTool, setSelectedTool] = useState(null);
-  
-  if (!user) {
-    return (
-      <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
-        <Navigation />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Please sign in to access AI Tools</h1>
-            <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">AI Tools are available exclusively for logged-in users.</p>
-            <button
-              onClick={signInWithGoogle}
-              className="mt-6 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium"
-            >
-              Sign In with Google
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-  
-  // Function to get the correct icon component
-  const getIconComponent = (iconName) => {
-    const iconMap = {
-      'BarChart': BarChart,
-      'Target': Target,
-      'FileText': FileText,
-      'Users': Users,
-      'CheckCircle': CheckCircle,
-      'MessageCircle': MessageCircle,
-      'Calendar': Calendar,
-      'BookOpen': BookOpen,
-      'TrendingUp': TrendingUp,
-      'Scale': Scale,
-      'Award': Award,
-      'Trophy': Trophy,
-      'Puzzle': Puzzle,
-      'Zap': Zap,
-      'Bot': Bot
-    };
-    return iconMap[iconName] || Bot;
-  };
-  
-  return (
-    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
-      <Navigation />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
-            AI-Powered Tools
-          </h1>
-          <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-300 sm:mt-4">
-            Leverage artificial intelligence to enhance your development work.
-          </p>
-        </div>
-        
-        {!isPremium && (
-          <div className="mb-8 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-lg shadow-lg p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">Upgrade to Premium</h3>
-                <p className="mt-1 text-gray-800">Unlock all AI tools and premium features</p>
-              </div>
-              <button className="px-4 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 transition-colors">
-                Upgrade Now
-              </button>
-            </div>
-          </div>
-        )}
-        
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {aiToolsData.map(tool => {
-            const IconComponent = getIconComponent(tool.icon);
-            const isBookmarked = bookmarks.some(b => b.id === tool.id);
-            
-            return (
-              <div key={tool.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <div className="p-6">
-                  <div className="flex justify-between items-start">
-                    <div className="flex items-center">
-                      <div className={`flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-blue-100 dark:bg-blue-900`}>
-                        <IconComponent className={`h-6 w-6 text-blue-600 dark:text-blue-400`} />
-                      </div>
-                      <h3 className="ml-3 text-lg font-medium text-gray-900 dark:text-white">{tool.title}</h3>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      {!isPremium && (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">
-                          PRO
-                        </span>
-                      )}
-                      <button 
-                        onClick={() => toggleBookmark(tool.id)}
-                        className="text-gray-400 hover:text-yellow-500 focus:outline-none"
-                      >
-                        {isBookmarked ? (
-                          <Star className="h-5 w-5 text-yellow-500 fill-current" />
-                        ) : (
-                          <Star className="h-5 w-5" />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                  
-                  <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{tool.description}</p>
-                  
-                  <div className="mt-6">
-                    {!isPremium ? (
-                      <button
-                        onClick={() => {}}
-                        className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-gray-500 bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
-                        disabled
-                      >
-                        Upgrade to Unlock
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => setSelectedTool(tool)}
-                        className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
-                      >
-                        Try This Tool
-                        <ArrowRight className="ml-1 h-4 w-4" />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        
-        {/* Tool Detail Modal */}
-        {selectedTool && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-md bg-blue-100 dark:bg-blue-900">
-                      {React.createElement(getIconComponent(selectedTool.icon), { className: "h-8 w-8 text-blue-600 dark:text-blue-400" })}
-                    </div>
-                    <div className="ml-4">
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">{selectedTool.title}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">{selectedTool.description}</p>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => setSelectedTool(null)}
-                    className="text-gray-400 hover:text-gray-500 focus:outline-none"
-                  >
-                    <X className="h-6 w-6" />
-                  </button>
-                </div>
-                
-                <div className="border-t border-gray-200 dark:border-gray-600 pt-6">
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Main Prompt
-                      </label>
-                      <textarea 
-                        rows={8}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-600 focus:border-blue-600 dark:bg-gray-700 dark:text-white"
-                        defaultValue={selectedTool.prompt}
-                        placeholder="Describe your requirements..."
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Example Input
-                      </label>
-                      <textarea 
-                        rows={4}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-600 focus:border-blue-600 dark:bg-gray-700 dark:text-white"
-                        placeholder={selectedTool.exampleInput}
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Specific Requirements (optional)
-                      </label>
-                      <textarea 
-                        rows={3}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-blue-600 focus:border-blue-600 dark:bg-gray-700 dark:text-white"
-                        placeholder="Add any specific requirements or context..."
-                      />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex justify-end space-x-3 mt-6">
-                  <button
-                    onClick={() => setSelectedTool(null)}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-md font-medium"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={() => {}}
-                    className="px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
-                  >
-                    Generate
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
 // Home Page Component
 const HomePage = () => {
   const { darkMode } = usePage();
-  const { user, isPremium } = useAuth();
+  const { user } = useAuth();
   const { setCurrentPage } = usePage();
   const [showCookieConsent, setShowCookieConsent] = useState(false);
   const [showQuizModal, setShowQuizModal] = useState(false);
@@ -833,11 +612,10 @@ const HomePage = () => {
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(description)}`,
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(title + ' - ' + description)}`,
       whatsapp: `https://wa.me/?text=${encodeURIComponent(title + ' - ' + description + ' ' + url)}`,
-      instagram: `https://www.instagram.com/` // Instagram doesn't support direct sharing, opens app
+      instagram: `https://www.instagram.com/`
     };
     
     if (platform === 'instagram') {
-      // For Instagram, copy text to clipboard and open Instagram
       navigator.clipboard.writeText(`${title} - ${description} ${url}`);
       alert('Link copied to clipboard! You can now paste it in your Instagram story or post.');
     }
@@ -906,7 +684,7 @@ const HomePage = () => {
     setQuizResult(null);
   };
 
-  // Get popular courses (first 6 courses) - USING courseData
+  // Get popular courses (first 6 courses)
   const popularCourses = courseData.slice(0, 6);
 
   // Get upcoming courses (mock data or from upcomingCourses if available)
@@ -918,9 +696,10 @@ const HomePage = () => {
   return (
     <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       <Navigation />
+      <FloatingActionButtons user={user} />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Hero Section - KEEPING EXISTING */}
+        {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
             <span className="block">Development</span>
@@ -949,106 +728,25 @@ const HomePage = () => {
           </div>
         </div>
 
-        {/* Popular Courses Showcase */}
-        <div className="mb-16">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Popular Courses</h2>
-            <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">Start with our most loved courses</p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {popularCourses.map((course) => {
-              const activeLearners = getActiveLearnerCount(course.id);
-              return (
-                <div key={course.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-2">
-                      <span className="inline-block px-2 py-1 text-xs font-semibold text-blue-800 dark:text-blue-200 bg-blue-100 dark:bg-blue-900 rounded-full">
-                        {course.track}
-                      </span>
-                      <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
-                        <Users className="h-3 w-3 mr-1" />
-                        <span>{activeLearners} learners</span>
-                      </div>
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{course.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">{course.description}</p>
-                    {course.quote && (
-                      <blockquote className="text-sm italic text-gray-500 dark:text-gray-400 border-l-4 border-blue-500 pl-3">
-                        {course.quote}
-                      </blockquote>
-                    )}
-                    <div className="mt-4 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-                      <span>{course.level}</span>
-                      <span>{course.duration}</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <div className="text-center mt-8">
-            <button
-              onClick={() => setCurrentPage('courses')}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-blue-600 bg-blue-100 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-200 dark:hover:bg-blue-800"
-            >
-              View All Courses
-            </button>
-          </div>
-        </div>
-
-        {/* Featured Content Highlight */}
-        <div className="mb-16">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-xl overflow-hidden">
-            <div className="px-6 py-12 md:px-12 md:py-16 text-center text-white">
-              <h2 className="text-3xl font-bold mb-4">The Real Middle Game</h2>
-              <p className="text-xl mb-6 opacity-90">Explore our spotlight content on navigating development challenges</p>
-              <button className="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50 transition-colors">
-                Explore Featured Content
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Learning Tracks Overview - USING courseData */}
-        <div className="mb-16">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Choose Your Learning Track</h2>
-            <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">Four specialized pathways to master development</p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {['Research Methods', 'Data Analysis', 'Gender Studies', 'Policy & Economics'].map((track, index) => {
-              const colors = ['bg-green-500', 'bg-blue-500', 'bg-purple-500', 'bg-red-500'];
-              const courseCount = courseData.filter(course => course.track === track).length;
-              return (
-                <div
-                  key={track}
-                  className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
-                  onClick={() => setCurrentPage('courses')}
-                >
-                  <div className={`h-32 ${colors[index]} flex items-center justify-center`}>
-                    <div className="text-white text-center">
-                      <div className="text-3xl mb-2">
-                        {index === 0 ? '🔬' : index === 1 ? '📊' : index === 2 ? '⚖️' : '🏛️'}
-                      </div>
-                      <h3 className="font-bold text-lg">{track}</h3>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                      {index === 0 ? 'Master research design and methodology' :
-                       index === 1 ? 'Analyze data and measure impact' :
-                       index === 2 ? 'Explore equity and social dynamics' :
-                       'Understand policy and economic systems'}
-                    </p>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {courseCount} courses available
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        {/* NEW MODULAR COMPONENTS */}
+        <PopularCoursesSection 
+          darkMode={darkMode} 
+          popularCourses={popularCourses} 
+          setCurrentPage={setCurrentPage} 
+        />
+        
+        <FeaturedContentSection 
+          darkMode={darkMode} 
+          setCurrentPage={setCurrentPage} 
+        />
+        
+        <TestimonialsSection darkMode={darkMode} />
+        
+        <LearningTracksSection 
+          darkMode={darkMode} 
+          courseData={courseData}
+          browseByRole={browseByRole}
+        />
 
         {/* Upcoming Courses Section */}
         <div className="mb-16">
@@ -1086,85 +784,41 @@ const HomePage = () => {
                   alt="Varna Sri Raman"
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    e.target.src = "/assets/android-chrome-192x192.png"; // Fallback to logo if profile image not found
+                    e.target.src = "/assets/android-chrome-192x192.png";
                   }}
                 />
               </div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Created by Varna Sri Raman</h3>
               <p className="text-gray-600 dark:text-gray-300 mb-4">
-                ImpactMojo is built to democratize access to development knowledge. Curated and crafted by Dr. Varna Sri Raman, 
-                it's an open-source project fueling social impact education.
+                ImpactMojo is built to democratize access to development knowledge.
               </p>
-              
-              {/* Social Links */}
-              <div className="flex justify-center space-x-4 mb-6">
-                <a 
-                  href="https://www.threads.net/@varna_sr" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+              <div className="flex justify-center space-x-4">
+                <button
+                  onClick={() => shareOnSocial('linkedin')}
+                  className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
                 >
-                  <span className="text-sm font-bold">T</span>
-                </a>
-                <a 
-                  href="https://varna.notion.site" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                  LinkedIn
+                </button>
+                <button
+                  onClick={() => shareOnSocial('facebook')}
+                  className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
                 >
-                  <span className="text-sm font-bold">N</span>
-                </a>
-                <a 
-                  href="https://www.linkedin.com/in/varna-sri-raman" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
+                  Facebook
+                </button>
+                <button
+                  onClick={() => shareOnSocial('whatsapp')}
+                  className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300"
                 >
-                  <span className="text-white text-sm font-bold">in</span>
-                </a>
-              </div>
-
-              {/* Share Buttons */}
-              <div className="border-t dark:border-gray-700 pt-6">
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Share ImpactMojo with your network</p>
-                <div className="flex justify-center space-x-3">
-                  <button
-                    onClick={() => shareOnSocial('linkedin')}
-                    className="px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    Share on LinkedIn
-                  </button>
-                  <button
-                    onClick={() => shareOnSocial('whatsapp')}
-                    className="px-4 py-2 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 transition-colors"
-                  >
-                    Share on WhatsApp
-                  </button>
-                  <button
-                    onClick={() => shareOnSocial('facebook')}
-                    className="px-4 py-2 bg-blue-800 text-white text-sm rounded-md hover:bg-blue-900 transition-colors"
-                  >
-                    Share on Facebook
-                  </button>
-                </div>
+                  WhatsApp
+                </button>
+                <button
+                  onClick={() => setShowNewsletterModal(true)}
+                  className="text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-300"
+                >
+                  Newsletter
+                </button>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Newsletter Signup */}
-        <div className="mb-16">
-          <div className="bg-blue-50 dark:bg-blue-900 rounded-lg p-8 text-center">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Stay Updated</h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
-              Get insights and updates via our newsletter on Substack
-            </p>
-            <button
-              onClick={() => window.open('https://varna.substack.com', '_blank')}
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-            >
-              Subscribe to Newsletter
-            </button>
           </div>
         </div>
 
@@ -1173,14 +827,14 @@ const HomePage = () => {
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Frequently Asked Questions</h2>
           </div>
-          <div className="max-w-3xl mx-auto space-y-4">
+          <div className="space-y-4 max-w-3xl mx-auto">
             {[
               {
-                q: "Are the courses free to access?",
-                a: "Yes, all courses are freely accessible. Premium features offer additional tools and personalization."
+                q: "Are the courses free?",
+                a: "Yes, all courses are freely available. Some premium resources require sign-in."
               },
               {
-                q: "Do I get certificates upon completion?",
+                q: "Do I get certificates?",
                 a: "ImpactMojo focuses on knowledge sharing rather than certification. Our goal is learning, not credentialing."
               },
               {
@@ -1243,74 +897,109 @@ const HomePage = () => {
         </div>
       </footer>
 
+      {/* Cookie Consent Banner */}
+      {showCookieConsent && (
+        <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 z-50">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <p className="text-sm">
+              We use analytics to improve your experience. By continuing, you agree to our use of cookies.
+            </p>
+            <button
+              onClick={() => {
+                localStorage.setItem('impactmojo-cookie-consent', 'true');
+                setShowCookieConsent(false);
+              }}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium ml-4"
+            >
+              Accept
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Quiz Modal */}
       {showQuizModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6">
             {!quizResult ? (
               <>
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    Find Your Learning Track
+                  </h3>
+                  <button 
+                    onClick={() => setShowQuizModal(false)}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
                 <div className="mb-4">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Find Your Track</h3>
-                    <button
-                      onClick={() => setShowQuizModal(false)}
-                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-                    >
-                      ✕
-                    </button>
+                  <div className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                    Question {currentQuizQuestion + 1} of {quizQuestions.length}
                   </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-4">
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div 
                       className="bg-blue-600 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${((currentQuizQuestion + 1) / quizQuestions.length) * 100}%` }}
                     ></div>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Question {currentQuizQuestion + 1} of {quizQuestions.length}
-                  </p>
                 </div>
-                <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-                  {quizQuestions[currentQuizQuestion].question}
-                </h4>
-                <div className="space-y-3">
-                  {quizQuestions[currentQuizQuestion].answers.map((answer, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleQuizAnswer(index)}
-                      className="w-full text-left p-3 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white"
-                    >
-                      {answer.text}
-                    </button>
-                  ))}
+                <div className="mb-6">
+                  <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                    {quizQuestions[currentQuizQuestion].question}
+                  </h4>
+                  <div className="space-y-2">
+                    {quizQuestions[currentQuizQuestion].answers.map((answer, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleQuizAnswer(index)}
+                        className="w-full text-left p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white"
+                      >
+                        {answer.text}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </>
             ) : (
               <>
-                <div className="text-center">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Your Recommended Track</h3>
-                  <div className="text-4xl mb-4">🎯</div>
-                  <h4 className="text-lg font-bold text-blue-600 dark:text-blue-400 mb-4">{quizResult}</h4>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    Your Recommended Track
+                  </h3>
+                  <button 
+                    onClick={() => setShowQuizModal(false)}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
+                <div className="text-center mb-6">
+                  <div className="text-3xl mb-2">🎯</div>
+                  <h4 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                    {quizResult}
+                  </h4>
+                  <p className="text-gray-600 dark:text-gray-300">
                     Based on your answers, this track aligns best with your interests and goals.
                   </p>
-                  <div className="space-y-3">
-                    <button
-                      onClick={() => {
-                        setShowQuizModal(false);
-                        setCurrentPage('courses');
-                        resetQuiz();
-                      }}
-                      className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
-                    >
-                      Explore {quizResult} Courses
-                    </button>
-                    <button
-                      onClick={resetQuiz}
-                      className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700"
-                    >
-                      Retake Quiz
-                    </button>
-                  </div>
+                </div>
+                <div className="flex space-x-3">
+                  <button
+                    onClick={() => {
+                      setCurrentPage('courses');
+                      setShowQuizModal(false);
+                    }}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium"
+                  >
+                    Explore Courses
+                  </button>
+                  <button
+                    onClick={resetQuiz}
+                    className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-md font-medium hover:bg-gray-50 dark:hover:bg-gray-700"
+                  >
+                    Retake Quiz
+                  </button>
                 </div>
               </>
             )}
@@ -1318,36 +1007,33 @@ const HomePage = () => {
         </div>
       )}
 
-      {/* Cookie Consent */}
-      {showCookieConsent && (
-        <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 z-50">
-          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between">
-            <div className="mb-4 sm:mb-0">
-              <p className="text-sm">
-                We use cookies to enhance your experience and analyze site usage. 
-                <a href="/privacy" className="underline ml-1">Learn more</a>
-              </p>
-            </div>
-            <div className="flex space-x-3">
-              <button
-                onClick={() => {
-                  localStorage.setItem('impactmojo-cookie-consent', 'accepted');
-                  setShowCookieConsent(false);
-                }}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700"
+      {/* Newsletter Modal */}
+      {showNewsletterModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                Subscribe to Newsletter
+              </h3>
+              <button 
+                onClick={() => setShowNewsletterModal(false)}
+                className="text-gray-500 hover:text-gray-700"
               >
-                Accept
-              </button>
-              <button
-                onClick={() => {
-                  localStorage.setItem('impactmojo-cookie-consent', 'rejected');
-                  setShowCookieConsent(false);
-                }}
-                className="border border-gray-300 text-white px-4 py-2 rounded-md text-sm hover:bg-gray-800"
-              >
-                Decline
+                <X className="h-6 w-6" />
               </button>
             </div>
+            <p className="text-gray-600 dark:text-gray-300 mb-4">
+              Get updates on new courses, resources, and development insights.
+            </p>
+            <button
+              onClick={() => {
+                window.open('https://varna.substack.com', '_blank');
+                setShowNewsletterModal(false);
+              }}
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md font-medium"
+            >
+              Visit Newsletter
+            </button>
           </div>
         </div>
       )}
@@ -1357,8 +1043,11 @@ const HomePage = () => {
 
 // Courses Page Component
 const CoursesPage = () => {
-  const { darkMode, searchQuery, setSearchQuery, browseMode, setBrowseMode } = usePage();
-  const { toggleComparison, isInComparison, addBookmark, removeBookmark, isBookmarked } = useAuth();
+  const { darkMode } = usePage();
+  const { addBookmark, removeBookmark, isBookmarked } = useAuth();
+  const [selectedTrack, setSelectedTrack] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [browseMode, setBrowseMode] = useState('role');
 
   const handleBookmark = (course) => {
     const bookmarkItem = { ...course, type: 'course' };
@@ -1369,19 +1058,28 @@ const CoursesPage = () => {
     }
   };
 
-  const handleCompare = (course) => {
-    const compareItem = { ...course, type: 'course' };
-    toggleComparison(compareItem);
-  };
+  const filteredCourses = courseData.filter(course => {
+    const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         course.description.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    if (selectedTrack === 'all') return matchesSearch;
+    
+    if (browseMode === 'role') {
+      const roleData = browseByRole[selectedTrack];
+      return matchesSearch && roleData && roleData.courses.includes(course.id);
+    } else if (browseMode === 'impact') {
+      const impactData = browseByImpact[selectedTrack];
+      return matchesSearch && impactData && impactData.courses.includes(course.id);
+    } else if (browseMode === 'time') {
+      const timeData = browseByTimeCommitment[selectedTrack];
+      return matchesSearch && timeData && timeData.courses.includes(course.id);
+    }
+    
+    return matchesSearch;
+  });
 
-  const filteredCourses = courseData.filter(course => 
-    course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    course.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    course.track.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const getBrowseData = () => {
-    switch(browseMode) {
+  const getBrowseOptions = () => {
+    switch (browseMode) {
       case 'role': return browseByRole;
       case 'impact': return browseByImpact;
       case 'time': return browseByTimeCommitment;
@@ -1392,160 +1090,98 @@ const CoursesPage = () => {
   return (
     <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       <Navigation />
+      <FloatingActionButtons />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Courses</h1>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">Expert-designed courses for development professionals</p>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+            Explore our comprehensive library of development courses
+          </p>
         </div>
 
-        {/* Search and Browse Controls */}
-        <div className="mb-8 space-y-4">
-          <div className="flex flex-col md:flex-row gap-4">
+        {/* Search and Filters */}
+        <div className="mb-8">
+          <div className="flex flex-col sm:flex-row gap-4 mb-4">
             <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search courses..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                />
-              </div>
+              <input
+                type="text"
+                placeholder="Search courses..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              />
             </div>
-            <select
-              value={browseMode}
-              onChange={(e) => setBrowseMode(e.target.value)}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="role">Browse by Role</option>
-              <option value="impact">Browse by Impact</option>
-              <option value="time">Browse by Time</option>
-            </select>
+            <div className="flex gap-2">
+              <select
+                value={browseMode}
+                onChange={(e) => {
+                  setBrowseMode(e.target.value);
+                  setSelectedTrack('all');
+                }}
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              >
+                <option value="role">By Role</option>
+                <option value="impact">By Impact</option>
+                <option value="time">By Time</option>
+              </select>
+              <select
+                value={selectedTrack}
+                onChange={(e) => setSelectedTrack(e.target.value)}
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              >
+                <option value="all">All Categories</option>
+                {Object.keys(getBrowseOptions()).map((track) => (
+                  <option key={track} value={track}>{track}</option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
 
-        {/* Browse Categories */}
-        {!searchQuery && (
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              {browseMode === 'role' && 'Browse by Role'}
-              {browseMode === 'impact' && 'Browse by Impact Area'}
-              {browseMode === 'time' && 'Browse by Time Commitment'}
-            </h2>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {Object.entries(getBrowseData()).map(([category, data]) => (
-                <div key={category} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-                  <h3 className={`text-lg font-semibold mb-2 text-${data.color}-600 dark:text-${data.color}-400`}>
-                    {category}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{data.description}</p>
-                  <div className="space-y-2">
-                    {data.courses.slice(0, 3).map(courseId => {
-                      const course = courseData.find(c => c.id === courseId);
-                      return course ? (
-                        <div key={course.id} className="text-sm">
-                          <a 
-                            href={course.url} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-blue-600 dark:text-blue-400 hover:underline"
-                          >
-                            {course.title}
-                          </a>
-                        </div>
-                      ) : null;
-                    })}
-                    {data.courses.length > 3 && (
-                      <div className="text-sm text-gray-500 dark:text-gray-400">
-                        +{data.courses.length - 3} more
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Courses Grid */}
+        {/* Course Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredCourses.map((course) => (
             <div key={course.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
-                  <div className="flex-1">
-                    <span className="inline-block px-2 py-1 text-xs font-semibold text-blue-800 dark:text-blue-200 bg-blue-100 dark:bg-blue-900 rounded-full mb-2">
-                      {course.track}
-                    </span>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{course.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">{course.description}</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
-                  <div className="flex items-center">
-                    <Clock className="h-4 w-4 mr-1" />
-                    {course.duration}
-                  </div>
-                  <div className="flex items-center">
-                    <Target className="h-4 w-4 mr-1" />
-                    {course.level}
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <a
-                    href={course.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium flex items-center"
+                  <span className="inline-block px-2 py-1 text-xs font-semibold text-blue-800 dark:text-blue-200 bg-blue-100 dark:bg-blue-900 rounded-full">
+                    {course.track}
+                  </span>
+                  <button
+                    onClick={() => handleBookmark(course)}
+                    className={`p-2 rounded-full ${isBookmarked(course.id) 
+                      ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-900' 
+                      : 'text-gray-400 hover:text-yellow-500'}`}
+                    title="Bookmark"
                   >
-                    Start Course
-                    <ExternalLink className="ml-1 h-4 w-4" />
-                  </a>
-                  
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => handleBookmark(course)}
-                      className={`p-2 rounded-full ${isBookmarked(course.id) ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-900' : 'text-gray-400 hover:text-yellow-500'}`}
-                      title="Bookmark"
-                    >
-                      <Bookmark className="h-4 w-4" />
-                    </button>
-                    <button
-                      onClick={() => handleCompare(course)}
-                      className={`p-2 rounded-full ${isInComparison(course.id) ? 'text-blue-500 bg-blue-100 dark:bg-blue-900' : 'text-gray-400 hover:text-blue-500'}`}
-                      title="Compare"
-                    >
-                      <Scale className="h-4 w-4" />
-                    </button>
-                  </div>
+                    <Bookmark className="h-4 w-4" />
+                  </button>
                 </div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{course.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{course.description}</p>
+                <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  <span>{course.level}</span>
+                  <span>{course.duration}</span>
+                </div>
+                <a
+                  href={course.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center"
+                >
+                  Start Course
+                  <ExternalLink className="ml-1 h-4 w-4" />
+                </a>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Upcoming Courses */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Coming Soon</h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {upcomingCourses.map((course) => (
-              <div key={course.id} className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-6 relative overflow-hidden">
-                <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 px-2 py-1 rounded-full text-xs font-semibold">
-                  Coming Soon
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{course.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{course.description}</p>
-                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                  <Calendar className="h-4 w-4 mr-1" />
-                  Expected: {course.expectedDate}
-                </div>
-              </div>
-            ))}
+        {filteredCourses.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 dark:text-gray-400">No courses found matching your criteria.</p>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
@@ -1568,10 +1204,11 @@ const LabsPage = () => {
   return (
     <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       <Navigation />
+      <FloatingActionButtons />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Labs</h1>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">Hands-on learning experiences</p>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">Interactive experiments and tools for development professionals</p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -1579,45 +1216,30 @@ const LabsPage = () => {
             <div key={lab.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <span className="inline-block px-2 py-1 text-xs font-semibold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900 rounded-full mb-2">
-                      {lab.category}
-                    </span>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{lab.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">{lab.description}</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
-                  <div className="flex items-center">
-                    <Clock className="h-4 w-4 mr-1" />
-                    {lab.duration}
-                  </div>
-                  <div className="flex items-center">
-                    <Target className="h-4 w-4 mr-1" />
-                    {lab.difficulty}
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <a
-                    href={lab.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium flex items-center"
-                  >
-                    Start Lab
-                    <ExternalLink className="ml-1 h-4 w-4" />
-                  </a>
-                  
+                  <span className="inline-block px-2 py-1 text-xs font-semibold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900 rounded-full">
+                    {lab.topic}
+                  </span>
                   <button
                     onClick={() => handleBookmark(lab)}
-                    className={`p-2 rounded-full ${isBookmarked(lab.id) ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-900' : 'text-gray-400 hover:text-yellow-500'}`}
+                    className={`p-2 rounded-full ${isBookmarked(lab.id) 
+                      ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-900' 
+                      : 'text-gray-400 hover:text-yellow-500'}`}
                     title="Bookmark"
                   >
                     <Bookmark className="h-4 w-4" />
                   </button>
                 </div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{lab.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{lab.description}</p>
+                <a
+                  href={lab.content}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium flex items-center justify-center"
+                >
+                  Launch Lab
+                  <ExternalLink className="ml-1 h-4 w-4" />
+                </a>
               </div>
             </div>
           ))}
@@ -1644,10 +1266,11 @@ const GamesPage = () => {
   return (
     <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       <Navigation />
+      <FloatingActionButtons />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Games</h1>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">Interactive learning through gameplay</p>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">Interactive games for development learning</p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -1661,17 +1284,6 @@ const GamesPage = () => {
                     </span>
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{game.title}</h3>
                     <p className="text-gray-600 dark:text-gray-300 text-sm">{game.description}</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
-                  <div className="flex items-center">
-                    <Gamepad2 className="h-4 w-4 mr-1" />
-                    {game.category}
-                  </div>
-                  <div className="flex items-center">
-                    <Target className="h-4 w-4 mr-1" />
-                    {game.difficulty}
                   </div>
                 </div>
 
@@ -1688,7 +1300,9 @@ const GamesPage = () => {
                   
                   <button
                     onClick={() => handleBookmark(game)}
-                    className={`p-2 rounded-full ${isBookmarked(game.id) ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-900' : 'text-gray-400 hover:text-yellow-500'}`}
+                    className={`p-2 rounded-full ${isBookmarked(game.id) 
+                      ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-900' 
+                      : 'text-gray-400 hover:text-yellow-500'}`}
                     title="Bookmark"
                   >
                     <Bookmark className="h-4 w-4" />
@@ -1720,6 +1334,7 @@ const ResourcesPage = () => {
   return (
     <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       <Navigation />
+      <FloatingActionButtons />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Resources</h1>
@@ -1753,7 +1368,9 @@ const ResourcesPage = () => {
                   
                   <button
                     onClick={() => handleBookmark(resource)}
-                    className={`p-2 rounded-full ${isBookmarked(resource.id) ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-900' : 'text-gray-400 hover:text-yellow-500'}`}
+                    className={`p-2 rounded-full ${isBookmarked(resource.id) 
+                      ? 'text-yellow-500 bg-yellow-100 dark:bg-yellow-900' 
+                      : 'text-gray-400 hover:text-yellow-500'}`}
                     title="Bookmark"
                   >
                     <Bookmark className="h-4 w-4" />
@@ -1768,108 +1385,156 @@ const ResourcesPage = () => {
   );
 };
 
+// AI Tools Page Component
+const AIToolsPage = () => {
+  const { darkMode } = usePage();
+  const { user } = useAuth();
+  const [selectedTool, setSelectedTool] = useState(null);
+  const [activeTab, setActiveTab] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const categories = ['all', 'Research Methods', 'Data Analysis', 'Program Management', 'Communications'];
+
+  const filteredTools = aiToolsData.filter(tool => {
+    const matchesSearch = tool.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         tool.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = activeTab === 'all' || tool.category === activeTab;
+    return matchesSearch && matchesCategory;
+  });
+
+  const ToolCard = ({ tool }) => (
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer" 
+         onClick={() => setSelectedTool(tool)}>
+      <div className="flex items-start justify-between mb-4">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{tool.title}</h3>
+        <div className={`p-2 rounded-lg bg-${tool.color}-100 dark:bg-${tool.color}-900`}>
+          <Bot className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+        </div>
+      </div>
+      <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{tool.description}</p>
+      <div className="flex items-center justify-between">
+        <span className="inline-block px-2 py-1 text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full">
+          {tool.category}
+        </span>
+        <ArrowRight className="h-4 w-4 text-gray-400" />
+      </div>
+    </div>
+  );
+
+  return (
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+      <Navigation />
+      <FloatingActionButtons />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">AI Tools</h1>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+            AI-powered assistants for development professionals
+          </p>
+          {!user && (
+            <div className="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900 rounded-lg">
+              <p className="text-yellow-800 dark:text-yellow-200">
+                <AlertTriangle className="inline h-5 w-5 mr-2" />
+                Sign in to access AI tools
+              </p>
+            </div>
+          )}
+        </div>
+
+        {user && (
+          <>
+            {/* Search Bar */}
+            <div className="mb-6">
+              <input
+                type="text"
+                placeholder="Search AI tools..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              />
+            </div>
+
+            {/* Category Tabs */}
+            <div className="mb-8">
+              <nav className="flex space-x-8 overflow-x-auto">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setActiveTab(category)}
+                    className={`${activeTab === category
+                      ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                      : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
+                    } whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </nav>
+            </div>
+
+            {/* Tools Grid */}
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {filteredTools.map((tool) => (
+                <ToolCard key={tool.id} tool={tool} />
+              ))}
+            </div>
+
+            {filteredTools.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-gray-500 dark:text-gray-400">No tools found matching your criteria.</p>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Tool Modal */}
+        {selectedTool && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {selectedTool.title}
+                  </h3>
+                  <button onClick={() => setSelectedTool(null)}>
+                    <X className="h-6 w-6 text-gray-500" />
+                  </button>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 mb-6">
+                  {selectedTool.description}
+                </p>
+                <div className="space-y-4">
+                  <h4 className="font-medium text-gray-900 dark:text-white">How to use this tool:</h4>
+                  <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
+                      {selectedTool.prompt}
+                    </p>
+                  </div>
+                  {selectedTool.exampleInput && (
+                    <>
+                      <h4 className="font-medium text-gray-900 dark:text-white">Example Input:</h4>
+                      <div className="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
+                        <p className="text-sm text-blue-800 dark:text-blue-200 whitespace-pre-wrap">
+                          {selectedTool.exampleInput}
+                        </p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 // Dashboard Page Component
 const DashboardPage = () => {
   const { darkMode } = usePage();
-  const { user, bookmarks, comparisons, customPathway, notes, addNote, updateNote, deleteNote, addToPathway, removeFromPathway } = useAuth();
-  const { setCurrentPage } = usePage();
+  const { user, bookmarks, customPathway, notes } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
-  const [isQuizModalOpen, setIsQuizModalOpen] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [quizAnswers, setQuizAnswers] = useState([]);
-  const [quizComplete, setQuizComplete] = useState(false);
-  const [isNotesModalOpen, setIsNotesModalOpen] = useState(false);
-  const [currentNote, setCurrentNote] = useState(null);
-  const [noteTitle, setNoteTitle] = useState('');
-  const [noteContent, setNoteContent] = useState('');
-  const [noteTags, setNoteTags] = useState('');
-  const [noteAttachedTo, setNoteAttachedTo] = useState('');
-
-  // Quiz data
-  const quizQuestions = [
-    {
-      id: 1,
-      question: "What best describes your current role?",
-      options: [
-        { text: "New to Development", courses: ["development-economics-101", "global-development-architecture-101"] },
-        { text: "Researcher/Academic", courses: ["research-ethics-101", "qualitative-research-methods-101", "econometrics-101"] },
-        { text: "Practitioner/Field Worker", courses: ["community-development-101", "monitoring-evaluation-accountability-and-learning-101"] },
-        { text: "Student/Policy Maker", courses: ["law-and-constitution-101", "political-economy-101"] }
-      ]
-    },
-    {
-      id: 2,
-      question: "Which impact area interests you most?",
-      options: [
-        { text: "Health & Wellbeing", courses: ["public-health-101", "human-rights-101"] },
-        { text: "Education & Skills", courses: ["data-literacy-101", "qualitative-research-methods-101"] },
-        { text: "Governance & Justice", courses: ["law-and-constitution-101", "political-economy-101"] },
-        { text: "Economic Growth", courses: ["development-economics-101", "monitoring-evaluation-accountability-and-learning-101"] }
-      ]
-    }
-  ];
-
-  const openModal = (type, item = null) => {
-    if (type === 'quiz') {
-      setIsQuizModalOpen(true);
-      setCurrentQuestionIndex(0);
-      setQuizAnswers([]);
-      setQuizComplete(false);
-    } else if (type === 'notes') {
-      setIsNotesModalOpen(true);
-      if (item) {
-        setCurrentNote(item);
-        setNoteTitle(item.title || '');
-        setNoteContent(item.content || '');
-        setNoteTags(item.tags ? item.tags.join(', ') : '');
-        setNoteAttachedTo(item.attachedTo || '');
-      } else {
-        setCurrentNote(null);
-        setNoteTitle('');
-        setNoteContent('');
-        setNoteTags('');
-        setNoteAttachedTo('');
-      }
-    }
-  };
-
-  const closeModal = () => {
-    setIsQuizModalOpen(false);
-    setIsNotesModalOpen(false);
-    setCurrentNote(null);
-  };
-
-  const handleQuizAnswer = (selectedOption) => {
-    const newAnswers = [...quizAnswers, selectedOption];
-    setQuizAnswers(newAnswers);
-
-    if (currentQuestionIndex < quizQuestions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      // Quiz complete, generate pathway
-      const recommendedCourses = newAnswers.flatMap(answer => answer.courses);
-      const uniqueCourses = [...new Set(recommendedCourses)];
-      uniqueCourses.forEach(courseId => addToPathway(courseId));
-      setQuizComplete(true);
-    }
-  };
-
-  const handleSaveNote = async () => {
-    const noteData = {
-      title: noteTitle,
-      content: noteContent,
-      tags: noteTags.split(',').map(tag => tag.trim()).filter(tag => tag),
-      attachedTo: noteAttachedTo
-    };
-
-    if (currentNote) {
-      await updateNote(currentNote.id, noteData);
-    } else {
-      await addNote(noteData);
-    }
-
-    closeModal();
-  };
 
   if (!user) {
     return (
@@ -1877,15 +1542,12 @@ const DashboardPage = () => {
         <Navigation />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
-            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">
-              Sign in to access your Dashboard
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              Dashboard
             </h1>
-            <button
-              onClick={signInWithGoogle}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium"
-            >
-              Sign In with Google
-            </button>
+            <p className="text-gray-600 dark:text-gray-300 mb-8">
+              Please sign in to access your dashboard
+            </p>
           </div>
         </div>
       </div>
@@ -1895,6 +1557,7 @@ const DashboardPage = () => {
   return (
     <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       <Navigation />
+      <FloatingActionButtons />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
@@ -1966,81 +1629,34 @@ const DashboardPage = () => {
               
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
                 <div className="flex items-center">
-                  <Scale className="h-8 w-8 text-orange-600 dark:text-orange-400" />
+                  <Trophy className="h-8 w-8 text-yellow-600 dark:text-yellow-400" />
                   <div className="ml-4">
-                    <p className="text-2xl font-semibold text-gray-900 dark:text-white">{comparisons.length}</p>
-                    <p className="text-gray-600 dark:text-gray-300">Comparisons</p>
+                    <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+                      {Math.floor((bookmarks.length + customPathway.length + notes.length) / 3)}
+                    </p>
+                    <p className="text-gray-600 dark:text-gray-300">Activity Score</p>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <button
-                  onClick={() => openModal('quiz')}
-                  className="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <Target className="h-6 w-6 text-blue-600 dark:text-blue-400 mr-3" />
-                  <div className="text-left">
-                    <p className="font-medium text-gray-900 dark:text-white">Find Your Track</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Take a quiz to discover courses</p>
-                  </div>
-                </button>
-                
-                <button
-                  onClick={() => openModal('notes')}
-                  className="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <Plus className="h-6 w-6 text-green-600 dark:text-green-400 mr-3" />
-                  <div className="text-left">
-                    <p className="font-medium text-gray-900 dark:text-white">Add Note</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Create a new learning note</p>
-                  </div>
-                </button>
-                
-                <button
-                  onClick={() => setCurrentPage('ai-tools')}
-                  className="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <Bot className="h-6 w-6 text-purple-600 dark:text-purple-400 mr-3" />
-                  <div className="text-left">
-                    <p className="font-medium text-gray-900 dark:text-white">AI Tools</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Access AI-powered tools</p>
-                  </div>
-                </button>
               </div>
             </div>
 
             {/* Recent Activity */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Recent Activity</h2>
-              {bookmarks.length > 0 || notes.length > 0 ? (
-                <div className="space-y-3">
-                  {bookmarks.slice(0, 3).map((bookmark, index) => (
-                    <div key={index} className="flex items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <Bookmark className="h-5 w-5 text-yellow-500 mr-3" />
-                      <div>
-                        <p className="font-medium text-gray-900 dark:text-white">{bookmark.title}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Bookmarked {bookmark.type}</p>
-                      </div>
+              <div className="space-y-4">
+                {bookmarks.slice(0, 3).map((item, index) => (
+                  <div key={index} className="flex items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <Bookmark className="h-5 w-5 text-yellow-500 mr-3" />
+                    <div>
+                      <p className="font-medium text-gray-900 dark:text-white">{item.title}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Bookmarked</p>
                     </div>
-                  ))}
-                  {notes.slice(0, 2).map((note, index) => (
-                    <div key={index} className="flex items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      <FileText className="h-5 w-5 text-purple-500 mr-3" />
-                      <div>
-                        <p className="font-medium text-gray-900 dark:text-white">{note.title || 'Untitled Note'}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Note created</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-gray-500 dark:text-gray-400">No recent activity</p>
-              )}
+                  </div>
+                ))}
+                {bookmarks.length === 0 && (
+                  <p className="text-gray-500 dark:text-gray-400">No recent activity</p>
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -2050,17 +1666,18 @@ const DashboardPage = () => {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Your Bookmarks</h2>
             {bookmarks.length > 0 ? (
               <div className="space-y-3">
-                {bookmarks.map((bookmark, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                    <div className="flex-1">
-                      <h3 className="font-medium text-gray-900 dark:text-white">{bookmark.title}</h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{bookmark.type} • {bookmark.track || bookmark.category}</p>
+                {bookmarks.map((item, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium text-gray-900 dark:text-white truncate">{item.title}</h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{item.type}</p>
                     </div>
                     <a
-                      href={bookmark.url}
+                      href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+                      className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 flex-shrink-0 ml-2"
+                      aria-label="Open course"
                     >
                       <ExternalLink className="h-5 w-5" />
                     </a>
@@ -2070,7 +1687,8 @@ const DashboardPage = () => {
             ) : (
               <div className="text-center py-8">
                 <Bookmark className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500 dark:text-gray-400">No bookmarks yet</p>
+                <p className="text-gray-500 dark:text-gray-400 mb-4">No bookmarks yet</p>
+                <p className="text-sm text-gray-400 dark:text-gray-500">Start bookmarking courses to see them here</p>
               </div>
             )}
           </div>
@@ -2078,15 +1696,7 @@ const DashboardPage = () => {
 
         {activeTab === 'pathway' && (
           <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">My Learning Pathway</h2>
-              <button 
-                onClick={() => openModal('quiz')}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-              >
-                Find Your Track
-              </button>
-            </div>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">My Learning Pathway</h2>
             {customPathway.length > 0 ? (
               <div className="space-y-3">
                 {customPathway.map((courseId, index) => {
@@ -2114,12 +1724,7 @@ const DashboardPage = () => {
               <div className="text-center py-8">
                 <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-500 dark:text-gray-400 mb-4">No courses in your pathway yet</p>
-                <button 
-                  onClick={() => openModal('quiz')}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium"
-                >
-                  Find Your Track
-                </button>
+                <p className="text-sm text-gray-400 dark:text-gray-500">Take the quiz to get started</p>
               </div>
             )}
           </div>
@@ -2127,46 +1732,13 @@ const DashboardPage = () => {
 
         {activeTab === 'notes' && (
           <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Your Notes</h2>
-              <button 
-                onClick={() => openModal('notes')}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-              >
-                Add Note
-              </button>
-            </div>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Your Notes</h2>
             {notes.length > 0 ? (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {notes.map((note) => (
-                  <div key={note.id} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-medium text-gray-900 dark:text-white">{note.title || 'Untitled Note'}</h3>
-                      <div className="flex space-x-2">
-                        <button
-                          onClick={() => openModal('notes', note)}
-                          className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
-                        >
-                          <Edit3 className="h-4 w-4" />
-                        </button>
-                        <button
-                          onClick={() => deleteNote(note.id)}
-                          className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
-                        >
-                          <X className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
+                  <div key={note.id} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                    <h3 className="font-medium text-gray-900 dark:text-white mb-2">{note.title}</h3>
                     <p className="text-gray-600 dark:text-gray-300 text-sm mb-2">{note.content}</p>
-                    {note.tags && note.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mb-2">
-                        {note.tags.map((tag, index) => (
-                          <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
                     <p className="text-xs text-gray-500 dark:text-gray-400">
                       Created: {new Date(note.createdAt).toLocaleDateString()}
                     </p>
@@ -2177,12 +1749,7 @@ const DashboardPage = () => {
               <div className="text-center py-8">
                 <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-500 dark:text-gray-400 mb-4">No notes yet</p>
-                <button 
-                  onClick={() => openModal('notes')}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium"
-                >
-                  Create Your First Note
-                </button>
+                <p className="text-sm text-gray-400 dark:text-gray-500">Start taking notes to see them here</p>
               </div>
             )}
           </div>
@@ -2191,175 +1758,10 @@ const DashboardPage = () => {
         {activeTab === 'comparisons' && (
           <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Course Comparisons</h2>
-            {comparisons.length > 0 ? (
-              <div className="space-y-3">
-                {comparisons.map((item, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                    <div className="flex-1">
-                      <h3 className="font-medium text-gray-900 dark:text-white">{item.title}</h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{item.type} • {item.track || item.category}</p>
-                    </div>
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
-                    >
-                      <ExternalLink className="h-5 w-5" />
-                    </a>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8">
-                <Scale className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500 dark:text-gray-400">No comparisons yet</p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Quiz Modal */}
-        {isQuizModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-4">
-              <div className="p-6">
-                {!quizComplete ? (
-                  <>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                      Find Your Learning Track
-                    </h3>
-                    <div className="mb-4">
-                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                        Question {currentQuestionIndex + 1} of {quizQuestions.length}
-                      </p>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                        <div 
-                          className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${((currentQuestionIndex + 1) / quizQuestions.length) * 100}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                    <p className="text-gray-900 dark:text-white mb-6">
-                      {quizQuestions[currentQuestionIndex].question}
-                    </p>
-                    <div className="space-y-3">
-                      {quizQuestions[currentQuestionIndex].options.map((option, index) => (
-                        <button
-                          key={index}
-                          onClick={() => handleQuizAnswer(option)}
-                          className="w-full text-left p-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                        >
-                          {option.text}
-                        </button>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                      Your Learning Track is Ready!
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-6">
-                      Based on your responses, we've added recommended courses to your learning pathway.
-                    </p>
-                    <div className="flex justify-end space-x-3">
-                      <button
-                        onClick={closeModal}
-                        className="px-4 py-2 text-gray-700 dark:text-gray-300"
-                      >
-                        Close
-                      </button>
-                      <button
-                        onClick={() => {
-                          setActiveTab('pathway');
-                          closeModal();
-                        }}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                      >
-                        View Pathway
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Notes Modal */}
-        {isNotesModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-lg w-full mx-4">
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                  {currentNote ? 'Edit Note' : 'Add New Note'}
-                </h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Title
-                    </label>
-                    <input
-                      type="text"
-                      value={noteTitle}
-                      onChange={(e) => setNoteTitle(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                      placeholder="Enter note title..."
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Content
-                    </label>
-                    <textarea
-                      value={noteContent}
-                      onChange={(e) => setNoteContent(e.target.value)}
-                      rows={4}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                      placeholder="Write your note here..."
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Tags (comma-separated)
-                    </label>
-                    <input
-                      type="text"
-                      value={noteTags}
-                      onChange={(e) => setNoteTags(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                      placeholder="research, economics, health..."
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Attach to Course/Lab (optional)
-                    </label>
-                    <input
-                      type="text"
-                      value={noteAttachedTo}
-                      onChange={(e) => setNoteAttachedTo(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                      placeholder="Course or lab name..."
-                    />
-                  </div>
-                </div>
-                <div className="flex justify-end space-x-3 mt-6">
-                  <button
-                    onClick={closeModal}
-                    className="px-4 py-2 text-gray-700 dark:text-gray-300"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleSaveNote}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                  >
-                    {currentNote ? 'Update' : 'Save'} Note
-                  </button>
-                </div>
-              </div>
+            <div className="text-center py-8">
+              <Scale className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500 dark:text-gray-400 mb-4">No comparisons yet</p>
+              <p className="text-sm text-gray-400 dark:text-gray-500">Compare courses to make better learning decisions</p>
             </div>
           </div>
         )}
