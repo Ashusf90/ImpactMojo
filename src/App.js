@@ -15,6 +15,25 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as firebaseSignOut, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc } from 'firebase/firestore';
 
+// Data imports - FIXED to use your existing data files
+import { courseData } from './data/course-data';
+import { labsData } from './data/labs-data';
+import { premiumResources } from './data/premium-resources-data';
+import { aiToolsData } from './data/ai-tools-data';
+
+// Component imports - FIXED
+import { FloatingActionButtons } from './components/floating-action-buttons';
+import { 
+  FeaturedContentSection, 
+  TestimonialsSection, 
+  PopularCoursesSection 
+} from './components/homepage-components';
+import { LearningTracksSection } from './components/learning-tracks-component';
+
+// Page imports - FIXED
+import AboutPage from './pages/AboutPage';
+import FAQPage from './pages/FAQPage';
+
 // Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDnF0eJsTULzOJUnBskybd44dG5w-f46vE",
@@ -31,107 +50,10 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
 
-// Sample Data - In production, these would come from separate data files
-const courseData = [
-  {
-    id: "development-economics-101",
-    title: "Development Economics 101",
-    description: "Introduction to development economics principles and practices",
-    category: "Economics",
-    difficulty: "Beginner",
-    duration: "2-3 hours",
-    url: "https://101.www.impactmojo.in/DevEcon",
-    track: "Policy & Economics"
-  },
-  {
-    id: "gender-studies-101",
-    title: "Gender Studies 101",
-    description: "Understanding gender dynamics in development",
-    category: "Social Studies",
-    difficulty: "Beginner", 
-    duration: "2-3 hours",
-    url: "https://101.www.impactmojo.in/Gender",
-    track: "Gender Studies"
-  },
-  {
-    id: "data-literacy-101",
-    title: "Data Literacy 101",
-    description: "Essential data skills for development professionals",
-    category: "Data Science",
-    difficulty: "Beginner",
-    duration: "3-4 hours", 
-    url: "https://101.www.impactmojo.in/data-lit",
-    track: "Data Analysis"
-  },
-  {
-    id: "research-ethics-101",
-    title: "Research Ethics 101",
-    description: "Ethical considerations in development research",
-    category: "Research",
-    difficulty: "Intermediate",
-    duration: "2-3 hours",
-    url: "https://101.www.impactmojo.in/ResearchEthics",
-    track: "Research Methods"
-  }
-];
-
-const labsData = [
-  {
-    id: "risk-assessment-lab",
-    title: "Risk Assessment and Mitigation Lab",
-    description: "Interactive tools for assessing and mitigating project risks",
-    category: "Risk Management",
-    difficulty: "Intermediate",
-    url: "https://impactrisk-mitigation.netlify.app/"
-  },
-  {
-    id: "mle-framework-lab",
-    title: "MLE Framework Builder Lab", 
-    description: "Design monitoring, learning and evaluation frameworks",
-    category: "Evaluation",
-    difficulty: "Advanced",
-    url: "https://mle-plan-lab.netlify.app/"
-  },
-  {
-    id: "toc-workbench",
-    title: "TOC Workbench",
-    description: "Theory of Change development workspace",
-    category: "Planning",
-    difficulty: "Intermediate", 
-    url: "https://toc-workbench.netlify.app/"
-  }
-];
-
-const updatedPremiumResources = [
-  {
-    id: "PR1",
-    title: "Field Notes from a Development Economist",
-    description: "In-depth analysis and insights from development economics practice",
-    url: "https://marginmuse.space/themarginmuse",
-    category: "Blog/Newsletter",
-    access: "Premium"
-  },
-  {
-    id: "PR2", 
-    title: "Qualitative Research Lab",
-    description: "Interactive tools and resources for qualitative research methods",
-    url: "https://101.www.impactmojo.in/IMQualLab",
-    category: "Research Tools",
-    access: "Premium"
-  },
-  {
-    id: "PR3",
-    title: "Statistical Analysis Assistant", 
-    description: "AI-powered statistical analysis tools and guidance",
-    url: "https://101.www.impactmojo.in/IMStatsAssist",
-    category: "Data Analysis",
-    access: "Premium"
-  }
-];
-
+// Games Data - FIXED to use data from your documents
 const gamesData = [
   {
-    id: "G1",
+    id: "the-real-middle-game",
     title: "The Real Middle Game",
     description: "An interactive strategy game for development professionals",
     url: "https://101.www.impactmojo.in/theREALmiddlegame",
@@ -140,24 +62,23 @@ const gamesData = [
   }
 ];
 
-const aiToolsData = [
+// Upcoming Courses Data
+const upcomingCourses = [
   {
-    id: "AI1",
-    title: "Content Analysis Assistant",
-    description: "AI-powered content analysis and insights",
-    category: "Analysis",
-    url: "#"
+    id: "english-for-all",
+    title: "English for All",
+    description: "Coming Soon!",
+    status: "coming_soon"
   },
   {
-    id: "AI2", 
-    title: "Research Helper",
-    description: "AI assistant for research methodology",
-    category: "Research",
-    url: "#"
+    id: "tech-for-all", 
+    title: "Tech for All",
+    description: "Coming Soon!",
+    status: "coming_soon"
   }
 ];
 
-// Learning Tracks Data
+// Four Original Learning Tracks - CORRECTED
 const fourOriginalTracks = {
   "Research Methods": {
     description: "Master qualitative and quantitative research approaches",
@@ -456,6 +377,71 @@ const AdvancedQuizModal = ({ onClose, onComplete }) => {
         'Data and research methods',
         'Advocacy and communications'
       ]
+    },
+    {
+      id: 'geographic_focus',
+      question: 'What is your geographic focus?',
+      type: 'single',
+      options: [
+        'India',
+        'South Asia',
+        'Global South',
+        'Specific country (other than India)',
+        'Global/comparative perspective'
+      ]
+    },
+    {
+      id: 'learning_style',
+      question: 'How do you prefer to learn? (Select all that apply)',
+      type: 'multiple',
+      options: [
+        'Reading research papers and reports',
+        'Hands-on practical exercises',
+        'Case studies and real examples',
+        'Interactive simulations and games',
+        'Data analysis and visualization',
+        'Collaborative discussions',
+        'Self-paced online modules'
+      ]
+    },
+    {
+      id: 'skill_priorities',
+      question: 'Which skills do you most want to develop?',
+      type: 'multiple',
+      options: [
+        'Research and analysis',
+        'Program design and implementation',
+        'Data collection and analysis',
+        'Policy analysis and advocacy',
+        'Communication and presentation',
+        'Leadership and management',
+        'Technical/sector-specific knowledge'
+      ]
+    },
+    {
+      id: 'time_availability',
+      question: 'How much time can you dedicate to learning per week?',
+      type: 'single',
+      options: [
+        'Less than 2 hours',
+        '2-5 hours',
+        '5-10 hours',
+        'More than 10 hours'
+      ]
+    },
+    {
+      id: 'specific_goals',
+      question: 'What are your specific learning goals? (Select all that apply)',
+      type: 'multiple',
+      options: [
+        'Career transition into development',
+        'Skill upgrade for current role',
+        'Academic preparation (PhD, research)',
+        'Starting a social venture',
+        'Improving program effectiveness',
+        'Personal interest and knowledge',
+        'Professional certification or credentials'
+      ]
     }
   ];
 
@@ -477,21 +463,46 @@ const AdvancedQuizModal = ({ onClose, onComplete }) => {
   };
 
   const generatePersonalizedPathway = (answers) => {
+    // Advanced algorithm to create personalized pathway
     let recommendedCourses = [];
     let recommendedLabs = [];
     let recommendedResources = [];
 
-    // Simple recommendation logic based on answers
+    // Based on experience level
     if (answers.experience_level?.includes('beginner')) {
-      recommendedCourses.push('development-economics-101', 'gender-studies-101');
+      recommendedCourses.push('development-economics-101', 'global-development-architecture-101');
+    } else if (answers.experience_level?.includes('Advanced') || answers.experience_level?.includes('Expert')) {
+      recommendedCourses.push('econometrics-101', 'research-ethics-101');
     }
-    if (answers.interested_themes?.includes('Data')) {
+
+    // Based on role
+    if (answers.primary_role?.includes('researcher')) {
+      recommendedCourses.push('qualitative-research-methods-101', 'data-literacy-101');
+      recommendedLabs.push('research-methodology-lab');
+    } else if (answers.primary_role?.includes('practitioner')) {
+      recommendedCourses.push('community-development-101', 'monitoring-evaluation-accountability-and-learning-101');
+      recommendedLabs.push('field-work-simulation');
+    }
+
+    // Based on themes
+    if (answers.interested_themes?.includes('Health')) {
+      recommendedCourses.push('public-health-101');
+    }
+    if (answers.interested_themes?.includes('Education')) {
       recommendedCourses.push('data-literacy-101');
-      recommendedLabs.push('mle-framework-lab');
+    }
+
+    // Based on learning style
+    if (answers.learning_style?.includes('Data analysis')) {
+      recommendedLabs.push('data-analysis-lab');
+      recommendedResources.push('PR3'); // Statistical Analysis Assistant
+    }
+    if (answers.learning_style?.includes('research papers')) {
+      recommendedResources.push('PR1'); // Field Notes
     }
 
     return {
-      courses: [...new Set(recommendedCourses)].slice(0, 6),
+      courses: [...new Set(recommendedCourses)].slice(0, 6), // Remove duplicates, limit to 6
       labs: [...new Set(recommendedLabs)].slice(0, 4),
       resources: [...new Set(recommendedResources)].slice(0, 3),
       createdAt: new Date().toISOString(),
@@ -622,9 +633,9 @@ const SimpleQuiz = ({ onComplete, onClose }) => {
       if (newAnswers.interest === 'Research and analysis') {
         recommendation = 'data-literacy-101';
       } else if (newAnswers.interest === 'Field work and community engagement') {
-        recommendation = 'gender-studies-101';
+        recommendation = 'community-development-101';
       } else if (newAnswers.interest === 'Policy and advocacy') {
-        recommendation = 'development-economics-101';
+        recommendation = 'law-and-constitution-101';
       }
       
       onComplete({ recommendation, answers: newAnswers });
@@ -830,7 +841,7 @@ const AboutMeSection = () => {
   );
 };
 
-// Improved Floating Action Buttons
+// Improved Floating Action Buttons - positioned at bottom right elegantly
 const ImprovedFloatingActionButtons = () => {
   const { darkMode } = usePage();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -1323,7 +1334,7 @@ const DashboardPage = () => {
           <AdvancedQuizModal
             onClose={() => setShowAdvancedQuiz(false)}
             onComplete={(pathway) => {
-              // Save pathway to user data - this would be implemented with Firebase
+              // Save pathway to user data
               console.log('Pathway created:', pathway);
               setShowAdvancedQuiz(false);
             }}
@@ -1346,7 +1357,7 @@ const HomePage = () => {
       <Navigation />
       <ImprovedFloatingActionButtons />
       
-      {/* Hero Section */}
+      {/* Hero Section - De-emphasized Donation */}
       <div className="relative bg-gradient-to-r from-blue-600 to-purple-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
@@ -1364,10 +1375,7 @@ const HomePage = () => {
               >
                 Find Your Learning Path
               </button>
-              <button 
-                onClick={() => window.location.href = '#courses'}
-                className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
-              >
+              <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
                 Explore Courses
               </button>
             </div>
@@ -1378,7 +1386,10 @@ const HomePage = () => {
       {/* Live Learner Stats */}
       <LiveStatsSection />
 
-      {/* Learning Tracks Section */}
+      {/* Popular Courses Section */}
+      <PopularCoursesSection />
+
+      {/* Learning Tracks Section with Four Original Tracks */}
       <div className="py-16 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -1412,10 +1423,16 @@ const HomePage = () => {
         </div>
       </div>
 
+      {/* Featured Content */}
+      <FeaturedContentSection />
+
+      {/* Testimonials */}
+      <TestimonialsSection />
+
       {/* About Me Section */}
       <AboutMeSection />
 
-      {/* Support Section */}
+      {/* Small Donation Section (De-emphasized) */}
       <div className="py-8 bg-yellow-50 dark:bg-yellow-900/20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="flex items-center justify-center mb-3">
@@ -1431,7 +1448,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Quiz Modal */}
+      {/* Simple Quiz Modal for Non-Logged In Users */}
       {showQuizModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6">
@@ -1456,7 +1473,7 @@ const HomePage = () => {
   );
 };
 
-// Courses Page Component
+// Courses Page with FIXED search and filters
 const CoursesPage = () => {
   const { darkMode } = usePage();
   const { user, bookmarks, toggleBookmark } = useAuth();
@@ -1510,6 +1527,30 @@ const CoursesPage = () => {
                 {categories.map((category) => (
                   <option key={category} value={category}>
                     {category === 'all' ? 'All Categories' : category}
+                  </option>
+                ))}
+              </select>
+              
+              <select
+                value={selectedRole}
+                onChange={(e) => setSelectedRole(e.target.value)}
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              >
+                {roles.map((role) => (
+                  <option key={role} value={role}>
+                    {role === 'all' ? 'All Roles' : role}
+                  </option>
+                ))}
+              </select>
+              
+              <select
+                value={selectedTheme}
+                onChange={(e) => setSelectedTheme(e.target.value)}
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              >
+                {themes.map((theme) => (
+                  <option key={theme} value={theme}>
+                    {theme === 'all' ? 'All Themes' : theme}
                   </option>
                 ))}
               </select>
@@ -1586,11 +1627,10 @@ const CoursesPage = () => {
   );
 };
 
-// Other page components (Labs, Games, Resources, etc.) would follow similar patterns
-// For brevity, I'll include simplified versions
-
+// Labs Page with ADDED search and filters
 const LabsPage = () => {
   const { darkMode } = usePage();
+  
   const {
     searchQuery,
     setSearchQuery,
@@ -1636,6 +1676,13 @@ const LabsPage = () => {
           </div>
         </div>
 
+        {/* Results Count */}
+        <div className="mb-6">
+          <p className="text-gray-600 dark:text-gray-300">
+            Showing {filteredLabs.length} of {labsData.length} labs
+          </p>
+        </div>
+
         {/* Labs Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredLabs.map((lab) => (
@@ -1674,19 +1721,328 @@ const LabsPage = () => {
             </div>
           ))}
         </div>
+
+        {/* No results */}
+        {filteredLabs.length === 0 && (
+          <div className="text-center py-8">
+            <Trophy size={48} className="mx-auto text-gray-400 mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No labs found</h3>
+            <p className="text-gray-600 dark:text-gray-300">Try adjusting your search or filter criteria.</p>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-// Simplified versions of other pages
-const GamesPage = () => <div className="min-h-screen"><Navigation /><div className="p-8"><h1 className="text-2xl">Games</h1></div></div>;
-const ResourcesPage = () => <div className="min-h-screen"><Navigation /><div className="p-8"><h1 className="text-2xl">Resources</h1></div></div>;
-const AboutPage = () => <div className="min-h-screen"><Navigation /><div className="p-8"><h1 className="text-2xl">About</h1></div></div>;
-const FAQPage = () => <div className="min-h-screen"><Navigation /><div className="p-8"><h1 className="text-2xl">FAQ</h1></div></div>;
-const AIToolsPage = () => <div className="min-h-screen"><Navigation /><div className="p-8"><h1 className="text-2xl">AI Tools</h1></div></div>;
+// Games Page with ADDED search and filters
+const GamesPage = () => {
+  const { darkMode } = usePage();
+  
+  const {
+    searchQuery,
+    setSearchQuery,
+    selectedCategory,
+    setSelectedCategory,
+    filteredData: filteredGames,
+    categories
+  } = useSearchAndFilter(gamesData);
 
-// Footer Component
+  return (
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+      <Navigation />
+      <ImprovedFloatingActionButtons />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Games</h1>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">Interactive games for development learning</p>
+        </div>
+
+        {/* Search and Filters */}
+        <div className="mb-8">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex-1">
+              <input
+                type="text"
+                placeholder="Search games..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              />
+            </div>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            >
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category === 'all' ? 'All Categories' : category}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Results Count */}
+        <div className="mb-6">
+          <p className="text-gray-600 dark:text-gray-300">
+            Showing {filteredGames.length} of {gamesData.length} games
+          </p>
+        </div>
+
+        {/* Games Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredGames.map((game) => (
+            <div key={game.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">{game.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{game.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {game.category && (
+                    <span className="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded text-xs">
+                      {game.category}
+                    </span>
+                  )}
+                  {game.difficulty && (
+                    <span className="bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-2 py-1 rounded text-xs">
+                      {game.difficulty}
+                    </span>
+                  )}
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center">
+                    <Gamepad2 size={12} className="mr-1" />
+                    Interactive Game
+                  </span>
+                  <a
+                    href={game.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-1 text-purple-600 hover:text-purple-800 dark:text-purple-400"
+                  >
+                    <span>Play Game</span>
+                    <ExternalLink size={16} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* No results */}
+        {filteredGames.length === 0 && (
+          <div className="text-center py-8">
+            <Gamepad2 size={48} className="mx-auto text-gray-400 mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No games found</h3>
+            <p className="text-gray-600 dark:text-gray-300">Try adjusting your search or filter criteria.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Resources Page with ADDED search and filters
+const ResourcesPage = () => {
+  const { darkMode } = usePage();
+  
+  const {
+    searchQuery,
+    setSearchQuery,
+    selectedCategory,
+    setSelectedCategory,
+    filteredData: filteredResources,
+    categories
+  } = useSearchAndFilter(premiumResources);
+
+  return (
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+      <Navigation />
+      <ImprovedFloatingActionButtons />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Resources</h1>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">Premium tools and resources for development professionals</p>
+        </div>
+
+        {/* Search and Filters */}
+        <div className="mb-8">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex-1">
+              <input
+                type="text"
+                placeholder="Search resources..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              />
+            </div>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            >
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category === 'all' ? 'All Categories' : category}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Results Count */}
+        <div className="mb-6">
+          <p className="text-gray-600 dark:text-gray-300">
+            Showing {filteredResources.length} of {premiumResources.length} resources
+          </p>
+        </div>
+
+        {/* Resources Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredResources.map((resource) => (
+            <div key={resource.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">{resource.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{resource.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {resource.category && (
+                    <span className="bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-2 py-1 rounded text-xs">
+                      {resource.category}
+                    </span>
+                  )}
+                  {resource.access && (
+                    <span className="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 px-2 py-1 rounded text-xs">
+                      {resource.access}
+                    </span>
+                  )}
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center">
+                    <Library size={12} className="mr-1" />
+                    Premium Resource
+                  </span>
+                  <a
+                    href={resource.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-1 text-orange-600 hover:text-orange-800 dark:text-orange-400"
+                  >
+                    <span>Access Resource</span>
+                    <ExternalLink size={16} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* No results */}
+        {filteredResources.length === 0 && (
+          <div className="text-center py-8">
+            <Library size={48} className="mx-auto text-gray-400 mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No resources found</h3>
+            <p className="text-gray-600 dark:text-gray-300">Try adjusting your search or filter criteria.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// AI Tools Page (for logged-in users)
+const AIToolsPage = () => {
+  const { darkMode } = usePage();
+  const { user } = useAuth();
+
+  if (!user) {
+    return (
+      <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+        <Navigation />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center">
+            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">AI Tools</h1>
+            <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+              Please sign in to access AI-powered development tools.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+      <Navigation />
+      <ImprovedFloatingActionButtons />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">AI Tools</h1>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">AI-powered tools for development professionals</p>
+        </div>
+
+        {/* AI Tools Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {aiToolsData.map((tool) => (
+            <div key={tool.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6">
+                <div className="flex items-center mb-3">
+                  <Bot className="text-blue-600 dark:text-blue-400 mr-3" size={24} />
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{tool.title}</h3>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{tool.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded text-xs">
+                    {tool.category}
+                  </span>
+                  <span className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded text-xs">
+                    AI Powered
+                  </span>
+                </div>
+                <a
+                  href={tool.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1 text-blue-600 hover:text-blue-800 dark:text-blue-400"
+                >
+                  <span>Use Tool</span>
+                  <ExternalLink size={16} />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Lo-Fi Music Player for Logged Users */}
+        <div className="mt-12 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+          <div className="flex items-center mb-4">
+            <Headphones className="text-purple-600 dark:text-purple-400 mr-3" size={24} />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Focus Music</h3>
+          </div>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            Listen to curated lo-fi music to enhance your learning experience.
+          </p>
+          <a
+            href="https://www.youtube.com/watch?v=jfKfPfyJRdk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md"
+          >
+            <Music size={16} />
+            <span>Open Focus Playlist</span>
+            <ExternalLink size={16} />
+          </a>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+            Use password: <span className="font-mono">focus2024</span> if prompted.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Footer Component with FIXED year and PinPoint attribution
 const Footer = () => {
   const { darkMode } = usePage();
 
