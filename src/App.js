@@ -154,7 +154,6 @@ const PageContext = createContext();
 const AuthContext = createContext();
 
 // Custom hooks
-const usePage = () => useContext(PageContext);
 const useAuth = () => useContext(AuthContext);
 
 // Live Stats Component
