@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
-// CORRECTED IMPORT: Using a relative path to go up one level then into the context folder.
-import { usePage, useAuth } from '../context/AppContext.js';
+// The problematic import statement has been REMOVED.
 
-const Navigation = () => {
-  const { currentPage, setCurrentPage, darkMode, toggleDarkMode } = usePage();
-  const { user, signIn, signOut } = useAuth();
+// The component now receives all the data it needs directly from App.js.
+const Navigation = ({
+  currentPage,
+  setCurrentPage,
+  darkMode,
+  toggleDarkMode,
+  user,
+  signIn,
+  signOut,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // The rest of your existing Navigation.js code...
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,8 +48,8 @@ const Navigation = () => {
                   key={page}
                   onClick={() => setCurrentPage(page)}
                   className={`${
-                    currentPage === page 
-                      ? 'border-blue-600 text-gray-900 dark:text-white' 
+                    currentPage === page
+                      ? 'border-blue-600 text-gray-900 dark:text-white'
                       : 'border-transparent text-gray-500 dark:text-gray-300'
                   } hover:text-gray-700 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium capitalize`}
                 >
@@ -54,22 +59,46 @@ const Navigation = () => {
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
-            <button onClick={toggleDarkMode} className="p-2 rounded-md text-gray-400">{darkMode ? <Sun /> : <Moon />}</button>
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-md text-gray-400"
+            >
+              {darkMode ? <Sun /> : <Moon />}
+            </button>
             {user ? (
-                <div className="flex items-center space-x-3">
-                  <span className="text-gray-700 dark:text-gray-300">{user.displayName}</span>
-                  <button onClick={signOut} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">Sign Out</button>
-                </div>
+              <div className="flex items-center space-x-3">
+                <span className="text-gray-700 dark:text-gray-300">{user.displayName}</span>
+                <button
+                  onClick={signOut}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                >
+                  Sign Out
+                </button>
+              </div>
             ) : (
-              <button onClick={signIn} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">Sign In</button>
+              <button
+                onClick={signIn}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+              >
+                Sign In with Google
+              </button>
             )}
           </div>
           <div className="-mr-2 flex items-center sm:hidden">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 rounded-md text-gray-400">{isMenuOpen ? <X /> : <Menu />}</button>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 rounded-md"
+            >
+              {isMenuOpen ? <X /> : <Menu />}
+            </button>
           </div>
         </div>
       </div>
-      {isMenuOpen && ( <div className="sm:hidden">{/* Your mobile menu here */}</div> )}
+      {isMenuOpen && (
+        <div className="sm:hidden">
+          {/* Mobile menu content can go here */}
+        </div>
+      )}
     </nav>
   );
 };
