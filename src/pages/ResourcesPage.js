@@ -1,7 +1,8 @@
 // src/pages/ResourcesPage.js
 import React from 'react';
 import { FileText, BookOpen, Target, ExternalLink } from 'lucide-react';
-import { Navigation, usePage } from '../App';
+import { usePage } from '../context/AppContext.js';
+import { Navigation } from "../components/index.js";
 
 const ResourcesPage = () => {
   const { darkMode } = usePage();

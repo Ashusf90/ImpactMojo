@@ -1,7 +1,8 @@
 // src/pages/AIToolsPage.js
 import React, { useState } from 'react';
 import { Bot, ExternalLink, Star, ArrowRight, BarChart, Target, FileText, Users, CheckCircle, MessageCircle, Calendar, BookOpen, TrendingUp, Scale, Award, Trophy, Puzzle, Zap, X } from 'lucide-react';
-import { useAuth, usePage, Navigation } from '../App';
+import { useAuth, usePage } from "../context/AppContext.js";
+import { Navigation } from "../components/index.js";
 import { aiToolsData } from '../data/ai-tools-data';
 
 const AIToolsPage = () => {

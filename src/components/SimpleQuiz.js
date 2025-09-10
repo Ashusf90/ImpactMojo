@@ -1,7 +1,7 @@
 // src/components/SimpleQuiz.js
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
-import { usePage } from '../App';
+import { usePage } from '../context/AppContext.js';
 
 const SimpleQuiz = ({ onComplete, onClose }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);

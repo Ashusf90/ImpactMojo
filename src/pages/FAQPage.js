@@ -1,7 +1,7 @@
 // src/pages/FAQPage.js
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, HelpCircle, Book, Award, Users, Shield, Globe } from 'lucide-react';
-import { usePage } from '../App';
+import { usePage } from '../context/AppContext.js';
 import Navigation from '../components/Navigation';
 
 const FAQPage = () => {

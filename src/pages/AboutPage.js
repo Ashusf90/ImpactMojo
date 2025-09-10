@@ -1,7 +1,7 @@
 // src/pages/AboutPage.js
 import React from 'react';
 import { ExternalLink, Mail, BookOpen, Heart, Users, Target, Globe } from 'lucide-react';
-import { usePage } from '../App';
+import { usePage } from '../context/AppContext.js';
 import Navigation from '../components/Navigation';
 
 const AboutPage = () => {

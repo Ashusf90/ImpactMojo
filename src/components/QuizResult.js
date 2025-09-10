@@ -1,7 +1,7 @@
 // src/components/QuizResult.js
 import React from 'react';
 import { X, ExternalLink, Target } from 'lucide-react';
-import { usePage } from '../App';
+import { usePage } from '../context/AppContext.js';
 
 const QuizResult = ({ result, onClose }) => {
   const { darkMode } = usePage();
