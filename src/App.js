@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
-// CORRECTED IMPORTS: Using standard relative paths starting with './'
-import { PageProvider, AuthProvider, usePage } from './context/AppContext.js';
+// CORRECTED IMPORTS: Using explicit relative paths to ensure the compiler finds the files.
+import { PageProvider, AuthProvider, usePage, useAuth } from './context/AppContext.js';
 import { 
     HomePage, CoursesPage, LabsPage, GamesPage, ResourcesPage, 
     AboutPage, FAQPage, DashboardPage, AIToolsPage 
@@ -10,9 +10,10 @@ import {
     Navigation, ImprovedFloatingActionButtons, Footer 
 } from './components/index.js';
 
-// The main App component remains clean and acts as a controller.
+// The main App component remains clean.
 function App() {
   const { currentPage } = usePage();
+  const { user } = useAuth();
 
   const renderPage = () => {
     switch (currentPage) {
@@ -23,7 +24,7 @@ function App() {
       case 'resources': return <ResourcesPage />;
       case 'about': return <AboutPage />;
       case 'faq': return <FAQPage />;
-      case 'dashboard': return <DashboardPage />;
+      case 'dashboard': return <DashboardPage user={user} />; 
       case 'ai-tools': return <AIToolsPage />;
       default: return <HomePage />;
     }
@@ -39,7 +40,7 @@ function App() {
   );
 }
 
-// The final component that wraps the entire app in the necessary providers.
+// The final component that wraps the entire app.
 const AppWithProviders = () => (
   <AuthProvider>
     <PageProvider>
