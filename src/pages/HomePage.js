@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Heart } from 'lucide-react';
 
-// CORRECTED IMPORTS: These paths go up one directory to find the context and components folders.
+// CORRECTED IMPORTS: Using explicit relative paths to go up one level and find the correct folders.
 import { usePage } from '../context/AppContext.js'; 
 import { 
   FeaturedContentSection, 
@@ -9,8 +9,8 @@ import {
   PopularCoursesSection,
   LearningTracksSection,
   SimpleQuiz,
-  QuizResult
-} from '../components/index.js'; // This now uses your components index file correctly
+  QuizResult,
+} from '../components/index.js'; 
 
 const HomePage = () => {
   const { darkMode } = usePage();
@@ -22,7 +22,9 @@ const HomePage = () => {
       <div className="relative bg-gradient-to-r from-blue-600 to-purple-700 text-white text-center py-20">
         <h1 className="text-4xl md:text-6xl font-bold mb-6">Development Know-How for Everyone</h1>
         <p className="text-xl md:text-2xl mb-8 opacity-90">101 Knowledge Series for Social Impact</p>
-        <button onClick={() => setShowQuizModal(true)} className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Find Your Learning Path</button>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <button onClick={() => setShowQuizModal(true)} className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Find Your Learning Path</button>
+        </div>
       </div>
       
       <PopularCoursesSection />
