@@ -12,7 +12,8 @@ export { default as Footer } from './Footer.js';
 export * from './homepage-components.js';
 export * from './learning-tracks-component.js';
 
-// CORRECTED: We now explicitly export the missing named component
-// from its file, which will fix the error.
-export { ImprovedFloatingActionButtons } from './floating-action-buttons.js';
-
+// FIXED: Export the correct component name from floating-action-buttons.js
+// The actual component is named FloatingActionButtons, not ImprovedFloatingActionButtons
+export { FloatingActionButtons } from './floating-action-buttons.js';
+// Create an alias for backward compatibility
+export { FloatingActionButtons as ImprovedFloatingActionButtons } from './floating-action-buttons.js';
