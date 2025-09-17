@@ -36,4 +36,15 @@ const GamesPage = () => {
               href={game.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-center bg-blue-600 text-white font-bold py-2 px-4 rounded
+              className="text-center bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 mt-auto"
+            >
+              Play Game
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default GamesPage;
