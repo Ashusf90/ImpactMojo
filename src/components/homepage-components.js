@@ -22,19 +22,6 @@ const featuredContentData = [
     { id: "FC2", type: "Webinar", title: "Participatory Research Methods", description: "Watch our expert panel discuss best practices for community-led research.", link: "#" },
 ];
 
-// Additional data arrays that might be needed (empty as placeholders)
-const labsData = [];
-const learningTracks = [];
-const resourcesData = [];
-const upcomingCourses = [];
-
-// ===================================================================================
-// --- HELPER FUNCTION: Safe array mapping ---
-// ===================================================================================
-const safeMap = (array, mapFunction) => {
-    return (array ?? []).map(mapFunction);
-};
-
 // ===================================================================================
 // --- COMPONENTS: These components now use the data defined above with safety checks. ---
 // ===================================================================================
@@ -135,148 +122,17 @@ export const FeaturedContentSection = () => {
 };
 
 // ===================================================================================
-// --- ADDITIONAL SAFE COMPONENTS: In case you need these later ---
-// ===================================================================================
-
-export const UpcomingCoursesSection = () => {
-    useEffect(() => {
-        console.log('UpcomingCoursesSection - Data check:', {
-            upcomingCourses: !!upcomingCourses,
-            count: (upcomingCourses ?? []).length
-        });
-    }, []);
-    
-    if (!upcomingCourses || upcomingCourses.length === 0) {
-        return null; // Don't render if no data
-    }
-    
-    return (
-        <div className="py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white text-center mb-12">Coming Soon</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {(upcomingCourses ?? []).map(course => (
-                        <div key={course.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 opacity-75">
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{course.title}</h3>
-                            <p className="text-gray-600 dark:text-gray-300 mb-4">{course.description}</p>
-                            <span className="text-amber-600 dark:text-amber-400 font-semibold">Coming Soon!</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export const LabsSection = () => {
-    useEffect(() => {
-        console.log('LabsSection - Data check:', {
-            labsData: !!labsData,
-            count: (labsData ?? []).length
-        });
-    }, []);
-    
-    if (!labsData || labsData.length === 0) {
-        return null; // Don't render if no data
-    }
-    
-    return (
-        <div className="py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white text-center mb-12">Interactive Labs</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {(labsData ?? []).map(lab => (
-                        <div key={lab.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{lab.title}</h3>
-                            <p className="text-gray-600 dark:text-gray-300 mb-4">{lab.description}</p>
-                            <a href={lab.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Start Lab &rarr;</a>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export const LearningTracksSection = () => {
-    useEffect(() => {
-        console.log('LearningTracksSection - Data check:', {
-            learningTracks: !!learningTracks,
-            count: (learningTracks ?? []).length
-        });
-    }, []);
-    
-    if (!learningTracks || learningTracks.length === 0) {
-        return null; // Don't render if no data
-    }
-    
-    return (
-        <div className="bg-gray-50 dark:bg-gray-800 py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white text-center mb-12">Learning Tracks</h2>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    {(learningTracks ?? []).map(track => (
-                        <div key={track.id} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg text-center">
-                            <div className="text-4xl mb-4">{track.icon}</div>
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{track.title}</h3>
-                            <p className="text-gray-600 dark:text-gray-300">{track.description}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export const ResourcesSection = () => {
-    useEffect(() => {
-        console.log('ResourcesSection - Data check:', {
-            resourcesData: !!resourcesData,
-            count: (resourcesData ?? []).length
-        });
-    }, []);
-    
-    if (!resourcesData || resourcesData.length === 0) {
-        return null; // Don't render if no data
-    }
-    
-    return (
-        <div className="py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white text-center mb-12">Resources & Handouts</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {(resourcesData ?? []).map(resource => (
-                        <div key={resource.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{resource.title}</h3>
-                            <p className="text-gray-600 dark:text-gray-300 mb-4">{resource.description}</p>
-                            <div className="flex space-x-4">
-                                <a href={resource.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Download</a>
-                                <button onClick={() => window.print()} className="text-green-600 dark:text-green-400 font-semibold hover:underline">Print PDF</button>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-};
-
-// ===================================================================================
-// --- MASTER DEBUG COMPONENT: Use this to check all data at once ---
+// --- DATA DEBUG COMPONENT: Use this to check all data at once ---
 // ===================================================================================
 export const DataDebugComponent = () => {
     useEffect(() => {
-        console.log('=== COMPLETE DATA CHECK ===');
+        console.log('=== homepage-components.js DATA CHECK ===');
         console.log({
             courseData: { exists: !!courseData, count: (courseData ?? []).length },
             testimonialsData: { exists: !!testimonialsData, count: (testimonialsData ?? []).length },
-            featuredContentData: { exists: !!featuredContentData, count: (featuredContentData ?? []).length },
-            labsData: { exists: !!labsData, count: (labsData ?? []).length },
-            learningTracks: { exists: !!learningTracks, count: (learningTracks ?? []).length },
-            resourcesData: { exists: !!resourcesData, count: (resourcesData ?? []).length },
-            upcomingCourses: { exists: !!upcomingCourses, count: (upcomingCourses ?? []).length }
+            featuredContentData: { exists: !!featuredContentData, count: (featuredContentData ?? []).length }
         });
-        console.log('=========================');
+        console.log('=========================================');
     }, []);
     
     return null; // This component only logs, doesn't render anything
