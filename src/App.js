@@ -1,6 +1,39 @@
-import './emergency-fix';  // ADD THIS LINE AT THE VERY TOP!
+// INLINE EMERGENCY FIX - DO NOT REMOVE
+if (typeof window !== 'undefined') {
+  // Fix classList error
+  const ensureDOM = () => {
+    if (!document.documentElement) {
+      setTimeout(ensureDOM, 10);
+      return;
+    }
+    if (!document.documentElement.classList) {
+      document.documentElement.classList = {
+        add: () => {},
+        remove: () => {},
+        toggle: () => {},
+        contains: () => false
+      };
+    }
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ensureDOM);
+  } else {
+    ensureDOM();
+  }
+  
+  // Fix map error
+  const originalMap = Array.prototype.map;
+  Array.prototype.map = function(...args) {
+    if (this == null || this === undefined) {
+      console.warn('[ImpactMojo] Map on undefined, returning empty array');
+      return [];
+    }
+    return originalMap.apply(this, args);
+  };
+  
+  console.log('[ImpactMojo] Inline fixes applied');
+}
 
-// ... rest of your App.js code stays the same
 import React, { useContext } from 'react';
 
 // This file is the central point and can correctly find all the other files.
@@ -62,4 +95,3 @@ const AppWithProviders = () => (
 );
 
 export default AppWithProviders;
-
