@@ -1,3 +1,13 @@
+import React, { useContext } from 'react';
+import { PageProvider, AuthProvider, usePage, useAuth } from './context/AppContext.js';
+import { 
+    HomePage, CoursesPage, LabsPage, GamesPage, ResourcesPage, 
+    AboutPage, FAQPage, DashboardPage, AIToolsPage 
+} from './pages/index.js';
+import { 
+    Navigation, ImprovedFloatingActionButtons, Footer 
+} from './components/index.js';
+
 // INLINE EMERGENCY FIX - DO NOT REMOVE
 if (typeof window !== 'undefined') {
   // Fix classList error
@@ -33,18 +43,6 @@ if (typeof window !== 'undefined') {
   
   console.log('[ImpactMojo] Inline fixes applied');
 }
-
-import React, { useContext } from 'react';
-
-// This file is the central point and can correctly find all the other files.
-import { PageProvider, AuthProvider, usePage, useAuth } from './context/AppContext.js';
-import { 
-    HomePage, CoursesPage, LabsPage, GamesPage, ResourcesPage, 
-    AboutPage, FAQPage, DashboardPage, AIToolsPage 
-} from './pages/index.js';
-import { 
-    Navigation, ImprovedFloatingActionButtons, Footer 
-} from './components/index.js';
 
 // The main App component now passes all necessary context down as props.
 function App() {
