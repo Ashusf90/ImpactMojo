@@ -47,7 +47,7 @@ try {
 
 try {
   const courseData = require('./course-data.js');
-  courses = ensureArray(courseData.courses || courseData, 'courses');
+  courses = ensureArray(courseData.courses || courseData.courseData || courseData, 'courses');
 } catch (e) {
   console.warn('[ImpactMojo] Could not load course-data.js:', e.message);
   courses = [];
@@ -63,7 +63,7 @@ try {
 
 try {
   const labsData = require('./labs-data.js');
-  labs = ensureArray(labsData.labs || labsData, 'labs');
+  labs = ensureArray(labsData.labs || labsData.labsData || labsData, 'labs');
 } catch (e) {
   console.warn('[ImpactMojo] Could not load labs-data.js:', e.message);
   labs = [];
@@ -71,7 +71,7 @@ try {
 
 try {
   const premiumData = require('./premium-resources-data.js');
-  premiumResources = ensureArray(premiumData.premiumResources || premiumData, 'premiumResources');
+  premiumResources = ensureArray(premiumData.premiumResources || premiumData.premiumResourcesData || premiumData, 'premiumResources');
 } catch (e) {
   console.warn('[ImpactMojo] Could not load premium-resources-data.js:', e.message);
   premiumResources = [];
@@ -79,7 +79,7 @@ try {
 
 try {
   const testimonialsData = require('./testimonials-data.js');
-  testimonials = ensureArray(testimonialsData.testimonials || testimonialsData, 'testimonials');
+  testimonials = ensureArray(testimonialsData.testimonials || testimonialsData.testimonialsData || testimonialsData, 'testimonials');
 } catch (e) {
   console.warn('[ImpactMojo] Could not load testimonials-data.js:', e.message);
   testimonials = [];
@@ -87,13 +87,14 @@ try {
 
 try {
   const trackData = require('./track-styling-data.js');
-  trackStyling = ensureArray(trackData.trackStyling || trackData.tracks || trackData, 'trackStyling');
+  trackStyling = ensureArray(trackData.trackStyling || trackData.tracks || trackData.trackStylingData || trackData, 'trackStyling');
 } catch (e) {
   console.warn('[ImpactMojo] Could not load track-styling-data.js:', e.message);
   trackStyling = [];
 }
 
 // Export everything with guaranteed array format
+// MAINTAIN BACKWARD COMPATIBILITY - Export with original names too
 export {
   aiTools,
   courses,
@@ -104,16 +105,23 @@ export {
   trackStyling
 };
 
-// Also export as a single object for convenience
-export const allData = {
-  aiTools,
-  courses,
-  featuredContent,
-  labs,
-  premiumResources,
-  testimonials,
-  trackStyling
-};
+// Export with alternative names for backward compatibility
+export const courseData = courses;
+export const labsData = labs;
+export const featuredContentData = featuredContent;
+export const premiumResourcesData = premiumResources;
+export const testimonialsData = testimonials;
+export const trackStylingData = trackStyling;
+export const aiToolsData = aiTools;
+
+// Also export everything from original files to maintain compatibility
+export * from './ai-tools-data.js';
+export * from './course-data.js';
+export * from './featured-content-data.js';
+export * from './labs-data.js';
+export * from './premium-resources-data.js';
+export * from './testimonials-data.js';
+export * from './track-styling-data.js';
 
 // Log what we've loaded for debugging
 console.log('[ImpactMojo] Data loaded:', {
