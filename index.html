@@ -121,15 +121,43 @@
             flex-wrap: wrap;
         }
 
-        .logo {
+        /* Logo Integration Styles */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 0.75rem;
+        }
+
+        .logo-img {
+            height: 45px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            transition: transform 0.3s;
+        }
+
+        .logo-container:hover .logo-img {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
             font-size: 1.75rem;
             font-weight: 800;
             background: var(--gradient-accent);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-decoration: none;
             letter-spacing: -0.5px;
+            display: none;
+        }
+
+        /* Show text if image fails to load */
+        .logo-container.no-image .logo-text {
+            display: block;
+        }
+
+        .logo-container.no-image .logo-img {
+            display: none;
         }
 
         .nav-links {
@@ -248,12 +276,20 @@
             }
         }
 
-        /* Hero Section */
+        /* Hero Section with Logo */
         .hero {
             max-width: 1200px;
             margin: 0 auto;
             padding: 5rem 1.5rem;
             text-align: center;
+        }
+
+        .hero-logo {
+            width: 120px;
+            height: auto;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            filter: drop-shadow(0 4px 8px rgba(0, 217, 255, 0.3));
         }
 
         .hero h1 {
@@ -1053,6 +1089,14 @@
             .modal-grid {
                 grid-template-columns: 1fr;
             }
+
+            .logo-img {
+                height: 35px;
+            }
+
+            .hero-logo {
+                width: 80px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1067,6 +1111,14 @@
             .btn {
                 width: 100%;
                 text-align: center;
+            }
+
+            .logo-img {
+                height: 30px;
+            }
+
+            .hero-logo {
+                width: 60px;
             }
         }
 
@@ -1086,10 +1138,13 @@
     </div>
 
     <div class="container">
-        <!-- Header & Navigation -->
+        <!-- Header & Navigation with Logo -->
         <header class="header">
             <nav class="nav-container">
-                <a href="#" class="logo">ImpactMojo</a>
+                <a href="#" class="logo-container" id="logoContainer">
+                    <img src="assets/images/ImpactMojo Logo.png" alt="ImpactMojo" class="logo-img" onerror="handleLogoError()">
+                    <span class="logo-text">ImpactMojo</span>
+                </a>
                 <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#home">Home</a></li>
@@ -1119,8 +1174,9 @@
             </nav>
         </header>
 
-        <!-- Hero Section -->
+        <!-- Hero Section with Logo -->
         <section id="home" class="hero">
+            <img src="assets/images/ImpactMojo Logo.png" alt="ImpactMojo" class="hero-logo">
             <h1>ImpactMojo</h1>
             <p>Development Know-How</p>
             <p style="font-size: 1.1rem;">101 Knowledge Series for Social Impact - Exploring justice, equity, and development in South Asia</p>
@@ -1311,7 +1367,7 @@
             </div>
         </section>
 
-        <!-- Premium Section -->
+        <!-- Premium Section with CORRECTED URL -->
         <section class="section">
             <h2 class="section-title">Premium Offerings</h2>
             <div class="beta-notice" style="margin-bottom: 2rem;">
@@ -1841,6 +1897,11 @@
     </div>
 
     <script>
+        // Logo error handling
+        function handleLogoError() {
+            document.getElementById('logoContainer').classList.add('no-image');
+        }
+
         // Cookie Consent
         window.addEventListener('DOMContentLoaded', () => {
             if (!localStorage.getItem('cookieConsent')) {
