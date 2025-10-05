@@ -4667,184 +4667,119 @@ document.addEventListener('DOMContentLoaded', function () {
   new MutationObserver(swapNow).observe(document.body, { childList: true, subtree: true });
 });
 </script>
-<!-- 🚀 ImpactMojo: add Mojini (KB+FAQ) to your existing chat — drop this before </body> -->
 
-<!-- 1) Optional: give your agent a friendly name -->
-<script>
-  window.IM_AGENT_NAME = window.IM_AGENT_NAME || "Mojini"; // change if you like
-</script>
-
-<!-- 2) Glue: render bot/user bubbles into your existing .chat-messages UI (no redesign) -->
+<!-- === Mojini (KB+FAQ) wrapper – inserted just before </body> === -->
 <script>
 (function(){
-  function el(tag, cls){ const n = document.createElement(tag); if(cls) n.className = cls; return n; }
-  function renderUser(text){
-    const wrap = el('div','message user-message');
-    const b = el('div','user-bubble'); b.textContent = text; wrap.appendChild(b);
-    document.querySelector('.chat-messages')?.appendChild(wrap);
-    scrollMsgs();
-  }
-  function renderBot(text){
-    const wrap = el('div','message bot-message');
-    const av = el('div','bot-avatar'); av.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="2"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/></svg>';
-    const bub = el('div','bot-bubble'); bub.textContent = text;
-    wrap.appendChild(av); wrap.appendChild(bub);
-    document.querySelector('.chat-messages')?.appendChild(wrap);
-    scrollMsgs();
-  }
-  function scrollMsgs(){ const box = document.querySelector('.chat-messages'); if(box) box.scrollTop = box.scrollHeight; }
-
-  // listen for Mojini answers
-  window.addEventListener('immojo:bot', (e)=>{ renderBot(e.detail?.text || ''); });
-
-  // mark input/button so Mojini can auto-wire without editing HTML
-  function markInputs(){
-    const input = document.querySelector('.chat-input');
-    const btn = document.querySelector('.chat-send');
-    if (input) input.setAttribute('data-im-agent','');
-    if (btn) btn.setAttribute('data-im-agent-send','');
-  }
-
-  // intercept your chat form/button to also show the user's message bubble
-  function intercept(){
-    const input = document.querySelector('[data-im-agent]');
-    const form = input?.closest('form');
-    const btn = document.querySelector('[data-im-agent-send]');
-    function handle(e){
-      const text = (input?.value||'').trim(); if(!text) return;
-      renderUser(text);
-      // Let Mojini KB route it first (script below will pick it up); it will forward if needed
-      window.dispatchEvent(new CustomEvent('immojo:user',{detail:{text}}));
-      input.value=''; e?.preventDefault?.();
-    }
-    form?.addEventListener('submit', handle);
-    btn?.addEventListener('click', handle);
-  }
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded', ()=>{ markInputs(); intercept(); });
-  } else { markInputs(); intercept(); }
-})();
-</script>
-
-<!-- 3) Mojini: tiny KB + FAQ + retrieval (courses, labs, policies). Safe and standalone. -->
-<script>
-(()=>{
   const AGENT_NAME = window.IM_AGENT_NAME || 'Mojini';
-  const SEND_DOWNSTREAM = window.IM_AGENT_SEND || null; // set if you want fallback to existing backend
 
-  function emitBot(text, cites=[]){
-    const ev = new CustomEvent('immojo:bot',{detail:{text, cites, from:AGENT_NAME}});
-    window.dispatchEvent(ev);
-    if(!emitBot.__once){ console.info(`[ImpactMojo KB] ${AGENT_NAME}:`, text, cites); emitBot.__once=true; }
+  // Rename the chat header non‑destructively
+  function renameHeader(){
+    const h3 = document.querySelector('#chatbotModal .chat-header h3');
+    if (!h3) return;
+    const html = h3.innerHTML;
+    h3.innerHTML = html.replace(/Feedback\s+Assistant/i, AGENT_NAME + ' — Feedback & Help');
   }
-  window.addEventListener('immojo:user', (e)=> routeUserQuery(e.detail?.text || ''));
+  if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', renameHeader); else renameHeader();
 
-  // ——— KB data (real titles+links) ———
+  // KB data (concise and real)
   const COURSES=[
-    { title:'Development Economics 101', url:'https://101.www.impactmojo.in/DevEcon', objective:'Foundational economic thinking; poverty, inequality, growth in India/South Asia.'},
-    { title:'Law and Constitution 101', url:'https://101.www.impactmojo.in/Law&Cons', objective:'Constitutional principles, rights, and institutions; legal literacy for practice.'},
-    { title:'Climate Science 101', url:'https://101.www.impactmojo.in/ClimateScience', objective:'Climate systems, evidence, and risk; adaptation/resilience framing for India.'},
-    { title:'Pedagogy and Education 101', url:'https://101.www.impactmojo.in/edu', objective:'Learning science + classroom practice; Indian education systems view.'},
-    { title:'Public Health 101', url:'https://101.www.impactmojo.in/ph', objective:'Epidemiology essentials, health systems, field implementation.'},
-    { title:'Livelihoods 101', url:'https://101.www.impactmojo.in/Livelihoods', objective:'Household livelihoods, labour markets, micro‑enterprise, programme design.'},
-    { title:'Gender Studies 101', url:'https://101.www.impactmojo.in/Gender', objective:'Gender frameworks, intersectionality, programme implications.'},
-    { title:"Womens' Economic Empowerment 101", url:'https://101.www.impactmojo.in/WEE', objective:'Approaches, metrics, and programme design for WEE in South Asia.'},
-    { title:'Research Ethics 101', url:'https://101.www.impactmojo.in/ResearchEthics', objective:'Ethical principles, consent, data protection and dignity in research.'},
-    { title:'Behaviour Change Communication Programming 101', url:'https://101.www.impactmojo.in/BCCP', objective:'Designing, testing, and scaling BCC for impact programmes.'},
-    { title:'Advocacy and Communications 101', url:'https://101.www.impactmojo.in/adv&comm', objective:'Strategy, messaging, coalition‑building for policy engagement.'},
-    { title:'Monitoring, Evaluation, Accountability and Learning 101', url:'https://101.www.impactmojo.in/MEAL', objective:'Practical MEAL design, indicators, and learning loops.'},
-    { title:'Visual Ethnography 101', url:'https://101.www.impactmojo.in/VEthno', objective:'Photo/video methods for qualitative insight and ethical storytelling.'},
-    { title:'Political Economy 101', url:'https://101.www.impactmojo.in/polecon', objective:'Institutions, incentives, power—how politics shapes outcomes.'},
-    { title:'Poverty and Inequality 101', url:'https://101.www.impactmojo.in/inequality', objective:'Measures, drivers, interpretability for programmes and policy.'},
-    { title:'Data Visualisation 101', url:'https://101.www.impactmojo.in/dataviz', objective:'Design clear, ethical charts and dashboards for development data.'},
-    { title:'Mixed Methods Research 101', url:'https://101.www.impactmojo.in/MMR', objective:'Integrating qual+quant rigorously for field programmes.'},
-    { title:'Impact Evaluation Design 101', url:'https://101.www.impactmojo.in/ImpactEval', objective:'Design choices from RCT to quasi‑experimental in practice.'},
-    { title:'Fundraising 101', url:'https://101.www.impactmojo.in/Fundraising', objective:'HNI, institutional, and grassroots fundraising basics in India.'},
-    { title:'Programme Design Principles 101', url:'https://101.www.impactmojo.in/ProgrammeDesign', objective:'Problem framing→ToC, delivery architecture, risk mitigation.'},
-    { title:'Environmental Justice 101', url:'https://101.www.impactmojo.in/EnvJustice', objective:'Justice‑centred climate/environment action; communities and rights.'},
-    { title:'Digital Governance 101', url:'https://101.www.impactmojo.in/DigitalGov', objective:'Platforms, data governance, citizen‑centric service delivery.'},
-    { title:'Nutrition, Food Systems & Culture 101', url:'https://101.www.impactmojo.in/Nutrition', objective:'Nutrition security, culture, markets, programmes.'},
-    { title:'Social Research Ethics & Consent 101', url:'https://101.www.impactmojo.in/SREthics', objective:'Operationalising consent and dignity in social research.'},
-    { title:'Language & History of Languages 101', url:'https://101.www.impactmojo.in/LangHistory', objective:'Language change, identity, and social policy linkages.'},
-    { title:'Caste 101', url:'https://101.www.impactmojo.in/Caste', objective:'Caste, discrimination, and policy remedies in Indian contexts.'},
-    { title:'Humanitarian vs Development Work 101', url:'https://101.www.impactmojo.in/HumDev', objective:'Contrasts in goals, timelines, and accountability structures.'}
+    { t:'Development Economics 101', u:'https://101.www.impactmojo.in/DevEcon', o:'Poverty, inequality, growth; India/South Asia.'},
+    { t:'Law and Constitution 101', u:'https://101.www.impactmojo.in/Law&Cons', o:'Constitutional principles, rights, institutions.'},
+    { t:'Climate Science 101', u:'https://101.www.impactmojo.in/ClimateScience', o:'Climate systems, evidence, risk; adaptation/resilience.'},
+    { t:'Pedagogy and Education 101', u:'https://101.www.impactmojo.in/edu', o:'Learning science + practice in Indian systems.'},
+    { t:'Public Health 101', u:'https://101.www.impactmojo.in/ph', o:'Epidemiology, health systems, field implementation.'},
+    { t:'Livelihoods 101', u:'https://101.www.impactmojo.in/Livelihoods', o:'Labour markets, enterprise, programme design.'},
+    { t:'Gender Studies 101', u:'https://101.www.impactmojo.in/Gender', o:'Frameworks, intersectionality, implications.'},
+    { t:"Womens' Economic Empowerment 101", u:'https://101.www.impactmojo.in/WEE', o:'Approaches, metrics, programme design.'},
+    { t:'Research Ethics 101', u:'https://101.www.impactmojo.in/ResearchEthics', o:'Consent, dignity, data protection in research.'},
+    { t:'Behaviour Change Communication Programming 101', u:'https://101.www.impactmojo.in/BCCP', o:'Designing and testing BCC.'},
+    { t:'Advocacy and Communications 101', u:'https://101.www.impactmojo.in/adv&comm', o:'Strategy, messaging, coalitions.'},
+    { t:'Monitoring, Evaluation, Accountability and Learning 101', u:'https://101.www.impactmojo.in/MEAL', o:'Indicators, learning loops for implementers.'},
+    { t:'Visual Ethnography 101', u:'https://101.www.impactmojo.in/VEthno', o:'Photo/video methods; ethical storytelling.'},
+    { t:'Political Economy 101', u:'https://101.www.impactmojo.in/polecon', o:'Institutions, incentives, power.'},
+    { t:'Poverty and Inequality 101', u:'https://101.www.impactmojo.in/inequality', o:'Measures, drivers, interpretation.'},
+    { t:'Data Visualisation 101', u:'https://101.www.impactmojo.in/dataviz', o:'Clear, ethical charts and dashboards.'},
+    { t:'Mixed Methods Research 101', u:'https://101.www.impactmojo.in/MMR', o:'Integrating qual + quant rigorously.'},
+    { t:'Impact Evaluation Design 101', u:'https://101.www.impactmojo.in/ImpactEval', o:'RCT to quasi‑experimental choices.'},
+    { t:'Fundraising 101', u:'https://101.www.impactmojo.in/Fundraising', o:'HNI, institutional, grassroots basics.'},
+    { t:'Programme Design Principles 101', u:'https://101.www.impactmojo.in/ProgrammeDesign', o:'Problem framing → ToC, delivery, risk.'},
+    { t:'Environmental Justice 101', u:'https://101.www.impactmojo.in/EnvJustice', o:'Justice‑centred climate/environment action.'},
+    { t:'Digital Governance 101', u:'https://101.www.impactmojo.in/DigitalGov', o:'Platforms, data governance, service delivery.'},
+    { t:'Nutrition, Food Systems & Culture 101', u:'https://101.www.impactmojo.in/Nutrition', o:'Nutrition security, culture, markets.'},
+    { t:'Social Research Ethics & Consent 101', u:'https://101.www.impactmojo.in/SREthics', o:'Operationalising consent and dignity.'},
+    { t:'Language & History of Languages 101', u:'https://101.www.impactmojo.in/LangHistory', o:'Language change, identity, policy.'},
+    { t:'Caste 101', u:'https://101.www.impactmojo.in/Caste', o:'Caste, discrimination, remedies.'},
+    { t:'Humanitarian vs Development Work 101', u:'https://101.www.impactmojo.in/HumDev', o:'Goals, timelines, accountability.'}
   ];
   const LABS=[
-    { title:'Risk Assessment and Mitigation Lab', url:'https://impactrisk-mitigation.netlify.app/' },
-    { title:'Resource Mobilisation and Sustainability Lab', url:'https://rm-sustainability4impact.netlify.app/' },
-    { title:'Policy and Advocacy Lab', url:'https://pol-advocacy4impact.netlify.app/' },
-    { title:'Partnership and Collaboration Lab', url:'https://impact-partnerships.netlify.app/' },
-    { title:'MLE Framework Workbench', url:'https://mle-frameworkdesign.netlify.app/' },
-    { title:'MLE Framework Builder Lab', url:'https://mle-plan-lab.netlify.app/' },
-    { title:'Community Engagement Lab', url:'https://community-engagement.netlify.app/' },
-    { title:'Impact Storytelling Lab', url:'https://impact-storytelling.netlify.app/' },
-    { title:'Innovation and Design Thinking Lab', url:'https://impactdesign-thinking.netlify.app/' },
-    { title:'TOC Workbench', url:'https://toc-workbench.netlify.app/' }
+    { t:'Risk Assessment and Mitigation Lab', u:'https://impactrisk-mitigation.netlify.app/' },
+    { t:'Resource Mobilisation and Sustainability Lab', u:'https://rm-sustainability4impact.netlify.app/' },
+    { t:'Policy and Advocacy Lab', u:'https://pol-advocacy4impact.netlify.app/' },
+    { t:'Partnership and Collaboration Lab', u:'https://impact-partnerships.netlify.app/' },
+    { t:'MLE Framework Workbench', u:'https://mle-frameworkdesign.netlify.app/' },
+    { t:'MLE Framework Builder Lab', u:'https://mle-plan-lab.netlify.app/' },
+    { t:'Community Engagement Lab', u:'https://community-engagement.netlify.app/' },
+    { t:'Impact Storytelling Lab', u:'https://impact-storytelling.netlify.app/' },
+    { t:'Innovation and Design Thinking Lab', u:'https://impactdesign-thinking.netlify.app/' },
+    { t:'TOC Workbench', u:'https://toc-workbench.netlify.app/' }
   ];
-
   const STATIC={
-    certifications:"We do not issue formal certificates. Our focus is on **skills and credentials**: real project work, portfolio artefacts, and demonstrable capabilities.",
-    founders:"ImpactMojo is led by Dr. Varna Sri Raman (with additional leadership featured on the site where applicable).",
-    testimonials:"Testimonials are showcased on the site’s Wall of Love when available. You can also leave feedback here, and we may feature excerpts.",
-    premium:"Premium includes curated resource packs, deeper dives, and advanced labs. During beta, premium access is free; the live page is the source of truth.",
-    resources:"Resources include reading lists, tools, data links, and templates referenced across courses and labs.",
-    games:"Games are short, interactive learning modules to reinforce key ideas in a playful way.",
-    ratings:"Ratings vary by audience and cohort. Where available, we display them by item; Mojini will link to the relevant page rather than quote numbers out of context."
+    cert:"We do not issue formal certificates. We focus on **skills and credentials** you can showcase via real work and portfolios.",
+    founders:"ImpactMojo is led by Dr. Varna Sri Raman (additional leadership may be featured on the site).",
+    testi:"Testimonials are shown on the site when available; you can also leave feedback here.",
+    premium:"Premium covers curated resource packs, deeper dives, and advanced labs; see the live Premium page for current scope.",
+    res:"Resources include reading lists, tools, data links, and templates referenced across courses and labs.",
+    games:"Games are short interactive modules to reinforce key ideas.",
+    rate:"Ratings vary by cohort. Where available, we display them with the item; Mojini links rather than quoting numbers out of context."
   };
 
-  const norm=t=>(t||'').toLowerCase();
-  function retrieve(q){
-    const s=norm(q); const boosts={title:3, objective:2, url:1};
-    const docs=[...COURSES.map(c=>({...c,_type:'Course'})), ...LABS.map(l=>({...l,_type:'Lab'}))];
-    return docs.map(d=>{let sc=0; const t=norm(d.title),o=norm(d.objective||''),u=norm(d.url); for(const tok of s.split(/\s+/)){if(!tok) continue; if(t.includes(tok)) sc+=boosts.title; if(o.includes(tok)) sc+=boosts.objective; if(u.includes(tok)) sc+=boosts.url;} return {...d,_score:sc};})
-              .filter(d=>d._score>0).sort((a,b)=>b._score-a._score).slice(0,8);
-  }
+  const norm=s=>String(s||'').toLowerCase();
+  function listCourses(){ return COURSES.map(c=>`• ${c.t} — ${c.o}\n  ${c.u}`).join('\n'); }
+  function listLabs(){ return LABS.map(l=>`• ${l.t}\n  ${l.u}`).join('\n'); }
 
-  function answerFAQ(q){
+  function faq(q){
     const s=norm(q);
-    if(/(certificate|certification)/.test(s)) return STATIC.certifications;
-    if(/(credential|badge|portfolio)/.test(s)) return STATIC.certifications;
-    if(/(founder|co-?founder|who.*behind|team)/.test(s)) return STATIC.founders;
-    if(/(testimonial|review|what people say|feedback)/.test(s)) return STATIC.testimonials;
-    if(/(premium|pricing)/.test(s)) return STATIC.premium;
-    if(/(resource|reading|tool|template)/.test(s)) return STATIC.resources;
-    if(/(game|play|interactive)/.test(s)) return STATIC.games;
-    if(/(rating|stars?)/.test(s)) return STATIC.ratings;
-    if(/\b(course|deck|class|learn|syllabus|objective)s?\b/.test(s)){
-      const list=COURSES.map(c=>`• ${c.title} — ${c.objective}\n  ${c.url}`).join('\n');
-      return `Here are our core courses:\n\n${list}`;
-    }
-    if(/\b(lab|workbench|tool)\b/.test(s)){
-      const list=LABS.map(l=>`• ${l.title}\n  ${l.url}`).join('\n');
-      return `Here are our labs:\n\n${list}`;
-    }
+    if(/certificate|certification/.test(s)) return STATIC.cert;
+    if(/credential|badge|portfolio/.test(s)) return STATIC.cert;
+    if(/founder|co-?founder|who.*behind|team/.test(s)) return STATIC.founders;
+    if(/testimonial|review|what people say|feedback/.test(s)) return STATIC.testi;
+    if(/premium|pricing/.test(s)) return STATIC.premium;
+    if(/resource|reading|tool|template/.test(s)) return STATIC.res;
+    if(/game|play|interactive/.test(s)) return STATIC.games;
+    if(/rating|stars?/.test(s)) return STATIC.rate;
+    if(/\b(course|deck|class|learn|syllabus|objective)s?\b/.test(s)) return `Here are our core courses:\n\n${listCourses()}`;
+    if(/\b(lab|workbench|tool)\b/.test(s)) return `Here are our labs:\n\n${listLabs()}`;
     return null;
   }
 
-  function formatCitations(items){ return (items||[]).map(d=>({title:`${d._type}: ${d.title}`, url:d.url||''})); }
-
-  function routeUserQuery(q){
-    const faq=answerFAQ(q); if(faq){ emitBot(faq); return true; }
-    const hits=retrieve(q);
-    if(hits.length){ const body=hits.map((h,i)=>`(${i+1}) ${h._type}: ${h.title}\n${h.objective? h.objective+'\n':''}${h.url}`).join('\n\n'); emitBot(`Here’s what I found:\n\n${body}`, formatCitations(hits)); return true; }
-    if(typeof SEND_DOWNSTREAM==='function'){ SEND_DOWNSTREAM(q); return false; }
-    emitBot('I don’t have that yet. You can ask about courses, labs, premium, resources, or credentials.'); return true;
+  function retrieve(q){
+    const s=norm(q); const docs=[...COURSES.map(c=>({...c,_:'Course'})), ...LABS.map(l=>({...l,_:'Lab'}))];
+    const boost=(txt,tok,w)=> txt.includes(tok)? w:0;
+    const score=d=> s.split(/\s+/).reduce((acc,tok)=>acc+boost(norm(d.t),tok,3)+boost(norm(d.o||''),tok,2)+boost(norm(d.u),tok,1),0);
+    const hits=docs.map(d=>({...d,sc:score(d)})).filter(d=>d.sc>0).sort((a,b)=>b.sc-a.sc).slice(0,8);
+    if(!hits.length) return null;
+    return hits.map((h,i)=>`(${i+1}) ${h._}: ${h.t}\n${h.o? h.o+'\n':''}${h.u}`).join('\n\n');
   }
 
-  // Auto‑wire minimal selectors if present
-  function autoWire(){
-    const input=document.querySelector('[data-im-agent]');
-    const form=input?.closest('form');
-    const button=document.querySelector('[data-im-agent-send]');
-    function handle(ev){ const text=(input?.value||'').trim(); if(!text) return; window.dispatchEvent(new CustomEvent('immojo:user',{detail:{text}})); input.value=''; ev?.preventDefault?.(); }
-    form?.addEventListener('submit', handle); button?.addEventListener('click', handle);
+  // Wrap existing sendMessage so KB answers first
+  const __origSend = window.sendMessage;
+  if (typeof __origSend === 'function') {
+    window.sendMessage = function(){
+      const inp = document.getElementById('chatInput');
+      const text = (inp?.value||'').trim();
+      if(!text) return;
+
+      const a = faq(text) || retrieve(text);
+      if (a) {
+        if (typeof window.addUserMessage === 'function') window.addUserMessage(text);
+        if (typeof window.addBotMessage === 'function') window.addBotMessage(a);
+        if (inp) inp.value='';
+        return; // handled by Mojini
+      }
+      return __origSend.apply(this, arguments);
+    };
   }
-
-  window.ImpactMojoKB={ route:routeUserQuery, answerFAQ, retrieve, AGENT_NAME };
-
-  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', autoWire); } else { autoWire(); }
-  console.log(`[ImpactMojo KB] ${AGENT_NAME} is ready.`);
 })();
 </script>
 
