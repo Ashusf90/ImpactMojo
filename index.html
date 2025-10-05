@@ -4668,12 +4668,166 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-<!-- === Mojini (KB+FAQ) wrapper – inserted just before </body> === -->
+<!-- === Mojini (KB+FAQ) wrapper – inserted just before 
+<!-- === Mojini KB UI Enhancer — adds KB starter chips, updates greeting & placeholder === -->
 <script>
 (function(){
   const AGENT_NAME = window.IM_AGENT_NAME || 'Mojini';
 
-  // Rename the chat header non‑destructively
+  function once(key){ if(window.__mojiniFlags?.[key]) return false; (window.__mojiniFlags||(window.__mojiniFlags={}))[key]=true; return true; }
+
+  function updatePlaceholder(){
+    const inp = document.getElementById('chatInput') || document.querySelector('.chat-input');
+    if(!inp) return;
+    if(!inp.getAttribute('data-mojini-ph')){
+      inp.setAttribute('data-mojini-ph','1');
+      inp.placeholder = 'Ask about courses, labs, credentials, premium, resources, games, founders… or leave feedback';
+    }
+  }
+
+  function greetOnce(){
+    if(!once('greeted')) return;
+    if (typeof window.addBotMessage === 'function') {
+      window.addBotMessage(`Hi, I’m ${AGENT_NAME}. I can take feedback **and** answer questions about ImpactMojo (courses, labs, credentials vs certificates, premium, resources, games, founders, ratings/testimonials). Try the quick options below.`);
+      return;
+    }
+    const box = document.getElementById('chatMessages') || document.querySelector('.chat-messages');
+    if (!box) return;
+    const wrap = document.createElement('div'); wrap.className = 'message bot-message';
+    const av = document.createElement('div'); av.className = 'bot-avatar'; av.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="2"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/></svg>';
+    const bub = document.createElement('div'); bub.className = 'bot-bubble';
+    bub.textContent = `Hi, I’m ${AGENT_NAME}. I can take feedback and answer questions about ImpactMojo (courses, labs, credentials vs certificates, premium, resources, games, founders, ratings/testimonials). Try the quick options below.`;
+    wrap.appendChild(av); wrap.appendChild(bub); box.appendChild(wrap);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function addKBChips(){
+    if(document.getElementById('mojini-kb-quickbar')) return;
+    const box = document.getElementById('chatMessages') || document.querySelector('.chat-messages');
+    if(!box) return;
+    const wrap = document.createElement('div'); wrap.id = 'mojini-kb-quickbar'; wrap.className = 'message bot-message';
+    const av = document.createElement('div'); av.className = 'bot-avatar'; av.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="2"/></svg>';
+    const bub = document.createElement('div'); bub.className = 'bot-bubble';
+
+    bub.innerHTML = `
+      <div style="font-weight:600;margin-bottom:6px;">Quick help (Knowledge Base)</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        ${[
+          ['List all courses','List all courses'],
+          ['Show labs','List all labs'],
+          ['Certificates vs credentials?','Do you give certificates?'],
+          ['What’s Premium?','What is Premium?'],
+          ['Resources & games','Resources and games'],
+          ['About founders','Who are the founders?'],
+          ['Testimonials & ratings','Testimonials and ratings']
+        ].map(([label,query])=>`<button type="button" class="mojini-chip" data-q="${query.replace(/"/g,'&quot;')}" style="border:1px solid #ddd;padding:6px 10px;border-radius:9999px;background:#fff;cursor:pointer;font-size:12px;">${label}</button>`).join('')}
+      </div>
+    `;
+
+    wrap.appendChild(av); wrap.appendChild(bub); box.appendChild(wrap);
+    box.scrollTop = box.scrollHeight;
+
+    wrap.querySelectorAll('.mojini-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const q = btn.getAttribute('data-q') || '';
+        if (!q) return;
+        if (typeof window.addUserMessage === 'function') {
+          window.addUserMessage(q);
+        } else {
+          const u = document.createElement('div'); u.className='message user-message';
+          const ub = document.createElement('div'); ub.className='user-bubble'; ub.textContent=q;
+          u.appendChild(ub); box.appendChild(u); box.scrollTop = box.scrollHeight;
+        }
+        window.dispatchEvent(new CustomEvent('immojo:user',{detail:{text:q}}));
+      });
+    });
+  }
+
+  function init(){
+    updatePlaceholder();
+    greetOnce();
+    addKBChips();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+
+<!-- === Mojini Welcome Deduper v2 — keep only one dual-role greeting === -->
+<script>
+(function(){
+  const AGENT_NAME = window.IM_AGENT_NAME || 'Mojini';
+  const flags = window.__mojiniFlags || (window.__mojiniFlags = {});
+  const dual = `Hi, I’m ${AGENT_NAME}. I can take feedback and answer questions about ImpactMojo (courses, labs, credentials vs certificates, premium, resources, games, founders, ratings/testimonials).`;
+
+  const looksLikeFeedbackOnly = (t) => {
+    const s = String(t||'').toLowerCase();
+    const mentionsFeedback = /feedback/.test(s);
+    const mentionsAssistant = /assistant/.test(s);
+    const mentionsCollect = /collect.*feedback/.test(s) || /valuable feedback/.test(s);
+    const genericHelp = /how can i help you today/.test(s);
+    const mentionsKB = /(course|lab|premium|resource|game|founder|rating|testimonial)/.test(s);
+    return (mentionsFeedback || mentionsAssistant || mentionsCollect || genericHelp) && !mentionsKB;
+  };
+
+  const origAdd = window.addBotMessage;
+  if (typeof origAdd === 'function' && !flags.patchedAddV2) {
+    window.addBotMessage = function(text){
+      const t = String(text||'');
+      if (!flags.replacedWelcome && looksLikeFeedbackOnly(t)) {
+        flags.replacedWelcome = true;
+        flags.greeted = true;
+        return origAdd.call(this, dual);
+      }
+      return origAdd.apply(this, arguments);
+    };
+    flags.patchedAddV2 = true;
+  }
+
+  function replaceRendered() {
+    const box = document.getElementById('chatMessages') || document.querySelector('.chat-messages');
+    if (!box) return;
+    const bubbles = box.querySelectorAll('.message.bot-message .bot-bubble');
+    if (!bubbles.length) return;
+    const first = bubbles[0];
+    const txt = first.textContent || '';
+    if (!flags.replacedWelcome && looksLikeFeedbackOnly(txt)) {
+      first.textContent = dual;
+      flags.replacedWelcome = true;
+      flags.greeted = true;
+    }
+    let dualSeen = false;
+    Array.from(bubbles).forEach(b => {
+      const t = b.textContent || '';
+      const isDual = /I[’']?m\s+[^.]*Mojini/i.test(t) && /answer questions/i.test(t);
+      if (isDual) {
+        if (!dualSeen) dualSeen = true;
+        else {
+          const msg = b.closest('.message'); if (msg) msg.remove();
+        }
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', replaceRendered);
+  } else {
+    replaceRendered();
+  }
+  const mo = new MutationObserver(replaceRendered);
+  mo.observe(document.body, { subtree: true, childList: true });
+})();
+</script>
+
+</body> === -->
+<script>
+(function(){
+  const AGENT_NAME = window.IM_AGENT_NAME || 'Mojini';
   function renameHeader(){
     const h3 = document.querySelector('#chatbotModal .chat-header h3');
     if (!h3) return;
@@ -4681,8 +4835,6 @@ document.addEventListener('DOMContentLoaded', function () {
     h3.innerHTML = html.replace(/Feedback\s+Assistant/i, AGENT_NAME + ' — Feedback & Help');
   }
   if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', renameHeader); else renameHeader();
-
-  // KB data (concise and real)
   const COURSES=[
     { t:'Development Economics 101', u:'https://101.www.impactmojo.in/DevEcon', o:'Poverty, inequality, growth; India/South Asia.'},
     { t:'Law and Constitution 101', u:'https://101.www.impactmojo.in/Law&Cons', o:'Constitutional principles, rights, institutions.'},
@@ -4733,11 +4885,9 @@ document.addEventListener('DOMContentLoaded', function () {
     games:"Games are short interactive modules to reinforce key ideas.",
     rate:"Ratings vary by cohort. Where available, we display them with the item; Mojini links rather than quoting numbers out of context."
   };
-
   const norm=s=>String(s||'').toLowerCase();
   function listCourses(){ return COURSES.map(c=>`• ${c.t} — ${c.o}\n  ${c.u}`).join('\n'); }
   function listLabs(){ return LABS.map(l=>`• ${l.t}\n  ${l.u}`).join('\n'); }
-
   function faq(q){
     const s=norm(q);
     if(/certificate|certification/.test(s)) return STATIC.cert;
@@ -4752,7 +4902,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if(/\b(lab|workbench|tool)\b/.test(s)) return `Here are our labs:\n\n${listLabs()}`;
     return null;
   }
-
   function retrieve(q){
     const s=norm(q); const docs=[...COURSES.map(c=>({...c,_:'Course'})), ...LABS.map(l=>({...l,_:'Lab'}))];
     const boost=(txt,tok,w)=> txt.includes(tok)? w:0;
@@ -4761,25 +4910,178 @@ document.addEventListener('DOMContentLoaded', function () {
     if(!hits.length) return null;
     return hits.map((h,i)=>`(${i+1}) ${h._}: ${h.t}\n${h.o? h.o+'\n':''}${h.u}`).join('\n\n');
   }
-
-  // Wrap existing sendMessage so KB answers first
   const __origSend = window.sendMessage;
   if (typeof __origSend === 'function') {
     window.sendMessage = function(){
       const inp = document.getElementById('chatInput');
       const text = (inp?.value||'').trim();
       if(!text) return;
-
       const a = faq(text) || retrieve(text);
       if (a) {
         if (typeof window.addUserMessage === 'function') window.addUserMessage(text);
         if (typeof window.addBotMessage === 'function') window.addBotMessage(a);
         if (inp) inp.value='';
-        return; // handled by Mojini
+        return;
       }
       return __origSend.apply(this, arguments);
     };
   }
+})();
+</script>
+
+
+<!-- === Mojini KB UI Enhancer — adds KB starter chips, updates greeting & placeholder === -->
+<script>
+(function(){
+  const AGENT_NAME = window.IM_AGENT_NAME || 'Mojini';
+
+  function once(key){ if(window.__mojiniFlags?.[key]) return false; (window.__mojiniFlags||(window.__mojiniFlags={}))[key]=true; return true; }
+
+  function updatePlaceholder(){
+    const inp = document.getElementById('chatInput') || document.querySelector('.chat-input');
+    if(!inp) return;
+    if(!inp.getAttribute('data-mojini-ph')){
+      inp.setAttribute('data-mojini-ph','1');
+      inp.placeholder = 'Ask about courses, labs, credentials, premium, resources, games, founders… or leave feedback';
+    }
+  }
+
+  function greetOnce(){
+    if(!once('greeted')) return;
+    if (typeof window.addBotMessage === 'function') {
+      window.addBotMessage(`Hi, I’m ${AGENT_NAME}. I can take feedback **and** answer questions about ImpactMojo (courses, labs, credentials vs certificates, premium, resources, games, founders, ratings/testimonials). Try the quick options below.`);
+      return;
+    }
+    const box = document.getElementById('chatMessages') || document.querySelector('.chat-messages');
+    if (!box) return;
+    const wrap = document.createElement('div'); wrap.className = 'message bot-message';
+    const av = document.createElement('div'); av.className = 'bot-avatar'; av.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="2"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/></svg>';
+    const bub = document.createElement('div'); bub.className = 'bot-bubble';
+    bub.textContent = `Hi, I’m ${AGENT_NAME}. I can take feedback and answer questions about ImpactMojo (courses, labs, credentials vs certificates, premium, resources, games, founders, ratings/testimonials). Try the quick options below.`;
+    wrap.appendChild(av); wrap.appendChild(bub); box.appendChild(wrap);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function addKBChips(){
+    if(document.getElementById('mojini-kb-quickbar')) return;
+    const box = document.getElementById('chatMessages') || document.querySelector('.chat-messages');
+    if(!box) return;
+    const wrap = document.createElement('div'); wrap.id = 'mojini-kb-quickbar'; wrap.className = 'message bot-message';
+    const av = document.createElement('div'); av.className = 'bot-avatar'; av.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="2"/></svg>';
+    const bub = document.createElement('div'); bub.className = 'bot-bubble';
+
+    bub.innerHTML = `
+      <div style="font-weight:600;margin-bottom:6px;">Quick help (Knowledge Base)</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        ${[
+          ['List all courses','List all courses'],
+          ['Show labs','List all labs'],
+          ['Certificates vs credentials?','Do you give certificates?'],
+          ['What’s Premium?','What is Premium?'],
+          ['Resources & games','Resources and games'],
+          ['About founders','Who are the founders?'],
+          ['Testimonials & ratings','Testimonials and ratings']
+        ].map(([label,query])=>`<button type="button" class="mojini-chip" data-q="${query.replace(/"/g,'&quot;')}" style="border:1px solid #ddd;padding:6px 10px;border-radius:9999px;background:#fff;cursor:pointer;font-size:12px;">${label}</button>`).join('')}
+      </div>
+    `;
+
+    wrap.appendChild(av); wrap.appendChild(bub); box.appendChild(wrap);
+    box.scrollTop = box.scrollHeight;
+
+    wrap.querySelectorAll('.mojini-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const q = btn.getAttribute('data-q') || '';
+        if (!q) return;
+        if (typeof window.addUserMessage === 'function') {
+          window.addUserMessage(q);
+        } else {
+          const u = document.createElement('div'); u.className='message user-message';
+          const ub = document.createElement('div'); ub.className='user-bubble'; ub.textContent=q;
+          u.appendChild(ub); box.appendChild(u); box.scrollTop = box.scrollHeight;
+        }
+        window.dispatchEvent(new CustomEvent('immojo:user',{detail:{text:q}}));
+      });
+    });
+  }
+
+  function init(){
+    updatePlaceholder();
+    greetOnce();
+    addKBChips();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+
+<!-- === Mojini Welcome Deduper v2 — keep only one dual-role greeting === -->
+<script>
+(function(){
+  const AGENT_NAME = window.IM_AGENT_NAME || 'Mojini';
+  const flags = window.__mojiniFlags || (window.__mojiniFlags = {});
+  const dual = `Hi, I’m ${AGENT_NAME}. I can take feedback and answer questions about ImpactMojo (courses, labs, credentials vs certificates, premium, resources, games, founders, ratings/testimonials).`;
+
+  const looksLikeFeedbackOnly = (t) => {
+    const s = String(t||'').toLowerCase();
+    const mentionsFeedback = /feedback/.test(s);
+    const mentionsAssistant = /assistant/.test(s);
+    const mentionsCollect = /collect.*feedback/.test(s) || /valuable feedback/.test(s);
+    const genericHelp = /how can i help you today/.test(s);
+    const mentionsKB = /(course|lab|premium|resource|game|founder|rating|testimonial)/.test(s);
+    return (mentionsFeedback || mentionsAssistant || mentionsCollect || genericHelp) && !mentionsKB;
+  };
+
+  const origAdd = window.addBotMessage;
+  if (typeof origAdd === 'function' && !flags.patchedAddV2) {
+    window.addBotMessage = function(text){
+      const t = String(text||'');
+      if (!flags.replacedWelcome && looksLikeFeedbackOnly(t)) {
+        flags.replacedWelcome = true;
+        flags.greeted = true;
+        return origAdd.call(this, dual);
+      }
+      return origAdd.apply(this, arguments);
+    };
+    flags.patchedAddV2 = true;
+  }
+
+  function replaceRendered() {
+    const box = document.getElementById('chatMessages') || document.querySelector('.chat-messages');
+    if (!box) return;
+    const bubbles = box.querySelectorAll('.message.bot-message .bot-bubble');
+    if (!bubbles.length) return;
+    const first = bubbles[0];
+    const txt = first.textContent || '';
+    if (!flags.replacedWelcome && looksLikeFeedbackOnly(txt)) {
+      first.textContent = dual;
+      flags.replacedWelcome = true;
+      flags.greeted = true;
+    }
+    let dualSeen = false;
+    Array.from(bubbles).forEach(b => {
+      const t = b.textContent || '';
+      const isDual = /I[’']?m\s+[^.]*Mojini/i.test(t) && /answer questions/i.test(t);
+      if (isDual) {
+        if (!dualSeen) dualSeen = true;
+        else {
+          const msg = b.closest('.message'); if (msg) msg.remove();
+        }
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', replaceRendered);
+  } else {
+    replaceRendered();
+  }
+  const mo = new MutationObserver(replaceRendered);
+  mo.observe(document.body, { subtree: true, childList: true });
 })();
 </script>
 
