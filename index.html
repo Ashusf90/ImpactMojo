@@ -5084,6 +5084,282 @@ document.addEventListener('DOMContentLoaded', function () {
   mo.observe(document.body, { subtree: true, childList: true });
 })();
 </script>
+<!-- === Mojini – Hardcoded FAQ Bank (30+) — paste just before </body> === -->
+<script>
+(function(){
+  // Prevent double-install
+  if (window.__mojiniFlags?.faqBankV1) return;
+  (window.__mojiniFlags || (window.__mojiniFlags = {})).faqBankV1 = true;
+
+  const AGENT_NAME = window.IM_AGENT_NAME || "Mojini";
+
+  // ——— Reuse (or define) minimal KB so we can answer course/lab questions crisply ———
+  const COURSES = (window.__MOJINI_COURSES__) || [
+    { t:'Development Economics 101', u:'https://101.www.impactmojo.in/DevEcon', o:'Poverty, inequality, growth; India/South Asia.'},
+    { t:'Law and Constitution 101',   u:'https://101.www.impactmojo.in/Law&Cons', o:'Constitutional principles, rights, institutions.'},
+    { t:'Climate Science 101',        u:'https://101.www.impactmojo.in/ClimateScience', o:'Climate systems, evidence, risk; adaptation/resilience.'},
+    { t:'Pedagogy and Education 101', u:'https://101.www.impactmojo.in/edu', o:'Learning science + practice in Indian systems.'},
+    { t:'Public Health 101',          u:'https://101.www.impactmojo.in/ph', o:'Epidemiology, health systems, field implementation.'},
+    { t:'Livelihoods 101',            u:'https://101.www.impactmojo.in/Livelihoods', o:'Labour markets, enterprise, programme design.'},
+    { t:'Gender Studies 101',         u:'https://101.www.impactmojo.in/Gender', o:'Frameworks, intersectionality, implications.'},
+    { t:"Womens' Economic Empowerment 101", u:'https://101.www.impactmojo.in/WEE', o:'Approaches, metrics, programme design.'},
+    { t:'Research Ethics 101',        u:'https://101.www.impactmojo.in/ResearchEthics', o:'Consent, dignity, data protection in research.'},
+    { t:'Behaviour Change Communication Programming 101', u:'https://101.www.impactmojo.in/BCCP', o:'Designing and testing BCC.'},
+    { t:'Advocacy and Communications 101', u:'https://101.www.impactmojo.in/adv&comm', o:'Strategy, messaging, coalitions.'},
+    { t:'Monitoring, Evaluation, Accountability and Learning 101', u:'https://101.www.impactmojo.in/MEAL', o:'Indicators, learning loops for implementers.'},
+    { t:'Visual Ethnography 101',     u:'https://101.www.impactmojo.in/VEthno', o:'Photo/video methods; ethical storytelling.'},
+    { t:'Political Economy 101',      u:'https://101.www.impactmojo.in/polecon', o:'Institutions, incentives, power.'},
+    { t:'Poverty and Inequality 101', u:'https://101.www.impactmojo.in/inequality', o:'Measures, drivers, interpretation.'},
+    { t:'Data Visualisation 101',     u:'https://101.www.impactmojo.in/dataviz', o:'Clear, ethical charts and dashboards.'},
+    { t:'Mixed Methods Research 101', u:'https://101.www.impactmojo.in/MMR', o:'Integrating qual + quant rigorously.'},
+    { t:'Impact Evaluation Design 101', u:'https://101.www.impactmojo.in/ImpactEval', o:'RCT to quasi-experimental choices.'},
+    { t:'Fundraising 101',            u:'https://101.www.impactmojo.in/Fundraising', o:'HNI, institutional, grassroots basics.'},
+    { t:'Programme Design Principles 101', u:'https://101.www.impactmojo.in/ProgrammeDesign', o:'Problem framing → ToC, delivery, risk.'},
+    { t:'Environmental Justice 101',  u:'https://101.www.impactmojo.in/EnvJustice', o:'Justice-centred climate/environment action.'},
+    { t:'Digital Governance 101',     u:'https://101.www.impactmojo.in/DigitalGov', o:'Platforms, data governance, service delivery.'},
+    { t:'Nutrition, Food Systems & Culture 101', u:'https://101.www.impactmojo.in/Nutrition', o:'Nutrition security, culture, markets.'},
+    { t:'Social Research Ethics & Consent 101', u:'https://101.www.impactmojo.in/SREthics', o:'Operationalising consent and dignity.'},
+    { t:'Language & History of Languages 101', u:'https://101.www.impactmojo.in/LangHistory', o:'Language change, identity, policy.'},
+    { t:'Caste 101',                  u:'https://101.www.impactmojo.in/Caste', o:'Caste, discrimination, remedies.'},
+    { t:'Humanitarian vs Development Work 101', u:'https://101.www.impactmojo.in/HumDev', o:'Goals, timelines, accountability.'}
+  ];
+  const LABS = (window.__MOJINI_LABS__) || [
+    { t:'Risk Assessment and Mitigation Lab',  u:'https://impactrisk-mitigation.netlify.app/' },
+    { t:'Resource Mobilisation and Sustainability Lab', u:'https://rm-sustainability4impact.netlify.app/' },
+    { t:'Policy and Advocacy Lab',             u:'https://pol-advocacy4impact.netlify.app/' },
+    { t:'Partnership and Collaboration Lab',   u:'https://impact-partnerships.netlify.app/' },
+    { t:'MLE Framework Workbench',             u:'https://mle-frameworkdesign.netlify.app/' },
+    { t:'MLE Framework Builder Lab',           u:'https://mle-plan-lab.netlify.app/' },
+    { t:'Community Engagement Lab',            u:'https://community-engagement.netlify.app/' },
+    { t:'Impact Storytelling Lab',             u:'https://impact-storytelling.netlify.app/' },
+    { t:'Innovation and Design Thinking Lab',  u:'https://impactdesign-thinking.netlify.app/' },
+    { t:'TOC Workbench',                       u:'https://toc-workbench.netlify.app/' }
+  ];
+  // expose once for other scripts if needed
+  window.__MOJINI_COURSES__ = COURSES;
+  window.__MOJINI_LABS__ = LABS;
+
+  // ——— Helpers ———
+  const norm = s => String(s||"").toLowerCase();
+  const listCourses = () => COURSES.map(c=>`• ${c.t} — ${c.o}\n  ${c.u}`).join("\n");
+  const listLabs = () => LABS.map(l=>`• ${l.t}\n  ${l.u}`).join("\n");
+  const byTitle = (arr, text) => {
+    const s = norm(text);
+    return arr.find(x => s.includes(norm(x.t)) || norm(x.t).includes(s));
+  };
+
+  function replyBot(text){
+    if (typeof window.addBotMessage === 'function') { window.addBotMessage(text); return; }
+    const box = document.getElementById('chatMessages') || document.querySelector('.chat-messages');
+    if (!box) return;
+    const wrap = document.createElement('div'); wrap.className = 'message bot-message';
+    const bub = document.createElement('div'); bub.className = 'bot-bubble'; bub.textContent = text;
+    wrap.appendChild(bub); box.appendChild(wrap); box.scrollTop = box.scrollHeight;
+  }
+
+  // ——— FAQ BANK (30+) ———
+  // Each item: {re: /pattern/i, a: "answer" }  (safe, non-inventive wording)
+  const FAQ = [
+    // Credentials / Certificates / Accreditation
+    { re: /(certificate|certification)s?\b/i,
+      a: "We don’t issue formal certificates. ImpactMojo focuses on **skills and credentials** you can demonstrate via real work and portfolio artefacts." },
+    { re: /\bcredential(s)?\b|\bbadge(s)?\b|\bportfolio\b/i,
+      a: "Our credentials are skill signals based on doing work—labs, projects, and artefacts you can show. They’re designed to be more meaningful than a generic certificate." },
+    { re: /\baccredit(ed|ation)|academic credit|university|ugc\b/i,
+      a: "ImpactMojo is not an accredited degree program and doesn’t offer academic credit. It’s a practitioner-focused learning platform." },
+
+    // Premium / Pricing
+    { re: /\bpremium\b(?!.*(what|include|benefit|price))/i,
+      a: "Premium provides **curated resource packs**, **deeper dives**, and **advanced labs**. For the latest scope and any pricing updates, please refer to the live Premium page." },
+    { re: /\b(what('| i)?s|about).+premium|\bpremium\b.+(include|cover|benefit)/i,
+      a: "Premium includes curated resources, deeper dives, and access to advanced labs. Exact inclusions can evolve—please check the live Premium page for the current details." },
+    { re: /\b(price|cost|fee|paid|free).+premium|\bpremium.+(price|cost|fee)/i,
+      a: "Premium pricing and scope may change over time. The **Premium** page is the source of truth for current details." },
+
+    // Courses (catalog, objectives, level, format)
+    { re: /\b(list|show|see).+course(s)?\b|^\s*courses?\s*$/i,
+      a: () => `Here are our core courses:\n\n${listCourses()}` },
+    { re: /(which|what)\s+course(s)?\s+(do you have|are available)/i,
+      a: () => `We currently offer:\n\n${listCourses()}` },
+    { re: /(objective|about|overview|syllabus).+development economics|dev(\s|-)?econ/i,
+      a: () => {
+        const c = byTitle(COURSES, "Development Economics 101");
+        return c ? `${c.t} — ${c.o}\n${c.u}` : "Development Economics 101 covers poverty, inequality and growth; see the course page for details.";
+      }},
+    { re: /(objective|about|overview|syllabus).+law/i,
+      a: () => { const c = byTitle(COURSES,"Law and Constitution 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+climate/i,
+      a: () => { const c = byTitle(COURSES,"Climate Science 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(pedagogy|education)/i,
+      a: () => { const c = byTitle(COURSES,"Pedagogy and Education 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(public health|health)/i,
+      a: () => { const c = byTitle(COURSES,"Public Health 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+livelihood/i,
+      a: () => { const c = byTitle(COURSES,"Livelihoods 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+gender/i,
+      a: () => { const c = byTitle(COURSES,"Gender Studies 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(WEE|women)/i,
+      a: () => { const c = byTitle(COURSES,"Womens' Economic Empowerment 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(ethics|research ethics)/i,
+      a: () => { const c = byTitle(COURSES,"Research Ethics 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(bcc|behaviour|behavior)/i,
+      a: () => { const c = byTitle(COURSES,"Behaviour Change Communication Programming 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+advocacy/i,
+      a: () => { const c = byTitle(COURSES,"Advocacy and Communications 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(monitoring|evaluation|meal)\b/i,
+      a: () => { const c = byTitle(COURSES,"Monitoring, Evaluation, Accountability and Learning 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+ethnograph/i,
+      a: () => { const c = byTitle(COURSES,"Visual Ethnography 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(political economy|pol.?econ)/i,
+      a: () => { const c = byTitle(COURSES,"Political Economy 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(poverty|inequality)/i,
+      a: () => { const c = byTitle(COURSES,"Poverty and Inequality 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(data vis|datavis|visuali[sz]ation)/i,
+      a: () => { const c = byTitle(COURSES,"Data Visualisation 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(mixed methods|mmr)/i,
+      a: () => { const c = byTitle(COURSES,"Mixed Methods Research 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(impact eval|evaluation design)/i,
+      a: () => { const c = byTitle(COURSES,"Impact Evaluation Design 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+fundraising/i,
+      a: () => { const c = byTitle(COURSES,"Fundraising 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+programme design/i,
+      a: () => { const c = byTitle(COURSES,"Programme Design Principles 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(environmental justice|env\.?justice)/i,
+      a: () => { const c = byTitle(COURSES,"Environmental Justice 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(digital gov|governance)/i,
+      a: () => { const c = byTitle(COURSES,"Digital Governance 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(nutrition|food)/i,
+      a: () => { const c = byTitle(COURSES,"Nutrition, Food Systems & Culture 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(social research ethics|consent)/i,
+      a: () => { const c = byTitle(COURSES,"Social Research Ethics & Consent 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(language|history of languages)/i,
+      a: () => { const c = byTitle(COURSES,"Language & History of Languages 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+caste/i,
+      a: () => { const c = byTitle(COURSES,"Caste 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+    { re: /(objective|about|overview|syllabus).+(humanitarian|development work)/i,
+      a: () => { const c = byTitle(COURSES,"Humanitarian vs Development Work 101"); return `${c.t} — ${c.o}\n${c.u}`; } },
+
+    { re: /(beginner|new to this|where to start)/i,
+      a: "Start with any **101** course. They’re beginner-friendly and focus on practical understanding." },
+    { re: /(advanced|deeper|next step)/i,
+      a: "For deeper work, explore **labs** and **Premium** deeper-dives." },
+    { re: /(duration|time|how long).+course/i,
+      a: "Most courses are **self-paced**. Time varies by learner—check each course page for modules and suggested pace." },
+    { re: /\blive\b.+(class|session|cohort)/i,
+      a: "Most learning is self-paced. When live/cohort options are offered, the course page will say so." },
+    { re: /enrol|enroll|join|sign ?up/i,
+      a: "Open the course you want and follow the on-page steps. Some items are open access; others may prompt you to sign in." },
+
+    // Labs
+    { re: /\b(list|show).+lab(s)?\b|^\s*labs?\s*$/i,
+      a: () => `Here are our labs:\n\n${listLabs()}` },
+    { re: /\bTOC\b|\btheor(y|ies) of change\b/i,
+      a: () => `**TOC Workbench** helps you structure a Theory of Change quickly and clearly.\nhttps://toc-workbench.netlify.app/` },
+    { re: /MLE (framework|builder|workbench)/i,
+      a: () => `The **MLE Framework Workbench/Builder** help you design monitoring & learning frameworks.\nWorkbench: https://mle-frameworkdesign.netlify.app/\nBuilder:   https://mle-plan-lab.netlify.app/` },
+    { re: /how (to )?access.+lab|use.+lab/i,
+      a: "Labs are web tools. Click a lab link and start; most open directly in your browser." },
+
+    // Resources / Games / Testimonials / Ratings / Founders
+    { re: /resource(s)?|reading list|tool(s)?|template(s)?/i,
+      a: "Resources include reading lists, tools, data links, and templates referenced across courses and labs." },
+    { re: /\bgame(s)?\b|interactive/i,
+      a: "Games are short, interactive learning modules that reinforce key ideas in a playful way." },
+    { re: /(testimonial|review|what people say)/i,
+      a: "Testimonials are showcased on-site when available. You can also leave feedback here and we may feature excerpts." },
+    { re: /rating(s)?|stars?/i,
+      a: "Ratings vary by context. Where available, they appear with the relevant course or lab—Mojini avoids quoting numbers out of context." },
+    { re: /founder|who.*(behind|lead)/i,
+      a: "ImpactMojo is led by **Dr. Varna Sri Raman**. (Additional leadership may be featured on the site.)" },
+
+    // Access, language, privacy, support
+    { re: /\bmobile|phone|tablet|responsive\b/i,
+      a: "ImpactMojo works on modern browsers across desktop and mobile. For the best experience, keep your browser up to date." },
+    { re: /\blanguage(s)?\b|hindi|translation/i,
+      a: "Content is primarily in **English**. Additional language options may be added over time." },
+    { re: /privacy|data|gdpr/i,
+      a: "We respect your privacy. Feedback is used to improve ImpactMojo. Please refer to the site’s Privacy/Terms pages for details." },
+    { re: /(support|help|contact|reach|email)/i,
+      a: "For support, use this chat’s **Report Bug** or **Feature Request** options. We’ll follow up using the info you provide." },
+    { re: /(suggest|request).+course/i,
+      a: "Use the **Suggest Course** shortcut here in chat to propose a new course or topic." },
+
+    // Org / team use
+    { re: /(organization|organisation|team|ngo|gov|company)/i,
+      a: "ImpactMojo is designed for practitioners and teams. Courses build foundations; labs help teams design, test, and improve programs." }
+  ];
+
+  // Dynamic course objective matcher (covers “What’s the objective of X?” without listing all regexes)
+  function tryCourseObjective(text){
+    const s = norm(text);
+    if (!/(objective|about|overview|syllabus|what is)/i.test(text)) return null;
+    // Find best matching course title token
+    let best = null, bestScore = 0;
+    COURSES.forEach(c => {
+      const title = norm(c.t);
+      let score = 0;
+      title.split(/\s+/).forEach(tok => { if (tok && s.includes(tok)) score++; });
+      if (score > bestScore) { bestScore = score; best = c; }
+    });
+    if (best && bestScore >= 2) return `${best.t} — ${best.o}\n${best.u}`;
+    return null;
+  }
+
+  // Main answerer: bank → dynamic course objective → (optional) existing mojiniAnswer → fallback null
+  function answerFromFAQ(userText){
+    const text = String(userText||"");
+    // 1) Hardcoded bank
+    for (const item of FAQ) {
+      if (item.re.test(text)) {
+        const out = (typeof item.a === "function") ? item.a(text) : item.a;
+        return out;
+      }
+    }
+    // 2) Dynamic course objective
+    const dyn = tryCourseObjective(text);
+    if (dyn) return dyn;
+
+    // 3) If an earlier global answerer exists, let it try next (keeps compatibility)
+    if (typeof window.mojiniAnswer === "function") {
+      const maybe = window.mojiniAnswer(text);
+      if (maybe) return maybe;
+    }
+    return null;
+  }
+
+  // Expose so other blocks (wrappers) can use it too
+  window.mojiniAnswer = answerFromFAQ;
+
+  // Handle KB chips: answer first and stop propagation so we don’t double-reply
+  window.addEventListener("immojo:user", function(e){
+    const q = e?.detail?.text || "";
+    if (!q) return;
+    const a = answerFromFAQ(q);
+    if (a) {
+      replyBot(a);
+      // avoid duplicate responses from other listeners
+      if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    }
+  }, true); // capture first
+
+  // Wrap current sendMessage again (without breaking the existing fallback chain)
+  const __prevSend = window.sendMessage;
+  window.sendMessage = function(){
+    const inp = document.getElementById("chatInput");
+    const text = (inp?.value || "").trim();
+    if (!text) return;
+    const a = answerFromFAQ(text);
+    if (a) {
+      if (typeof window.addUserMessage === "function") window.addUserMessage(text);
+      replyBot(a);
+      if (inp) inp.value = "";
+      return;
+    }
+    // Not matched → pass through to whatever was there before
+    if (typeof __prevSend === "function") return __prevSend.apply(this, arguments);
+  };
+})();
+</script>
 
 </body>
 </html>
