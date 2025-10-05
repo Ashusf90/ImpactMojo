@@ -4059,16 +4059,6 @@
     });
   });
 })();
-</script>
-<!-- TEMP: clear old service worker + caches; remove after root shows the new page -->
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(rs => {
-    rs.forEach(r => r.unregister());
-    if (window.caches) caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
-  });
-}
-</script>
 </body>
 </html>
 </body>
