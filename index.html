@@ -5360,6 +5360,400 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 })();
 </script>
+<!-- ===================== ImpactMojo Add-ons =====================
+PASTE THIS ENTIRE BLOCK JUST BEFORE </body> IN YOUR EXISTING index.html
+It will NOT alter your layout or remove features. It:
+• Loads the authoritative URLs from /CourseList.txt, /LabsList.txt, /Others.txt (style: https://101.impactmojo.in/...)
+• Corrects any wrong hrefs on the page to the 101.impactmojo.in versions
+• Adds SEPARATE features: Compare (max 3) + Bookmarks (any) with CSV/TXT export
+• Keeps Mojini as the knowledge base (answers only)
+================================================================== -->
 
+<!-- === Data Loader: pull authoritative links from your text files === -->
+<script>
+(function(){
+  if (window.__imAddons && window.__imAddons.loaded) return;
+  (window.__imAddons || (window.__imAddons = {})).loaded = true;
+
+  function normalize101(u){
+    try {
+      const a = new URL(u, location.origin);
+      if (a.pathname && a.pathname !== '/') {
+        a.protocol = 'https:';
+        a.hostname = '101.impactmojo.in';
+      }
+      // Ensure trailing slash consistency is left as-is
+      return a.toString();
+    } catch(e){
+      // Fallback if plain path given
+      const path = String(u||'').replace(/^\/+/, '');
+      return 'https://101.impactmojo.in/' + path;
+    }
+  }
+
+  function parseTitleUrl(text){
+    const out = [];
+    if (!text) return out;
+    text.split(/\r?\n/).forEach(line => {
+      const s = line.trim();
+      if (!s || s.startsWith('#')) return;
+      let m = s.match(/^(.*?)\s*(?:-+|–|—|->|→|:|,)\s*(https?:\/\/\S+)$/i);
+      if (!m){
+        const m2 = s.match(/(https?:\/\/\S+)/i);
+        if (m2){
+          const url = m2[1].trim();
+          const title = s.slice(0, m2.index).trim().replace(/[\s-–—:,]+$/, '');
+          if (title) out.push({ t: title, u: normalize101(url), o: '' });
+        }
+        return;
+      }
+      const title = (m[1]||'').trim();
+      const url   = (m[2]||'').trim();
+      if (title && url) out.push({ t: title, u: normalize101(url), o: '' });
+    });
+    return out;
+  }
+
+  async function loadText(path){
+    try {
+      const res = await fetch(path, { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP '+res.status);
+      return await res.text();
+    } catch(e){
+      return '';
+    }
+  }
+
+  async function loadAll(){
+    const [cTxt, lTxt, oTxt] = await Promise.all([
+      loadText('/CourseList.txt'),
+      loadText('/LabsList.txt'),
+      loadText('/Others.txt')
+    ]);
+    const C = parseTitleUrl(cTxt);
+    const L = parseTitleUrl(lTxt);
+    const O = parseTitleUrl(oTxt);
+
+    // Expose globally
+    window.__MOJINI_COURSES__ = C;
+    window.__MOJINI_LABS__ = L;
+    window.__MOJINI_OTHERS__ = O;
+
+    // After data, boot features
+    setupCompareAndBookmarks(C, L, O);
+    setupMojiniKB(C, L);
+  }
+
+  // ================= Compare + Bookmarks (SEPARATE from chat) =================
+  function setupCompareAndBookmarks(C, L, O){
+    const items = [];
+    C.forEach(x=>items.push({id:'C:'+x.t, title:x.t, type:'Course', objective:x.o||'', link:x.u}));
+    L.forEach(x=>items.push({id:'L:'+x.t, title:x.t, type:'Lab', objective:x.o||'', link:x.u}));
+    O.forEach(x=>items.push({id:'O:'+x.t, title:x.t, type:'Other', objective:x.o||'', link:x.u}));
+
+    const byId = Object.fromEntries(items.map(i=>[i.id, i]));
+    const byUrl = Object.fromEntries(items.map(i=>[i.link, i]));
+    const byTitle = Object.fromEntries(items.map(i=>[i.title.toLowerCase(), i]));
+
+    // Inject FABs and modals once
+    if (!document.getElementById('im2-compare-fab')){
+      const style = document.createElement('style');
+      style.textContent = `
+        #im2-compare-fab{position:fixed;right:18px;bottom:18px;z-index:8998;background:#111;color:#fff;border-radius:999px;padding:10px 14px;font-size:13px;box-shadow:0 6px 14px rgba(0,0,0,0.18);cursor:pointer;}
+        #im2-bookmark-fab{position:fixed;left:18px;bottom:18px;z-index:8998;background:#111;color:#fff;border-radius:999px;padding:10px 14px;font-size:13px;box-shadow:0 6px 14px rgba(0,0,0,0.18);cursor:pointer;}
+        #im2-compare-fab .count, #im2-bookmark-fab .count{background:#fff;color:#111;border-radius:999px;padding:2px 7px;margin-left:6px;font-weight:700;}
+        .im2-modal{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;z-index:8997;align-items:center;justify-content:center;}
+        .im2-card{background:#fff;max-width:960px;width:92%;max-height:85vh;overflow:auto;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.25);padding:16px;}
+        .im2-card h3{margin:0 0 10px 0;font-size:18px}
+        .im2-list .im2-item{display:flex;align-items:center;justify-content:space-between;border:1px solid #eee;border-radius:10px;padding:8px 10px;margin:6px 0;}
+        .im2-list .im2-meta{font-size:13px}
+        .im2-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+        .im2-btn{border:1px solid #ddd;background:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12px}
+        .im2-btn.primary{background:#111;color:#fff;border-color:#111}
+        .im2-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+        .im2-table th,.im2-table td{border:1px solid #eee;padding:8px;text-align:left;vertical-align:top}
+        .im2-tag{display:inline-block;border:1px solid #ddd;border-radius:999px;padding:2px 8px;font-size:11px;margin-left:6px}
+        .im2-link-ctl{margin-left:8px;display:inline-flex;gap:6px;align-items:center}
+        .im2-bookmark-btn{border:1px solid #ddd;background:#fff;border-radius:999px;padding:2px 8px;font-size:11px;cursor:pointer;}
+        .im2-compare-toggle{vertical-align:middle}
+        .im2-muted{color:#666}
+        .im2-subtle{font-size:12px;color:#666;margin:6px 0}
+        @media (max-width:480px){.im2-card{width:96%;padding:12px}}
+      `;
+      document.head.appendChild(style);
+
+      const compareModal = document.createElement('div');
+      compareModal.id = 'im2-compare-modal';
+      compareModal.className = 'im2-modal';
+      compareModal.innerHTML = `
+        <div class="im2-card" role="dialog" aria-modal="true">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <h3>Compare (up to 3)</h3>
+            <button class="im2-btn" id="im2-close-compare">Close</button>
+          </div>
+          <div class="im2-subtle">Select items on the page using the small checkboxes, or pick from the catalog below.</div>
+          <div id="im2-compare-table-wrap"></div>
+          <div class="im2-actions">
+            <button class="im2-btn primary" id="im2-export-csv" disabled>Export CSV</button>
+            <button class="im2-btn" id="im2-export-txt" disabled>Export TXT</button>
+          </div>
+          <hr/>
+          <div id="im2-catalog-compare" class="im2-list"></div>
+        </div>`;
+      document.body.appendChild(compareModal);
+
+      const bookmarksModal = document.createElement('div');
+      bookmarksModal.id = 'im2-bookmarks-modal';
+      bookmarksModal.className = 'im2-modal';
+      bookmarksModal.innerHTML = `
+        <div class="im2-card" role="dialog" aria-modal="true">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <h3>Bookmarks</h3>
+            <button class="im2-btn" id="im2-close-bookmarks">Close</button>
+          </div>
+          <div id="im2-bookmarks-list" class="im2-list"></div>
+          <div class="im2-actions">
+            <button class="im2-btn primary" id="im2-bm-export-csv" disabled>Export CSV</button>
+            <button class="im2-btn" id="im2-bm-export-txt" disabled>Export TXT</button>
+          </div>
+          <hr/>
+          <div class="im2-subtle">Add more from catalog</div>
+          <div id="im2-catalog-bookmarks" class="im2-list"></div>
+        </div>`;
+      document.body.appendChild(bookmarksModal);
+
+      const compareFab = document.createElement('button');
+      compareFab.id = 'im2-compare-fab';
+      compareFab.innerHTML = 'Compare <span class="count">0</span>';
+      document.body.appendChild(compareFab);
+
+      const bookmarkFab = document.createElement('button');
+      bookmarkFab.id = 'im2-bookmark-fab';
+      bookmarkFab.innerHTML = 'Bookmarks <span class="count">0</span>';
+      document.body.appendChild(bookmarkFab);
+    }
+
+    const compareModal = document.getElementById('im2-compare-modal');
+    const bookmarksModal = document.getElementById('im2-bookmarks-modal');
+    const compareFab = document.getElementById('im2-compare-fab');
+    const bookmarkFab = document.getElementById('im2-bookmark-fab');
+
+    const compareWrap = document.getElementById('im2-compare-table-wrap');
+    const closeCompare = document.getElementById('im2-close-compare');
+    const exportCSV = document.getElementById('im2-export-csv');
+    const exportTXT = document.getElementById('im2-export-txt');
+
+    const bookmarksList = document.getElementById('im2-bookmarks-list');
+    const closeBookmarks = document.getElementById('im2-close-bookmarks');
+    const bmExportCSV = document.getElementById('im2-bm-export-csv');
+    const bmExportTXT = document.getElementById('im2-bm-export-txt');
+
+    const catCompare = document.getElementById('im2-catalog-compare');
+    const catBookmarks = document.getElementById('im2-catalog-bookmarks');
+
+    const COMPARE_KEY = 'IM_COMPARE_IDS';
+    const BOOKMARK_KEY = 'IM_BOOKMARK_IDS';
+
+    function load(key){ try { return JSON.parse(sessionStorage.getItem(key)||'[]'); } catch { return []; } }
+    function save(key, val){ sessionStorage.setItem(key, JSON.stringify(val)); }
+
+    function getCompare(){ return load(COMPARE_KEY); }
+    function setCompare(arr){ save(COMPARE_KEY, arr.slice(0,3)); updateCounts(); renderCompareTable(); }
+    function addCompare(id){ const arr = getCompare(); if (!arr.includes(id) && arr.length < 3){ arr.push(id); setCompare(arr); } }
+    function rmCompare(id){ setCompare(getCompare().filter(x=>x!==id)); }
+
+    function getBookmarks(){ return load(BOOKMARK_KEY); }
+    function setBookmarks(arr){ save(BOOKMARK_KEY, arr); updateCounts(); renderBookmarksList(); }
+    function addBookmark(id){ const arr = getBookmarks(); if (!arr.includes(id)){ arr.push(id); setBookmarks(arr); } }
+    function rmBookmark(id){ setBookmarks(getBookmarks().filter(x=>x!==id)); }
+
+    function updateCounts(){
+      const c1 = document.querySelector('#im2-compare-fab .count'); if (c1) c1.textContent = String(getCompare().length);
+      const c2 = document.querySelector('#im2-bookmark-fab .count'); if (c2) c2.textContent = String(getBookmarks().length);
+    }
+
+    function renderCompareTable(){
+      const ids = getCompare();
+      if (!ids.length){ compareWrap.innerHTML = '<div class="im2-muted">No items selected. Use the small checkboxes next to links, or pick items from the catalog below.</div>'; exportCSV.disabled = true; exportTXT.disabled = true; return; }
+      const rows = ids.map(id=>byId[id]).filter(Boolean);
+      const headers = ['Title','Type','Objective','Link'];
+      const thead = '<thead><tr>'+headers.map(h=>`<th>${h}</th>`).join('')+'</tr></thead>';
+      const tbody = '<tbody>'+rows.map(r=>'<tr>'+[r.title, r.type, r.objective||'', `<a href="${r.link}" target="_blank" rel="noopener">Open</a>`].map(v=>`<td>${v}</td>`).join('')+'</tr>').join('')+'</tbody>';
+      compareWrap.innerHTML = `<table class="im2-table">${thead}${tbody}</table>`;
+      exportCSV.disabled = false; exportTXT.disabled = false;
+    }
+
+    function exportCSVRows(rows, name){
+      const headers = ['Title','Type','Objective','Link'];
+      const csv = [headers.join(',')].concat(rows.map(r=>headers.map(h=>`"${String(r[h]||'').replace(/"/g,'""')}"`).join(','))).join('\n');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); URL.revokeObjectURL(a.href);
+    }
+    function exportTXTRows(rows, name){
+      const txt = rows.map((r,i)=>`(${i+1}) ${r.Title} [${r.Type}]\nObjective: ${r.Objective}\nLink: ${r.Link}\n`).join('\n');
+      const blob = new Blob([txt], {type:'text/plain;charset=utf-8;'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); URL.revokeObjectURL(a.href);
+    }
+
+    exportCSV.addEventListener('click', ()=>{
+      const rows = getCompare().map(id=>byId[id]).filter(Boolean).map(r=>({Title:r.title, Type:r.type, Objective:r.objective||'', Link:r.link}));
+      if (rows.length) exportCSVRows(rows, 'impactmojo_compare.csv');
+    });
+    exportTXT.addEventListener('click', ()=>{
+      const rows = getCompare().map(id=>byId[id]).filter(Boolean).map(r=>({Title:r.title, Type:r.type, Objective:r.objective||'', Link:r.link}));
+      if (rows.length) exportTXTRows(rows, 'impactmojo_compare.txt');
+    });
+
+    function renderBookmarksList(){
+      const ids = getBookmarks();
+      if (!ids.length){ bookmarksList.innerHTML = '<div class="im2-muted">No bookmarks yet. Use the Bookmark button next to links or the catalog below.</div>'; bmExportCSV.disabled = true; bmExportTXT.disabled = true; return; }
+      const html = ids.map(id=>{ const r = byId[id]; if (!r) return ''; return `<div class="im2-item">
+          <div class="im2-meta"><strong>${r.title}</strong> <span class="im2-tag">${r.type}</span></div>
+          <div>
+            <a class="im2-btn" href="${r.link}" target="_blank" rel="noopener">Open</a>
+            <button class="im2-btn" data-rm="${id}">Remove</button>
+          </div>
+        </div>`; }).join('');
+      bookmarksList.innerHTML = html;
+      bookmarksList.querySelectorAll('button[data-rm]').forEach(btn=>btn.addEventListener('click', ()=>{ rmBookmark(btn.getAttribute('data-rm')); }));
+      bmExportCSV.disabled = false; bmExportTXT.disabled = false;
+    }
+
+    bmExportCSV.addEventListener('click', ()=>{
+      const rows = getBookmarks().map(id=>byId[id]).filter(Boolean).map(r=>({Title:r.title, Type:r.type, Objective:r.objective||'', Link:r.link}));
+      if (rows.length) exportCSVRows(rows, 'impactmojo_bookmarks.csv');
+    });
+    bmExportTXT.addEventListener('click', ()=>{
+      const rows = getBookmarks().map(id=>byId[id]).filter(Boolean).map(r=>({Title:r.title, Type:r.type, Objective:r.objective||'', Link:r.link}));
+      if (rows.length) exportTXTRows(rows, 'impactmojo_bookmarks.txt');
+    });
+
+    compareFab.addEventListener('click', ()=>{ compareModal.style.display='flex'; renderCompareTable(); renderCatalogCompare(); });
+    bookmarkFab.addEventListener('click', ()=>{ bookmarksModal.style.display='flex'; renderBookmarksList(); renderCatalogBookmarks(); });
+    closeCompare.addEventListener('click', ()=>{ compareModal.style.display='none'; });
+    closeBookmarks.addEventListener('click', ()=>{ bookmarksModal.style.display='none'; });
+
+    // Enhance existing anchors: fix hrefs to 101 domain and attach controls
+    function enhanceAnchors(){
+      document.querySelectorAll('a[href]').forEach(a => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        let abs; try{ abs = new URL(href, location.href).toString(); }catch{ abs = href; }
+
+        // Try match by normalized URL or by title text
+        let item = byUrl[abs];
+        if (!item){
+          // Match by title text (case-insensitive) if anchor text equals a known title
+          const t = (a.textContent||'').trim().toLowerCase();
+          if (t && byTitle[t]) item = byTitle[t];
+        }
+        if (!item) return;
+
+        // Correct wrong hrefs to authoritative 101 URLs
+        if (a.href !== item.link){ a.href = item.link; }
+
+        // Avoid duplicate controls
+        if (a.nextElementSibling && a.nextElementSibling.classList && a.nextElementSibling.classList.contains('im2-link-ctl')) return;
+
+        const wrap = document.createElement('span');
+        wrap.className = 'im2-link-ctl';
+        const chk = document.createElement('input');
+        chk.type = 'checkbox';
+        chk.className = 'im2-compare-toggle';
+        chk.title = 'Select to compare (max 3)';
+        chk.checked = getCompare().includes(item.id);
+        chk.addEventListener('click', (e)=>{ e.stopPropagation(); if (chk.checked) addCompare(item.id); else rmCompare(item.id); if (!getCompare().includes(item.id)) chk.checked=false; });
+        const bm = document.createElement('button'); bm.className='im2-bookmark-btn'; bm.textContent='Bookmark'; bm.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); addBookmark(item.id); });
+        wrap.appendChild(chk); wrap.appendChild(bm); a.insertAdjacentElement('afterend', wrap);
+      });
+    }
+
+    // Catalog inside modals (so user can add even if page has no anchors)
+    function buildCatalogHTML(kind){
+      const arr = (kind==='compare') ? items : items; // same listing
+      return arr.map(i=>{
+        return `<div class="im2-item">
+          <div class="im2-meta"><strong>${i.title}</strong> <span class="im2-tag">${i.type}</span></div>
+          <div>
+            ${kind==='compare' ? `<label class="im2-btn"><input type="checkbox" data-cmp-id="${i.id}" ${getCompare().includes(i.id)?'checked':''}/> Select</label>` : ''}
+            <button class="im2-btn" data-open="${i.id}">Open</button>
+            <button class="im2-btn" data-bm="${i.id}">Bookmark</button>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function renderCatalogCompare(){
+      catCompare.innerHTML = buildCatalogHTML('compare');
+      catCompare.querySelectorAll('input[data-cmp-id]').forEach(cb=>cb.addEventListener('change', ()=>{ const id = cb.getAttribute('data-cmp-id'); if (cb.checked) addCompare(id); else rmCompare(id); cb.checked = getCompare().includes(id); renderCompareTable(); }));
+      catCompare.querySelectorAll('button[data-open]').forEach(btn=>btn.addEventListener('click', ()=>{ const id = btn.getAttribute('data-open'); const r = byId[id]; if (r) window.open(r.link, '_blank'); }));
+      catCompare.querySelectorAll('button[data-bm]').forEach(btn=>btn.addEventListener('click', ()=>{ const id = btn.getAttribute('data-bm'); addBookmark(id); }));
+    }
+    function renderCatalogBookmarks(){
+      catBookmarks.innerHTML = buildCatalogHTML('bookmarks');
+      catBookmarks.querySelectorAll('button[data-open]').forEach(btn=>btn.addEventListener('click', ()=>{ const id = btn.getAttribute('data-open'); const r = byId[id]; if (r) window.open(r.link, '_blank'); }));
+      catBookmarks.querySelectorAll('button[data-bm]').forEach(btn=>btn.addEventListener('click', ()=>{ const id = btn.getAttribute('data-bm'); addBookmark(id); }));
+    }
+
+    // Initialize
+    enhanceAnchors(); // correct existing page URLs and attach controls
+    updateCounts();
+  }
+
+  // ===================== Mojini Knowledge Base (answers only) =====================
+  function setupMojiniKB(C, L){
+    function renderUser(text){
+      if (typeof window.addUserMessage === 'function') { window.addUserMessage(text); return; }
+      const box = document.getElementById('chatMessages') || document.querySelector('.chat-messages'); if (!box) return;
+      const wrap = document.createElement('div'); wrap.className='message user-message';
+      const bub = document.createElement('div'); bub.className='user-bubble'; bub.textContent=text;
+      wrap.appendChild(bub); box.appendChild(wrap); box.scrollTop = box.scrollHeight;
+    }
+    function renderBot(text){
+      if (typeof window.addBotMessage === 'function') { window.addBotMessage(text); return; }
+      const box = document.getElementById('chatMessages') || document.querySelector('.chat-messages'); if (!box) return;
+      const wrap = document.createElement('div'); wrap.className='message bot-message';
+      const bub = document.createElement('div'); bub.className='bot-bubble'; bub.textContent=text;
+      wrap.appendChild(bub); box.appendChild(wrap); box.scrollTop = box.scrollHeight;
+    }
+
+    const listCourses = () => (C||[]).map(c=>`• ${c.t} — ${ (c.o||'').trim() || 'See page for objectives.' }\n  ${c.u}`).join('\n');
+    const listLabs    = () => (L||[]).map(l=>`• ${l.t} — ${ (l.o||'').trim() || 'See page for objectives.' }\n  ${l.u}`).join('\n');
+
+    const FAQ = [
+      { re: /(certificate|certification)s?\b/i, a: "We don’t issue formal certificates. ImpactMojo focuses on skills and credentials you can demonstrate via real work and portfolio artefacts." },
+      { re: /\bcredential(s)?\b|\bbadge(s)?\b|\bportfolio\b/i, a: "Our credentials are skill signals built from doing the work—labs, artefacts, and practical applications. They’re designed to be more meaningful than a generic certificate." },
+      { re: /\baccredit(ed|ation)|academic credit|university|ugc\b/i, a: "We are not an accredited degree programme and don’t offer academic credit. ImpactMojo is for practitioners and teams who want applied learning and usable tools." },
+      { re: /\b(what('| i)?s|about).+premium|\bpremium\b.+(include|cover|benefit)/i, a: "Premium is our enhanced layer: curated collections, deeper explainers, and practical extras to move from understanding to action. See the current Premium page for the precise scope." },
+      { re: /\b(price|cost|fee|paid|free).+premium|\bpremium.+(price|cost|fee)/i, a: "If there’s a fee, it will be listed on the Premium page along with the current inclusions. That page is the source of truth." },
+      { re: /(who (leads|runs)|founder|who.*(behind|lead)|who we are)/i, a: "ImpactMojo is led by Dr. Varna Sri Raman—development practitioner and educator known for turning complex social-science into practical tools—and Vandana Soni, Co‑Founder & Head of Learning Programs, an accomplished education and development professional with 15+ years building impactful programmes (Top Contributor, Education Sector—JobsForHer 2022). For bios, roles, and collaborators, see the Who We Are section on the site." },
+      { re: /\b(list|show|see).+course(s)?\b|^\s*courses?\s*$/i, a: () => `We currently offer:\n\n${listCourses()}` },
+      { re: /\b(list|show).+lab(s)?\b|^\s*labs?\s*$/i, a: () => `Here are our labs:\n\n${listLabs()}` },
+      { re: /(testimonial|review|what people say)/i, a: "Where available, we feature testimonials on relevant pages. You can also share feedback here; with permission, we may quote excerpts." },
+      { re: /rating(s)?|stars?/i, a: "Where available, we show the average ratings given by course takers next to that course or lab." },
+      { re: /(support|help|contact|reach|email)/i, a: "Start with this chat. For anything else, use the quick options (Bug / Feature / Suggest Course) or email info@impactmojo.in." }
+    ];
+
+    const origSend = window.sendMessage;
+    window.sendMessage = function(){
+      const input = document.getElementById('chatInput') || document.querySelector('.chat-input');
+      const text = (input && input.value || '').trim();
+      if (!text){ if (typeof origSend === 'function') return origSend.apply(this, arguments); return; }
+      for (const f of FAQ){
+        if (f.re.test(text)){
+          renderUser(text);
+          const ans = (typeof f.a === 'function') ? f.a() : f.a;
+          renderBot(ans);
+          if (input) input.value = '';
+          return;
+        }
+      }
+      if (typeof origSend === 'function') return origSend.apply(this, arguments);
+    };
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadAll); else loadAll();
+})();
+</script>
 </body>
 </html>
