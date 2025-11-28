@@ -3032,10 +3032,11 @@
 }
 .imx-tour-tooltip.arrow-top::before { top: -8px; left: 24px; }
 .imx-tour-tooltip.arrow-bottom::before { bottom: -8px; left: 24px; }
-.imx-tour-tooltip.arrow-left::before { left: -8px; top: 24px; }
-.imx-tour-tooltip.arrow-right::before { right: -8px; top: 24px; }
+.imx-tour-tooltip.arrow-left::before { left: -8px; top: 24px; transform: rotate(45deg); }
+.imx-tour-tooltip.arrow-right::before { right: -8px; top: 24px; transform: rotate(45deg); }
 .imx-tour-tooltip.arrow-top-right::before { top: -8px; right: 24px; left: auto; }
 .imx-tour-tooltip.arrow-bottom-right::before { bottom: -8px; right: 24px; left: auto; }
+.imx-tour-tooltip.arrow-bottom-left::before { bottom: -8px; left: 24px; }
 .imx-tour-step-indicator {
     display: flex;
     gap: 6px;
@@ -6098,7 +6099,7 @@
 <div class="footer-content">
 <div class="footer-support">
 <h4>Support Our Mission</h4>
-<p>ImpactMojo is provided completely free through the generous support of <a href="https://www.pinpointventures.in" style="color: var(--accent-color); text-decoration: none; font-weight: 600;" target="_blank">PinPoint Ventures</a> â™¥</p>
+<p>ImpactMojo is provided completely free through the generous support of <a href="https://www.pinpointventures.in" style="color: var(--accent-color); text-decoration: none; font-weight: 600;" target="_blank">PinPoint Ventures</a> ♥</p>
 <p>Help us keep education free and accessible</p>
 <p style="margin-top: 1rem;">
 <strong>Support us via UPI:</strong>
@@ -6168,7 +6169,7 @@
 <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet"/>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async="" src="https://calendar.google.com/calendar/scheduling-button-script.js"></script>
 <!-- Feedback FAB -->
-<div class="feedback-fab" onclick="openChatbot()">
+<div class="feedback-fab" id="mojini-chat-toggle" onclick="openChatbot()">
 <svg class="icon" viewbox="0 0 24 24">
 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
 </svg>
@@ -6441,11 +6442,11 @@
                 </div>
                 <div>
                     <div class="star-selector" style="display: flex; gap: 0.5rem; justify-content: center; padding: 1rem;">
-                        <button class="star-btn" onclick="setRating(1)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">â˜†</button>
-                        <button class="star-btn" onclick="setRating(2)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">â˜†</button>
-                        <button class="star-btn" onclick="setRating(3)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">â˜†</button>
-                        <button class="star-btn" onclick="setRating(4)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">â˜†</button>
-                        <button class="star-btn" onclick="setRating(5)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">â˜†</button>
+                        <button class="star-btn" onclick="setRating(1)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">☆</button>
+                        <button class="star-btn" onclick="setRating(2)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">☆</button>
+                        <button class="star-btn" onclick="setRating(3)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">☆</button>
+                        <button class="star-btn" onclick="setRating(4)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">☆</button>
+                        <button class="star-btn" onclick="setRating(5)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">☆</button>
                     </div>
                 </div>
             `;
@@ -6461,10 +6462,10 @@
             const stars = document.querySelectorAll('.star-btn');
             stars.forEach((star, index) => {
                 if (index < rating) {
-                    star.textContent = 'â˜…';
+                    star.textContent = '★';
                     star.style.color = '#FCD34D';
                 } else {
-                    star.textContent = 'â˜†';
+                    star.textContent = '☆';
                     star.style.color = '#374151';
                 }
             });
@@ -6652,8 +6653,8 @@ document.addEventListener('DOMContentLoaded', function () {
     return n || el;
   }
   function swapNow() {
-    const founder   = document.getElementById('founder')   || findBlock(/Founder/i);
-    const cofounder = document.getElementById('cofounder') || findBlock(/Co[- ]?Founder/i);
+    const founder   = document.getElementById('founder')   || findBlock(/Founder/i);
+    const cofounder = document.getElementById('cofounder') || findBlock(/Co[- ]?Founder/i);
     if (!founder || !cofounder) return;
     const anc  = commonAncestor(founder, cofounder);
     const fTop = topChild(anc, founder);
@@ -8193,7 +8194,7 @@ IMX.renderBookmarksList = function() {
             '<div class="imx-bookmark-name">' + (b.name || 'Untitled') + '</div>' +
             '<div class="imx-bookmark-meta">' +
             '<span>' + (b.type || 'Item') + '</span>' +
-            (b.rating ? '<span>â˜… ' + b.rating + '</span>' : '') +
+            (b.rating ? '<span>★ ' + b.rating + '</span>' : '') +
             '</div>' +
             '</div>' +
             '<div class="imx-bookmark-actions">' +
@@ -8292,7 +8293,7 @@ IMX.renderCompareGrid = function() {
             '</button>' +
             '<div class="imx-compare-name">' + (item.name || 'Untitled') + '</div>' +
             '<div class="imx-compare-type-badge ' + typeClass + '">' + (item.type || 'Course') + '</div>' +
-            '<div class="imx-compare-row"><span class="imx-compare-label">Rating</span><span class="imx-compare-value">' + (item.rating ? 'â˜… ' + item.rating : '—') + '</span></div>' +
+            '<div class="imx-compare-row"><span class="imx-compare-label">Rating</span><span class="imx-compare-value">' + (item.rating ? '★ ' + item.rating : '—') + '</span></div>' +
             '<div class="imx-compare-row"><span class="imx-compare-label">Learners</span><span class="imx-compare-value">' + (item.learners || '—') + '</span></div>' +
             '<div class="imx-compare-row"><span class="imx-compare-label">Audience</span><span class="imx-compare-value">' + (item.audience || '—') + '</span></div>' +
             '<div class="imx-compare-row"><span class="imx-compare-label">Duration</span><span class="imx-compare-value">' + (item.duration || '—') + '</span></div>' +
@@ -8836,16 +8837,38 @@ IMX.Tour = {
         // Run any step action
         if (step.action) step.action();
         
-        // Scroll target into view
-        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Check if target is fixed position (like FABs and Mojini)
+        var computedStyle = window.getComputedStyle(target);
+        var isFixed = computedStyle.position === 'fixed';
+        var parentStyle = target.parentElement ? window.getComputedStyle(target.parentElement) : null;
+        var parentIsFixed = parentStyle && parentStyle.position === 'fixed';
+        var targetIsFixed = isFixed || parentIsFixed;
+        
+        // For fixed elements, scroll to top/bottom of page as appropriate
+        // For non-fixed elements, scroll target into view
+        if (!targetIsFixed) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            // For fixed bottom elements, scroll to bottom of page to ensure visibility
+            var rect = target.getBoundingClientRect();
+            if (rect.top > window.innerHeight / 2) {
+                // Element is in bottom half - scroll down
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }
+        }
         
         var self = this;
         setTimeout(function() {
             var rect = target.getBoundingClientRect();
             var padding = 8;
             
+            // For fixed elements, use viewport-relative positioning
+            var useFixedPositioning = targetIsFixed;
+            var scrollOffset = useFixedPositioning ? 0 : window.scrollY;
+            
             // Position spotlight
-            self.spotlight.style.top = (rect.top + window.scrollY - padding) + 'px';
+            self.spotlight.style.position = useFixedPositioning ? 'fixed' : 'absolute';
+            self.spotlight.style.top = (rect.top + scrollOffset - padding) + 'px';
             self.spotlight.style.left = (rect.left - padding) + 'px';
             self.spotlight.style.width = (rect.width + padding * 2) + 'px';
             self.spotlight.style.height = (rect.height + padding * 2) + 'px';
@@ -8874,17 +8897,20 @@ IMX.Tour = {
             // Position tooltip - keeping it fully visible and NOT overlapping target
             var viewportWidth = window.innerWidth;
             var viewportHeight = window.innerHeight;
-            var tooltipWidth = 320;
-            var tooltipHeight = 180;
-            var gap = 24; // Gap between target and tooltip
+            var tooltipWidth = 340;
+            var tooltipHeight = 200;
+            var gap = 20; // Gap between target and tooltip
             
             var pos = step.position || 'bottom';
             var tooltipTop, tooltipLeft;
             var arrowClass = 'arrow-top';
             
+            // Use fixed positioning for tooltip when target is fixed
+            self.tooltip.style.position = useFixedPositioning ? 'fixed' : 'absolute';
+            
             if (pos === 'below-nav') {
                 // Position below the navigation bar
-                tooltipTop = rect.bottom + window.scrollY + gap;
+                tooltipTop = rect.bottom + scrollOffset + gap;
                 tooltipLeft = Math.max(20, rect.left);
                 arrowClass = 'arrow-top';
                 
@@ -8893,31 +8919,56 @@ IMX.Tour = {
                     tooltipLeft = viewportWidth - tooltipWidth - 20;
                 }
             } else if (pos === 'left-of-target') {
-                // Position to the LEFT of target with gap (for right-side FABs)
-                tooltipTop = rect.top + window.scrollY + (rect.height / 2) - (tooltipHeight / 2);
-                tooltipLeft = rect.left - tooltipWidth - gap;
-                arrowClass = 'arrow-right';
-                
-                // If would go off left side, flip to bottom
-                if (tooltipLeft < 20) {
-                    tooltipTop = rect.bottom + window.scrollY + gap;
-                    tooltipLeft = Math.max(20, rect.left - tooltipWidth + rect.width);
-                    arrowClass = 'arrow-top-right';
+                // For bottom-left FABs, position tooltip ABOVE and to the RIGHT
+                // This ensures visibility without scrolling issues
+                if (rect.bottom > viewportHeight - 200) {
+                    // Target is near bottom - position tooltip ABOVE the target
+                    tooltipTop = rect.top + scrollOffset - tooltipHeight - gap;
+                    tooltipLeft = rect.right + gap;
+                    arrowClass = 'arrow-bottom';
                     
+                    // If would go off right side, position to the right of target but still above
                     if (tooltipLeft + tooltipWidth > viewportWidth - 20) {
-                        tooltipLeft = viewportWidth - tooltipWidth - 20;
+                        tooltipLeft = rect.left;
+                        arrowClass = 'arrow-bottom';
+                    }
+                    
+                    // If tooltip would go off top, position it in upper portion of viewport
+                    if (tooltipTop < 20) {
+                        tooltipTop = 20;
+                        tooltipLeft = rect.right + gap;
+                        arrowClass = 'arrow-left';
+                        
+                        if (tooltipLeft + tooltipWidth > viewportWidth - 20) {
+                            tooltipLeft = viewportWidth - tooltipWidth - 20;
+                        }
+                    }
+                } else {
+                    // Standard left-of-target positioning
+                    tooltipTop = rect.top + scrollOffset + (rect.height / 2) - (tooltipHeight / 2);
+                    tooltipLeft = rect.left - tooltipWidth - gap;
+                    arrowClass = 'arrow-right';
+                    
+                    // If would go off left side, flip to right side
+                    if (tooltipLeft < 20) {
+                        tooltipLeft = rect.right + gap;
+                        arrowClass = 'arrow-left';
+                        
+                        if (tooltipLeft + tooltipWidth > viewportWidth - 20) {
+                            tooltipLeft = viewportWidth - tooltipWidth - 20;
+                        }
                     }
                 }
                 
                 // Keep tooltip vertically on screen
-                if (tooltipTop < window.scrollY + 20) {
-                    tooltipTop = window.scrollY + 20;
+                if (tooltipTop < 20) {
+                    tooltipTop = 20;
                 }
-                if (tooltipTop + tooltipHeight > window.scrollY + viewportHeight - 20) {
-                    tooltipTop = window.scrollY + viewportHeight - tooltipHeight - 20;
+                if (tooltipTop + tooltipHeight > viewportHeight - 20) {
+                    tooltipTop = viewportHeight - tooltipHeight - 20;
                 }
             } else if (pos === 'bottom') {
-                tooltipTop = rect.bottom + window.scrollY + gap;
+                tooltipTop = rect.bottom + scrollOffset + gap;
                 tooltipLeft = rect.left;
                 arrowClass = 'arrow-top';
                 
