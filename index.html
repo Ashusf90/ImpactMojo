@@ -848,24 +848,82 @@
         .modal-item-link:hover {
             text-decoration: underline;
         }
-        /* Track quiz CTA + modal */
+        /* Pulsating Live Indicator for Roadmap */
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.15);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #10B981;
+            margin-left: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Track quiz CTA + modal - ENHANCED DESIGN */
         .track-quiz-cta {
-            padding: 2.5rem 0 3rem;
-            background: radial-gradient(circle at top left, rgba(14,165,233,0.10), transparent 55%),
-                        radial-gradient(circle at bottom right, rgba(99,102,241,0.10), transparent 55%);
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, 
+                rgba(14,165,233,0.15) 0%, 
+                rgba(99,102,241,0.15) 50%,
+                rgba(16,185,129,0.10) 100%);
+            border-top: 2px solid var(--border-color);
+            border-bottom: 2px solid var(--border-color);
+            margin: 3rem 0;
         }
         .track-quiz-inner {
-            max-width: 720px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: center;
         }
         .track-quiz-inner h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .track-quiz-inner p {
             color: var(--text-secondary);
-            margin-bottom: 1.25rem;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        .track-quiz-inner .imx-btn {
+            font-size: 1.1rem;
+            padding: 1rem 2.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+        }
+        .track-quiz-inner .imx-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
         }
         #trackQuizModal .modal-content {
             max-width: 720px;
@@ -1863,7 +1921,7 @@
 <p class="card-description">Comprehensive exploration of gender theory, intersectionality, and social implications in development contexts</p>
 <div class="card-testimonial">
                             "This course transformed my understanding of gender dynamics in development work. The intersectional approach was eye-opening."
-                            <span class="card-testimonial-author">â€” Senior Program Manager, International NGO</span>
+                            <span class="card-testimonial-author">"” Senior Program Manager, International NGO</span>
 </div>
 </a>
 </div>
@@ -1902,7 +1960,7 @@
 <p class="card-description">Monitoring, Evaluation, Accountability and Learning frameworks for impact measurement</p>
 <div class="card-testimonial">
                             "Best MEAL course I've taken! Practical frameworks I immediately applied to our programs. The logical framework approach finally clicked."
-                            <span class="card-testimonial-author">â€” M&amp;E Specialist, UN Agency</span>
+                            <span class="card-testimonial-author">"” M&amp;E Specialist, UN Agency</span>
 </div>
 </a>
 </div>
@@ -1941,7 +1999,7 @@
 <p class="card-description">Understanding climate change science, impacts, and resilience strategies for development</p>
 <div class="card-testimonial">
                             "Simplified complex climate science without losing depth. Perfect for development professionals working on adaptation projects."
-                            <span class="card-testimonial-author">â€” Climate Advisor, Government Think Tank</span>
+                            <span class="card-testimonial-author">"” Climate Advisor, Government Think Tank</span>
 </div>
 </a>
 </div>
@@ -1996,7 +2054,7 @@
 <p class="card-description">Theory of Change development and visualization tool</p>
 <div class="card-testimonial">
                             "This tool saved us weeks of work. Created our entire ToC in hours, not days. The logic flow visualization is brilliant."
-                            <span class="card-testimonial-author">â€” Strategy Consultant, Development Consultancy</span>
+                            <span class="card-testimonial-author">"” Strategy Consultant, Development Consultancy</span>
 </div>
 </a>
 </div>
@@ -2033,7 +2091,7 @@
 <p class="card-description">Design monitoring, evaluation, and learning frameworks</p>
 <div class="card-testimonial">
                             "Incredible tool for designing M&amp;E frameworks. The indicator library alone is worth gold. Now our standard tool across all projects."
-                            <span class="card-testimonial-author">â€” Head of M&amp;E, Bilateral Agency</span>
+                            <span class="card-testimonial-author">"” Head of M&amp;E, Bilateral Agency</span>
 </div>
 </a>
 </div>
@@ -2070,7 +2128,7 @@
 <p class="card-description">Craft compelling narratives for social impact</p>
 <div class="card-testimonial">
                             "Helped us transform dry data into powerful stories. Our donor reports have never been more engaging."
-                            <span class="card-testimonial-author">â€” Communications Director, Social Enterprise</span>
+                            <span class="card-testimonial-author">"” Communications Director, Social Enterprise</span>
 </div>
 </a>
 </div>
@@ -2125,7 +2183,7 @@
 <p class="card-description">Understand who the "middle-class" really is in India through wealth inequality dynamics</p>
 <div class="card-testimonial">
                             "Eye-opening visualization of wealth distribution. Changed how I think about economic policy targeting."
-                            <span class="card-testimonial-author">â€” Economics Professor, Delhi University</span>
+                            <span class="card-testimonial-author">"” Economics Professor, Delhi University</span>
 </div>
 </a>
 </div>
@@ -2163,7 +2221,7 @@
 <p class="card-description">Experience behavioral economics through prospect theory and cognitive biases in South Asian contexts</p>
 <div class="card-testimonial">
                             "Perfect for teaching behavioral economics concepts. Students finally understand framing effects!"
-                            <span class="card-testimonial-author">â€” Behavioral Researcher, Policy Institute</span>
+                            <span class="card-testimonial-author">"” Behavioral Researcher, Policy Institute</span>
 </div>
 </a>
 </div>
@@ -2201,7 +2259,7 @@
 <p class="card-description">Explore game theory concepts through strategic decision-making scenarios</p>
 <div class="card-testimonial">
                             "Makes game theory accessible and practical. Great for understanding cooperation dynamics in development."
-                            <span class="card-testimonial-author">â€” Program Manager, Bilateral Agency</span>
+                            <span class="card-testimonial-author">"” Program Manager, Bilateral Agency</span>
 </div>
 </a>
 </div>
@@ -2321,7 +2379,7 @@
 </svg>
                     View All Coaching Services
                 </button>
-<a class="btn btn-secondary" href="mailto:coaching@impactmojo.in">
+<a class="btn btn-secondary" href="/cdn-cgi/l/email-protection#294a46484a4140474e69404459484a5d44464346074047">
 <svg class="icon-sm" viewbox="0 0 24 24">
 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
 <polyline points="22,6 12,13 2,6"></polyline>
@@ -2431,6 +2489,42 @@
 <p class="card-description">Comprehensive statistical analysis toolkit</p>
 </a>
 </div>
+<div class="card">
+<a href="https://101.impactmojo.in/IMResearchQuestionsPro" target="_blank">
+<div class="card-header">
+<span class="card-number premium">
+<svg class="icon-sm" viewbox="0 0 24 24">
+<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+</svg>
+                                PREMIUM
+                            </span>
+<span class="learner-badge">
+<svg class="icon-sm" viewbox="0 0 24 24">
+<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+</svg>
+                                540 Users
+                            </span>
+</div>
+<h3 class="card-title">Research Questions Pro</h3>
+<div class="star-rating">
+<div class="stars">
+<svg class="star-icon" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<svg class="star-icon" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<svg class="star-icon" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<svg class="star-icon" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<svg class="star-icon" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+</div>
+<span class="rating-text">4.8</span>
+<span class="rating-count">(89 reviews)</span>
+</div>
+<p class="card-description">Advanced research question formulation and hypothesis development framework</p>
+<div class="card-testimonial">
+                            "This tool transformed how I approach research design. The question formulation framework helped me develop sharper, more actionable research questions for my PhD dissertation."
+                            <span class="card-testimonial-author">— Doctoral Candidate, JNU</span>
+</div>
+</a>
+</div>
 </div>
 <div class="action-buttons">
 <button class="btn btn-premium" onclick="openModal('premiumModal')">
@@ -2484,6 +2578,10 @@
 <polyline points="12 6 12 12 16 14"></polyline>
 </svg>
                             Personalized Learning Paths
+                            <span class="live-indicator">
+                                <span class="live-dot"></span>
+                                Live
+                            </span>
                         </h4>
 <p>Custom curriculum based on your goals, experience, and learning style</p>
 </div>
@@ -2698,7 +2796,6 @@
 <strong>பெண்கள் மேம்பாட்டு அதிகாரி</strong>
                         சென்னை மாநகராட்சி
                     </div>
-</div>
 </div>
 <!-- Bengali Testimonials (2) -->
 <div class="testimonial-card">
@@ -3002,7 +3099,7 @@
 </select>
 <p><strong>Duration:</strong> 3 days (6 hours/day)</p>
 <p class="price">₹6,000 (Sliding scale: ₹3,000-₹8,000)</p>
-<a class="btn btn-primary" href="mailto:coaching@impactmojo.in?subject=Workshop%20Inquiry">
+<a class="btn btn-primary" href="/cdn-cgi/l/email-protection#f89b97999b9091969fb8919588999b8c95979297d69196c78b8d9a929d9b8cc5af978a938b909788ddcac8b196898d918a81">
 <svg class="icon-sm" viewbox="0 0 24 24">
 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
 <polyline points="22,6 12,13 2,6"></polyline>
@@ -4691,7 +4788,7 @@
 <h4>About ImpactMojo</h4>
 <ul>
 <li><a href="#about">About Us</a></li>
-<li><a href="mailto:info@impactmojo.in">Contact</a></li>
+<li><a href="/cdn-cgi/l/email-protection#660f080009260f0b160705120b090c09480f08">Contact</a></li>
 <li><a href="https://github.com/impactmojo" target="_blank">GitHub (Open Source)</a></li>
 <li>MIT License</li>
 </ul>
@@ -4747,7 +4844,7 @@
 
 <!-- Google Calendar Integration -->
 <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet"/>
-<script async="" src="https://calendar.google.com/calendar/scheduling-button-script.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async="" src="https://calendar.google.com/calendar/scheduling-button-script.js"></script>
 <!-- Feedback FAB -->
 <div class="feedback-fab" onclick="openChatbot()">
 <svg class="icon" viewbox="0 0 24 24">
@@ -5205,8 +5302,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-<!-- === Mojini (KB+FAQ) wrapper â€“ inserted just before 
-<!-- === Mojini KB UI Enhancer â€” adds KB starter chips, updates greeting & placeholder 
+<!-- === Mojini (KB+FAQ) wrapper "“ inserted just before 
+<!-- === Mojini KB UI Enhancer "” adds KB starter chips, updates greeting & placeholder 
 <script>
 (function(){
   const AGENT_NAME = window.IM_AGENT_NAME || 'Mojini';
@@ -5218,14 +5315,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if(!inp) return;
     if(!inp.getAttribute('data-mojini-ph')){
       inp.setAttribute('data-mojini-ph','1');
-      inp.placeholder = 'Ask about courses, labs, credentials, premium, resources, games, foundersâ€¦ or leave feedback';
+      inp.placeholder = 'Ask about courses, labs, credentials, premium, resources, games, founders"¦ or leave feedback';
     }
   }
 
   function greetOnce(){
     if(!once('greeted')) return;
     if (typeof window.addBotMessage === 'function') {
-      window.addBotMessage(`Hi, Iâ€™m ${AGENT_NAME}. I can take feedback **and** answer questions about ImpactMojo (courses, labs, credentials vs certificates, premium, resources, games, founders, ratings/testimonials). Try the quick options below.`);
+      window.addBotMessage(`Hi, I'm ${AGENT_NAME}. I can take feedback **and** answer questions about ImpactMojo (courses, labs, credentials vs certificates, premium, resources, games, founders, ratings/testimonials). Try the quick options below.`);
       return;
     }
     const box = document.getElementById('chatMessages') || document.querySelector('.chat-messages');
@@ -5233,7 +5330,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const wrap = document.createElement('div'); wrap.className = 'message bot-message';
     const av = document.createElement('div'); av.className = 'bot-avatar'; av.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="2"/><circle cx="8" cy="13" r="1.5"/><circle cx="16" cy="13" r="1.5"/></svg>';
     const bub = document.createElement('div'); bub.className = 'bot-bubble';
-    bub.textContent = `Hi, Iâ€™m ${AGENT_NAME}. I can take feedback and answer questions about ImpactMojo (courses, labs, credentials vs certificates, premium, resources, games, founders, ratings/testimonials). Try the quick options below.`;
+    bub.textContent = `Hi, I'm ${AGENT_NAME}. I can take feedback and answer questions about ImpactMojo (courses, labs, credentials vs certificates, premium, resources, games, founders, ratings/testimonials). Try the quick options below.`;
     wrap.appendChild(av); wrap.appendChild(bub); box.appendChild(wrap);
     box.scrollTop = box.scrollHeight;
   }
@@ -5253,7 +5350,7 @@ document.addEventListener('DOMContentLoaded', function () {
           ['List all courses','List all courses'],
           ['Show labs','List all labs'],
           ['Certificates vs credentials?','Do you give certificates?'],
-          ['Whatâ€™s Premium?','What is Premium?'],
+          ['What's Premium?','What is Premium?'],
           ['Resources & games','Resources and games'],
           ['About founders','Who are the founders?'],
           ['Testimonials & ratings','Testimonials and ratings']
@@ -5294,12 +5391,12 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 </script>
 
-<!-- === Mojini Welcome Deduper v2 â€” keep only one dual-role greeting 
+<!-- === Mojini Welcome Deduper v2 "” keep only one dual-role greeting 
 <script>
 (function(){
   const AGENT_NAME = window.IM_AGENT_NAME || 'Mojini';
   const flags = window.__mojiniFlags || (window.__mojiniFlags = {});
-  const dual = `Hi, Iâ€™m ${AGENT_NAME}. I can take feedback and answer questions about ImpactMojo (courses, labs, credentials vs certificates, premium, resources, games, founders, ratings/testimonials).`;
+  const dual = `Hi, I'm ${AGENT_NAME}. I can take feedback and answer questions about ImpactMojo (courses, labs, credentials vs certificates, premium, resources, games, founders, ratings/testimonials).`;
 
   const looksLikeFeedbackOnly = (t) => {
     const s = String(t||'').toLowerCase();
@@ -5340,7 +5437,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let dualSeen = false;
     Array.from(bubbles).forEach(b => {
       const t = b.textContent || '';
-      const isDual = /I[â€™']?m\s+[^.]*Mojini/i.test(t) && /answer questions/i.test(t);
+      const isDual = /I['']?m\s+[^.]*Mojini/i.test(t) && /answer questions/i.test(t);
       if (isDual) {
         if (!dualSeen) dualSeen = true;
         else {
@@ -5694,7 +5791,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const AGENT_NAME = window.IM_AGENT_NAME || "Mojini";
 
-  // â€”â€”â€” Reuse (or define) minimal KB so we can answer course/lab questions crisply â€”â€”â€”
+  // "”"”"” Reuse (or define) minimal KB so we can answer course/lab questions crisply "”"”"”
   const COURSES = (window.__MOJINI_COURSES__) || [
     { t:'Development Economics 101', u:'https://101.impactmojo.in/dev-economics', o:'Poverty, inequality, growth; India/South Asia.'},
     { t:'Law and Constitution 101',   u:'https://101.impactmojo.in/ind-constitution', o:'Constitutional principles, rights, institutions.'},
@@ -5740,10 +5837,10 @@ document.addEventListener('DOMContentLoaded', function(){
   window.__MOJINI_COURSES__ = COURSES;
   window.__MOJINI_LABS__ = LABS;
 
-  // â€”â€”â€” Helpers â€”â€”â€”
+  // "”"”"” Helpers "”"”"”
   const norm = s => String(s||"").toLowerCase();
-  const listCourses = () => COURSES.map(c=>`â€¢ ${c.t} â€” ${c.o}\n  ${c.u}`).join("\n");
-  const listLabs = () => LABS.map(l=>`â€¢ ${l.t}\n  ${l.u}`).join("\n");
+  const listCourses = () => COURSES.map(c=>`"¢ ${c.t} "” ${c.o}\n  ${c.u}`).join("\n");
+  const listLabs = () => LABS.map(l=>`"¢ ${l.t}\n  ${l.u}`).join("\n");
   const byTitle = (arr, text) => {
     const s = norm(text);
     return arr.find(x => s.includes(norm(x.t)) || norm(x.t).includes(s));
@@ -5758,22 +5855,22 @@ document.addEventListener('DOMContentLoaded', function(){
     wrap.appendChild(bub); box.appendChild(wrap); box.scrollTop = box.scrollHeight;
   }
 
-  // â€”â€”â€” FAQ BANK (30+) â€”â€”â€”
+  // "”"”"” FAQ BANK (30+) "”"”"”
   // Each item: {re: /pattern/i, a: "answer" }  (safe, non-inventive wording)
   const FAQ = [
     // Credentials / Certificates / Accreditation
     { re: /(certificate|certification)s?\b/i,
-      a: "We donâ€™t issue formal certificates. ImpactMojo focuses on **skills and credentials** you can demonstrate via real work and portfolio artefacts." },
+      a: "We don't issue formal certificates. ImpactMojo focuses on **skills and credentials** you can demonstrate via real work and portfolio artefacts." },
     { re: /\bcredential(s)?\b|\bbadge(s)?\b|\bportfolio\b/i,
-      a: "Our credentials are skill signals based on doing workâ€”labs, projects, and artefacts you can show. Theyâ€™re designed to be more meaningful than a generic certificate." },
+      a: "Our credentials are skill signals based on doing work"”labs, projects, and artefacts you can show. They're designed to be more meaningful than a generic certificate." },
     { re: /\baccredit(ed|ation)|academic credit|university|ugc\b/i,
-      a: "ImpactMojo is not an accredited degree program and doesnâ€™t offer academic credit. Itâ€™s a practitioner-focused learning platform." },
+      a: "ImpactMojo is not an accredited degree program and doesn't offer academic credit. It's a practitioner-focused learning platform." },
 
     // Premium / Pricing
     { re: /\bpremium\b(?!.*(what|include|benefit|price))/i,
       a: "Premium provides **curated resource packs**, **deeper dives**, and **advanced labs**. For the latest scope and any pricing updates, please refer to the live Premium page." },
     { re: /\b(what('| i)?s|about).+premium|\bpremium\b.+(include|cover|benefit)/i,
-      a: "Premium includes curated resources, deeper dives, and access to advanced labs. Exact inclusions can evolveâ€”please check the live Premium page for the current details." },
+      a: "Premium includes curated resources, deeper dives, and access to advanced labs. Exact inclusions can evolve"”please check the live Premium page for the current details." },
     { re: /\b(price|cost|fee|paid|free).+premium|\bpremium.+(price|cost|fee)/i,
       a: "Premium pricing and scope may change over time. The **Premium** page is the source of truth for current details." },
 
@@ -5785,67 +5882,67 @@ document.addEventListener('DOMContentLoaded', function(){
     { re: /(objective|about|overview|syllabus).+development economics|dev(\s|-)?econ/i,
       a: () => {
         const c = byTitle(COURSES, "Development Economics 101");
-        return c ? `${c.t} â€” ${c.o}\n${c.u}` : "Development Economics 101 covers poverty, inequality and growth; see the course page for details.";
+        return c ? `${c.t} "” ${c.o}\n${c.u}` : "Development Economics 101 covers poverty, inequality and growth; see the course page for details.";
       }},
     { re: /(objective|about|overview|syllabus).+law/i,
-      a: () => { const c = byTitle(COURSES,"Law and Constitution 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Law and Constitution 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+climate/i,
-      a: () => { const c = byTitle(COURSES,"Climate Science 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Climate Science 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(pedagogy|education)/i,
-      a: () => { const c = byTitle(COURSES,"Pedagogy and Education 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Pedagogy and Education 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(public health|health)/i,
-      a: () => { const c = byTitle(COURSES,"Public Health 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Public Health 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+livelihood/i,
-      a: () => { const c = byTitle(COURSES,"Livelihoods 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Livelihoods 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+gender/i,
-      a: () => { const c = byTitle(COURSES,"Gender Studies 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Gender Studies 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(WEE|women)/i,
-      a: () => { const c = byTitle(COURSES,"Womens' Economic Empowerment 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Womens' Economic Empowerment 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(ethics|research ethics)/i,
-      a: () => { const c = byTitle(COURSES,"Research Ethics 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Research Ethics 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(bcc|behaviour|behavior)/i,
-      a: () => { const c = byTitle(COURSES,"Behaviour Change Communication Programming 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Behaviour Change Communication Programming 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+advocacy/i,
-      a: () => { const c = byTitle(COURSES,"Advocacy and Communications 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Advocacy and Communications 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(monitoring|evaluation|meal)\b/i,
-      a: () => { const c = byTitle(COURSES,"Monitoring, Evaluation, Accountability and Learning 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Monitoring, Evaluation, Accountability and Learning 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+ethnograph/i,
-      a: () => { const c = byTitle(COURSES,"Visual Ethnography 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Visual Ethnography 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(political economy|pol.?econ)/i,
-      a: () => { const c = byTitle(COURSES,"Political Economy 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Political Economy 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(poverty|inequality)/i,
-      a: () => { const c = byTitle(COURSES,"Poverty and Inequality 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Poverty and Inequality 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(data vis|datavis|visuali[sz]ation)/i,
-      a: () => { const c = byTitle(COURSES,"Data Visualisation 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Data Visualisation 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(mixed methods|mmr)/i,
-      a: () => { const c = byTitle(COURSES,"Mixed Methods Research 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Mixed Methods Research 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(impact eval|evaluation design)/i,
-      a: () => { const c = byTitle(COURSES,"Impact Evaluation Design 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Impact Evaluation Design 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+fundraising/i,
-      a: () => { const c = byTitle(COURSES,"Fundraising 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Fundraising 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+programme design/i,
-      a: () => { const c = byTitle(COURSES,"Programme Design Principles 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Programme Design Principles 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(environmental justice|env\.?justice)/i,
-      a: () => { const c = byTitle(COURSES,"Environmental Justice 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Environmental Justice 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(digital gov|governance)/i,
-      a: () => { const c = byTitle(COURSES,"Digital Governance 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Digital Governance 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(nutrition|food)/i,
-      a: () => { const c = byTitle(COURSES,"Nutrition, Food Systems & Culture 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Nutrition, Food Systems & Culture 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(social research ethics|consent)/i,
-      a: () => { const c = byTitle(COURSES,"Social Research Ethics & Consent 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Social Research Ethics & Consent 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(language|history of languages)/i,
-      a: () => { const c = byTitle(COURSES,"Language & History of Languages 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Language & History of Languages 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+caste/i,
-      a: () => { const c = byTitle(COURSES,"Caste 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Caste 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
     { re: /(objective|about|overview|syllabus).+(humanitarian|development work)/i,
-      a: () => { const c = byTitle(COURSES,"Humanitarian vs Development Work 101"); return `${c.t} â€” ${c.o}\n${c.u}`; } },
+      a: () => { const c = byTitle(COURSES,"Humanitarian vs Development Work 101"); return `${c.t} "” ${c.o}\n${c.u}`; } },
 
     { re: /(beginner|new to this|where to start)/i,
-      a: "Start with any **101** course. Theyâ€™re beginner-friendly and focus on practical understanding." },
+      a: "Start with any **101** course. They're beginner-friendly and focus on practical understanding." },
     { re: /(advanced|deeper|next step)/i,
       a: "For deeper work, explore **labs** and **Premium** deeper-dives." },
     { re: /(duration|time|how long).+course/i,
-      a: "Most courses are **self-paced**. Time varies by learnerâ€”check each course page for modules and suggested pace." },
+      a: "Most courses are **self-paced**. Time varies by learner"”check each course page for modules and suggested pace." },
     { re: /\blive\b.+(class|session|cohort)/i,
       a: "Most learning is self-paced. When live/cohort options are offered, the course page will say so." },
     { re: /enrol|enroll|join|sign ?up/i,
@@ -5869,7 +5966,7 @@ document.addEventListener('DOMContentLoaded', function(){
     { re: /(testimonial|review|what people say)/i,
       a: "Testimonials are showcased on-site when available. You can also leave feedback here and we may feature excerpts." },
     { re: /rating(s)?|stars?/i,
-      a: "Ratings vary by context. Where available, they appear with the relevant course or labâ€”Mojini avoids quoting numbers out of context." },
+      a: "Ratings vary by context. Where available, they appear with the relevant course or lab"”Mojini avoids quoting numbers out of context." },
     { re: /founder|who.*(behind|lead)/i,
       a: "ImpactMojo is led by **Dr. Varna Sri Raman**. (Additional leadership may be featured on the site.)" },
 
@@ -5879,9 +5976,9 @@ document.addEventListener('DOMContentLoaded', function(){
     { re: /\blanguage(s)?\b|hindi|translation/i,
       a: "Content is primarily in **English**. Additional language options may be added over time." },
     { re: /privacy|data|gdpr/i,
-      a: "We respect your privacy. Feedback is used to improve ImpactMojo. Please refer to the siteâ€™s Privacy/Terms pages for details." },
+      a: "We respect your privacy. Feedback is used to improve ImpactMojo. Please refer to the site's Privacy/Terms pages for details." },
     { re: /(support|help|contact|reach|email)/i,
-      a: "For support, use this chatâ€™s **Report Bug** or **Feature Request** options. Weâ€™ll follow up using the info you provide." },
+      a: "For support, use this chat's **Report Bug** or **Feature Request** options. We'll follow up using the info you provide." },
     { re: /(suggest|request).+course/i,
       a: "Use the **Suggest Course** shortcut here in chat to propose a new course or topic." },
 
@@ -5890,7 +5987,7 @@ document.addEventListener('DOMContentLoaded', function(){
       a: "ImpactMojo is designed for practitioners and teams. Courses build foundations; labs help teams design, test, and improve programs." }
   ];
 
-  // Dynamic course objective matcher (covers â€œWhatâ€™s the objective of X?â€ without listing all regexes)
+  // Dynamic course objective matcher (covers "What's the objective of X?" without listing all regexes)
   function tryCourseObjective(text){
     const s = norm(text);
     if (!/(objective|about|overview|syllabus|what is)/i.test(text)) return null;
@@ -5902,7 +5999,7 @@ document.addEventListener('DOMContentLoaded', function(){
       title.split(/\s+/).forEach(tok => { if (tok && s.includes(tok)) score++; });
       if (score > bestScore) { bestScore = score; best = c; }
     });
-    if (best && bestScore >= 2) return `${best.t} â€” ${best.o}\n${best.u}`;
+    if (best && bestScore >= 2) return `${best.t} "” ${best.o}\n${best.u}`;
     return null;
   }
 
@@ -5931,7 +6028,7 @@ document.addEventListener('DOMContentLoaded', function(){
   // Expose so other blocks (wrappers) can use it too
   window.mojiniAnswer = answerFromFAQ;
 
-  // Handle KB chips: answer first and stop propagation so we donâ€™t double-reply
+  // Handle KB chips: answer first and stop propagation so we don't double-reply
   window.addEventListener("immojo:user", function(e){
     const q = e?.detail?.text || "";
     if (!q) return;
@@ -6074,11 +6171,4 @@ document.addEventListener('DOMContentLoaded', function(){
       /* s.setAttribute("data-site-language", "null");*/
       s.setAttribute("data-widget_layout", "full");
       s.setAttribute("data-account", "EksmhlPg9k");
-      s.setAttribute("src", "https://cdn.userway.org/widget.js");
-      (d.body || d.head).appendChild(s);
-    })(document)
-</script>
-<noscript>Please ensure Javascript is enabled for purposes of <a href="https://userway.org">website accessibility</a></noscript>
-
-</body>
-</html>
+      s.setAtt
