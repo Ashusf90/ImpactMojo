@@ -10596,6 +10596,11 @@ IMX.Tour = {
             item.classList.remove('open');
         });
         
+        // Close the speed dial toolbox if open
+        if (typeof IMX !== 'undefined' && IMX.SpeedDial && IMX.SpeedDial.close) {
+            IMX.SpeedDial.close();
+        }
+        
         if (this.overlay) {
             this.overlay.classList.remove('active');
             setTimeout(function() {
