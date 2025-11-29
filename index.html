@@ -388,6 +388,29 @@
             height: 42px;
             align-items: center;
             justify-content: center;
+            position: relative;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .mobile-menu-toggle .hamburger-line {
+            width: 20px;
+            height: 2px;
+            background: var(--nav-text);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        
+        .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
         }
 
         /* Cookie Consent Banner */
@@ -1681,10 +1704,10 @@
         /* Feedback FAB */
         .feedback-fab {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 56px;
-            height: 56px;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
             background: var(--gradient-primary);
             border-radius: 50%;
             display: flex;
@@ -1743,11 +1766,14 @@
                 right: 0;
                 background: var(--card-bg);
                 flex-direction: column;
-                padding: 1rem;
+                padding: 0.5rem 1rem;
                 border-top: 1px solid var(--border-color);
                 box-shadow: var(--shadow-lg);
                 gap: 0;
                 z-index: 2000;
+                max-height: calc(100vh - 80px);
+                overflow-y: auto;
+                overscroll-behavior: contain;
             }
 
             .nav-links.active {
@@ -1811,6 +1837,25 @@
 
             .mobile-menu-toggle {
                 display: flex;
+            }
+            
+            /* Mobile menu overlay */
+            .mobile-menu-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1999;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            
+            .mobile-menu-overlay.active {
+                display: block;
+                opacity: 1;
             }
 
             .logo-tagline {
@@ -2836,12 +2881,10 @@
 <div class="logo-tagline">Development Know-How</div>
 </div>
 </a>
-<button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-<svg class="icon" viewbox="0 0 24 24">
-<line x1="3" x2="21" y1="12" y2="12"></line>
-<line x1="3" x2="21" y1="6" y2="6"></line>
-<line x1="3" x2="21" y1="18" y2="18"></line>
-</svg>
+<button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+<span class="hamburger-line"></span>
+<span class="hamburger-line"></span>
+<span class="hamburger-line"></span>
 </button>
 <ul class="nav-links" id="navLinks">
 <li><a href="#home">Home</a></li>
@@ -2920,6 +2963,8 @@
 </div>
 </nav>
 </header>
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
 <!-- Hero Section -->
 <section class="hero" id="home">
 <h1>Master Development Education</h1>
@@ -6668,8 +6713,66 @@
         // Mobile Menu Toggle
         function toggleMobileMenu() {
             const navLinks = document.getElementById('navLinks');
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
             navLinks.classList.toggle('active');
+            
+            // Toggle hamburger to X icon
+            if (navLinks.classList.contains('active')) {
+                mobileToggle.classList.add('active');
+                document.getElementById('mobileMenuOverlay').classList.add('active');
+            } else {
+                mobileToggle.classList.remove('active');
+                document.getElementById('mobileMenuOverlay').classList.remove('active');
+                // Close all dropdowns when menu closes
+                document.querySelectorAll('.nav-links > li.has-dropdown').forEach(item => {
+                    item.classList.remove('open');
+                });
+            }
         }
+        
+        // Close mobile menu function
+        function closeMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            
+            if (navLinks) navLinks.classList.remove('active');
+            if (mobileToggle) mobileToggle.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+            
+            document.querySelectorAll('.nav-links > li.has-dropdown').forEach(item => {
+                item.classList.remove('open');
+            });
+        }
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navLinks = document.getElementById('navLinks');
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            const navContainer = document.querySelector('.nav-container');
+            
+            if (navLinks && navLinks.classList.contains('active')) {
+                // Check if click is outside nav container
+                if (navContainer && !navContainer.contains(e.target)) {
+                    closeMobileMenu();
+                }
+            }
+        });
+        
+        // Close mobile menu on scroll
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const navLinks = document.getElementById('navLinks');
+            
+            if (navLinks && navLinks.classList.contains('active')) {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                // Close menu if scrolled more than 50px
+                if (Math.abs(scrollTop - lastScrollTop) > 50) {
+                    closeMobileMenu();
+                }
+            }
+            lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        }, { passive: true });
 
         // Mobile dropdown toggle (click to expand on mobile)
         document.addEventListener('DOMContentLoaded', function() {
@@ -6704,12 +6807,21 @@
                     const mobileToggle = document.querySelector('.mobile-menu-toggle');
                     if (mobileToggle && window.getComputedStyle(mobileToggle).display !== 'none') {
                         // Close the mobile menu after clicking a dropdown item
-                        const navLinks = document.getElementById('navLinks');
                         setTimeout(() => {
-                            navLinks.classList.remove('active');
-                            document.querySelectorAll('.nav-links > li.has-dropdown').forEach(item => {
-                                item.classList.remove('open');
-                            });
+                            closeMobileMenu();
+                        }, 100);
+                    }
+                });
+            });
+            
+            // Close mobile menu when clicking non-dropdown nav links (like Home)
+            const navDirectLinks = document.querySelectorAll('.nav-links > li:not(.has-dropdown) > a');
+            navDirectLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+                    if (mobileToggle && window.getComputedStyle(mobileToggle).display !== 'none') {
+                        setTimeout(() => {
+                            closeMobileMenu();
                         }, 100);
                     }
                 });
