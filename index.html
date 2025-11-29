@@ -1951,6 +1951,23 @@
             .testimonials-grid {
                 grid-template-columns: 1fr;
             }
+
+            /* Fix FAB buttons horizontal alignment on mobile */
+            .imx-speed-dial {
+                bottom: 1.5rem;
+                left: 1rem;
+            }
+
+            .feedback-fab {
+                bottom: 1.5rem;
+                right: 1rem;
+            }
+
+            .imx-speed-dial-toggle,
+            .feedback-fab {
+                width: 52px;
+                height: 52px;
+            }
         }
     
 
@@ -2955,7 +2972,7 @@
 <div class="logo-tagline">Development Know-How</div>
 </div>
 </a>
-<button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+<button class="mobile-menu-toggle" id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
 <span class="hamburger-line"></span>
 <span class="hamburger-line"></span>
 <span class="hamburger-line"></span>
@@ -9916,13 +9933,23 @@ IMX.Tour = {
     },
     
     steps: [
+        // MOBILE MENU - only shown on mobile
+        {
+            target: '#mobile-menu-btn',
+            icon: 'menu',
+            title: 'Navigation Menu',
+            desc: 'Tap here to open the menu. You will find all sections: Learn (Courses, Labs, Games), Services, and About Us.',
+            position: 'below-target',
+            mobileOnly: true
+        },
         // HOME
         {
             target: '#nav-home',
             icon: 'menu',
             title: 'Home',
             desc: 'Return to the homepage at any time. This brings you back to the hero section.',
-            position: 'below-target'
+            position: 'below-target',
+            desktopOnly: true
         },
         // LEARN MENU
         {
@@ -9931,6 +9958,7 @@ IMX.Tour = {
             title: 'Learn Menu',
             desc: 'Your gateway to all learning content. Click to expand and see Courses, Labs, Games, Premium content, Resources, and Catalog.',
             position: 'below-target',
+            desktopOnly: true,
             action: function() {
                 var learnDropdown = document.querySelector('#nav-learn');
                 if (learnDropdown) learnDropdown.classList.add('open');
@@ -9942,6 +9970,7 @@ IMX.Tour = {
             title: 'Courses',
             desc: 'Structured learning modules on MEAL, Theory of Change, Gender Studies, Research Methods, and more. Each course includes multiple lessons.',
             position: 'right-of-target',
+            desktopOnly: true,
             action: function() {
                 var learnDropdown = document.querySelector('#nav-learn');
                 if (learnDropdown) learnDropdown.classList.add('open');
@@ -9952,28 +9981,32 @@ IMX.Tour = {
             icon: 'cursor',
             title: 'Labs',
             desc: 'Hands-on interactive exercises. Practice data analysis with R, explore statistical concepts, and build practical skills.',
-            position: 'right-of-target'
+            position: 'right-of-target',
+            desktopOnly: true
         },
         {
             target: '#nav-games',
             icon: 'cursor',
             title: 'Games',
             desc: 'Learn through play! Interactive games like the Lorenz Curve Puzzle make complex concepts engaging and memorable.',
-            position: 'right-of-target'
+            position: 'right-of-target',
+            desktopOnly: true
         },
         {
             target: '#nav-premium',
             icon: 'cursor',
             title: 'Premium Content',
             desc: 'Advanced materials and exclusive content. Currently FREE during our beta period!',
-            position: 'right-of-target'
+            position: 'right-of-target',
+            desktopOnly: true
         },
         {
             target: '#nav-resources',
             icon: 'cursor',
             title: 'Resources',
             desc: 'Downloadable handouts, templates, and reference materials to support your learning journey.',
-            position: 'right-of-target'
+            position: 'right-of-target',
+            desktopOnly: true
         },
         {
             target: '#nav-catalog',
@@ -9981,6 +10014,7 @@ IMX.Tour = {
             title: 'Catalog',
             desc: 'Browse our complete collection of courses, labs, and games in one searchable view.',
             position: 'right-of-target',
+            desktopOnly: true,
             action: function() {
                 var learnDropdown = document.querySelector('#nav-learn');
                 if (learnDropdown) learnDropdown.classList.remove('open');
@@ -9993,6 +10027,7 @@ IMX.Tour = {
             title: 'Services Menu',
             desc: 'Professional services for organizations and individuals seeking personalized support.',
             position: 'below-target',
+            desktopOnly: true,
             action: function() {
                 var servicesDropdown = document.querySelector('#nav-services');
                 if (servicesDropdown) servicesDropdown.classList.add('open');
@@ -10003,7 +10038,8 @@ IMX.Tour = {
             icon: 'cursor',
             title: 'Coaching',
             desc: 'One-on-one coaching sessions with Dr. Varna. Book sessions for career guidance, MEAL support, or research help.',
-            position: 'right-of-target'
+            position: 'right-of-target',
+            desktopOnly: true
         },
         {
             target: '#nav-workshops',
@@ -10011,6 +10047,7 @@ IMX.Tour = {
             title: 'Workshops',
             desc: 'Group training sessions for teams and organizations. Custom workshops on MEAL, ToC, and more.',
             position: 'right-of-target',
+            desktopOnly: true,
             action: function() {
                 var servicesDropdown = document.querySelector('#nav-services');
                 if (servicesDropdown) servicesDropdown.classList.remove('open');
@@ -10023,6 +10060,7 @@ IMX.Tour = {
             title: 'About Us Menu',
             desc: 'Learn about ImpactMojo, meet the team, read testimonials, and see our roadmap.',
             position: 'below-target',
+            desktopOnly: true,
             action: function() {
                 var aboutDropdown = document.querySelector('#nav-about');
                 if (aboutDropdown) aboutDropdown.classList.add('open');
@@ -10033,21 +10071,24 @@ IMX.Tour = {
             icon: 'cursor',
             title: 'Our Team',
             desc: 'Meet the people behind ImpactMojo - development professionals passionate about education.',
-            position: 'right-of-target'
+            position: 'right-of-target',
+            desktopOnly: true
         },
         {
             target: '#nav-testimonials',
             icon: 'cursor',
             title: 'Testimonials',
             desc: 'See what our learners say! Real feedback from development practitioners across South Asia.',
-            position: 'right-of-target'
+            position: 'right-of-target',
+            desktopOnly: true
         },
         {
             target: '#nav-roadmap',
             icon: 'cursor',
             title: 'Roadmap',
             desc: 'See what\'s coming next! Our planned features and content updates.',
-            position: 'right-of-target'
+            position: 'right-of-target',
+            desktopOnly: true
         },
         {
             target: '#nav-contact',
@@ -10055,6 +10096,7 @@ IMX.Tour = {
             title: 'Contact',
             desc: 'Get in touch with us. Questions, feedback, or partnership inquiries welcome!',
             position: 'right-of-target',
+            desktopOnly: true,
             action: function() {
                 var aboutDropdown = document.querySelector('#nav-about');
                 if (aboutDropdown) aboutDropdown.classList.remove('open');
@@ -10173,6 +10215,18 @@ IMX.Tour = {
         
         this.currentStep = index;
         var step = this.steps[index];
+        var isMobile = window.innerWidth <= 768;
+        
+        // Skip steps based on device type
+        if (step.mobileOnly && !isMobile) {
+            this.showStep(index + 1);
+            return;
+        }
+        if (step.desktopOnly && isMobile) {
+            this.showStep(index + 1);
+            return;
+        }
+        
         var target = document.querySelector(step.target);
         
         if (!target) {
