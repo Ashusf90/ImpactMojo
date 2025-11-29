@@ -2,7 +2,9 @@
 
 <html lang="en">
 <head>
-<meta charset="utf-8"/><!-- Google tag (gtag.js) -->
+<meta charset="utf-8"/>
+<!-- Version 7.2 - November 29, 2025 - Tour fixes -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -12,9 +14,48 @@
 </script>
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<!-- Cache Control - Force fresh content -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
 <meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="version" content="7.2.20251129b">
+
+<!-- Aggressive cache-busting script -->
+<script>
+(function() {
+    var CURRENT_VERSION = '7.2.20251129b';
+    var STORAGE_KEY = 'imx_page_version';
+    
+    try {
+        var storedVersion = localStorage.getItem(STORAGE_KEY);
+        
+        // If version mismatch, clear caches and reload
+        if (storedVersion && storedVersion !== CURRENT_VERSION) {
+            localStorage.setItem(STORAGE_KEY, CURRENT_VERSION);
+            
+            // Clear service worker caches if available
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    names.forEach(function(name) {
+                        caches.delete(name);
+                    });
+                });
+            }
+            
+            // Force hard reload bypassing cache
+            if (window.location.href.indexOf('v=') === -1) {
+                var separator = window.location.href.indexOf('?') !== -1 ? '&' : '?';
+                window.location.href = window.location.href + separator + 'v=' + CURRENT_VERSION;
+            }
+        } else {
+            localStorage.setItem(STORAGE_KEY, CURRENT_VERSION);
+        }
+    } catch(e) {
+        // localStorage not available, continue anyway
+    }
+})();
+</script>
 
 <meta name="description" content="Free, practical MEAL, theory of change, research methods, and gender 101 courses for NGOs and impact teams across South Asia."/>
 <meta property="og:title" content="Free MEAL &amp; TOC Courses for NGOs | ImpactMojo">
@@ -3454,7 +3495,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.75);
+    background: transparent;
     z-index: 10000;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -3465,23 +3506,92 @@
     pointer-events: auto;
 }
 
-/* Keep dropdown menus visible during tour */
-.imx-tour-overlay.active ~ .container .nav-links > li.has-dropdown.open .dropdown-menu,
-body:has(.imx-tour-overlay.active) .nav-links > li.has-dropdown.open .dropdown-menu {
+/* Keep dropdown menus FULLY visible during tour - highest priority */
+body:has(.imx-tour-overlay.active) .nav-links > li.has-dropdown .dropdown-menu,
+body:has(.imx-tour-overlay.active) .dropdown-menu,
+.imx-tour-overlay.active ~ * .dropdown-menu {
     opacity: 1 !important;
     visibility: visible !important;
-    max-height: 500px !important;
-    pointer-events: auto;
-    z-index: 10002;
+    max-height: none !important;
+    pointer-events: auto !important;
+    z-index: 10005 !important;
+    background: var(--card-bg, #fff) !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3) !important;
+}
+
+body:has(.imx-tour-overlay.active) .nav-links > li.has-dropdown.open .dropdown-menu {
+    display: block !important;
+}
+
+/* Ensure entire navigation and dropdowns stay above overlay during tour */
+body:has(.imx-tour-overlay.active) header,
+body:has(.imx-tour-overlay.active) nav,
+body:has(.imx-tour-overlay.active) .nav-links,
+body:has(.imx-tour-overlay.active) .nav-links > li,
+body:has(.imx-tour-overlay.active) .nav-links > li.has-dropdown,
+body:has(.imx-tour-overlay.active) .nav-links > li.has-dropdown > a {
+    position: relative;
+    z-index: 10004 !important;
+}
+
+/* Make dropdown content fully visible and readable */
+body:has(.imx-tour-overlay.active) .dropdown-menu {
+    z-index: 10006 !important;
+    position: absolute !important;
+    background: var(--card-bg, #ffffff) !important;
+    border: 1px solid var(--border-color, #e5e7eb) !important;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.25) !important;
+}
+
+body:has(.imx-tour-overlay.active) .dropdown-menu a,
+body:has(.imx-tour-overlay.active) .dropdown-menu li {
+    background: var(--card-bg, #ffffff) !important;
+    color: var(--text-color, #1f2937) !important;
 }
 
 .imx-tour-spotlight {
     position: absolute;
     border-radius: 12px;
-    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.75), 0 0 20px rgba(14, 165, 233, 0.5);
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.15), 0 0 40px rgba(14, 165, 233, 0.8), inset 0 0 0 4px rgba(14, 165, 233, 1);
     transition: all 0.4s ease;
     pointer-events: none;
+    background: transparent;
 }
+
+/* Pulsing highlight effect for spotlight */
+@keyframes spotlightPulse {
+    0%, 100% { box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.15), 0 0 40px rgba(14, 165, 233, 0.8), inset 0 0 0 4px rgba(14, 165, 233, 1); }
+    50% { box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.15), 0 0 60px rgba(14, 165, 233, 1), inset 0 0 0 4px rgba(14, 165, 233, 1); }
+}
+.imx-tour-spotlight {
+    animation: spotlightPulse 2s ease-in-out infinite;
+}
+
+/* Arrow connector from tooltip to spotlight */
+.imx-tour-arrow {
+    position: absolute;
+    z-index: 10003;
+    pointer-events: none;
+}
+.imx-tour-arrow svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+.imx-tour-arrow path {
+    fill: none;
+    stroke: var(--accent-color, #0EA5E9);
+    stroke-width: 2;
+    stroke-dasharray: 6 4;
+    animation: imxArrowDash 0.5s linear infinite;
+}
+.imx-tour-arrow-head {
+    fill: var(--accent-color, #0EA5E9);
+}
+@keyframes imxArrowDash {
+    to { stroke-dashoffset: -10; }
+}
+
 .imx-tour-tooltip {
     position: absolute;
     background: var(--card-bg, #fff);
@@ -10013,6 +10123,12 @@ IMX.Tour = {
         this.tooltip.className = 'imx-tour-tooltip';
         document.body.appendChild(this.tooltip);
         
+        // Create arrow connector
+        this.arrow = document.createElement('div');
+        this.arrow.className = 'imx-tour-arrow';
+        this.arrow.innerHTML = '<svg viewBox="0 0 100 50" preserveAspectRatio="none"><defs><marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" class="imx-tour-arrow-head"/></marker></defs><path d="M5,25 Q50,5 95,25" marker-end="url(#arrowhead)"/></svg>';
+        document.body.appendChild(this.arrow);
+        
         this.showStep(0);
     },
     
@@ -10195,11 +10311,40 @@ IMX.Tour = {
                 if (tooltipTop > maxTop) tooltipTop = maxTop;
                 
             } else if (pos === 'left-of-target') {
-                // Check if target is on right side of screen
+                // Check if target is on right side of screen and near bottom
                 var targetCenterX = rect.left + rect.width / 2;
+                var targetCenterY = rect.top + rect.height / 2;
                 var isOnRightSide = targetCenterX > viewportWidth / 2;
+                var isNearBottom = targetCenterY > viewportHeight * 0.6 || rect.bottom > viewportHeight - 150;
+                var isInCorner = (isOnRightSide && isNearBottom) || (!isOnRightSide && isNearBottom);
                 
-                if (isOnRightSide) {
+                if (isNearBottom || isInCorner) {
+                    // Target near bottom or in corner - position tooltip well ABOVE 
+                    // Use center of viewport vertically to ensure visibility
+                    var safeTop = Math.min(
+                        rect.top - actualTooltipHeight - 80,  // Above target with big gap
+                        viewportHeight * 0.4  // Or at 40% of viewport height
+                    );
+                    
+                    if (isFixed) {
+                        tooltipTop = safeTop;
+                    } else {
+                        tooltipTop = safeTop + window.scrollY;
+                    }
+                    
+                    // Ensure tooltip is not above viewport
+                    var minSafeTop = isFixed ? 80 : window.scrollY + 80;
+                    if (tooltipTop < minSafeTop) tooltipTop = minSafeTop;
+                    
+                    // Center horizontally - prefer center-right for right-side targets
+                    if (isOnRightSide) {
+                        tooltipLeft = viewportWidth - actualTooltipWidth - 40;
+                    } else {
+                        tooltipLeft = 40;
+                    }
+                    arrowClass = 'arrow-bottom';
+                    
+                } else if (isOnRightSide) {
                     // Target on right - position tooltip to LEFT with arrow pointing right
                     if (isFixed) {
                         tooltipTop = rect.top + (rect.height / 2) - (actualTooltipHeight / 2);
@@ -10212,9 +10357,9 @@ IMX.Tour = {
                     // If would go off left side, position above
                     if (tooltipLeft < 20) {
                         if (isFixed) {
-                            tooltipTop = rect.top - actualTooltipHeight - gap;
+                            tooltipTop = rect.top - actualTooltipHeight - gap - 40;
                         } else {
-                            tooltipTop = rect.top + window.scrollY - actualTooltipHeight - gap;
+                            tooltipTop = rect.top + window.scrollY - actualTooltipHeight - gap - 40;
                         }
                         tooltipLeft = Math.max(20, rect.right - actualTooltipWidth);
                         arrowClass = 'arrow-bottom';
@@ -10232,9 +10377,9 @@ IMX.Tour = {
                     // If would go off right side, position above
                     if (tooltipLeft + actualTooltipWidth > viewportWidth - 20) {
                         if (isFixed) {
-                            tooltipTop = rect.top - actualTooltipHeight - gap;
+                            tooltipTop = rect.top - actualTooltipHeight - gap - 40;
                         } else {
-                            tooltipTop = rect.top + window.scrollY - actualTooltipHeight - gap;
+                            tooltipTop = rect.top + window.scrollY - actualTooltipHeight - gap - 40;
                         }
                         tooltipLeft = Math.min(viewportWidth - actualTooltipWidth - 20, rect.left);
                         arrowClass = 'arrow-bottom';
@@ -10274,6 +10419,70 @@ IMX.Tour = {
             self.tooltip.className = 'imx-tour-tooltip ' + arrowClass;
             self.tooltip.style.top = tooltipTop + 'px';
             self.tooltip.style.left = tooltipLeft + 'px';
+            
+            // Position and draw arrow connector
+            if (self.arrow) {
+                var spotlightCenterX = rect.left + rect.width / 2;
+                var spotlightCenterY = rect.top + rect.height / 2;
+                if (!isFixed) {
+                    spotlightCenterY += window.scrollY;
+                }
+                
+                var tooltipCenterX = tooltipLeft + actualTooltipWidth / 2;
+                var tooltipCenterY = tooltipTop + actualTooltipHeight / 2;
+                
+                // Calculate arrow position and angle
+                var arrowStartX, arrowStartY, arrowEndX, arrowEndY;
+                
+                // Determine which edge of tooltip to start from based on arrow class
+                if (arrowClass === 'arrow-top') {
+                    arrowStartX = tooltipLeft + 30;
+                    arrowStartY = tooltipTop;
+                    arrowEndX = spotlightCenterX;
+                    arrowEndY = isFixed ? rect.bottom + 5 : rect.bottom + window.scrollY + 5;
+                } else if (arrowClass === 'arrow-bottom') {
+                    arrowStartX = tooltipLeft + 30;
+                    arrowStartY = tooltipTop + actualTooltipHeight;
+                    arrowEndX = spotlightCenterX;
+                    arrowEndY = isFixed ? rect.top - 5 : rect.top + window.scrollY - 5;
+                } else if (arrowClass === 'arrow-left') {
+                    arrowStartX = tooltipLeft;
+                    arrowStartY = tooltipTop + 30;
+                    arrowEndX = isFixed ? rect.right + 5 : rect.right + 5;
+                    arrowEndY = spotlightCenterY;
+                } else if (arrowClass === 'arrow-right') {
+                    arrowStartX = tooltipLeft + actualTooltipWidth;
+                    arrowStartY = tooltipTop + 30;
+                    arrowEndX = isFixed ? rect.left - 5 : rect.left - 5;
+                    arrowEndY = spotlightCenterY;
+                }
+                
+                // Create curved path
+                var midX = (arrowStartX + arrowEndX) / 2;
+                var midY = (arrowStartY + arrowEndY) / 2;
+                var curvature = 20;
+                
+                // Perpendicular offset for curve
+                var dx = arrowEndX - arrowStartX;
+                var dy = arrowEndY - arrowStartY;
+                var len = Math.sqrt(dx * dx + dy * dy);
+                if (len > 0) {
+                    var perpX = -dy / len * curvature;
+                    var perpY = dx / len * curvature;
+                    midX += perpX;
+                    midY += perpY;
+                }
+                
+                var pathD = 'M' + arrowStartX + ',' + arrowStartY + ' Q' + midX + ',' + midY + ' ' + arrowEndX + ',' + arrowEndY;
+                
+                self.arrow.style.position = isFixed ? 'fixed' : 'absolute';
+                self.arrow.style.top = '0';
+                self.arrow.style.left = '0';
+                self.arrow.style.width = '100%';
+                self.arrow.style.height = '100%';
+                self.arrow.style.pointerEvents = 'none';
+                self.arrow.innerHTML = '<svg style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:visible;"><defs><marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#0EA5E9"/></marker></defs><path d="' + pathD + '" fill="none" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrowhead)"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="1s" repeatCount="indefinite"/></path></svg>';
+            }
         }, 500);
     },
     
@@ -10295,6 +10504,11 @@ IMX.Tour = {
         this.isActive = false;
         localStorage.setItem(this.STORAGE_KEY, 'true');
         
+        // Close any open dropdowns
+        document.querySelectorAll('.nav-links > li.has-dropdown.open').forEach(function(item) {
+            item.classList.remove('open');
+        });
+        
         if (this.overlay) {
             this.overlay.classList.remove('active');
             setTimeout(function() {
@@ -10306,6 +10520,10 @@ IMX.Tour = {
         
         if (this.tooltip && this.tooltip.parentNode) {
             this.tooltip.parentNode.removeChild(this.tooltip);
+        }
+        
+        if (this.arrow && this.arrow.parentNode) {
+            this.arrow.parentNode.removeChild(this.arrow);
         }
         
         IMX.showToast('Tour complete. Explore and enjoy learning.');
