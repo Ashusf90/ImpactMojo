@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<!-- Version 7.5.8 - December 1, 2025 - Added PinPoint Ventures acknowledgment in footer -->
+<!-- Version 7.6.0 - December 2, 2025 - Added Blog navigation, tour step, and mobile menu support -->
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
 <script>
@@ -19,12 +19,12 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="version" content="7.5.20251201">
+<meta name="version" content="7.6.20251202">
 
 <!-- Aggressive cache-busting script -->
 <script>
 (function() {
-    var CURRENT_VERSION = '7.5.8.20251201';
+    var CURRENT_VERSION = '7.6.0.20251202';
     var STORAGE_KEY = 'imx_page_version';
     
     try {
@@ -4555,6 +4555,9 @@
 <li id="nav-contact"><a href="#" onclick="openModal('contactModal'); return false;">Contact</a></li>
 </ul>
 </li>
+
+<!-- Blog Link -->
+<li id="nav-blog"><a href="blog.html">Blog ✍️</a></li>
 </ul>
 </div><!-- end nav-with-badge -->
 <div class="nav-buttons">
@@ -12664,7 +12667,8 @@ IMX.Tour = {
         menu: '<svg viewBox="0 0 24 24" width="20" height="20"><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="1.5"></line><line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="1.5"></line><line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="1.5"></line></svg>',
         welcome: '<svg viewBox="0 0 24 24" width="48" height="48"><path d="M22 10v6M2 10l10-5 10 5-10 5z" fill="none" stroke="currentColor" stroke-width="1.5"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>',
         accessibility: '<svg viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="4" r="2" fill="none" stroke="currentColor" stroke-width="1.5"></circle><path d="M4 8h16M12 8v6m-4 6l4-6l4 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
-        heart: '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>'
+        heart: '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>',
+        blog: '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 19l7-7 3 3-7 7-3-3z" fill="none" stroke="currentColor" stroke-width="1.5"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" fill="none" stroke="currentColor" stroke-width="1.5"></path><path d="M2 2l7.586 7.586" fill="none" stroke="currentColor" stroke-width="1.5"></path><circle cx="11" cy="11" r="2" fill="none" stroke="currentColor" stroke-width="1.5"></circle></svg>'
     },
     
     steps: [
@@ -12689,7 +12693,7 @@ IMX.Tour = {
             target: '#mobile-menu-btn',
             icon: 'menu',
             title: 'Navigation Menu',
-            desc: 'Tap here to open the menu. You\'ll find all sections: Learn (Courses, Labs, Games), Services, and About Us.',
+            desc: 'Tap here to open the menu. You\'ll find all sections: Learn (Courses, Labs, Games), Services, About Us, and our Blog!',
             position: 'below-target',
             mobileOnly: true
         },
@@ -12852,6 +12856,15 @@ IMX.Tour = {
                 var aboutDropdown = document.querySelector('#nav-about');
                 if (aboutDropdown) aboutDropdown.classList.remove('open');
             }
+        },
+        // BLOG - Learning Loops
+        {
+            target: '#nav-blog',
+            icon: 'blog',
+            title: 'Learning Loops Blog',
+            desc: 'Our blog with insights on MEAL, Theory of Change, research methods, and development education. Read articles from development practitioners!',
+            position: 'below-target',
+            desktopOnly: true
         },
         // CONTENT CARDS
         {
