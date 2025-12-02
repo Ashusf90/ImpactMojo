@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<!-- Version 2.0.0 - December 2, 2025 -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JRCMEB9TBW');
+</script>
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<meta name="version" content="2.0.20251202">
+
+<meta name="description" content="The pedagogy behind ImpactMojo's interactive approach—and why passive learning doesn't build real skills."/>
+<meta property="og:title" content="Learning by Doing: Why Our Labs Matter More Than Lectures | Learning Loops">
+<meta property="og:description" content="The pedagogy behind ImpactMojo's interactive approach—and why passive learning doesn't build real skills.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.impactmojo.in/blog/learning-by-doing.html">
+<meta property="article:author" content="The ImpactMojo Team">
+<meta property="article:published_time" content="2025-12-02">
+<meta property="article:section" content="Teaching">
+<meta property="article:tag" content="pedagogy">
+<meta property="article:tag" content="capacity building">
+<meta name="twitter:card" content="summary_large_image">
+
+<title>Learning by Doing | Learning Loops</title>
+<link href="../assets/images/favicon.png" rel="icon" type="image/png"/>
+<link href="../assets/images/apple-touch-icon.png" rel="apple-touch-icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"/>
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary-bg: #0F172A;
+    --secondary-bg: #1E293B;
+    --accent-color: #0EA5E9;
+    --accent-hover: #0284C7;
+    --secondary-accent: #6366F1;
+    --success-color: #10B981;
+    --warning-color: #F59E0B;
+    --danger-color: #EF4444;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --card-bg: #1E293B;
+    --hover-bg: #334155;
+    --border-color: #334155;
+    --gradient-primary: linear-gradient(135deg, #0EA5E9 0%, #6366F1 100%);
+    --nav-bg: rgba(15, 23, 42, 0.95);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+body.light-mode {
+    --primary-bg: #FFFFFF;
+    --secondary-bg: #F8FAFC;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    --card-bg: #FFFFFF;
+    --hover-bg: #F1F5F9;
+    --border-color: #E2E8F0;
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Merriweather', Georgia, serif;
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.8;
+    min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.header { position: sticky; top: 0; background: var(--nav-bg); backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--border-color); }
+.nav-container { max-width: 900px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+.logo-container { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+.logo-container img { border-radius: 6px; }
+.logo-main { font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 700; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.back-link { display: flex; align-items: center; gap: 0.25rem; color: var(--text-secondary); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.9rem; padding: 0.5rem 0.75rem; border-radius: 6px; transition: all 0.2s ease; }
+.back-link:hover { background: var(--hover-bg); color: var(--accent-color); }
+.back-link svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
+.theme-toggle { background: var(--secondary-bg); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+.theme-toggle:hover { background: var(--hover-bg); border-color: var(--accent-color); }
+.theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+.article-container { max-width: 750px; margin: 0 auto; padding: 3rem 1.5rem; }
+.article-header { margin-bottom: 2.5rem; text-align: center; }
+.article-category { display: inline-block; background: #8B5CF6; color: white; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 0.25rem 0.75rem; border-radius: 20px; margin-bottom: 1rem; }
+.article-title { font-family: 'Poppins', sans-serif; font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.25rem; }
+.article-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; color: var(--text-muted); font-family: 'Inter', sans-serif; font-size: 0.9rem; margin-bottom: 1rem; }
+.article-meta span { display: flex; align-items: center; gap: 0.35rem; }
+.article-meta svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+.article-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+.article-tag { background: var(--hover-bg); color: var(--text-muted); font-family: 'Inter', sans-serif; font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 12px; }
+
+.article-content { font-size: 1.1rem; color: var(--text-primary); }
+.article-content p { margin-bottom: 1.5rem; }
+.article-content h2 { font-family: 'Poppins', sans-serif; font-size: 1.75rem; font-weight: 700; margin: 2.5rem 0 1rem; color: var(--text-primary); }
+.article-content h3 { font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--text-primary); }
+.article-content strong { color: var(--text-primary); font-weight: 700; }
+.article-content ul, .article-content ol { margin: 1.5rem 0; padding-left: 1.5rem; }
+.article-content li { margin-bottom: 0.75rem; }
+.article-content blockquote { border-left: 4px solid #8B5CF6; padding: 1rem 1.5rem; margin: 2rem 0; background: var(--secondary-bg); border-radius: 0 8px 8px 0; font-style: italic; color: var(--text-secondary); }
+
+.article-illustration { margin: 2.5rem 0; text-align: center; }
+.article-illustration img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: var(--shadow-lg); }
+.article-illustration figcaption { margin-top: 0.75rem; font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+
+/* Learning Pyramid */
+.learning-pyramid { background: var(--secondary-bg); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+.pyramid-title { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; text-align: center; margin-bottom: 1.5rem; }
+.pyramid-level { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1rem; margin: 0.5rem auto; border-radius: 8px; max-width: 90%; }
+.pyramid-level.passive { background: rgba(239, 68, 68, 0.15); border-left: 4px solid var(--danger-color); }
+.pyramid-level.active { background: rgba(16, 185, 129, 0.15); border-left: 4px solid var(--success-color); }
+.pyramid-method { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.95rem; min-width: 140px; }
+.pyramid-retention { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-secondary); }
+.pyramid-note { text-align: center; margin-top: 1rem; font-family: 'Inter', sans-serif; font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
+
+/* Comparison Cards */
+.comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
+.comparison-card { background: var(--secondary-bg); border-radius: 12px; padding: 1.5rem; }
+.comparison-card.traditional { border-left: 4px solid var(--danger-color); }
+.comparison-card.impactmojo { border-left: 4px solid var(--success-color); }
+.comparison-label { font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
+.comparison-card.traditional .comparison-label { color: var(--danger-color); }
+.comparison-card.impactmojo .comparison-label { color: var(--success-color); }
+.comparison-step { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text-secondary); }
+.comparison-step::before { content: '→'; color: var(--text-muted); flex-shrink: 0; }
+
+/* Lab Showcase */
+.lab-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 2rem 0; }
+.lab-card { background: var(--secondary-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem; transition: all 0.2s ease; }
+.lab-card:hover { border-color: var(--accent-color); transform: translateY(-2px); }
+.lab-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; font-size: 1.25rem; }
+.lab-name { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.35rem; }
+.lab-desc { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; }
+
+/* Highlight Box */
+.highlight-box { background: var(--secondary-bg); border: 1px solid var(--border-color); border-left: 4px solid var(--success-color); border-radius: 0 12px 12px 0; padding: 1.5rem; margin: 2rem 0; }
+.highlight-box h4 { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--success-color); }
+.highlight-box ul { margin: 0; padding-left: 1.25rem; }
+.highlight-box li { font-family: 'Inter', sans-serif; font-size: 0.95rem; margin-bottom: 0.5rem; }
+
+.share-section { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); text-align: center; }
+.share-section h4 { font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; }
+.share-buttons { display: flex; justify-content: center; gap: 0.75rem; }
+.share-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--secondary-bg); border: 1px solid var(--border-color); color: var(--text-secondary); text-decoration: none; transition: all 0.2s ease; }
+.share-btn:hover { background: var(--accent-color); border-color: var(--accent-color); color: white; transform: translateY(-2px); }
+.share-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+.newsletter-cta { background: var(--secondary-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; margin: 3rem 0; text-align: center; }
+.newsletter-cta h3 { font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+.newsletter-cta p { color: var(--text-secondary); margin-bottom: 1rem; font-family: 'Inter', sans-serif; font-size: 0.95rem; }
+.newsletter-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gradient-primary); color: white; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.95rem; transition: all 0.2s ease; }
+.newsletter-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+.related-posts { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); }
+.related-posts h3 { font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; text-align: center; }
+.related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+.related-card { background: var(--secondary-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem; text-decoration: none; transition: all 0.2s ease; }
+.related-card:hover { border-color: var(--accent-color); transform: translateY(-3px); }
+.related-card-category { font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: var(--accent-color); margin-bottom: 0.5rem; }
+.related-card-title { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+
+.footer { background: var(--secondary-bg); border-top: 1px solid var(--border-color); padding: 2rem; text-align: center; margin-top: 3rem; }
+.footer p { font-family: 'Inter', sans-serif; color: var(--text-muted); font-size: 0.875rem; margin-bottom: 0.5rem; }
+.footer a { color: var(--accent-color); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+@media (max-width: 768px) { .article-title { font-size: 2rem; } .comparison-grid, .lab-grid { grid-template-columns: 1fr; } .related-grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .article-container { padding: 2rem 1rem; } .article-title { font-size: 1.75rem; } .article-content { font-size: 1rem; } .article-meta { flex-direction: column; gap: 0.5rem; } }
+</style>
+</head>
+<body>
+
+<header class="header">
+<nav class="nav-container">
+    <a class="logo-container" href="../index.html">
+        <img alt="ImpactMojo" src="../assets/images/ImpactMojo%20Logo.png" width="36" height="36">
+        <div class="logo-main">ImpactMojo</div>
+    </a>
+    <div class="nav-right">
+        <a href="../blog.html" class="back-link">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            All Posts
+        </a>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+            <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="moon-icon" style="display:none" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+    </div>
+</nav>
+</header>
+
+<main class="article-container">
+    <article>
+        <header class="article-header">
+            <span class="article-category">Teaching</span>
+            <h1 class="article-title">Learning by Doing: Why Our Labs Matter More Than Lectures</h1>
+            <div class="article-meta">
+                <span>
+                    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    The ImpactMojo Team
+                </span>
+                <span>
+                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    December 2, 2025
+                </span>
+                <span>
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    6 min read
+                </span>
+            </div>
+            <div class="article-tags">
+                <span class="article-tag">pedagogy</span>
+                <span class="article-tag">capacity building</span>
+            </div>
+        </header>
+
+        <div class="article-content">
+            <p>Picture this: An M&E officer attends a three-day workshop on indicator development. The facilitator is excellent. The slides are comprehensive. There's even a certificate at the end. Monday morning, she returns to her desk, opens a blank document, and realises she still can't actually construct a good indicator.</p>
+
+            <p>This scenario plays out thousands of times across the development sector. It's not that the workshops are bad or the learners unmotivated. It's that the approach to learning is fundamentally misaligned with how skills are actually built.</p>
+
+            <h2>The Fluency Illusion</h2>
+
+            <p>When we follow along with a well-presented lecture, the material feels easy to understand. We nod along, take notes, feel confident. Psychologists call this the <strong>fluency illusion</strong>—we mistake comprehension for competence.</p>
+
+            <p>But understanding a concept and being able to apply it are different cognitive processes. Watching someone calculate a sample size is not the same as calculating one yourself. Reading about logframe design is not the same as constructing a logframe for your specific programme.</p>
+
+            <p>Research consistently shows that students who rate lectures as highly effective often perform no better on actual tests than students who felt they struggled through active learning exercises. The struggle is the learning.</p>
+
+            <!-- ILLUSTRATION 1 -->
+            <figure class="article-illustration">
+                <img src="../assets/images/blog/learning-by-doing/illustration-1.png" 
+                     alt="The difference between passive and active learning"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; padding: 3rem; background: var(--secondary-bg); border-radius: 12px; color: var(--text-muted); text-align: center;">
+                    [Illustration 1: Passive vs Active Learning]
+                </div>
+                <figcaption>Active learning feels harder but builds lasting skills</figcaption>
+            </figure>
+
+            <h2>The Learning Retention Pattern</h2>
+
+            <p>While specific percentages should be taken with a grain of salt, the overall pattern from learning research is clear: active methods produce better retention than passive methods.</p>
+
+            <div class="learning-pyramid">
+                <h4 class="pyramid-title">Learning Retention by Method</h4>
+                <div class="pyramid-level passive">
+                    <span class="pyramid-method">Reading</span>
+                    <span class="pyramid-retention">~10% retention (passive)</span>
+                </div>
+                <div class="pyramid-level passive">
+                    <span class="pyramid-method">Hearing</span>
+                    <span class="pyramid-retention">~20% retention (passive)</span>
+                </div>
+                <div class="pyramid-level passive">
+                    <span class="pyramid-method">Seeing</span>
+                    <span class="pyramid-retention">~30% retention (passive)</span>
+                </div>
+                <div class="pyramid-level active">
+                    <span class="pyramid-method">Discussing</span>
+                    <span class="pyramid-retention">~50% retention (active)</span>
+                </div>
+                <div class="pyramid-level active">
+                    <span class="pyramid-method">Practicing</span>
+                    <span class="pyramid-retention">~75% retention (active)</span>
+                </div>
+                <div class="pyramid-level active">
+                    <span class="pyramid-method">Teaching Others</span>
+                    <span class="pyramid-retention">~90% retention (active)</span>
+                </div>
+                <p class="pyramid-note">Exact percentages vary by study, but the pattern is consistent across research.</p>
+            </div>
+
+            <blockquote>
+                "Learning is not a spectator sport. Students do not learn much just sitting in classes listening to teachers, memorizing pre-packaged assignments, and spitting out answers."
+                <br><em>— Chickering & Gamson</em>
+            </blockquote>
+
+            <h2>Traditional Training vs. ImpactMojo's Approach</h2>
+
+            <div class="comparison-grid">
+                <div class="comparison-card traditional">
+                    <div class="comparison-label">❌ Traditional Workshop</div>
+                    <div class="comparison-step">Learn concept in workshop</div>
+                    <div class="comparison-step">Return to desk</div>
+                    <div class="comparison-step">Try to remember</div>
+                    <div class="comparison-step">Struggle to apply</div>
+                    <div class="comparison-step">Revert to previous methods</div>
+                </div>
+                <div class="comparison-card impactmojo">
+                    <div class="comparison-label">✓ ImpactMojo Labs</div>
+                    <div class="comparison-step">Learn concept with context</div>
+                    <div class="comparison-step">Immediately practice in lab</div>
+                    <div class="comparison-step">Get instant feedback</div>
+                    <div class="comparison-step">Repeat with variations</div>
+                    <div class="comparison-step">Apply to real projects</div>
+                </div>
+            </div>
+
+            <h2>How Our Labs Work</h2>
+
+            <p>Every ImpactMojo lab follows a five-step structure designed to build transferable skills, not just temporary understanding:</p>
+
+            <ol>
+                <li><strong>Brief Context</strong> — 2-3 minutes of reading, not 30 minutes of lecture. Just enough to understand what you're about to do and why.</li>
+                <li><strong>Guided Practice</strong> — A structured exercise with scaffolding. You're doing the work, but with support.</li>
+                <li><strong>Immediate Feedback</strong> — Not just right/wrong, but explanations of why certain choices work better.</li>
+                <li><strong>Variations</strong> — Multiple scenarios with different contexts. Because skill means applying knowledge across situations.</li>
+                <li><strong>Real-World Connection</strong> — Prompts to apply what you've practiced to your actual work.</li>
+            </ol>
+
+            <!-- ILLUSTRATION 2 -->
+            <figure class="article-illustration">
+                <img src="../assets/images/blog/learning-by-doing/illustration-2.png" 
+                     alt="The ImpactMojo lab structure"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; padding: 3rem; background: var(--secondary-bg); border-radius: 12px; color: var(--text-muted); text-align: center;">
+                    [Illustration 2: Lab structure]
+                </div>
+                <figcaption>Every lab follows a consistent, research-backed structure</figcaption>
+            </figure>
+
+            <h2>Labs You Can Try</h2>
+
+            <div class="lab-grid">
+                <div class="lab-card">
+                    <div class="lab-icon">📋</div>
+                    <div class="lab-name">Logframe Lab</div>
+                    <div class="lab-desc">Build a complete logical framework step by step</div>
+                </div>
+                <div class="lab-card">
+                    <div class="lab-icon">📊</div>
+                    <div class="lab-name">Sample Size Calculator</div>
+                    <div class="lab-desc">Calculate sample sizes for different study designs</div>
+                </div>
+                <div class="lab-card">
+                    <div class="lab-icon">🔄</div>
+                    <div class="lab-name">Theory of Change Builder</div>
+                    <div class="lab-desc">Construct your ToC with guided prompts</div>
+                </div>
+                <div class="lab-card">
+                    <div class="lab-icon">🎯</div>
+                    <div class="lab-name">Indicator Workshop</div>
+                    <div class="lab-desc">Develop SMART indicators with feedback</div>
+                </div>
+            </div>
+
+            <h2>The Transfer Problem</h2>
+
+            <p>Even when people learn something well in a training context, they often struggle to apply it in different situations. This is the <strong>transfer problem</strong>—and it's why so much professional development fails to change practice.</p>
+
+            <p>ImpactMojo addresses transfer in two ways:</p>
+
+            <div class="highlight-box">
+                <h4>Designing for Transfer</h4>
+                <ul>
+                    <li><strong>Context matters from the start</strong> — Examples drawn from real South Asian development challenges, not abstract scenarios</li>
+                    <li><strong>Variation in practice</strong> — Multiple scenarios across different sectors, scales, and challenges so you learn the underlying principle, not just one application</li>
+                </ul>
+            </div>
+
+            <h2>Just-in-Time vs. Just-in-Case</h2>
+
+            <p>Traditional training operates on a "just-in-case" model: learn everything now, hope you remember it when you need it. ImpactMojo enables "just-in-time" learning: encounter concepts when you need them to solve an active problem.</p>
+
+            <p>When you're designing a survey for your programme tomorrow, the Sample Size Lab isn't abstract—it's immediately relevant. The learning sticks because it's solving a real problem in real time.</p>
+
+            <h2>Implications for Organisations</h2>
+
+            <p>If you're responsible for building capacity in your organisation, these principles suggest some uncomfortable truths:</p>
+
+            <ul>
+                <li><strong>Evaluate training by transfer, not satisfaction</strong> — Happy participants don't mean effective training</li>
+                <li><strong>Budget for practice, not just instruction</strong> — The workshop is the beginning, not the end</li>
+                <li><strong>Create opportunities for application</strong> — Mentoring, peer learning, follow-up coaching</li>
+                <li><strong>Embrace productive struggle</strong> — If learning feels too easy, be skeptical</li>
+            </ul>
+
+            <blockquote>
+                "Tell me and I forget. Teach me and I remember. Involve me and I learn."
+                <br><em>— Attributed to Benjamin Franklin</em>
+            </blockquote>
+
+            <h2>Start Building Real Skills</h2>
+
+            <p>ImpactMojo's labs are designed for practitioners who need to apply what they learn, not just understand it. Every exercise is built on research about how adults actually develop expertise—and on our experience of what works in the South Asian development context.</p>
+
+            <p>Because the sector doesn't need more people who've attended workshops. It needs more people who can actually do the work.</p>
+
+        </div>
+
+        <div class="share-section">
+            <h4>Share this article</h4>
+            <div class="share-buttons">
+                <a href="https://twitter.com/intent/tweet?url=https://www.impactmojo.in/blog/learning-by-doing.html&text=Learning%20by%20Doing%3A%20Why%20Labs%20Matter%20More%20Than%20Lectures" target="_blank" class="share-btn" title="Share on X/Twitter">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.impactmojo.in/blog/learning-by-doing.html" target="_blank" class="share-btn" title="Share on LinkedIn">
+                    <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.impactmojo.in/blog/learning-by-doing.html" target="_blank" class="share-btn" title="Share on Facebook">
+                    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="mailto:?subject=Learning%20by%20Doing&body=Check%20out%20this%20article%3A%20https://www.impactmojo.in/blog/learning-by-doing.html" class="share-btn" title="Share via Email">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="newsletter-cta">
+            <h3>Ready to Learn by Doing?</h3>
+            <p>Explore our interactive labs and build real skills.</p>
+            <a href="https://varna.substack.com" target="_blank" class="newsletter-btn">
+                Subscribe for Updates →
+            </a>
+        </div>
+
+        <div class="related-posts">
+            <h3>Related Posts</h3>
+            <div class="related-grid">
+                <a href="sample-size-matters.html" class="related-card">
+                    <div class="related-card-category">Methods</div>
+                    <div class="related-card-title">Sample Size Matters: A Practical Guide</div>
+                </a>
+                <a href="why-impactmojo-exists.html" class="related-card">
+                    <div class="related-card-category">Platform</div>
+                    <div class="related-card-title">Why ImpactMojo Exists</div>
+                </a>
+            </div>
+        </div>
+    </article>
+</main>
+
+<footer class="footer">
+    <p>© 2025 ImpactMojo. Released under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.</p>
+    <p>Supported by <a href="https://www.pinpointventures.in" target="_blank">PinPoint Ventures</a></p>
+    <p style="margin-top: 1rem;"><a href="../blog.html">← Back to Learning Loops</a></p>
+</footer>
+
+<script>
+function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    const isLight = document.body.classList.contains('light-mode');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    updateThemeIcons();
+}
+
+function updateThemeIcons() {
+    const isLight = document.body.classList.contains('light-mode');
+    document.querySelector('.sun-icon').style.display = isLight ? 'none' : 'block';
+    document.querySelector('.moon-icon').style.display = isLight ? 'block' : 'none';
+}
+
+(function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') { document.body.classList.add('light-mode'); }
+    updateThemeIcons();
+})();
+</script>
+
+</body>
+</html>
