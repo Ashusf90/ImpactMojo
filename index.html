@@ -2,8 +2,28 @@
 
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<!-- Version 7.6.0 - December 2, 2025 - Added Blog navigation, tour step, and mobile menu support -->
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Mobile Device Redirect -->
+<script>
+(function() {
+    var hostname = window.location.hostname;
+    var isMainDomain = hostname === 'www.impactmojo.in' || hostname === 'impactmojo.in';
+    var pathname = window.location.pathname;
+    var isHomepage = pathname === '/' || pathname === '/index.html' || pathname === '';
+    var urlParams = new URLSearchParams(window.location.search);
+    var forceDesktop = urlParams.get('desktop') === '1' || localStorage.getItem('imx-force-desktop') === '1';
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    var isSmallScreen = window.innerWidth <= 768;
+    
+    if ((isMobile || isSmallScreen) && isMainDomain && isHomepage && !forceDesktop) {
+        window.location.replace('mobile.html');
+    }
+})();
+</script>
+
+
+<!-- Version 7.7.0 - December 2, 2025 - Replaced emojis with SVG icons, added mobile redirect, fixed encoding -->
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
 <script>
@@ -19,12 +39,12 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="version" content="7.6.20251202">
+<meta name="version" content="7.7.20251202">
 
 <!-- Aggressive cache-busting script -->
 <script>
 (function() {
-    var CURRENT_VERSION = '7.6.0.20251202';
+    var CURRENT_VERSION = '7.7.0.20251202';
     var STORAGE_KEY = 'imx_page_version';
     
     try {
@@ -114,6 +134,20 @@
             --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
             --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Inline SVG Icon Styles */
+.inline-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 2px;
+    flex-shrink: 0;
+}
+.inline-icon-sm { width: 14px; height: 14px; }
+.inline-icon-md { width: 18px; height: 18px; }
+.inline-icon-lg { width: 24px; height: 24px; }
+
+        :root {
         }
 
         /* Professional Light Theme */
@@ -4549,15 +4583,15 @@
 <li id="nav-testimonials"><a href="#wall-of-love">Testimonials</a></li>
 <li id="nav-roadmap"><a href="#roadmap">Roadmap</a></li>
 <li class="dropdown-divider"></li>
-<li id="nav-whats-new"><a href="#whats-new">What's New ✨</a></li>
-<li id="nav-support"><a href="#support-us">Support Us 💝</a></li>
+<li id="nav-whats-new"><a href="#whats-new">What's New <svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/></svg></a></li>
+<li id="nav-support"><a href="#support-us">Support Us <svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></a></li>
 <li class="dropdown-divider"></li>
 <li id="nav-contact"><a href="#" onclick="openModal('contactModal'); return false;">Contact</a></li>
 </ul>
 </li>
 
 <!-- Blog Link -->
-<li id="nav-blog"><a href="blog.html">Blog ✍️</a></li>
+<li id="nav-blog"><a href="blog.html">Blog <svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></a></li>
 </ul>
 </div><!-- end nav-with-badge -->
 <div class="nav-buttons">
@@ -4609,7 +4643,7 @@
         <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path><circle cx="12" cy="12" r="4"></circle></svg>
     </div>
     <div class="imx-daily-tip-content">
-        <div class="imx-daily-tip-label">💡 Daily Learning Tip</div>
+        <div class="imx-daily-tip-label"><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2z"/></svg> Daily Learning Tip</div>
         <div class="imx-daily-tip-text" id="imxDailyTipText">Loading tip...</div>
     </div>
     <button class="imx-daily-tip-refresh" onclick="IMX.DailyTip.showRandom()" title="New tip" aria-label="Show another tip">
@@ -6409,7 +6443,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <!-- What's New Section - Interactive -->
 <section class="whats-new-section" id="whats-new">
     <div class="whats-new-header">
-        <h2>✨ What's New</h2>
+        <h2><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/></svg> What's New</h2>
         <p>Click any card to learn more about our latest features</p>
     </div>
     
@@ -6419,7 +6453,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
             <span class="whats-new-toggle-icon">
                 <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </span>
-            <div class="whats-new-card-icon icon-notes">📝</div>
+            <div class="whats-new-card-icon icon-notes"><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
             <div class="whats-new-card-title">Personal Notes</div>
             <div class="whats-new-card-desc">
                 Take notes while you learn! Create, edit, search, and export your personal study notes.
@@ -6430,7 +6464,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
                 <div class="whats-new-card-expand-content">
                     <strong>How it works:</strong>
                     <ul>
-                        <li>Click the 📝 Notes button in the Speed Dial toolbox (bottom-left)</li>
+                        <li>Click the Notes button in the Speed Dial toolbox (bottom-left)</li>
                         <li>Create notes with titles and detailed content</li>
                         <li>Search through all your notes instantly</li>
                         <li>Export notes as text file for backup</li>
@@ -6449,7 +6483,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
             <span class="whats-new-toggle-icon">
                 <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </span>
-            <div class="whats-new-card-icon icon-streak">🔥</div>
+            <div class="whats-new-card-icon icon-streak"><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c.5 5-2 8-2 8s3 2 3 6c0 2.5-2 4-4 4s-4-2-4-4c0-2 1-3 2-4-1-2-1-4 0-6 1.5 2 3 2 5-4z"/></svg></div>
             <div class="whats-new-card-title">Learning Streak</div>
             <div class="whats-new-card-desc">
                 Build consistent learning habits! Track your daily visits and earn milestone badges.
@@ -6460,11 +6494,11 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
                 <div class="whats-new-card-expand-content">
                     <strong>Streak Milestones:</strong>
                     <ul>
-                        <li>🌱 <strong>3 days</strong> - Sprout badge: You're getting started!</li>
-                        <li>⭐ <strong>7 days</strong> - Star badge: One week strong!</li>
-                        <li>🔥 <strong>14 days</strong> - Fire badge: Two weeks of dedication!</li>
-                        <li>💎 <strong>30 days</strong> - Diamond badge: A month of excellence!</li>
-                        <li>🏆 <strong>100 days</strong> - Trophy badge: Learning legend!</li>
+                        <li><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22V12"/><path d="M12 12c-2-4 1-8 6-8-1 4-4 8-6 8z"/><path d="M12 12c2-4-1-8-6-8 1 4 4 8 6 8z"/></svg> <strong>3 days</strong> - Sprout badge: You're getting started!</li>
+                        <li><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> <strong>7 days</strong> - Star badge: One week strong!</li>
+                        <li><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c.5 5-2 8-2 8s3 2 3 6c0 2.5-2 4-4 4s-4-2-4-4c0-2 1-3 2-4-1-2-1-4 0-6 1.5 2 3 2 5-4z"/></svg> <strong>14 days</strong> - Fire badge: Two weeks of dedication!</li>
+                        <li><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M2 9h20"/><path d="M10 3l-4 6 6 13 6-13-4-6"/></svg> <strong>30 days</strong> - Diamond badge: A month of excellence!</li>
+                        <li><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 22V8a6 6 0 0 1 12 0v14"/><path d="M8 22v-4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4"/></svg> <strong>100 days</strong> - Trophy badge: Learning legend!</li>
                     </ul>
                     <p style="margin-top: 0.75rem;">Your streak updates each day you visit. Keep coming back to maintain your streak!</p>
                 </div>
@@ -6480,7 +6514,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
             <span class="whats-new-toggle-icon">
                 <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </span>
-            <div class="whats-new-card-icon icon-pwa">📱</div>
+            <div class="whats-new-card-icon icon-pwa"><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
             <div class="whats-new-card-title">Mobile Apps</div>
             <div class="whats-new-card-desc">
                 Install ImpactMojo as PWA and explore ImpactLex dictionary app.
@@ -6508,7 +6542,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
             <span class="whats-new-toggle-icon">
                 <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </span>
-            <div class="whats-new-card-icon icon-tour">🎯</div>
+            <div class="whats-new-card-icon icon-tour"><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
             <div class="whats-new-card-title">Interactive Tour</div>
             <div class="whats-new-card-desc">
                 New to ImpactMojo? Take our guided spotlight tour to discover all features.
@@ -6598,7 +6632,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
             <span class="whats-new-toggle-icon">
                 <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </span>
-            <div class="whats-new-card-icon icon-analytics">📊</div>
+            <div class="whats-new-card-icon icon-analytics"><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
             <div class="whats-new-card-title">Learning Analytics</div>
             <div class="whats-new-card-desc">
                 Track your learning patterns and view session history privately.
@@ -6628,7 +6662,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
             <span class="whats-new-toggle-icon">
                 <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </span>
-            <div class="whats-new-card-icon icon-reading">📚</div>
+            <div class="whats-new-card-icon icon-reading"><svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
             <div class="whats-new-card-title">Smart Reading Lists</div>
             <div class="whats-new-card-desc">
                 Curated resources from UNDP, World Bank, J-PAL and more.
@@ -8806,7 +8840,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <footer class="footer" id="contact">
 <div class="footer-content">
 <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted); font-size: 0.95rem;">
-    Made with ♥ by <a href="https://www.pinpointventures.in" target="_blank" style="color: var(--accent-color);">PinPoint Ventures</a>
+    Made with <svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> by <a href="https://www.pinpointventures.in" target="_blank" style="color: var(--accent-color);">PinPoint Ventures</a>
 </p>
 <div class="footer-links">
 <div class="footer-section">
@@ -9345,11 +9379,11 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
                 </div>
                 <div>
                     <div class="star-selector" style="display: flex; gap: 0.5rem; justify-content: center; padding: 1rem;">
-                        <button class="star-btn" onclick="setRating(1)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">☆</button>
-                        <button class="star-btn" onclick="setRating(2)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">☆</button>
-                        <button class="star-btn" onclick="setRating(3)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">☆</button>
-                        <button class="star-btn" onclick="setRating(4)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">☆</button>
-                        <button class="star-btn" onclick="setRating(5)" style="font-size: 2rem; color: #374151; cursor: pointer; background: none; border: none;">☆</button>
+                        <button class="star-btn" onclick="setRating(1)" style="cursor: pointer; background: none; border: none; padding: 4px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#374151" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                        <button class="star-btn" onclick="setRating(2)" style="cursor: pointer; background: none; border: none; padding: 4px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#374151" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                        <button class="star-btn" onclick="setRating(3)" style="cursor: pointer; background: none; border: none; padding: 4px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#374151" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                        <button class="star-btn" onclick="setRating(4)" style="cursor: pointer; background: none; border: none; padding: 4px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#374151" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                        <button class="star-btn" onclick="setRating(5)" style="cursor: pointer; background: none; border: none; padding: 4px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#374151" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
                     </div>
                 </div>
             `;
@@ -9365,10 +9399,10 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
             const stars = document.querySelectorAll('.star-btn');
             stars.forEach((star, index) => {
                 if (index < rating) {
-                    star.textContent = '★';
+                    star.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="#FCD34D" stroke="#FCD34D" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
                     star.style.color = '#FCD34D';
                 } else {
-                    star.textContent = '☆';
+                    star.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#374151" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
                     star.style.color = '#374151';
                 }
             });
@@ -10875,7 +10909,7 @@ document.addEventListener('DOMContentLoaded', function(){
             </div>
             
             <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 1.5rem;">
-                💡 Tip: Pair with Lo-Fi music for best focus!
+                <svg class="inline-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2z"/></svg> Tip: Pair with Lo-Fi music for best focus!
             </p>
         </div>
     </div>
@@ -11398,13 +11432,13 @@ IMX.Pomodoro = {
         
         // Show notification
         if (Notification.permission === 'granted') {
-            new Notification('Pomodoro Complete! 🎉', {
+            new Notification('Pomodoro Complete!', {
                 body: this.currentLabel + ' session finished. Great work!',
                 icon: 'https://impactmojo.in/favicon.ico'
             });
         }
         
-        alert('🎉 ' + this.currentLabel + ' complete! Take a break.');
+        alert('' + this.currentLabel + ' complete! Take a break.');
         this.reset();
     },
     
@@ -11663,7 +11697,7 @@ IMX.renderBookmarksList = function() {
             '<div class="imx-bookmark-name">' + (b.name || 'Untitled') + '</div>' +
             '<div class="imx-bookmark-meta">' +
             '<span>' + (b.type || 'Item') + '</span>' +
-            (b.rating ? '<span>★ ' + b.rating + '</span>' : '') +
+            (b.rating ? '<span><svg class="inline-star" viewBox="0 0 24 24" width="12" height="12" fill="#FCD34D" stroke="#FCD34D"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> ' + b.rating + '</span>' : '') +
             '</div>' +
             '</div>' +
             '<div class="imx-bookmark-actions">' +
@@ -11762,7 +11796,7 @@ IMX.renderCompareGrid = function() {
             '</button>' +
             '<div class="imx-compare-name">' + (item.name || 'Untitled') + '</div>' +
             '<div class="imx-compare-type-badge ' + typeClass + '">' + (item.type || 'Course') + '</div>' +
-            '<div class="imx-compare-row"><span class="imx-compare-label">Rating</span><span class="imx-compare-value">' + (item.rating ? '★ ' + item.rating : '—') + '</span></div>' +
+            '<div class="imx-compare-row"><span class="imx-compare-label">Rating</span><span class="imx-compare-value">' + (item.rating ? '<svg class="inline-star" viewBox="0 0 24 24" width="12" height="12" fill="#FCD34D" stroke="#FCD34D"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> ' + item.rating : '—') + '</span></div>' +
             '<div class="imx-compare-row"><span class="imx-compare-label">Learners</span><span class="imx-compare-value">' + (item.learners || '—') + '</span></div>' +
             '<div class="imx-compare-row"><span class="imx-compare-label">Audience</span><span class="imx-compare-value">' + (item.audience || '—') + '</span></div>' +
             '<div class="imx-compare-row"><span class="imx-compare-label">Duration</span><span class="imx-compare-value">' + (item.duration || '—') + '</span></div>' +
@@ -12230,11 +12264,11 @@ IMX.Streak = {
     
     // Milestones with emojis
     milestones: [
-        { days: 3, icon: '🌱', label: '3 Days' },
-        { days: 7, icon: '🔥', label: '1 Week' },
-        { days: 14, icon: '⭐', label: '2 Weeks' },
-        { days: 30, icon: '🏆', label: '1 Month' },
-        { days: 60, icon: '💎', label: '2 Months' },
+        { days: 3, icon: 'sprout', label: '3 Days' },
+        { days: 7, icon: 'flame', label: '1 Week' },
+        { days: 14, icon: 'star', label: '2 Weeks' },
+        { days: 30, icon: 'trophy', label: '1 Month' },
+        { days: 60, icon: 'diamond', label: '2 Months' },
         { days: 100, icon: '👑', label: '100 Days' }
     ],
     
@@ -12349,7 +12383,7 @@ IMX.Streak = {
         
         // Hero section
         html += '<div class="imx-streak-hero">';
-        html += '<div class="imx-streak-fire">' + (data.currentStreak > 0 ? '🔥' : '💤') + '</div>';
+        html += '<div class="imx-streak-fire">' + (data.currentStreak > 0 ? '<svg class="streak-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c.5 5-2 8-2 8s3 2 3 6c0 2.5-2 4-4 4s-4-2-4-4c0-2 1-3 2-4-1-2-1-4 0-6 1.5 2 3 2 5-4z"/></svg>' : '<svg class="streak-icon muted" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>') + '</div>';
         html += '<div class="imx-streak-count">' + data.currentStreak + '</div>';
         html += '<div class="imx-streak-label">Day Streak</div>';
         html += '</div>';
