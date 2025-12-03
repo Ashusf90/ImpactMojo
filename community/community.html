@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community | ImpactMojo</title>
+<meta name="description" content="Join the ImpactMojo community - connect with MEAL practitioners, development professionals, and impact enthusiasts on Discord and Telegram.">
+
+<!-- Favicons -->
+<link href="../assets/images/favicon.png" rel="icon" type="image/png">
+<link href="../assets/images/apple-touch-icon.png" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-bg: #0F172A;
+    --secondary-bg: #1E293B;
+    --accent-color: #0EA5E9;
+    --accent-hover: #0284C7;
+    --secondary-accent: #6366F1;
+    --success-color: #10B981;
+    --warning-color: #F59E0B;
+    --danger-color: #EF4444;
+    --discord-color: #5865F2;
+    --telegram-color: #0088cc;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --card-bg: #1E293B;
+    --hover-bg: #334155;
+    --border-color: #334155;
+    --gradient-primary: linear-gradient(135deg, #0EA5E9 0%, #6366F1 100%);
+    --gradient-premium: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Background Pattern */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(245, 158, 11, 0.05) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Header */
+.header {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.logo-link img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+}
+
+.logo-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Mobile menu */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(245, 158, 11, 0.15);
+    color: #F59E0B;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero p {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+/* Premium Notice */
+.premium-notice {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(239, 68, 68, 0.1));
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin: 0 auto 3rem;
+    max-width: 700px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.premium-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--gradient-premium);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.premium-icon i {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.premium-text h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: var(--warning-color);
+}
+
+.premium-text p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.premium-text a {
+    color: var(--accent-color);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.premium-text a:hover {
+    text-decoration: underline;
+}
+
+/* Platform Cards */
+.platforms-section {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+}
+
+.section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+}
+
+.platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.platform-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.platform-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+.platform-card.discord {
+    border-color: rgba(88, 101, 242, 0.3);
+}
+
+.platform-card.discord:hover {
+    border-color: var(--discord-color);
+    box-shadow: 0 0 30px rgba(88, 101, 242, 0.2);
+}
+
+.platform-card.telegram {
+    border-color: rgba(0, 136, 204, 0.3);
+}
+
+.platform-card.telegram:hover {
+    border-color: var(--telegram-color);
+    box-shadow: 0 0 30px rgba(0, 136, 204, 0.2);
+}
+
+.platform-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.platform-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.platform-icon.discord-bg {
+    background: var(--discord-color);
+}
+
+.platform-icon.telegram-bg {
+    background: var(--telegram-color);
+}
+
+.platform-icon i {
+    font-size: 1.75rem;
+    color: white;
+}
+
+.platform-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.platform-tagline {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.platform-desc {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.platform-features {
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.platform-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.platform-features li i {
+    width: 20px;
+    color: var(--success-color);
+}
+
+.platform-cta {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+}
+
+.platform-cta.discord-btn {
+    background: var(--discord-color);
+    color: white;
+}
+
+.platform-cta.discord-btn:hover {
+    background: #4752c4;
+}
+
+.platform-cta.telegram-btn {
+    background: var(--telegram-color);
+    color: white;
+}
+
+.platform-cta.telegram-btn:hover {
+    background: #006699;
+}
+
+.platform-cta i {
+    font-size: 1.1rem;
+}
+
+/* How to Access */
+.access-section {
+    position: relative;
+    z-index: 1;
+    background: var(--secondary-bg);
+    padding: 4rem 2rem;
+}
+
+.steps-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+}
+
+.step-card {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.step-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.step-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.step-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.step-desc a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.step-desc a:hover {
+    text-decoration: underline;
+}
+
+/* Guidelines */
+.guidelines-section {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.guidelines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.guideline-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.guideline-card:hover {
+    border-color: var(--accent-color);
+}
+
+.guideline-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(14, 165, 233, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.guideline-icon i {
+    font-size: 1.25rem;
+    color: var(--accent-color);
+}
+
+.guideline-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.guideline-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* FAQ Section */
+.faq-section {
+    position: relative;
+    z-index: 1;
+    background: var(--secondary-bg);
+    padding: 4rem 2rem;
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.faq-question {
+    width: 100%;
+    padding: 1.25rem;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.faq-question:hover {
+    background: var(--hover-bg);
+}
+
+.faq-question i {
+    transition: transform 0.3s;
+    color: var(--text-muted);
+}
+
+.faq-item.open .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    display: none;
+    padding: 0 1.25rem 1.25rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.faq-item.open .faq-answer {
+    display: block;
+}
+
+.faq-answer a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.faq-answer a:hover {
+    text-decoration: underline;
+}
+
+/* CTA Section */
+.cta-section {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.cta-card {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(99, 102, 241, 0.1));
+    border: 1px solid rgba(14, 165, 233, 0.3);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+}
+
+.cta-card h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.cta-card p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.cta-btn.primary {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.cta-btn.primary:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.cta-btn.outline {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.cta-btn.outline:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+/* Footer */
+.footer {
+    position: relative;
+    z-index: 1;
+    background: var(--secondary-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 2rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-text {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.footer-text a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.footer-text a:hover {
+    text-decoration: underline;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1rem;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--hover-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.footer-social a:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem;
+    }
+    
+    .header-actions .btn-outline:not(:first-child) {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .hero {
+        padding: 3rem 1rem 2rem;
+    }
+    
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+    
+    .premium-notice {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+        margin: 0 1rem 2rem;
+    }
+    
+    .platforms-section {
+        padding: 0 1rem 3rem;
+    }
+    
+    .platform-card {
+        padding: 1.5rem;
+    }
+    
+    .access-section {
+        padding: 3rem 1rem;
+    }
+    
+    .guidelines-section {
+        padding: 3rem 1rem;
+    }
+    
+    .faq-section {
+        padding: 3rem 1rem;
+    }
+    
+    .cta-section {
+        padding: 3rem 1rem;
+    }
+    
+    .cta-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-content">
+        <a href="../index.html" class="logo-link">
+            <img src="../assets/images/ImpactMojo%20Logo.png" alt="ImpactMojo" width="40" height="40">
+            <span class="logo-text">ImpactMojo</span>
+        </a>
+        <div class="header-actions">
+            <a href="../index.html" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+            <a href="../premium.html" class="btn btn-primary">
+                <i class="fas fa-crown"></i>
+                Get Premium
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-badge">
+        <i class="fas fa-users"></i>
+        Premium Member Benefit
+    </div>
+    <h1>Join Our Community of Impact Practitioners</h1>
+    <p>Connect with fellow MEAL professionals, development practitioners, and impact enthusiasts. Ask questions, share insights, and grow together in a supportive, spam-free environment.</p>
+</section>
+
+<!-- Premium Notice -->
+<div class="premium-notice">
+    <div class="premium-icon">
+        <i class="fas fa-lock"></i>
+    </div>
+    <div class="premium-text">
+        <h3>🔒 Premium Members Only</h3>
+        <p>Our community is exclusive to premium subscribers to ensure quality discussions and a spam-free environment. <a href="../premium.html">Become a premium member</a> to unlock access to Discord and Telegram channels.</p>
+    </div>
+</div>
+
+<!-- Platforms -->
+<section class="platforms-section">
+    <h2 class="section-title">Choose Your Platform</h2>
+    <p class="section-subtitle">Stay connected on Discord for discussions, Telegram for updates</p>
+    
+    <div class="platforms-grid">
+        <!-- Discord -->
+        <div class="platform-card discord">
+            <div class="platform-header">
+                <div class="platform-icon discord-bg">
+                    <i class="fab fa-discord"></i>
+                </div>
+                <div>
+                    <div class="platform-title">Discord</div>
+                    <div class="platform-tagline">For discussions & networking</div>
+                </div>
+            </div>
+            
+            <p class="platform-desc">Our primary community hub for in-depth conversations, peer support, and real-time interactions with fellow practitioners.</p>
+            
+            <ul class="platform-features">
+                <li><i class="fas fa-check"></i> Topic-specific channels (MEAL, ToC, Research Methods)</li>
+                <li><i class="fas fa-check"></i> Q&A and peer support forums</li>
+                <li><i class="fas fa-check"></i> Job postings and career opportunities</li>
+                <li><i class="fas fa-check"></i> Voice channels for live discussions</li>
+                <li><i class="fas fa-check"></i> Resource sharing and templates</li>
+                <li><i class="fas fa-check"></i> Direct access to ImpactMojo team</li>
+            </ul>
+            
+            <a href="https://discord.gg/M3ZCmUe7ab" target="_blank" rel="noopener noreferrer" class="platform-cta discord-btn">
+                <i class="fab fa-discord"></i>
+                Join Discord Server
+            </a>
+        </div>
+        
+        <!-- Telegram -->
+        <div class="platform-card telegram">
+            <div class="platform-header">
+                <div class="platform-icon telegram-bg">
+                    <i class="fab fa-telegram-plane"></i>
+                </div>
+                <div>
+                    <div class="platform-title">Telegram</div>
+                    <div class="platform-tagline">For updates & announcements</div>
+                </div>
+            </div>
+            
+            <p class="platform-desc">Stay informed with quick updates, announcements, and curated resources delivered directly to your phone.</p>
+            
+            <ul class="platform-features">
+                <li><i class="fas fa-check"></i> New course announcements</li>
+                <li><i class="fas fa-check"></i> Blog post notifications</li>
+                <li><i class="fas fa-check"></i> Workshop and webinar alerts</li>
+                <li><i class="fas fa-check"></i> Curated resource drops</li>
+                <li><i class="fas fa-check"></i> Quick tips and insights</li>
+                <li><i class="fas fa-check"></i> Event reminders</li>
+            </ul>
+            
+            <a href="https://t.me/impactmojo" target="_blank" rel="noopener noreferrer" class="platform-cta telegram-btn">
+                <i class="fab fa-telegram-plane"></i>
+                Join Telegram Channel
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- How to Access -->
+<section class="access-section">
+    <h2 class="section-title">How to Get Access</h2>
+    <p class="section-subtitle">Simple 4-step process to join our community</p>
+    
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <div class="step-title">Subscribe to Premium</div>
+            <div class="step-desc">Choose a plan on our <a href="../premium.html">premium page</a> and complete your payment</div>
+        </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <div class="step-title">Request Access</div>
+            <div class="step-desc">Select community access in the registration form (or email <a href="mailto:register@impactmojo.in">register@impactmojo.in</a>)</div>
+        </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <div class="step-title">Verification</div>
+            <div class="step-desc">We verify your premium status within 24-48 hours</div>
+        </div>
+        <div class="step-card">
+            <div class="step-number">4</div>
+            <div class="step-title">Get Invite Links</div>
+            <div class="step-desc">Receive your exclusive invite links via email</div>
+        </div>
+    </div>
+</section>
+
+<!-- Community Guidelines -->
+<section class="guidelines-section">
+    <h2 class="section-title">Community Guidelines</h2>
+    <p class="section-subtitle">A few simple rules to keep our community valuable for everyone</p>
+    
+    <div class="guidelines-grid">
+        <div class="guideline-card">
+            <div class="guideline-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="guideline-title">Be Respectful</div>
+            <div class="guideline-desc">Treat everyone with kindness and respect. We're all here to learn and grow together.</div>
+        </div>
+        <div class="guideline-card">
+            <div class="guideline-icon">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="guideline-title">Share Knowledge</div>
+            <div class="guideline-desc">Ask questions freely and share your experiences. Your insights help others succeed.</div>
+        </div>
+        <div class="guideline-card">
+            <div class="guideline-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="guideline-title">Keep It Professional</div>
+            <div class="guideline-desc">Focus on development sector topics. Off-topic discussions have dedicated channels.</div>
+        </div>
+        <div class="guideline-card">
+            <div class="guideline-icon">
+                <i class="fas fa-ban"></i>
+            </div>
+            <div class="guideline-title">No Spam</div>
+            <div class="guideline-desc">No self-promotion, sales pitches, or irrelevant links. Quality over quantity.</div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+    <div class="faq-container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Common questions about our community</p>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                Why is the community exclusive to premium members?
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+                We keep our community exclusive to ensure high-quality discussions and prevent spam. Premium members are genuinely invested in their professional development, which creates a more engaged and helpful community environment.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                Do I need to join both Discord and Telegram?
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+                No! You can choose one or both based on your preference. Discord is better for in-depth discussions and networking, while Telegram is ideal for quick updates and announcements. Many members use both for the complete experience.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                How long does access verification take?
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+                Typically 24-48 hours. We manually verify each request to maintain community quality. You'll receive invite links via email once verified. If you haven't heard back after 48 hours, please email <a href="mailto:register@impactmojo.in">register@impactmojo.in</a>.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                What happens to my access if my subscription expires?
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+                You'll retain access for a 7-day grace period after subscription expiry. After that, your community roles will be updated. You can regain full access by renewing your subscription.
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                I'm already a premium member but don't have community access. What do I do?
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+                Email us at <a href="mailto:register@impactmojo.in">register@impactmojo.in</a> with your registered email address, and we'll send you the invite links within 24 hours.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="cta-card">
+        <h2>Ready to Join the Community?</h2>
+        <p>Become a premium member today and connect with development practitioners from across South Asia and beyond.</p>
+        <div class="cta-buttons">
+            <a href="../premium.html" class="cta-btn primary">
+                <i class="fas fa-crown"></i>
+                View Premium Plans
+            </a>
+            <a href="mailto:register@impactmojo.in?subject=Community%20Access%20Inquiry" class="cta-btn outline">
+                <i class="fas fa-envelope"></i>
+                Contact Us
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-text">
+            © 2025 ImpactMojo. <a href="../index.html">Home</a> | <a href="../premium.html">Premium</a> | <a href="mailto:register@impactmojo.in">Contact</a>
+            <br><span style="font-size: 0.8rem;">Sponsored by PinPoint Ventures</span>
+        </div>
+        <div class="footer-social">
+            <a href="https://www.linkedin.com/company/impactmojo" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.instagram.com/impactmojo.in" target="_blank" rel="noopener noreferrer" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.facebook.com/impactmojo" target="_blank" rel="noopener noreferrer" title="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://x.com/impactmojo" target="_blank" rel="noopener noreferrer" title="X (Twitter)">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Toggle FAQ
+function toggleFAQ(button) {
+    const faqItem = button.parentElement;
+    const wasOpen = faqItem.classList.contains('open');
+    
+    // Close all FAQ items
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('open');
+    });
+    
+    // Open clicked item if it wasn't already open
+    if (!wasOpen) {
+        faqItem.classList.add('open');
+    }
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+</script>
+</body>
+</html>
