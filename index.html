@@ -23,7 +23,7 @@
 </script>
 
 
-<!-- Version 7.7.0 - December 2, 2025 - Replaced emojis with SVG icons, added mobile redirect, fixed encoding -->
+<!-- Version 7.8.0 - December 3, 2025 - Added Supabase authentication system with login/signup buttons -->
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
 <script>
@@ -39,12 +39,12 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="version" content="7.7.20251202">
+<meta name="version" content="7.8.20251203">
 
 <!-- Aggressive cache-busting script -->
 <script>
 (function() {
-    var CURRENT_VERSION = '7.7.0.20251202';
+    var CURRENT_VERSION = '7.8.0.20251203';
     var STORAGE_KEY = 'imx_page_version';
     
     try {
@@ -551,6 +551,143 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+        }
+
+        /* Auth Button Styles */
+        .auth-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+        }
+        
+        .auth-btn-login {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .auth-btn-login:hover {
+            background: var(--hover-bg);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .auth-btn-signup {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+        }
+        
+        .auth-btn-signup:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        
+        /* Auth State Visibility */
+        .auth-logged-in { display: none !important; }
+        .auth-logged-out { display: flex !important; }
+        
+        body.user-authenticated .auth-logged-in { display: flex !important; }
+        body.user-authenticated .auth-logged-out { display: none !important; }
+        
+        /* User Menu Button */
+        .auth-user-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 8px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        
+        .auth-user-menu:hover {
+            border-color: var(--accent-color);
+            background: var(--hover-bg);
+        }
+        
+        .auth-user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            overflow: hidden;
+        }
+        
+        .auth-user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .auth-user-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Premium Badge */
+        .auth-premium-badge {
+            display: none;
+            padding: 0.125rem 0.375rem;
+            background: var(--gradient-premium);
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        
+        body.user-premium .auth-premium-badge {
+            display: inline-block;
+        }
+        
+        /* Mobile auth buttons */
+        @media (max-width: 768px) {
+            .auth-btn {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            
+            .auth-user-name {
+                display: none;
+            }
+            
+            .auth-user-menu {
+                padding: 0.25rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .auth-btn-login span,
+            .auth-btn-signup span {
+                display: none;
+            }
+            
+            .auth-btn {
+                padding: 0.5rem;
+            }
         }
 
         /* Mobile Menu Toggle */
@@ -4595,6 +4732,32 @@
 </ul>
 </div><!-- end nav-with-badge -->
 <div class="nav-buttons">
+<!-- Auth Buttons (Logged Out State) -->
+<a href="login.html" class="auth-btn auth-btn-login auth-logged-out" title="Log In">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+<polyline points="10 17 15 12 10 7"/>
+<line x1="15" y1="12" x2="3" y2="12"/>
+</svg>
+<span>Log In</span>
+</a>
+<a href="signup.html" class="auth-btn auth-btn-signup auth-logged-out" title="Sign Up Free">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+<circle cx="8.5" cy="7" r="4"/>
+<line x1="20" y1="8" x2="20" y2="14"/>
+<line x1="23" y1="11" x2="17" y2="11"/>
+</svg>
+<span>Sign Up</span>
+</a>
+<!-- User Menu (Logged In State) -->
+<a href="account.html" class="auth-user-menu auth-logged-in" title="My Account">
+<div class="auth-user-avatar">
+<span class="auth-user-initials">U</span>
+</div>
+<span class="auth-user-name">Account</span>
+<span class="auth-premium-badge">PRO</span>
+</a>
 <button class="tour-toggle" onclick="IMX.Tour.restart()" title="Take a Tour">
 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
 <circle cx="12" cy="12" r="10"></circle>
@@ -13811,6 +13974,10 @@ console.log('IMX: Script loaded, Tour available:', typeof IMX !== 'undefined' &&
     console.log('[MobileFix] Script loaded');
 })();
 </script>
+
+<!-- Supabase Authentication -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js"></script>
 
 </body>
 </html>
