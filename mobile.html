@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <!-- Version 1.0.0 - Mobile-Only Version - December 2, 2025 -->
+    
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <title>ImpactMojo - Free Development Courses</title>
+    <meta name="description" content="Free MEAL, Theory of Change, research methods, and gender courses for NGOs and impact teams across South Asia.">
+    
+    <!-- Favicons -->
+    <link href="assets/images/favicon.png" rel="icon" type="image/png">
+    <link href="assets/images/apple-touch-icon.png" rel="apple-touch-icon">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0F172A">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JRCMEB9TBW');
+    </script>
+    
+    <style>
+        /* ========================================
+           CSS Reset & Base
+        ======================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-card: #1E293B;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --accent: #0EA5E9;
+            --accent-hover: #0284C7;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --border: #334155;
+            --shadow: rgba(0,0,0,0.3);
+        }
+        
+        /* Light Mode */
+        .light-mode {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
+            --border: #E2E8F0;
+            --shadow: rgba(0,0,0,0.1);
+        }
+        
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* ========================================
+           Header & Navigation
+        ======================================== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 1rem;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0EA5E9, #6366F1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+        
+        .logo-tagline {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .nav-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        /* Hamburger */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+        }
+        
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        /* ========================================
+           Mobile Menu
+        ======================================== */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            z-index: 999;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            padding: 5rem 1.5rem 2rem;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .menu-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .menu-section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            padding-left: 0.5rem;
+        }
+        
+        .menu-items {
+            list-style: none;
+        }
+        
+        .menu-items a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 0.75rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+        
+        .menu-items a:active {
+            background: var(--bg-secondary);
+        }
+        
+        .menu-items svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--accent);
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        .menu-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--bg-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .menu-close svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text-primary);
+        }
+        
+        /* ========================================
+           Hero Section
+        ======================================== */
+        .hero {
+            padding: 2rem 1rem 1.5rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #F1F5F9, #94A3B8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .light-mode .hero h1 {
+            background: linear-gradient(135deg, #0F172A, #334155);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        
+        .hero-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            max-width: 320px;
+            margin: 0 auto 1rem;
+        }
+        
+        .beta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(14, 165, 233, 0.15));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--success);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .beta-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+        
+        /* ========================================
+           Quick Access Grid
+        ======================================== */
+        .quick-access {
+            padding: 1rem;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-left: 0.25rem;
+        }
+        
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .quick-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .quick-card:active {
+            transform: scale(0.98);
+        }
+        
+        .quick-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quick-card-icon.courses { background: linear-gradient(135deg, #0EA5E9, #6366F1); }
+        .quick-card-icon.labs { background: linear-gradient(135deg, #10B981, #0EA5E9); }
+        .quick-card-icon.games { background: linear-gradient(135deg, #F59E0B, #EF4444); }
+        .quick-card-icon.coaching { background: linear-gradient(135deg, #8B5CF6, #EC4899); }
+        
+        .quick-card-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        .quick-card-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+        
+        .quick-card-count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        /* ========================================
+           Featured Courses
+        ======================================== */
+        .featured {
+            padding: 1.5rem 1rem;
+        }
+        
+        .featured-scroll {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .featured-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .course-card {
+            flex: 0 0 280px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-decoration: none;
+            scroll-snap-align: start;
+        }
+        
+        .course-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .course-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .course-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .course-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .course-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #FCD34D;
+        }
+        
+        .course-rating svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+        
+        /* ========================================
+           Labs Section
+        ======================================== */
+        .labs {
+            padding: 1.5rem 1rem;
+        }
+        
+        .lab-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .lab-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-decoration: none;
+        }
+        
+        .lab-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #10B981, #0EA5E9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .lab-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        .lab-content {
+            flex: 1;
+        }
+        
+        .lab-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .lab-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .lab-arrow {
+            color: var(--text-muted);
+        }
+        
+        .lab-arrow svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+        }
+        
+        /* ========================================
+           CTA Section
+        ======================================== */
+        .cta {
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(99, 102, 241, 0.1));
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+        
+        .cta-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cta-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #0EA5E9, #6366F1);
+            color: white;
+            font-weight: 600;
+            padding: 0.875rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        
+        .cta-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+        }
+        
+        /* ========================================
+           Footer
+        ======================================== */
+        .footer {
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        
+        .footer-copy {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .desktop-link {
+            display: block;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        
+        /* ========================================
+           View All Button
+        ======================================== */
+        .view-all {
+            display: block;
+            text-align: center;
+            padding: 0.75rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">
+                <img src="assets/images/ImpactMojo%20Logo.png" alt="ImpactMojo" width="40" height="40">
+                <div class="logo-text">
+                    <span class="logo-name">ImpactMojo</span>
+                    <span class="logo-tagline">Development Know-How</span>
+                </div>
+            </a>
+            <div class="nav-buttons">
+                <button class="nav-btn" id="themeToggle" aria-label="Toggle theme">
+                    <svg viewBox="0 0 24 24" class="sun-icon">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <button class="nav-btn" id="menuToggle" aria-label="Open menu">
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="menu-close" id="menuClose" aria-label="Close menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        
+        <div class="menu-section">
+            <div class="menu-section-title">Learn</div>
+            <ul class="menu-items">
+                <li><a href="catalog.html">
+                    <svg viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+                    All Courses (39)
+                </a></li>
+                <li><a href="https://101.impactmojo.in/toc-workbench" target="_blank">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    Interactive Labs
+                </a></li>
+                <li><a href="https://101.impactmojo.in/wealth-inequality-india" target="_blank">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    Games and Simulations
+                </a></li>
+                <li><a href="handouts.html">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Resources and Handouts
+                </a></li>
+            </ul>
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-section-title">Services</div>
+            <ul class="menu-items">
+                <li><a href="workshops.html">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    Workshops
+                </a></li>
+                <li><a href="https://calendly.com/impactmojo" target="_blank">
+                    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    1:1 Coaching
+                </a></li>
+            </ul>
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-section-title">About</div>
+            <ul class="menu-items">
+                <li><a href="blog.html">
+                    <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    Blog
+                </a></li>
+                <li><a href="index.html#about">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    About Us
+                </a></li>
+                <li><a href="index.html#support-us">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    Support Us
+                </a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Master Development Education</h1>
+        <p class="hero-subtitle">101 Knowledge Series for Social Impact</p>
+        <p class="hero-desc">Comprehensive courses, interactive labs, and practical tools for development professionals across South Asia</p>
+        <div class="beta-badge">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            All Premium Content is FREE during Beta!
+        </div>
+    </section>
+    
+    <!-- Quick Access -->
+    <section class="quick-access">
+        <h2 class="section-title">Explore</h2>
+        <div class="quick-grid">
+            <a href="catalog.html" class="quick-card">
+                <div class="quick-card-icon courses">
+                    <svg viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+                </div>
+                <span class="quick-card-title">Courses</span>
+                <span class="quick-card-count">39 Available</span>
+            </a>
+            <a href="https://101.impactmojo.in/toc-workbench" target="_blank" class="quick-card">
+                <div class="quick-card-icon labs">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </div>
+                <span class="quick-card-title">Labs</span>
+                <span class="quick-card-count">10+ Tools</span>
+            </a>
+            <a href="https://101.impactmojo.in/wealth-inequality-india" target="_blank" class="quick-card">
+                <div class="quick-card-icon games">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                </div>
+                <span class="quick-card-title">Games</span>
+                <span class="quick-card-count">3 Simulations</span>
+            </a>
+            <a href="https://calendly.com/impactmojo" target="_blank" class="quick-card">
+                <div class="quick-card-icon coaching">
+                    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </div>
+                <span class="quick-card-title">Coaching</span>
+                <span class="quick-card-count">Book Session</span>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Featured Courses -->
+    <section class="featured">
+        <h2 class="section-title">Popular Courses</h2>
+        <div class="featured-scroll">
+            <a href="https://101.impactmojo.in/gender-studies" target="_blank" class="course-card">
+                <span class="course-badge">Most Popular</span>
+                <h3 class="course-title">Gender Studies 101</h3>
+                <p class="course-desc">Comprehensive exploration of gender theory, intersectionality, and social implications in development contexts</p>
+                <div class="course-meta">
+                    <span class="course-rating">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        5.0
+                    </span>
+                    <span>2.3K Learners</span>
+                </div>
+            </a>
+            <a href="https://101.impactmojo.in/mel-basics" target="_blank" class="course-card">
+                <span class="course-badge">Essential</span>
+                <h3 class="course-title">MEAL 101</h3>
+                <p class="course-desc">Monitoring, Evaluation, Accountability and Learning frameworks for impact measurement</p>
+                <div class="course-meta">
+                    <span class="course-rating">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        5.0
+                    </span>
+                    <span>3.1K Learners</span>
+                </div>
+            </a>
+            <a href="https://101.impactmojo.in/research-methods" target="_blank" class="course-card">
+                <span class="course-badge">New</span>
+                <h3 class="course-title">Research Methods 101</h3>
+                <p class="course-desc">Fundamentals of research design, data collection, and analysis for development practitioners</p>
+                <div class="course-meta">
+                    <span class="course-rating">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        4.9
+                    </span>
+                    <span>1.8K Learners</span>
+                </div>
+            </a>
+            <a href="https://101.impactmojo.in/dev-economics" target="_blank" class="course-card">
+                <span class="course-badge">Featured</span>
+                <h3 class="course-title">Development Economics 101</h3>
+                <p class="course-desc">Economic concepts for policy practitioners bridging theory and real-world implementation</p>
+                <div class="course-meta">
+                    <span class="course-rating">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        4.8
+                    </span>
+                    <span>1.5K Learners</span>
+                </div>
+            </a>
+        </div>
+        <a href="catalog.html" class="view-all">View All 39 Courses &#8594;</a>
+    </section>
+    
+    <!-- Interactive Labs -->
+    <section class="labs">
+        <h2 class="section-title">Interactive Labs</h2>
+        <div class="lab-list">
+            <a href="https://101.impactmojo.in/toc-workbench" target="_blank" class="lab-item">
+                <div class="lab-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                </div>
+                <div class="lab-content">
+                    <div class="lab-title">TOC Workbench</div>
+                    <div class="lab-desc">Theory of Change development tool</div>
+                </div>
+                <div class="lab-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+            </a>
+            <a href="https://101.impactmojo.in/mel-framework-builder" target="_blank" class="lab-item">
+                <div class="lab-icon">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                </div>
+                <div class="lab-content">
+                    <div class="lab-title">MEL Framework Builder</div>
+                    <div class="lab-desc">Design M&amp;E frameworks interactively</div>
+                </div>
+                <div class="lab-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+            </a>
+            <a href="https://101.impactmojo.in/wealth-inequality-india" target="_blank" class="lab-item">
+                <div class="lab-icon" style="background: linear-gradient(135deg, #F59E0B, #EF4444);">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <div class="lab-content">
+                    <div class="lab-title">Wealth Inequality Game</div>
+                    <div class="lab-desc">Experience behavioral economics</div>
+                </div>
+                <div class="lab-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+            </a>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-box">
+            <h2 class="cta-title">Not Sure Where to Start?</h2>
+            <p class="cta-desc">Take our quick quiz to get personalized course recommendations</p>
+            <a href="index.html#trackQuizModal" class="cta-btn">
+                Take the Quiz
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="index.html#about">About</a>
+            <a href="blog.html">Blog</a>
+            <a href="privacy-policy.html">Privacy</a>
+            <a href="index.html#support-us">Support Us</a>
+        </div>
+        <p class="footer-copy">&copy; 2025 ImpactMojo. All rights reserved.</p>
+        <a href="index.html" class="desktop-link">View Full Desktop Site</a>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        (function() {
+            'use strict';
+            
+            // Elements
+            var menuToggle = document.getElementById('menuToggle');
+            var menuClose = document.getElementById('menuClose');
+            var mobileMenu = document.getElementById('mobileMenu');
+            var hamburger = document.getElementById('hamburger');
+            var themeToggle = document.getElementById('themeToggle');
+            var body = document.body;
+            
+            // Menu toggle
+            function openMenu() {
+                mobileMenu.classList.add('open');
+                hamburger.classList.add('active');
+                body.style.overflow = 'hidden';
+            }
+            
+            function closeMenu() {
+                mobileMenu.classList.remove('open');
+                hamburger.classList.remove('active');
+                body.style.overflow = '';
+            }
+            
+            menuToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (mobileMenu.classList.contains('open')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            });
+            
+            menuToggle.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                if (mobileMenu.classList.contains('open')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }, { passive: false });
+            
+            menuClose.addEventListener('click', closeMenu);
+            menuClose.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                closeMenu();
+            }, { passive: false });
+            
+            // Close menu when clicking a link
+            var menuLinks = mobileMenu.querySelectorAll('a');
+            menuLinks.forEach(function(link) {
+                link.addEventListener('click', closeMenu);
+            });
+            
+            // Theme toggle
+            function setTheme(theme) {
+                if (theme === 'light') {
+                    body.classList.add('light-mode');
+                    localStorage.setItem('imx-theme', 'light');
+                } else {
+                    body.classList.remove('light-mode');
+                    localStorage.setItem('imx-theme', 'dark');
+                }
+            }
+            
+            // Load saved theme
+            var savedTheme = localStorage.getItem('imx-theme');
+            if (savedTheme) {
+                setTheme(savedTheme);
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                if (body.classList.contains('light-mode')) {
+                    setTheme('dark');
+                } else {
+                    setTheme('light');
+                }
+            });
+            
+            // Prevent 300ms delay on touch
+            document.addEventListener('touchstart', function() {}, { passive: true });
+            
+            console.log('[ImpactMojo Mobile] Initialized successfully');
+        })();
+    </script>
+</body>
+</html>
