@@ -1,8 +1,9 @@
 /**
  * ImpactMojo Section Router
- * Version 1.0.0 - December 3, 2025
+ * Version 1.0.1 - December 3, 2025
  * Enables clean URLs like /courses, /labs, /about that work with Netlify
  * Maps URLs to either sections (scroll) or modals (open)
+ * Fixed: Header offset for proper scroll positioning
  */
 
 (function() {
@@ -65,21 +66,27 @@
         return path.toLowerCase();
     }
 
-    // Scroll to a section smoothly
+    // Scroll to a section smoothly with header offset
     function scrollToSection(sectionId) {
         const section = document.getElementById(sectionId);
         if (section) {
             // Small delay to ensure page is loaded
             setTimeout(() => {
-                section.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
+                // Get the fixed header height (approximately 80px)
+                const headerOffset = 100;
+                const elementPosition = section.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
                 });
+                
                 // Update URL hash without triggering scroll
                 if (sectionId !== 'home') {
                     history.replaceState(null, '', '#' + sectionId);
                 }
-            }, 100);
+            }, 150);
             return true;
         }
         return false;
