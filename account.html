@@ -14,6 +14,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
             --primary-color: #6366f1;
@@ -39,6 +42,9 @@
             --radius-md: 0.5rem;
             --radius-lg: 0.75rem;
             --radius-xl: 1rem;
+            --discord-color: #5865F2;
+            --telegram-color: #0088cc;
+            --premium-gold: #F59E0B;
         }
 
         * {
@@ -184,6 +190,9 @@
             font-size: 1.1rem;
             font-weight: 600;
             color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .card-body {
@@ -330,10 +339,11 @@
             transform: translateY(-1px);
         }
 
-        .action-btn svg {
+        .action-btn svg, .action-btn i {
             width: 24px;
             height: 24px;
             color: var(--primary-color);
+            font-size: 1.25rem;
         }
 
         .action-btn span {
@@ -420,6 +430,11 @@
             color: white;
         }
 
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
         .alert {
             padding: 1rem;
             border-radius: var(--radius-md);
@@ -442,6 +457,12 @@
             background: #fef2f2;
             color: #991b1b;
             border: 1px solid #fecaca;
+        }
+
+        .alert-info {
+            background: #eff6ff;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
         }
 
         /* Loading state */
@@ -510,6 +531,237 @@
             transform: scale(1.05);
         }
 
+        /* Community Access Card */
+        .community-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+        }
+
+        .community-card .card-header {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .community-card .card-title {
+            color: white;
+        }
+
+        .community-platforms {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .platform-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            text-align: center;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .platform-card.discord {
+            border: 2px solid var(--discord-color);
+        }
+
+        .platform-card.telegram {
+            border: 2px solid var(--telegram-color);
+        }
+
+        .platform-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .platform-icon.discord {
+            color: var(--discord-color);
+        }
+
+        .platform-icon.telegram {
+            color: var(--telegram-color);
+        }
+
+        .platform-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .platform-card p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .platform-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.2s;
+        }
+
+        .platform-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .platform-btn.discord {
+            background: var(--discord-color);
+        }
+
+        .platform-btn.telegram {
+            background: var(--telegram-color);
+        }
+
+        .community-locked {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .community-locked i {
+            font-size: 3rem;
+            color: var(--premium-gold);
+            margin-bottom: 1rem;
+        }
+
+        .community-locked h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .community-locked p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1.25rem;
+        }
+
+        /* My Saved Items Section */
+        .saved-items-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .saved-item-box {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .saved-item-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .saved-item-count {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .saved-item-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .saved-item-preview {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .saved-item-preview-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .saved-item-preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .saved-item-preview-item i {
+            color: var(--primary-color);
+            width: 16px;
+        }
+
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .sync-status i {
+            font-size: 0.7rem;
+        }
+
+        .sync-status.local {
+            color: var(--warning-color);
+        }
+
+        .sync-status.synced {
+            color: var(--success-color);
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 0.9rem;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+
+        .badge-premium {
+            background: linear-gradient(135deg, var(--premium-gold) 0%, #d97706 100%);
+            color: white;
+        }
+
+        .badge-local {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+        }
+
         @media (max-width: 768px) {
             .header {
                 padding: 1rem;
@@ -547,6 +799,14 @@
             .upgrade-banner {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            .saved-items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .community-platforms {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -586,7 +846,7 @@
     <main class="main-content">
         <div class="page-header">
             <h1 class="page-title">My Account</h1>
-            <p class="page-subtitle">Manage your profile, subscription, and preferences</p>
+            <p class="page-subtitle">Manage your profile, subscription, and saved items</p>
         </div>
 
         <div id="alertBox" class="alert"></div>
@@ -595,7 +855,7 @@
         <div class="upgrade-banner" id="upgradeBanner" style="display: none; margin-bottom: 1.5rem;">
             <div>
                 <h3>🚀 Unlock Premium Features</h3>
-                <p>Get certificates, advanced tools, and exclusive content</p>
+                <p>Get certificates, community access, advanced tools, and exclusive content</p>
             </div>
             <a href="premium.html" class="upgrade-btn">Upgrade Now</a>
         </div>
@@ -604,7 +864,10 @@
             <!-- Profile Overview -->
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Profile Overview</h2>
+                    <h2 class="card-title">
+                        <i class="fas fa-user-circle" style="color: var(--primary-color);"></i>
+                        Profile Overview
+                    </h2>
                 </div>
                 <div class="card-body">
                     <div class="profile-header">
@@ -635,7 +898,10 @@
             <!-- Subscription Status -->
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Subscription</h2>
+                    <h2 class="card-title">
+                        <i class="fas fa-crown" style="color: var(--premium-gold);"></i>
+                        Subscription
+                    </h2>
                 </div>
                 <div class="card-body">
                     <div class="subscription-status">
@@ -659,13 +925,128 @@
                             </svg>
                             <span>Upgrade Plan</span>
                         </a>
-                        <a href="billing.html" class="action-btn">
+                        <a href="mailto:hello@impactmojo.in?subject=Billing%20Inquiry" class="action-btn">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
                                 <line x1="1" y1="10" x2="23" y2="10"/>
                             </svg>
-                            <span>Billing History</span>
+                            <span>Billing Help</span>
                         </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Saved Items - Full Width -->
+            <div class="card card-full">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-bookmark" style="color: var(--primary-color);"></i>
+                        My Saved Items
+                    </h2>
+                    <span class="badge badge-local" id="syncStatusBadge">
+                        <i class="fas fa-laptop"></i> Saved Locally
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="saved-items-grid" id="savedItemsGrid">
+                        <!-- Bookmarks -->
+                        <div class="saved-item-box">
+                            <div class="saved-item-icon">
+                                <i class="fas fa-bookmark"></i>
+                            </div>
+                            <div class="saved-item-count" id="bookmarkCount">0</div>
+                            <div class="saved-item-label">Bookmarks</div>
+                            <div class="saved-item-preview" id="bookmarkPreview">
+                                <!-- Filled by JS -->
+                            </div>
+                            <a href="index.html#bookmarks-section" class="btn btn-outline btn-small" style="margin-top: 0.75rem;">
+                                View All
+                            </a>
+                        </div>
+
+                        <!-- Notes -->
+                        <div class="saved-item-box">
+                            <div class="saved-item-icon">
+                                <i class="fas fa-sticky-note"></i>
+                            </div>
+                            <div class="saved-item-count" id="notesCount">0</div>
+                            <div class="saved-item-label">Notes</div>
+                            <div class="saved-item-preview" id="notesPreview">
+                                <!-- Filled by JS -->
+                            </div>
+                            <a href="index.html#notes-section" class="btn btn-outline btn-small" style="margin-top: 0.75rem;">
+                                View All
+                            </a>
+                        </div>
+
+                        <!-- Progress -->
+                        <div class="saved-item-box">
+                            <div class="saved-item-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="saved-item-count" id="progressCount">0</div>
+                            <div class="saved-item-label">Modules Completed</div>
+                            <div class="saved-item-preview" id="progressPreview">
+                                <!-- Filled by JS -->
+                            </div>
+                            <a href="index.html#courses" class="btn btn-outline btn-small" style="margin-top: 0.75rem;">
+                                Continue Learning
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="sync-status local" id="syncStatusMessage">
+                        <i class="fas fa-info-circle"></i>
+                        Your saved items are stored in this browser. Sign in on any device to access them.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Access - Full Width (Premium Only) -->
+            <div class="card card-full community-card" id="communityCard">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-users" style="color: var(--premium-gold);"></i>
+                        Community Access
+                        <span class="badge badge-premium">Premium</span>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <!-- Locked state (for non-premium) -->
+                    <div class="community-locked" id="communityLocked">
+                        <i class="fas fa-lock"></i>
+                        <h4>Community Access is a Premium Feature</h4>
+                        <p>Join our vibrant Discord server and Telegram channel to connect with fellow development practitioners, share knowledge, and get exclusive updates.</p>
+                        <a href="premium.html" class="btn btn-primary">
+                            <i class="fas fa-crown"></i>
+                            Upgrade to Premium
+                        </a>
+                    </div>
+
+                    <!-- Unlocked state (for premium users) -->
+                    <div class="community-platforms" id="communityUnlocked" style="display: none;">
+                        <div class="platform-card discord">
+                            <div class="platform-icon discord">
+                                <i class="fab fa-discord"></i>
+                            </div>
+                            <h4>Discord Server</h4>
+                            <p>Topic channels, Q&A forums, job postings, and voice chats</p>
+                            <a href="https://discord.gg/M3ZCmUe7ab" target="_blank" class="platform-btn discord">
+                                <i class="fab fa-discord"></i>
+                                Join Discord
+                            </a>
+                        </div>
+                        <div class="platform-card telegram">
+                            <div class="platform-icon telegram">
+                                <i class="fab fa-telegram-plane"></i>
+                            </div>
+                            <h4>Telegram Channel</h4>
+                            <p>Quick updates, course announcements, and resource drops</p>
+                            <a href="https://t.me/impactmojo" target="_blank" class="platform-btn telegram">
+                                <i class="fab fa-telegram-plane"></i>
+                                Join Telegram
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -673,39 +1054,28 @@
             <!-- Quick Actions -->
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Quick Actions</h2>
+                    <h2 class="card-title">
+                        <i class="fas fa-bolt" style="color: var(--accent-color);"></i>
+                        Quick Actions
+                    </h2>
                 </div>
                 <div class="card-body">
                     <div class="quick-actions">
-                        <a href="bookmarks.html" class="action-btn">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-                            </svg>
+                        <a href="index.html#bookmarks-section" class="action-btn">
+                            <i class="fas fa-bookmark"></i>
                             <span>My Bookmarks</span>
                         </a>
-                        <a href="certificates.html" class="action-btn">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="8" r="7"/>
-                                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
-                            </svg>
-                            <span>Certificates</span>
+                        <a href="index.html#labs" class="action-btn">
+                            <i class="fas fa-flask"></i>
+                            <span>Interactive Labs</span>
                         </a>
-                        <a href="notes.html" class="action-btn">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                <polyline points="14 2 14 8 20 8"/>
-                                <line x1="16" y1="13" x2="8" y2="13"/>
-                                <line x1="16" y1="17" x2="8" y2="17"/>
-                            </svg>
+                        <a href="index.html#notes-section" class="action-btn">
+                            <i class="fas fa-sticky-note"></i>
                             <span>My Notes</span>
                         </a>
-                        <a href="progress.html" class="action-btn">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="12" y1="20" x2="12" y2="10"/>
-                                <line x1="18" y1="20" x2="18" y2="4"/>
-                                <line x1="6" y1="20" x2="6" y2="16"/>
-                            </svg>
-                            <span>Progress</span>
+                        <a href="index.html#courses" class="action-btn">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Browse Courses</span>
                         </a>
                     </div>
                 </div>
@@ -714,7 +1084,10 @@
             <!-- Edit Profile -->
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Edit Profile</h2>
+                    <h2 class="card-title">
+                        <i class="fas fa-edit" style="color: var(--primary-color);"></i>
+                        Edit Profile
+                    </h2>
                 </div>
                 <div class="card-body">
                     <form id="profileForm">
@@ -755,34 +1128,30 @@
                 </div>
             </div>
 
-            <!-- Account Settings -->
+            <!-- Account Settings - Full Width -->
             <div class="card card-full">
                 <div class="card-header">
-                    <h2 class="card-title">Account Settings</h2>
+                    <h2 class="card-title">
+                        <i class="fas fa-cog" style="color: var(--text-secondary);"></i>
+                        Account Settings
+                    </h2>
                 </div>
                 <div class="card-body">
                     <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
                         <button class="btn btn-outline" onclick="changePassword()">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                            </svg>
+                            <i class="fas fa-lock"></i>
                             Change Password
                         </button>
                         <button class="btn btn-outline" onclick="exportData()">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                <polyline points="7 10 12 15 17 10"/>
-                                <line x1="12" y1="15" x2="12" y2="3"/>
-                            </svg>
+                            <i class="fas fa-download"></i>
                             Export My Data
                         </button>
+                        <button class="btn btn-outline" onclick="clearLocalData()">
+                            <i class="fas fa-trash-alt"></i>
+                            Clear Browser Data
+                        </button>
                         <button class="btn btn-danger" onclick="signOut()">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                                <polyline points="16 17 21 12 16 7"/>
-                                <line x1="21" y1="12" x2="9" y2="12"/>
-                            </svg>
+                            <i class="fas fa-sign-out-alt"></i>
                             Sign Out
                         </button>
                     </div>
@@ -791,12 +1160,24 @@
         </div>
     </main>
 
+    <!-- Footer -->
+    <footer style="background: var(--bg-tertiary); padding: 2rem; text-align: center; margin-top: 2rem;">
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">
+            Need help? Contact us at <a href="mailto:hello@impactmojo.in" style="color: var(--primary-color);">hello@impactmojo.in</a>
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.5rem;">
+            &copy; 2024-2025 ImpactMojo. Free development education for all.
+        </p>
+    </footer>
+
     <!-- Supabase JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/auth.js"></script>
     
     <script>
-        // Show alert
+        // =====================================================
+        // ALERT SYSTEM
+        // =====================================================
         function showAlert(message, type = 'error') {
             const alertBox = document.getElementById('alertBox');
             alertBox.textContent = message;
@@ -807,7 +1188,135 @@
             }, 5000);
         }
 
-        // Update page with user data
+        // =====================================================
+        // LOCAL STORAGE DATA RETRIEVAL
+        // =====================================================
+        function getLocalBookmarks() {
+            try {
+                const stored = localStorage.getItem('impactMojoBookmarks');
+                return stored ? JSON.parse(stored) : [];
+            } catch (e) {
+                console.error('Error reading bookmarks:', e);
+                return [];
+            }
+        }
+
+        function getLocalNotes() {
+            try {
+                const stored = localStorage.getItem('impactMojoNotes');
+                return stored ? JSON.parse(stored) : [];
+            } catch (e) {
+                console.error('Error reading notes:', e);
+                return [];
+            }
+        }
+
+        function getLocalProgress() {
+            try {
+                const stored = localStorage.getItem('impactMojoProgress');
+                return stored ? JSON.parse(stored) : {};
+            } catch (e) {
+                console.error('Error reading progress:', e);
+                return {};
+            }
+        }
+
+        function getLocalStreak() {
+            try {
+                const stored = localStorage.getItem('impactMojoStreak');
+                return stored ? JSON.parse(stored) : { days: 0 };
+            } catch (e) {
+                return { days: 0 };
+            }
+        }
+
+        // =====================================================
+        // UPDATE SAVED ITEMS DISPLAY
+        // =====================================================
+        function updateSavedItemsDisplay() {
+            // Bookmarks
+            const bookmarks = getLocalBookmarks();
+            document.getElementById('bookmarkCount').textContent = bookmarks.length;
+            
+            const bookmarkPreview = document.getElementById('bookmarkPreview');
+            if (bookmarks.length > 0) {
+                const recentBookmarks = bookmarks.slice(-3).reverse();
+                bookmarkPreview.innerHTML = recentBookmarks.map(b => `
+                    <div class="saved-item-preview-item">
+                        <i class="fas fa-bookmark"></i>
+                        <span>${truncateText(b.title || b.name || 'Untitled', 25)}</span>
+                    </div>
+                `).join('');
+            } else {
+                bookmarkPreview.innerHTML = '<p style="font-size: 0.8rem; color: var(--text-muted);">No bookmarks yet</p>';
+            }
+
+            // Notes
+            const notes = getLocalNotes();
+            document.getElementById('notesCount').textContent = notes.length;
+            
+            const notesPreview = document.getElementById('notesPreview');
+            if (notes.length > 0) {
+                const recentNotes = notes.slice(-3).reverse();
+                notesPreview.innerHTML = recentNotes.map(n => `
+                    <div class="saved-item-preview-item">
+                        <i class="fas fa-sticky-note"></i>
+                        <span>${truncateText(n.title || n.content || 'Note', 25)}</span>
+                    </div>
+                `).join('');
+            } else {
+                notesPreview.innerHTML = '<p style="font-size: 0.8rem; color: var(--text-muted);">No notes yet</p>';
+            }
+
+            // Progress
+            const progress = getLocalProgress();
+            const completedModules = Object.values(progress).filter(p => p === true || p >= 100).length;
+            document.getElementById('progressCount').textContent = completedModules;
+            
+            const progressPreview = document.getElementById('progressPreview');
+            const progressEntries = Object.entries(progress);
+            if (progressEntries.length > 0) {
+                const recentProgress = progressEntries.slice(-3).reverse();
+                progressPreview.innerHTML = recentProgress.map(([key, value]) => `
+                    <div class="saved-item-preview-item">
+                        <i class="fas fa-check-circle" style="color: ${value === true || value >= 100 ? 'var(--success-color)' : 'var(--warning-color)'}"></i>
+                        <span>${truncateText(key.replace(/_/g, ' '), 25)}</span>
+                    </div>
+                `).join('');
+            } else {
+                progressPreview.innerHTML = '<p style="font-size: 0.8rem; color: var(--text-muted);">Start a course to track progress</p>';
+            }
+
+            // Update stats with local data
+            const streak = getLocalStreak();
+            document.getElementById('statStreak').textContent = streak.days || 0;
+            document.getElementById('statCourses').textContent = completedModules;
+        }
+
+        function truncateText(text, maxLength) {
+            if (!text) return '';
+            return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        }
+
+        // =====================================================
+        // COMMUNITY ACCESS
+        // =====================================================
+        function updateCommunityAccess(isPremium) {
+            const lockedSection = document.getElementById('communityLocked');
+            const unlockedSection = document.getElementById('communityUnlocked');
+            
+            if (isPremium) {
+                lockedSection.style.display = 'none';
+                unlockedSection.style.display = 'grid';
+            } else {
+                lockedSection.style.display = 'block';
+                unlockedSection.style.display = 'none';
+            }
+        }
+
+        // =====================================================
+        // UPDATE PAGE WITH USER DATA
+        // =====================================================
         function updatePageData() {
             const profile = ImpactMojoAuth.profile;
             const user = ImpactMojoAuth.user;
@@ -823,10 +1332,16 @@
             document.getElementById('editLinkedin').value = profile.linkedin_url || '';
             document.getElementById('editBio').value = profile.bio || '';
             
-            // Update stats
-            document.getElementById('statCourses').textContent = profile.courses_completed?.length || 0;
-            document.getElementById('statHours').textContent = Math.round(profile.total_learning_hours || 0);
-            document.getElementById('statStreak').textContent = profile.streak_days || 0;
+            // Update stats (prefer server data if available)
+            if (profile.courses_completed?.length) {
+                document.getElementById('statCourses').textContent = profile.courses_completed.length;
+            }
+            if (profile.total_learning_hours) {
+                document.getElementById('statHours').textContent = Math.round(profile.total_learning_hours);
+            }
+            if (profile.streak_days) {
+                document.getElementById('statStreak').textContent = profile.streak_days;
+            }
             
             // Update organization display
             const orgEl = document.getElementById('profileOrg');
@@ -852,28 +1367,32 @@
                     name: 'Explorer',
                     status: 'Free Plan',
                     details: 'Access to all free courses and basic tools',
-                    showUpgrade: true
+                    showUpgrade: true,
+                    isPremium: false
                 },
                 'practitioner': {
                     class: 'tier-practitioner',
                     name: 'Practitioner',
                     status: 'Practitioner Plan',
-                    details: 'Includes certificates and templates',
-                    showUpgrade: true
+                    details: 'Includes certificates, templates & community access',
+                    showUpgrade: true,
+                    isPremium: true
                 },
                 'professional': {
                     class: 'tier-professional',
                     name: 'Professional',
                     status: 'Professional Plan',
-                    details: 'Full access to Research Ops Suite',
-                    showUpgrade: false
+                    details: 'Full access to Research Ops Suite & all tools',
+                    showUpgrade: false,
+                    isPremium: true
                 },
                 'organization': {
                     class: 'tier-organization',
                     name: 'Organization',
                     status: 'Organization Plan',
                     details: 'Team dashboard and admin features',
-                    showUpgrade: false
+                    showUpgrade: false,
+                    isPremium: true
                 }
             };
             
@@ -884,26 +1403,40 @@
             subscriptionStatus.textContent = config.status;
             subscriptionDetails.textContent = config.details;
             
+            // Update upgrade banner visibility
             if (config.showUpgrade) {
                 upgradeBanner.style.display = 'flex';
             } else {
                 upgradeBanner.style.display = 'none';
                 upgradeBtn.innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
+                    <i class="fas fa-shield-alt"></i>
                     <span>Manage Plan</span>
                 `;
             }
+
+            // Update community access
+            updateCommunityAccess(config.isPremium);
+
+            // Update sync status badge
+            const syncBadge = document.getElementById('syncStatusBadge');
+            const syncMessage = document.getElementById('syncStatusMessage');
+            if (ImpactMojoAuth.isLoggedIn()) {
+                syncBadge.innerHTML = '<i class="fas fa-cloud"></i> Account Linked';
+                syncBadge.className = 'badge badge-premium';
+                syncMessage.innerHTML = '<i class="fas fa-check-circle"></i> Your account is active. Full cloud sync coming soon!';
+                syncMessage.className = 'sync-status synced';
+            }
         }
 
-        // Handle profile form
+        // =====================================================
+        // PROFILE FORM HANDLER
+        // =====================================================
         document.getElementById('profileForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const btn = document.getElementById('saveProfileBtn');
             btn.disabled = true;
-            btn.textContent = 'Saving...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
             
             const updates = {
                 full_name: document.getElementById('editName').value.trim(),
@@ -924,10 +1457,12 @@
             }
             
             btn.disabled = false;
-            btn.textContent = 'Save Changes';
+            btn.innerHTML = 'Save Changes';
         });
 
-        // Change password
+        // =====================================================
+        // ACCOUNT ACTIONS
+        // =====================================================
         async function changePassword() {
             const email = ImpactMojoAuth.user?.email;
             if (!email) return;
@@ -942,14 +1477,23 @@
             }
         }
 
-        // Export data
         function exportData() {
-            const profile = ImpactMojoAuth.profile;
-            if (!profile) return;
+            const profile = ImpactMojoAuth.profile || {};
+            const bookmarks = getLocalBookmarks();
+            const notes = getLocalNotes();
+            const progress = getLocalProgress();
+            const streak = getLocalStreak();
             
             const data = {
                 profile: profile,
-                exportedAt: new Date().toISOString()
+                localData: {
+                    bookmarks: bookmarks,
+                    notes: notes,
+                    progress: progress,
+                    streak: streak
+                },
+                exportedAt: new Date().toISOString(),
+                exportedFrom: 'ImpactMojo Account Dashboard'
             };
             
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -963,32 +1507,60 @@
             showAlert('Your data has been exported!', 'success');
         }
 
-        // Sign out
+        function clearLocalData() {
+            if (confirm('This will clear all your bookmarks, notes, and progress saved in this browser. This cannot be undone. Continue?')) {
+                try {
+                    localStorage.removeItem('impactMojoBookmarks');
+                    localStorage.removeItem('impactMojoNotes');
+                    localStorage.removeItem('impactMojoProgress');
+                    localStorage.removeItem('impactMojoStreak');
+                    localStorage.removeItem('impactMojoReadingList');
+                    localStorage.removeItem('impactMojoCompareList');
+                    
+                    showAlert('Browser data cleared successfully!', 'success');
+                    updateSavedItemsDisplay();
+                } catch (e) {
+                    showAlert('Error clearing data: ' + e.message);
+                }
+            }
+        }
+
         async function signOut() {
             if (confirm('Are you sure you want to sign out?')) {
                 await ImpactMojoAuth.signOut();
             }
         }
 
-        // Listen for auth state changes
+        // =====================================================
+        // AUTH STATE LISTENER
+        // =====================================================
         window.addEventListener('authStateChanged', (e) => {
             const loadingOverlay = document.getElementById('loadingOverlay');
             
             if (e.detail.isLoggedIn) {
                 loadingOverlay.style.display = 'none';
                 updatePageData();
+                updateSavedItemsDisplay();
             } else {
                 // Redirect to login if not logged in
                 window.location.href = 'login.html';
             }
         });
 
-        // Check auth on page load
-        setTimeout(() => {
-            if (!ImpactMojoAuth.isLoggedIn()) {
-                window.location.href = 'login.html';
-            }
-        }, 2000);
+        // =====================================================
+        // INITIAL PAGE LOAD
+        // =====================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update saved items from localStorage immediately
+            updateSavedItemsDisplay();
+            
+            // Check auth after a short delay
+            setTimeout(() => {
+                if (!ImpactMojoAuth.isLoggedIn()) {
+                    window.location.href = 'login.html';
+                }
+            }, 2000);
+        });
     </script>
 </body>
 </html>
