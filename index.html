@@ -44,7 +44,7 @@
 <!-- Aggressive cache-busting script -->
 <script>
 (function() {
-    var CURRENT_VERSION = '7.9.4.20251203';
+    var CURRENT_VERSION = '7.9.5.20251203';
     var STORAGE_KEY = 'imx_page_version';
     
     try {
@@ -743,52 +743,154 @@
             transform: translateY(-7px) rotate(-45deg);
         }
 
-        /* Cookie Consent Banner */
+        /* Cookie Consent - Minimal Cookie Icon Design */
         .cookie-consent {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 20px;
+            left: 20px;
+            z-index: 9998;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cookie-icon-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
             background: var(--card-bg);
-            padding: 1.5rem;
-            border-top: 2px solid var(--accent-color);
-            z-index: 9999;
-            display: none;
-            animation: slideUp 0.3s ease;
-            box-shadow: var(--shadow-xl);
-        }
-
-        .cookie-consent.show {
-            display: block;
-        }
-
-        .cookie-consent-content {
-            max-width: 1200px;
-            margin: 0 auto;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .cookie-consent p {
-            color: var(--text-secondary);
-            margin: 0;
-            flex: 1;
+        .cookie-icon-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--accent-color);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.3);
         }
 
-        .cookie-consent-buttons {
+        .cookie-icon-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--warning-color);
+        }
+
+        /* Bite mark effect */
+        .cookie-icon-btn::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 16px;
+            height: 16px;
+            background: var(--primary-bg);
+            border-radius: 50%;
+        }
+
+        .cookie-expanded {
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            width: 320px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px) scale(0.95);
+            transition: all 0.3s ease;
+        }
+
+        .cookie-consent.expanded .cookie-expanded {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .cookie-expanded-header {
             display: flex;
-            gap: 1rem;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
+        .cookie-expanded-header svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--warning-color);
+        }
+
+        .cookie-expanded-header span {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .cookie-expanded p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 0 0 1rem 0;
+        }
+
+        .cookie-expanded-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .cookie-btn-accept {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cookie-btn-accept:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+        }
+
+        .cookie-btn-settings {
+            padding: 0.5rem 0.75rem;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cookie-btn-settings:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+
+        .cookie-consent.hidden {
+            display: none;
+        }
+
+        /* Mobile adjustment */
+        @media (max-width: 480px) {
+            .cookie-consent {
+                left: 10px;
+                bottom: 10px;
             }
-            to {
-                transform: translateY(0);
+            .cookie-expanded {
+                width: calc(100vw - 40px);
+                max-width: 300px;
             }
         }
 
@@ -4641,13 +4743,20 @@
 
 </head>
 <body>
-<!-- Cookie Consent Banner -->
+<!-- Cookie Consent - Minimal Cookie Icon -->
 <div class="cookie-consent" id="cookieConsent">
-<div class="cookie-consent-content">
-<p>This site uses cookies and similar technologies to improve your experience. By using our site, you agree to our Cookie Policy.</p>
-<div class="cookie-consent-buttons">
-<button class="btn btn-primary" onclick="acceptCookies()">Accept</button>
-<a class="btn btn-secondary" href="privacy-policy.html">Learn More</a>
+<button class="cookie-icon-btn" onclick="toggleCookieExpand()" aria-label="Cookie preferences">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="9" r="1.5" fill="var(--primary-bg)"/><circle cx="15" cy="8" r="1" fill="var(--primary-bg)"/><circle cx="10" cy="14" r="1.2" fill="var(--primary-bg)"/><circle cx="16" cy="13" r="1" fill="var(--primary-bg)"/><circle cx="13" cy="17" r="0.8" fill="var(--primary-bg)"/></svg>
+</button>
+<div class="cookie-expanded">
+<div class="cookie-expanded-header">
+<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="9" r="1.5" fill="var(--primary-bg)"/><circle cx="15" cy="8" r="1" fill="var(--primary-bg)"/><circle cx="10" cy="14" r="1.2" fill="var(--primary-bg)"/></svg>
+<span>Cookie Settings</span>
+</div>
+<p>We use cookies to enhance your learning experience, remember your preferences, and analyze site usage. By continuing, you agree to our Cookie Policy.</p>
+<div class="cookie-expanded-buttons">
+<button class="cookie-btn-accept" onclick="acceptCookies()">Accept All</button>
+<button class="cookie-btn-settings" onclick="window.open('https://www.impactmojo.in/privacy', '_blank')">Learn More</button>
 </div>
 </div>
 </div>
@@ -4791,13 +4900,6 @@
 <h1>Master Development Education</h1>
 <p>101 Knowledge Series for Social Impact</p>
 <p style="font-size: 1rem; color: var(--text-secondary);">Comprehensive courses, interactive labs, and practical tools for development professionals exploring justice, equity, and sustainable development across South Asia</p>
-<!-- Beta Notice with Icon -->
-<div class="beta-notice">
-<svg class="icon" viewbox="0 0 24 24">
-<path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"></path>
-</svg>
-<span>All Premium Content is FREE while ImpactMojo is in Beta!</span>
-</div>
 </section>
 
 <!-- Daily Learning Tip -->
@@ -6135,7 +6237,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <!-- Premium Section -->
 <section class="section">
 <h2 class="section-title">Premium Offerings</h2>
-<p class="section-subtitle">Advanced tools and in-depth content (Currently FREE during Beta!)</p>
+<p class="section-subtitle">Advanced tools and in-depth content for serious practitioners</p>
 <div class="cards-grid">
 <div class="card" data-required-tier="practitioner">
 <a href="https://marginmuse.space/themarginmuse" target="_blank">
@@ -7854,17 +7956,12 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <svg class="icon" style="stroke: white;" viewbox="0 0 24 24">
 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
 </svg>
-                        Premium Content (FREE in Beta!)
+                        Premium Content
                     </h2>
 <span class="close" onclick="closeModal('premiumModal')">×</span>
 </div>
 <div class="modal-body">
-<div class="beta-notice" style="margin: 1rem 0;">
-<svg class="icon" viewbox="0 0 24 24">
-<path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"></path>
-</svg>
-                        All Premium Content is Currently FREE During Beta Phase!
-                    </div>
+<p style="color: var(--text-secondary); margin: 0 0 1rem 0; font-size: 0.9rem;">Access advanced tools based on your membership tier. <a href="premium.html" style="color: var(--accent-color);">View pricing →</a></p>
 <div class="modal-grid">
 <div class="modal-item" data-required-tier="professional">
 <div class="modal-item-icon"><svg fill="none" stroke="white" stroke-width="2" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
@@ -7959,7 +8056,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <div class="modal-item" data-required-tier="organization">
 <div class="modal-item-icon" style="background: rgba(245, 158, 11, 0.2);"><svg fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
 <div class="modal-item-content">
-<a href="/cdn-cgi/l/email-protection#650d0009090a250c0815040611080a0f0a4b0c0b5a1610070f00061158310004084057553117040c0b0c0b024057552104160d070a041701405755240606001616" target="_blank" rel="noopener noreferrer">
+<a href="/cdn-cgi/l/email-protection#95fdf0f9f9fad5fcf8e5f4f6e1f8fafffabbfcfbaae6e0f7fff0f6e1a8c1f0f4f8b0a7a5c1e7f4fcfbfcfbf2b0a7a5d1f4e6fdf7faf4e7f1b0a7a5d4f6f6f0e6e6" target="_blank" rel="noopener noreferrer">
 <div class="modal-item-title">
                         Team Training Dashboard
                         <div class="stars" style="display: inline-flex; margin-left: 0.5rem;">
@@ -7982,7 +8079,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <div class="modal-item" data-required-tier="organization">
 <div class="modal-item-icon" style="background: rgba(245, 158, 11, 0.2);"><svg fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
 <div class="modal-item-content">
-<a href="/cdn-cgi/l/email-protection#59313c35353619303429383a2d34363336773037662a2c3b333c3a2d641a2c2a2d36347c6b69153c382b3730373e7c6b6909382d312a7c6b690b3c282c3c2a2d" target="_blank" rel="noopener noreferrer">
+<a href="/cdn-cgi/l/email-protection#69010c05050629000419080a1d04060306470007561a1c0b030c0a1d542a1c1a1d06044c5b59250c081b0700070e4c5b5939081d011a4c5b593b0c181c0c1a1d" target="_blank" rel="noopener noreferrer">
 <div class="modal-item-title">
                         Custom Learning Paths
                         <div class="stars" style="display: inline-flex; margin-left: 0.5rem;">
@@ -8005,7 +8102,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <div class="modal-item" data-required-tier="organization">
 <div class="modal-item-icon" style="background: rgba(245, 158, 11, 0.2);"><svg fill="none" stroke="#F59E0B" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
 <div class="modal-item-content">
-<a href="/cdn-cgi/l/email-protection#90f8f5fcfcffd0f9fde0f1f3e4fdfffaffbef9feafe3e5f2faf5f3e4add4f5f4f9f3f1e4f5f4b5a2a0c3e5e0e0ffe2e4b5a2a0c2f5e1e5f5e3e4" target="_blank" rel="noopener noreferrer">
+<a href="/cdn-cgi/l/email-protection#bfd7dad3d3d0ffd6d2cfdedccbd2d0d5d091d6d180cccaddd5dadccb82fbdadbd6dcdecbdadb9a8d8feccacfcfd0cdcb9a8d8feddacecadacccb" target="_blank" rel="noopener noreferrer">
 <div class="modal-item-title">
                         Dedicated Support & Onboarding
                         <div class="stars" style="display: inline-flex; margin-left: 0.5rem;">
@@ -9148,7 +9245,9 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
         // Cookie Consent
         window.addEventListener('DOMContentLoaded', () => {
             if (!localStorage.getItem('cookieConsent')) {
-                document.getElementById('cookieConsent').classList.add('show');
+                document.getElementById('cookieConsent').style.display = 'block';
+            } else {
+                document.getElementById('cookieConsent').classList.add('hidden');
             }
             
             // Initialize Google Calendar buttons for coaching
@@ -9287,9 +9386,21 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
             }
         });
 
+        // Cookie Consent Functions
+        function toggleCookieExpand() {
+            var cookieEl = document.getElementById('cookieConsent');
+            if (cookieEl) {
+                cookieEl.classList.toggle('expanded');
+            }
+        }
+
         function acceptCookies() {
             localStorage.setItem('cookieConsent', 'true');
-            document.getElementById('cookieConsent').classList.remove('show');
+            var cookieEl = document.getElementById('cookieConsent');
+            if (cookieEl) {
+                cookieEl.classList.remove('expanded');
+                cookieEl.classList.add('hidden');
+            }
         }
 
         // Theme Toggle
@@ -13018,7 +13129,7 @@ IMX.Tour = {
             target: '#nav-premium',
             icon: 'cursor',
             title: 'Premium Content',
-            desc: 'Advanced materials and exclusive content. Currently FREE during our beta period!',
+            desc: 'Advanced materials and exclusive content. Unlock more with Practitioner, Professional, or Organization tiers!',
             position: 'right-of-target',
             desktopOnly: true
         },
