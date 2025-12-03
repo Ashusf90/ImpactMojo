@@ -1,13 +1,16 @@
 /**
  * ImpactMojo Authentication System
  * Powered by Supabase
- * Version 2.0.0 - December 3, 2025
+ * Version 2.0.1 - December 3, 2025
  * 
- * NEW IN v2.0.0:
- * - Cloud sync for bookmarks, notes, progress, reading lists, compare list
+ * FEATURES:
+ * - Cloud sync for bookmarks, notes, compare list, streak data
  * - Auto-sync on login/logout
  * - Manual sync function
  * - Intelligent data merging (newer/more complete wins)
+ * 
+ * FIXED in v2.0.1:
+ * - Storage keys now match index.html (impactmojo_bookmarks, etc.)
  * 
  * Include this file in your HTML pages:
  * <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -24,16 +27,15 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // =====================================================
-// LOCALSTORAGE KEYS (must match index.html)
+// LOCALSTORAGE KEYS (MUST match index.html exactly!)
 // =====================================================
 const STORAGE_KEYS = {
-    BOOKMARKS: 'impactMojoBookmarks',
-    NOTES: 'impactMojoNotes',
-    PROGRESS: 'impactMojoProgress',
-    READING_LIST: 'impactMojoReadingList',
-    COMPARE_LIST: 'impactMojoCompareList',
-    STREAK: 'impactMojoStreak',
-    LAST_SYNC: 'impactMojoLastSync'
+    BOOKMARKS: 'impactmojo_bookmarks',      // Matches IMX.saveBookmarks
+    NOTES: 'impactmojo_notes',              // Matches IMX.Notes.STORAGE_KEY
+    COMPARE: 'impactmojo_compare',          // Matches IMX.saveCompareItems
+    STREAK: 'impactmojo_streak',            // Matches IMX.Streak.STORAGE_KEY
+    ANALYTICS: 'impactmojo_analytics',      // Matches IMX.Analytics.STORAGE_KEY
+    LAST_SYNC: 'impactmojo_last_sync'
 };
 
 // =====================================================
@@ -115,22 +117,21 @@ const ImpactMojoAuth = {
     },
 
     // =====================================================
-    // DATA SYNC METHODS (NEW IN v2.0.0)
+    // DATA SYNC METHODS
     // =====================================================
 
-    // Get data from localStorage
+    // Get data from localStorage (using correct keys from index.html)
     getLocalData() {
         return {
             bookmarks: JSON.parse(localStorage.getItem(STORAGE_KEYS.BOOKMARKS) || '[]'),
             notes: JSON.parse(localStorage.getItem(STORAGE_KEYS.NOTES) || '[]'),
-            progress: JSON.parse(localStorage.getItem(STORAGE_KEYS.PROGRESS) || '{}'),
-            reading_lists: JSON.parse(localStorage.getItem(STORAGE_KEYS.READING_LIST) || '[]'),
-            compare_list: JSON.parse(localStorage.getItem(STORAGE_KEYS.COMPARE_LIST) || '[]'),
-            streak_data: JSON.parse(localStorage.getItem(STORAGE_KEYS.STREAK) || '{"current":0,"longest":0,"last_date":null}')
+            compare_list: JSON.parse(localStorage.getItem(STORAGE_KEYS.COMPARE) || '[]'),
+            streak_data: JSON.parse(localStorage.getItem(STORAGE_KEYS.STREAK) || '{"currentStreak":0,"longestStreak":0,"lastVisit":null}'),
+            progress: JSON.parse(localStorage.getItem(STORAGE_KEYS.ANALYTICS) || '{}')
         };
     },
 
-    // Save data to localStorage
+    // Save data to localStorage (using correct keys from index.html)
     setLocalData(data) {
         if (data.bookmarks !== undefined) {
             localStorage.setItem(STORAGE_KEYS.BOOKMARKS, JSON.stringify(data.bookmarks));
@@ -138,17 +139,14 @@ const ImpactMojoAuth = {
         if (data.notes !== undefined) {
             localStorage.setItem(STORAGE_KEYS.NOTES, JSON.stringify(data.notes));
         }
-        if (data.progress !== undefined) {
-            localStorage.setItem(STORAGE_KEYS.PROGRESS, JSON.stringify(data.progress));
-        }
-        if (data.reading_lists !== undefined) {
-            localStorage.setItem(STORAGE_KEYS.READING_LIST, JSON.stringify(data.reading_lists));
-        }
         if (data.compare_list !== undefined) {
-            localStorage.setItem(STORAGE_KEYS.COMPARE_LIST, JSON.stringify(data.compare_list));
+            localStorage.setItem(STORAGE_KEYS.COMPARE, JSON.stringify(data.compare_list));
         }
         if (data.streak_data !== undefined) {
             localStorage.setItem(STORAGE_KEYS.STREAK, JSON.stringify(data.streak_data));
+        }
+        if (data.progress !== undefined) {
+            localStorage.setItem(STORAGE_KEYS.ANALYTICS, JSON.stringify(data.progress));
         }
     },
 
@@ -160,8 +158,8 @@ const ImpactMojoAuth = {
         const allBookmarks = [...(cloudData.bookmarks || []), ...(localData.bookmarks || [])];
         const bookmarkMap = new Map();
         allBookmarks.forEach(item => {
-            const key = item.id || item.courseId || JSON.stringify(item);
-            if (!bookmarkMap.has(key) || (item.timestamp && item.timestamp > bookmarkMap.get(key).timestamp)) {
+            const key = item.id || item.name || JSON.stringify(item);
+            if (!bookmarkMap.has(key) || (item.addedAt && item.addedAt > bookmarkMap.get(key).addedAt)) {
                 bookmarkMap.set(key, item);
             }
         });
@@ -180,43 +178,32 @@ const ImpactMojoAuth = {
             (b.timestamp || 0) - (a.timestamp || 0)
         );
 
-        // Merge progress (combine all completed items)
+        // Merge compare list (combine unique items)
+        const allCompare = [...(cloudData.compare_list || []), ...(localData.compare_list || [])];
+        const compareMap = new Map();
+        allCompare.forEach(item => {
+            const key = item.id || item.name || JSON.stringify(item);
+            compareMap.set(key, item);
+        });
+        merged.compare_list = Array.from(compareMap.values());
+
+        // Merge streak data (keep higher values)
+        const localStreak = localData.streak_data || { currentStreak: 0, longestStreak: 0, lastVisit: null };
+        const cloudStreak = cloudData.streak_data || { currentStreak: 0, longestStreak: 0, lastVisit: null };
+        merged.streak_data = {
+            currentStreak: Math.max(localStreak.currentStreak || 0, cloudStreak.currentStreak || 0),
+            longestStreak: Math.max(localStreak.longestStreak || 0, cloudStreak.longestStreak || 0),
+            lastVisit: localStreak.lastVisit && cloudStreak.lastVisit 
+                ? (localStreak.lastVisit > cloudStreak.lastVisit ? localStreak.lastVisit : cloudStreak.lastVisit)
+                : (localStreak.lastVisit || cloudStreak.lastVisit),
+            // Keep additional streak fields
+            totalVisits: Math.max(localStreak.totalVisits || 0, cloudStreak.totalVisits || 0)
+        };
+
+        // Merge progress/analytics (combine all data)
         merged.progress = {
             ...(cloudData.progress || {}),
             ...(localData.progress || {})
-        };
-        // Merge completed arrays within progress
-        if (cloudData.progress?.completed || localData.progress?.completed) {
-            const allCompleted = [
-                ...(cloudData.progress?.completed || []),
-                ...(localData.progress?.completed || [])
-            ];
-            merged.progress.completed = [...new Set(allCompleted)];
-        }
-
-        // Merge reading lists (combine unique items)
-        const allReadingLists = [...(cloudData.reading_lists || []), ...(localData.reading_lists || [])];
-        const readingMap = new Map();
-        allReadingLists.forEach(item => {
-            const key = item.id || JSON.stringify(item);
-            readingMap.set(key, item);
-        });
-        merged.reading_lists = Array.from(readingMap.values());
-
-        // Merge compare list (combine unique items)
-        const allCompare = [...(cloudData.compare_list || []), ...(localData.compare_list || [])];
-        merged.compare_list = [...new Set(allCompare.map(i => typeof i === 'string' ? i : JSON.stringify(i)))]
-            .map(i => { try { return JSON.parse(i); } catch { return i; } });
-
-        // Merge streak data (keep higher values)
-        const localStreak = localData.streak_data || { current: 0, longest: 0, last_date: null };
-        const cloudStreak = cloudData.streak_data || { current: 0, longest: 0, last_date: null };
-        merged.streak_data = {
-            current: Math.max(localStreak.current || 0, cloudStreak.current || 0),
-            longest: Math.max(localStreak.longest || 0, cloudStreak.longest || 0),
-            last_date: localStreak.last_date && cloudStreak.last_date 
-                ? (localStreak.last_date > cloudStreak.last_date ? localStreak.last_date : cloudStreak.last_date)
-                : (localStreak.last_date || cloudStreak.last_date)
         };
 
         return merged;
@@ -238,10 +225,9 @@ const ImpactMojoAuth = {
                 .update({
                     bookmarks: localData.bookmarks,
                     notes: localData.notes,
-                    progress: localData.progress,
-                    reading_lists: localData.reading_lists,
                     compare_list: localData.compare_list,
                     streak_data: localData.streak_data,
+                    progress: localData.progress,
                     last_synced_at: new Date().toISOString(),
                     updated_at: new Date().toISOString()
                 })
@@ -279,7 +265,7 @@ const ImpactMojoAuth = {
             // Fetch latest profile with sync data
             const { data, error } = await supabase
                 .from('profiles')
-                .select('bookmarks, notes, progress, reading_lists, compare_list, streak_data, last_synced_at')
+                .select('bookmarks, notes, compare_list, streak_data, progress, last_synced_at')
                 .eq('id', this.user.id)
                 .single();
 
@@ -288,10 +274,9 @@ const ImpactMojoAuth = {
             const cloudData = {
                 bookmarks: data.bookmarks || [],
                 notes: data.notes || [],
-                progress: data.progress || {},
-                reading_lists: data.reading_lists || [],
                 compare_list: data.compare_list || [],
-                streak_data: data.streak_data || { current: 0, longest: 0, last_date: null }
+                streak_data: data.streak_data || { currentStreak: 0, longestStreak: 0, lastVisit: null },
+                progress: data.progress || {}
             };
 
             const localData = this.getLocalData();
@@ -309,7 +294,7 @@ const ImpactMojoAuth = {
 
             console.log('✅ Data synced from cloud');
             
-            // Dispatch event for UI updates
+            // Dispatch event for UI updates (IMX can listen to this)
             window.dispatchEvent(new CustomEvent('dataSynced', { detail: mergedData }));
 
             return { success: true, message: 'Data synced from cloud', data: mergedData };
@@ -357,6 +342,23 @@ const ImpactMojoAuth = {
             console.error('Full sync failed:', err);
             return { success: false, message: err.message, error: err };
         }
+    },
+
+    // Debounced sync - call this after data changes
+    // Waits 3 seconds of inactivity before syncing
+    _syncTimeout: null,
+    queueSync() {
+        if (!this.user) return;
+        
+        // Clear existing timeout
+        if (this._syncTimeout) {
+            clearTimeout(this._syncTimeout);
+        }
+        
+        // Set new timeout
+        this._syncTimeout = setTimeout(() => {
+            this.syncToCloud();
+        }, 3000);
     },
 
     // Get last sync time
@@ -431,7 +433,7 @@ const ImpactMojoAuth = {
             this.user = data.user;
             await this.fetchProfile();
             
-            // Sync data after login (NEW in v2.0.0)
+            // Sync data after login
             await this.syncAll();
 
             return {
@@ -502,7 +504,7 @@ const ImpactMojoAuth = {
     // Sign out
     async signOut() {
         try {
-            // Sync before logout (save any unsaved data) - NEW in v2.0.0
+            // Sync before logout (save any unsaved data)
             if (this.user) {
                 await this.syncToCloud();
             }
@@ -689,7 +691,7 @@ const ImpactMojoAuth = {
             }
         });
 
-        // Update sync status displays (NEW in v2.0.0)
+        // Update sync status displays
         document.querySelectorAll('.auth-sync-status').forEach(el => {
             el.textContent = this.getLastSyncDisplay();
         });
@@ -760,7 +762,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 }
 
 // =====================================================
-// AUTO-SYNC ON PAGE VISIBILITY CHANGE (NEW in v2.0.0)
+// AUTO-SYNC ON PAGE VISIBILITY CHANGE
 // =====================================================
 document.addEventListener('visibilitychange', () => {
     // Sync when user returns to the page (if logged in)
@@ -774,12 +776,10 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // =====================================================
-// AUTO-SYNC BEFORE PAGE UNLOAD (NEW in v2.0.0)
+// AUTO-SYNC BEFORE PAGE UNLOAD
 // =====================================================
 window.addEventListener('beforeunload', () => {
-    // Quick sync before leaving (non-blocking)
     if (ImpactMojoAuth.user && !ImpactMojoAuth.isSyncing) {
-        // Log that data is ready to sync
         console.log('📤 Page unload - data will sync on next visit');
     }
 });
