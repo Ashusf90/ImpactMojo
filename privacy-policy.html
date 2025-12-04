@@ -1,15 +1,17 @@
 <!DOCTYPE html>
+<!--
+    ╔══════════════════════════════════════════════════════════════════════════════╗
+    ║  IMPACTMOJO - PRIVACY POLICY PAGE                                             ║
+    ║  Version: 1.0.0 - December 3, 2025                                            ║
+    ║  Consistent with index.html v7.9.9.20251203                                   ║
+    ╚══════════════════════════════════════════════════════════════════════════════╝
+-->
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<meta content="ImpactMojo Privacy Policy - How we collect, use, and protect your data." name="description"/>
-<title>Privacy Policy - ImpactMojo</title>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<!-- Google Analytics -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -18,21 +20,54 @@
   gtag('config', 'G-JRCMEB9TBW');
 </script>
 
-<!-- Favicons -->
-<link href="assets/images/favicon.png" rel="icon" type="image/png"/>
-<link href="assets/images/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
-<link href="assets/images/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
-<link href="assets/images/apple-touch-icon.png" rel="apple-touch-icon"/>
-<link href="manifest.json" rel="manifest"/>
-<meta content="#0EA5E9" name="theme-color"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Google Fonts - MATCHING MAIN SITE -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"/>
+<!-- Cache Control - Force fresh content -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+
+<!-- Auto-refresh on back/forward navigation -->
+<script>
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+</script>
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="Privacy Policy - Learn how ImpactMojo collects, uses, and protects your personal information. Free development education for NGOs and impact teams.">
+<meta property="og:title" content="Privacy Policy | ImpactMojo">
+<meta property="og:description" content="Learn how ImpactMojo collects, uses, and protects your personal information.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.impactmojo.in/privacy-policy.html">
+<meta property="og:image" content="https://www.impactmojo.in/assets/images/ImpactMojo%20Logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Privacy Policy | ImpactMojo">
+<meta name="twitter:description" content="Learn how ImpactMojo collects, uses, and protects your personal information.">
+
+<title>Privacy Policy | ImpactMojo</title>
+
+<!-- Favicons -->
+<link href="assets/images/favicon.png" rel="icon" type="image/png">
+<link href="assets/images/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+<link href="assets/images/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+<link href="assets/images/apple-touch-icon.png" rel="apple-touch-icon">
+<link href="manifest.json" rel="manifest">
+<meta name="theme-color" content="#0066CC">
+
+<!-- Google Fonts - Inter & Poppins -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet">
 
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 :root {
     --primary-bg: #0F172A;
@@ -50,16 +85,24 @@
     --hover-bg: #334155;
     --border-color: #334155;
     --gradient-primary: linear-gradient(135deg, #0EA5E9 0%, #6366F1 100%);
+    --gradient-accent: linear-gradient(135deg, #0EA5E9 0%, #10B981 100%);
     --nav-bg: rgba(15, 23, 42, 0.95);
     --nav-text: #F1F5F9;
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 body.light-mode {
     --primary-bg: #FFFFFF;
     --secondary-bg: #F8FAFC;
+    --accent-color: #0EA5E9;
+    --accent-hover: #0284C7;
+    --secondary-accent: #6366F1;
+    --success-color: #10B981;
+    --warning-color: #F59E0B;
+    --danger-color: #EF4444;
     --text-primary: #0F172A;
     --text-secondary: #475569;
     --text-muted: #94A3B8;
@@ -71,6 +114,7 @@ body.light-mode {
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
 }
 
 body {
@@ -85,7 +129,10 @@ body {
 body::before {
     content: '';
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-image: 
         radial-gradient(circle at 20% 50%, rgba(14, 165, 233, 0.05) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
@@ -93,485 +140,917 @@ body::before {
     z-index: 1;
 }
 
-.container { position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; }
+.container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
 .header {
     position: sticky;
     top: 0;
+    z-index: 1000;
     background: var(--nav-bg);
     backdrop-filter: blur(20px);
-    z-index: 1000;
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
+    padding: 12px 0;
 }
 
 .nav-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 1rem 1.5rem;
+    padding: 0 24px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
 }
 
-.logo-container {
+.logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 12px;
     text-decoration: none;
-    transition: transform 0.3s;
+    color: var(--text-primary);
 }
 
-.logo-container:hover { transform: translateY(-2px); }
-
-.logo-text { display: flex; flex-direction: column; }
-
-.logo-main {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.75rem;
-    font-weight: 800;
+.logo-icon {
+    width: 40px;
+    height: 40px;
     background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -0.5px;
-    line-height: 1;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    color: white;
 }
 
-.logo-tagline {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    font-weight: 500;
-    margin-top: 2px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+.logo-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
 }
 
 .nav-links {
     display: flex;
-    gap: 2rem;
-    list-style: none;
     align-items: center;
+    gap: 8px;
 }
 
-.nav-links a {
-    color: var(--nav-text);
+.nav-link {
+    padding: 8px 16px;
+    border-radius: 8px;
+    color: var(--text-secondary);
     text-decoration: none;
+    font-size: 0.9rem;
     font-weight: 500;
-    font-size: 0.95rem;
-    transition: all 0.3s;
-    opacity: 0.9;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
 }
 
-.nav-links a:hover { color: var(--accent-color); opacity: 1; }
+.nav-link:hover {
+    color: var(--text-primary);
+    background: var(--hover-bg);
+}
+
+.nav-link.active {
+    color: var(--accent-color);
+    background: rgba(14, 165, 233, 0.1);
+}
 
 .theme-toggle {
-    background: var(--card-bg);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
     border: 1px solid var(--border-color);
-    color: var(--nav-text);
-    padding: 0.625rem;
-    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text-primary);
     cursor: pointer;
-    transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    margin-right: 60px;
+    transition: all 0.2s ease;
 }
 
 .theme-toggle:hover {
-    background: var(--accent-color);
+    background: var(--hover-bg);
     border-color: var(--accent-color);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
 }
 
-.icon {
+.theme-toggle svg {
     width: 20px;
     height: 20px;
     stroke: currentColor;
-    stroke-width: 2;
     fill: none;
+    stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
 
-.icon-sm { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.icon-sun { display: block; }
+.icon-moon { display: none; }
+body.light-mode .icon-sun { display: none; }
+body.light-mode .icon-moon { display: block; }
 
-.content {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem;
+.mobile-menu-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-toggle svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+
+.main-content {
+    padding: 60px 0;
+    min-height: calc(100vh - 200px);
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 48px;
 }
 
 .page-title {
     font-family: 'Poppins', sans-serif;
     font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
+    font-weight: 700;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    margin-bottom: 16px;
 }
 
-.last-updated {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
-}
-
-.policy-section {
-    background: var(--card-bg);
-    border-radius: 16px;
-    padding: 2rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid var(--border-color);
-}
-
-.policy-section h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.35rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--text-primary);
-}
-
-.policy-section p, .policy-section li {
+.page-subtitle {
+    font-size: 1.1rem;
     color: var(--text-secondary);
-    margin-bottom: 0.75rem;
-    line-height: 1.7;
-}
-
-.policy-section ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .back-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
     color: var(--accent-color);
     text-decoration: none;
     font-weight: 500;
-    margin-bottom: 2rem;
-    transition: all 0.3s;
+    margin-bottom: 24px;
+    transition: all 0.2s ease;
 }
 
-.back-link:hover { color: var(--accent-hover); transform: translateX(-4px); }
+.back-link:hover {
+    color: var(--accent-hover);
+}
 
-/* Chatbot styles */
-.chatbot-modal {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 400px;
-    max-width: 90vw;
-    height: 600px;
-    max-height: 80vh;
+.back-link svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+
+.content-card {
     background: var(--card-bg);
-    border-radius: 16px;
-    box-shadow: var(--shadow-lg);
-    z-index: 2000;
-    flex-direction: column;
     border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
 }
-.chatbot-modal.show { display: flex; }
-.chat-header { background: var(--gradient-primary); padding: 1rem 1.5rem; border-radius: 16px 16px 0 0; color: white; display: flex; justify-content: space-between; align-items: center; }
-.chat-header h3 { margin: 0; font-size: 1.125rem; display: flex; align-items: center; gap: 0.5rem; }
-.chat-close { background: rgba(255, 255, 255, 0.1); border: none; color: white; font-size: 1.25rem; cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-.chat-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 1rem; }
-.message { animation: fadeIn 0.3s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-.bot-message { display: flex; gap: 0.75rem; align-items: flex-start; }
-.bot-avatar { width: 35px; height: 35px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.bot-bubble { background: var(--hover-bg); padding: 0.75rem 1rem; border-radius: 16px; border-top-left-radius: 4px; max-width: 80%; color: var(--text-primary); }
-.user-message { display: flex; justify-content: flex-end; }
-.user-bubble { background: var(--gradient-primary); color: white; padding: 0.75rem 1rem; border-radius: 16px; border-top-right-radius: 4px; max-width: 80%; }
-.quick-options { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
-.quick-option { background: var(--card-bg); border: 1px solid var(--accent-color); color: var(--text-primary); padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; transition: all 0.3s; font-size: 0.875rem; font-family: inherit; }
-.quick-option:hover { background: var(--accent-color); color: white; }
-.chat-input-container { padding: 1rem; border-top: 1px solid var(--border-color); display: flex; gap: 0.75rem; }
-.chat-input { flex: 1; background: var(--hover-bg); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.75rem 1rem; border-radius: 24px; font-family: inherit; font-size: 0.95rem; }
-.chat-input:focus { outline: none; border-color: var(--accent-color); }
-.chat-send { background: var(--gradient-primary); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.feedback-fab { position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; box-shadow: var(--shadow-lg); transition: all 0.3s; z-index: 1999; }
-.feedback-fab:hover { transform: scale(1.1); }
+
+.content-card h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.content-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: var(--text-primary);
+}
+
+.content-card p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.7;
+}
+
+.content-card ul, .content-card ol {
+    color: var(--text-secondary);
+    margin: 16px 0;
+    padding-left: 24px;
+}
+
+.content-card li {
+    margin-bottom: 8px;
+}
+
+.content-card a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.content-card a:hover {
+    text-decoration: underline;
+}
+
+.last-updated {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(14, 165, 233, 0.1);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    margin-bottom: 24px;
+}
 
 .footer {
     background: var(--secondary-bg);
-    padding: 3rem 1.5rem;
-    margin-top: 4rem;
     border-top: 1px solid var(--border-color);
+    padding: 40px 0;
+    margin-top: auto;
 }
-.footer-content { max-width: 1200px; margin: 0 auto; text-align: center; }
-.footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-.footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
-.footer-links a:hover { color: var(--accent-color); }
-.footer p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem; }
-.footer a { color: var(--accent-color); text-decoration: none; }
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+}
+
+.footer-info {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.footer-info p {
+    margin-bottom: 8px;
+}
+
+.footer-info a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.footer-info a:hover {
+    text-decoration: underline;
+}
+
+.feedback-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+    z-index: 9000;
+    transition: all 0.3s ease;
+}
+
+.feedback-fab:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-xl);
+}
+
+.feedback-fab svg {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+    fill: none;
+    stroke-width: 2;
+}
+
+.chatbot-modal {
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    width: 380px;
+    max-width: calc(100vw - 48px);
+    max-height: 500px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow-xl);
+    z-index: 9001;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chatbot-modal.active {
+    display: flex;
+}
+
+.chat-header {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.chat-header svg {
+    width: 20px;
+    height: 20px;
+    stroke: white;
+    fill: none;
+    stroke-width: 2;
+}
+
+.chat-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.chat-close:hover {
+    opacity: 1;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    display: flex;
+    gap: 8px;
+}
+
+.bot-message {
+    flex-direction: row;
+}
+
+.user-message {
+    flex-direction: row-reverse;
+}
+
+.bot-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.bot-avatar svg {
+    width: 16px;
+    height: 16px;
+    stroke: white;
+    fill: none;
+    stroke-width: 2;
+}
+
+.bot-bubble, .user-bubble {
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.bot-bubble {
+    background: var(--secondary-bg);
+    color: var(--text-primary);
+    border-bottom-left-radius: 4px;
+}
+
+.bot-bubble a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.bot-bubble a:hover {
+    text-decoration: underline;
+}
+
+.user-bubble {
+    background: var(--accent-color);
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.quick-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.quick-option {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quick-option:hover {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+.chat-input-container {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border-color);
+    background: var(--secondary-bg);
+}
+
+.chat-input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.chat-input:focus {
+    border-color: var(--accent-color);
+}
+
+.chat-send {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.chat-send:hover {
+    background: var(--accent-hover);
+}
+
+.chat-send svg {
+    width: 18px;
+    height: 18px;
+    stroke: white;
+    fill: none;
+    stroke-width: 2;
+}
 
 @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .theme-toggle { margin-right: 50px; }
-    .page-title { font-size: 2rem; }
-    .chatbot-modal { right: 10px; bottom: 80px; width: calc(100vw - 20px); }
-    .feedback-fab { bottom: 20px; right: 20px; }
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--nav-bg);
+        border-bottom: 1px solid var(--border-color);
+        flex-direction: column;
+        padding: 16px;
+        gap: 4px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 12px 16px;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+    }
+
+    .content-card {
+        padding: 20px;
+    }
+
+    .chatbot-modal {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        max-height: 70vh;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+.uwy.userway_p2 .uai {
+    top: 80px !important;
 }
 </style>
 </head>
 <body>
-<div class="container">
+
 <header class="header">
-<nav class="nav-container">
-<a class="logo-container" href="index.html">
-<img alt="ImpactMojo logo" src="assets/images/ImpactMojo%20Logo.png" style="width:48px;height:48px;border-radius:8px;object-fit:contain;"/>
-<div class="logo-text">
-<div class="logo-main">ImpactMojo</div>
-<div class="logo-tagline">Development Know-How</div>
-</div>
-</a>
-<ul class="nav-links">
-<li><a href="index.html">Home</a></li>
-<li><a href="catalog.html">Catalog</a></li>
-<li><a href="workshops.html">Workshops</a></li>
-</ul>
-<button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-<svg class="icon icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" x2="12" y1="1" y2="3"></line><line x1="12" x2="12" y1="21" y2="23"></line><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line><line x1="1" x2="3" y1="12" y2="12"></line><line x1="21" x2="23" y1="12" y2="12"></line><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line></svg>
-<svg class="icon icon-moon" style="display: none;" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-</button>
-</nav>
+    <nav class="nav-container">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">IM</div>
+            <span class="logo-text">ImpactMojo</span>
+        </a>
+        
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="catalog.html" class="nav-link">Catalog</a>
+            <a href="workshops.html" class="nav-link">Workshops</a>
+            <a href="handouts.html" class="nav-link">Resources</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="index.html#about" class="nav-link">About</a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="icon-moon" viewBox="0 0 24 24">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+            
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                <svg viewBox="0 0 24 24">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
 </header>
 
-<main class="content">
-<a class="back-link" href="index.html">
-<svg class="icon-sm" viewBox="0 0 24 24"><line x1="19" x2="5" y1="12" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-Back to ImpactMojo
-</a>
+<main class="main-content">
+    <div class="container">
+        
+        <a href="index.html" class="back-link">
+            <svg viewBox="0 0 24 24">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Back to Home
+        </a>
 
-<h1 class="page-title">Privacy Policy</h1>
-<p class="last-updated">Last updated: January 2025</p>
+        <div class="page-header">
+            <h1 class="page-title">Privacy Policy</h1>
+            <p class="page-subtitle">How we collect, use, and protect your information</p>
+        </div>
 
-<div class="policy-section">
-<h2>Introduction</h2>
-<p>ImpactMojo ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website impactmojo.in and use our educational services.</p>
-</div>
+        <div class="last-updated">Last Updated: December 3, 2025</div>
 
-<div class="policy-section">
-<h2>Information We Collect</h2>
-<p>We may collect information about you in various ways:</p>
-<ul>
-<li><strong>Personal Data:</strong> Name, email address, phone number, and organization details when you register for courses, workshops, or contact us.</li>
-<li><strong>Usage Data:</strong> Information about how you access and use our website, including your IP address, browser type, pages visited, and time spent on pages.</li>
-<li><strong>Feedback Data:</strong> Information you provide through our feedback chatbot (Mojini), including suggestions, bug reports, and feature requests.</li>
-<li><strong>Payment Data:</strong> Payment information for workshop registrations, processed securely through third-party payment processors.</li>
-</ul>
-</div>
+        <div class="content-card">
+            <h2>Introduction</h2>
+            <p>ImpactMojo ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <a href="https://www.impactmojo.in">www.impactmojo.in</a> and use our services.</p>
+            <p>By accessing or using our platform, you agree to this Privacy Policy. If you do not agree with the terms of this policy, please do not access the site.</p>
+        </div>
 
-<div class="policy-section">
-<h2>How We Use Your Information</h2>
-<p>We use the information we collect to:</p>
-<ul>
-<li>Provide, maintain, and improve our educational services</li>
-<li>Process workshop registrations and payments</li>
-<li>Send you updates about courses, workshops, and new content</li>
-<li>Respond to your inquiries and provide customer support</li>
-<li>Analyze usage patterns to improve user experience</li>
-<li>Comply with legal obligations</li>
-</ul>
-</div>
+        <div class="content-card">
+            <h2>Information We Collect</h2>
+            
+            <h3>Information You Provide</h3>
+            <p>We may collect information you voluntarily provide when you:</p>
+            <ul>
+                <li>Register for an account or course</li>
+                <li>Subscribe to our newsletter</li>
+                <li>Contact us via email or forms</li>
+                <li>Participate in surveys or feedback</li>
+                <li>Make a voluntary contribution</li>
+            </ul>
+            <p>This may include your name, email address, organization name, and any other information you choose to provide.</p>
 
-<div class="policy-section">
-<h2>Information Sharing</h2>
-<p>We do not sell, trade, or rent your personal information to third parties. We may share your information only in the following circumstances:</p>
-<ul>
-<li>With service providers who assist in operating our website (e.g., Google Analytics, Formspree)</li>
-<li>When required by law or to protect our rights</li>
-<li>With your consent for specific purposes</li>
-</ul>
-</div>
+            <h3>Automatically Collected Information</h3>
+            <p>When you visit our website, we automatically collect certain information, including:</p>
+            <ul>
+                <li>Browser type and version</li>
+                <li>Operating system</li>
+                <li>Pages visited and time spent</li>
+                <li>Referring website addresses</li>
+                <li>IP address (anonymized)</li>
+            </ul>
+        </div>
 
-<div class="policy-section">
-<h2>Data Security</h2>
-<p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the Internet is 100% secure.</p>
-</div>
+        <div class="content-card">
+            <h2>How We Use Your Information</h2>
+            <p>We use the information we collect to:</p>
+            <ul>
+                <li>Provide, maintain, and improve our services</li>
+                <li>Send you updates about courses and resources</li>
+                <li>Respond to your inquiries and support requests</li>
+                <li>Analyze usage patterns to enhance user experience</li>
+                <li>Comply with legal obligations</li>
+            </ul>
+            <p>We do not sell, rent, or share your personal information with third parties for their marketing purposes.</p>
+        </div>
 
-<div class="policy-section">
-<h2>Your Rights</h2>
-<p>You have the right to:</p>
-<ul>
-<li>Access the personal information we hold about you</li>
-<li>Request correction of inaccurate information</li>
-<li>Request deletion of your personal information</li>
-<li>Opt-out of marketing communications</li>
-</ul>
-<p>To exercise these rights, contact us at <a href="mailto:hello@impactmojo.in" style="color: var(--accent-color);">hello@impactmojo.in</a></p>
-</div>
+        <div class="content-card">
+            <h2>Cookies and Tracking</h2>
+            <p>We use cookies and similar tracking technologies to:</p>
+            <ul>
+                <li>Remember your preferences (such as theme settings)</li>
+                <li>Understand how you use our platform</li>
+                <li>Improve our services based on usage data</li>
+            </ul>
+            <p>We use Google Analytics to analyze website traffic. Google Analytics uses cookies to collect anonymous usage data. You can opt out of Google Analytics by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a>.</p>
+        </div>
 
-<div class="policy-section">
-<h2>Cookies and Tracking</h2>
-<p>We use cookies and similar technologies to enhance your experience, analyze site traffic, and for analytics purposes. You can control cookie settings through your browser preferences.</p>
-</div>
+        <div class="content-card">
+            <h2>Data Security</h2>
+            <p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the Internet is 100% secure.</p>
+        </div>
 
-<div class="policy-section">
-<h2>Third-Party Links</h2>
-<p>Our website may contain links to third-party websites. We are not responsible for the privacy practices of these external sites. We encourage you to review their privacy policies.</p>
-</div>
+        <div class="content-card">
+            <h2>Your Rights</h2>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Access the personal information we hold about you</li>
+                <li>Request correction of inaccurate information</li>
+                <li>Request deletion of your information</li>
+                <li>Opt out of marketing communications</li>
+                <li>Lodge a complaint with a data protection authority</li>
+            </ul>
+            <p>To exercise these rights, please contact us at <a href="mailto:hello@impactmojo.in">hello@impactmojo.in</a>.</p>
+        </div>
 
-<div class="policy-section">
-<h2>Children's Privacy</h2>
-<p>Our services are not directed to individuals under 13. We do not knowingly collect personal information from children under 13. If you believe we have collected such information, please contact us.</p>
-</div>
+        <div class="content-card">
+            <h2>Third-Party Services</h2>
+            <p>Our platform may contain links to third-party websites or services. We are not responsible for the privacy practices of these external sites. We encourage you to read their privacy policies.</p>
+            <p>We use the following third-party services:</p>
+            <ul>
+                <li><strong>Google Analytics</strong> - Website analytics</li>
+                <li><strong>Formspree</strong> - Form submissions</li>
+                <li><strong>UserWay</strong> - Accessibility tools</li>
+            </ul>
+        </div>
 
-<div class="policy-section">
-<h2>Changes to This Policy</h2>
-<p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the "Last updated" date.</p>
-</div>
+        <div class="content-card">
+            <h2>Children's Privacy</h2>
+            <p>Our services are not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13. If we become aware that we have collected such information, we will take steps to delete it.</p>
+        </div>
 
-<div class="policy-section">
-<h2>Contact Us</h2>
-<p>If you have questions about this Privacy Policy, please contact us:</p>
-<p>Email: <a href="mailto:hello@impactmojo.in" style="color: var(--accent-color);">hello@impactmojo.in</a></p>
-<p>Website: <a href="https://impactmojo.in" style="color: var(--accent-color);">impactmojo.in</a></p>
-</div>
+        <div class="content-card">
+            <h2>Changes to This Policy</h2>
+            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the "Last Updated" date. Your continued use of our services after any changes constitutes acceptance of the updated policy.</p>
+        </div>
+
+        <div class="content-card">
+            <h2>Contact Us</h2>
+            <p>If you have questions about this Privacy Policy or our data practices, please contact us:</p>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:hello@impactmojo.in">hello@impactmojo.in</a></li>
+                <li><strong>Website:</strong> <a href="https://www.impactmojo.in">www.impactmojo.in</a></li>
+            </ul>
+        </div>
+
+    </div>
 </main>
-</div>
-
-<!-- Chatbot Modal -->
-<div class="chatbot-modal" id="chatbotModal">
-<div class="chat-header">
-<h3><svg class="icon-sm" style="stroke: white;" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> Mojini - ImpactMojo Assistant</h3>
-<button class="chat-close" onclick="closeChatbot()">×</button>
-</div>
-<div class="chat-messages" id="chatMessages">
-<div class="message bot-message">
-<div class="bot-avatar"><svg class="icon-sm" style="stroke: white;" viewBox="0 0 24 24"><rect height="10" rx="2" ry="2" width="18" x="3" y="11"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path></svg></div>
-<div>
-<div class="bot-bubble">Hi! I'm Mojini. I can take feedback and answer questions about ImpactMojo. How can I help you today?</div>
-<div class="quick-options">
-<button class="quick-option" onclick="selectOption('feedback')">General Feedback</button>
-<button class="quick-option" onclick="selectOption('course')">Suggest Course</button>
-<button class="quick-option" onclick="selectOption('bug')">Report Bug</button>
-<button class="quick-option" onclick="selectOption('feature')">Feature Request</button>
-</div>
-</div>
-</div>
-</div>
-<div class="chat-input-container">
-<input class="chat-input" id="chatInput" onkeypress="handleKeyPress(event)" placeholder="Ask about courses, labs, premium, or leave feedback..." type="text"/>
-<button class="chat-send" onclick="sendMessage()"><svg class="icon-sm" style="stroke: white;" viewBox="0 0 24 24"><line x1="22" x2="11" y1="2" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
-</div>
-</div>
-
-<div class="feedback-fab" onclick="openChatbot()"><svg class="icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
 
 <footer class="footer">
-<div class="footer-content">
-<div class="footer-links">
-<a href="index.html">Home</a>
-<a href="catalog.html">Catalog</a>
-<a href="workshops.html">Workshops</a>
-<a href="privacy-policy.html">Privacy Policy</a>
-<a href="terms-of-service.html">Terms of Service</a>
-</div>
-<p>© 2025 ImpactMojo. All rights reserved.</p>
-<p>Questions? Email us at <a href="mailto:hello@impactmojo.in">hello@impactmojo.in</a></p>
-</div>
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="catalog.html">Catalog</a>
+            <a href="workshops.html">Workshops</a>
+            <a href="blog.html">Blog</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+        </div>
+        <div class="footer-info">
+            <p>© 2025 ImpactMojo. All rights reserved.</p>
+            <p>Questions? Email us at <a href="mailto:hello@impactmojo.in">hello@impactmojo.in</a></p>
+        </div>
+    </div>
 </footer>
+
+<div class="chatbot-modal" id="chatbotModal">
+    <div class="chat-header">
+        <h3>
+            <svg viewBox="0 0 24 24">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Mojini - ImpactMojo Assistant
+        </h3>
+        <button class="chat-close" onclick="closeChatbot()">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+        <div class="message bot-message">
+            <div class="bot-avatar">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                    <circle cx="12" cy="5" r="2"></circle>
+                    <path d="M12 7v4"></path>
+                </svg>
+            </div>
+            <div>
+                <div class="bot-bubble">
+                    Hi! I'm Mojini. Have questions about our privacy practices? I'm here to help!
+                </div>
+                <div class="quick-options">
+                    <button class="quick-option" onclick="selectOption('data')">What data do you collect?</button>
+                    <button class="quick-option" onclick="selectOption('delete')">Delete my data</button>
+                    <button class="quick-option" onclick="selectOption('cookies')">About cookies</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chat-input-container">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Ask about privacy..." onkeypress="handleKeyPress(event)">
+        <button class="chat-send" onclick="sendMessage()">
+            <svg viewBox="0 0 24 24">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<div class="feedback-fab" id="mojini-chat-toggle" onclick="openChatbot()">
+    <svg viewBox="0 0 24 24">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+</div>
+
+<script>
+    (function(d){
+      var s = d.createElement("script");
+      s.setAttribute("data-position", 2);
+      s.setAttribute("data-widget_layout", "full");
+      s.setAttribute("data-account", "EksmhlPg9k");
+      s.setAttribute("src", "https://cdn.userway.org/widget.js");
+      (d.body || d.head).appendChild(s);
+    })(document);
+</script>
 
 <script>
 function toggleTheme() {
     document.body.classList.toggle('light-mode');
     const isLight = document.body.classList.contains('light-mode');
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
-    const sunIcon = document.querySelector('.icon-sun');
-    const moonIcon = document.querySelector('.icon-moon');
-    if (sunIcon && moonIcon) {
-        sunIcon.style.display = isLight ? 'none' : 'block';
-        moonIcon.style.display = isLight ? 'block' : 'none';
-    }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+function initTheme() {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (savedTheme === 'light') document.body.classList.add('light-mode');
-    else if (savedTheme === 'dark') document.body.classList.remove('light-mode');
-    else if (!prefersDark) document.body.classList.add('light-mode');
-    const isLight = document.body.classList.contains('light-mode');
-    const sunIcon = document.querySelector('.icon-sun');
-    const moonIcon = document.querySelector('.icon-moon');
-    if (sunIcon && moonIcon) {
-        sunIcon.style.display = isLight ? 'none' : 'block';
-        moonIcon.style.display = isLight ? 'block' : 'none';
+    if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
+        document.body.classList.add('light-mode');
     }
-});
+}
 
-window.addEventListener('pageshow', function(event) { if (event.persisted) window.location.reload(); });
+function toggleMobileMenu() {
+    document.getElementById('navLinks').classList.toggle('active');
+}
 
-let feedbackType = null, currentStep = 'initial', userRating = 0, feedbackData = {};
-function openChatbot() { document.getElementById('chatbotModal').classList.add('show'); document.getElementById('chatInput').focus(); }
-function closeChatbot() { document.getElementById('chatbotModal').classList.remove('show'); feedbackType = null; currentStep = 'initial'; userRating = 0; feedbackData = {}; }
-function selectOption(type) {
-    feedbackType = type; feedbackData.type = type; currentStep = 'collecting';
-    const labels = {'feedback': 'General Feedback', 'course': 'Suggest a Course', 'bug': 'Report a Bug', 'feature': 'Feature Request'};
-    addUserMessage(labels[type]);
-    setTimeout(() => {
-        if (type === 'feedback') { addBotMessage("Great! Please share your detailed feedback:"); currentStep = 'details'; }
-        else if (type === 'course') addBotMessage("Wonderful! What course topic would you like us to add?");
-        else if (type === 'bug') addBotMessage("Thank you! Please describe the issue and which page it occurred on.");
-        else addBotMessage("Excellent! What feature would make ImpactMojo better for you?");
-    }, 500);
+function openChatbot() {
+    document.getElementById('chatbotModal').classList.add('active');
 }
-function addBotMessage(text) {
-    const messages = document.getElementById('chatMessages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message bot-message';
-    messageDiv.innerHTML = '<div class="bot-avatar"><svg class="icon-sm" viewBox="0 0 24 24" style="stroke: white;"><rect x="3" y="11" width="18" height="10" rx="2" ry="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg></div><div class="bot-bubble">' + text + '</div>';
-    messages.appendChild(messageDiv);
-    messages.scrollTop = messages.scrollHeight;
+
+function closeChatbot() {
+    document.getElementById('chatbotModal').classList.remove('active');
 }
-function addUserMessage(text) {
-    const messages = document.getElementById('chatMessages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message user-message';
-    messageDiv.innerHTML = '<div class="user-bubble">' + text + '</div>';
-    messages.appendChild(messageDiv);
-    messages.scrollTop = messages.scrollHeight;
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter') sendMessage();
 }
+
 function sendMessage() {
     const input = document.getElementById('chatInput');
     const message = input.value.trim();
     if (!message) return;
     addUserMessage(message);
     input.value = '';
-    if (currentStep === 'details' || currentStep === 'collecting') {
-        feedbackData.message = message;
-        currentStep = 'email';
-        setTimeout(() => addBotMessage("Thank you! Would you like to share your email for follow-up? (Type 'skip' to skip)"), 500);
-    } else if (currentStep === 'email') {
-        if (message.toLowerCase() !== 'skip') feedbackData.email = message;
-        fetch('https://formspree.io/f/xpwdvgzp', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(feedbackData) })
-        .then(() => { addBotMessage("Your feedback has been submitted! Thank you for helping us improve ImpactMojo."); currentStep = 'complete'; });
-    }
+    setTimeout(() => {
+        addBotMessage("Thanks for your question! For privacy-related inquiries, please email us at <a href='mailto:hello@impactmojo.in'>hello@impactmojo.in</a> and we'll respond within 2 business days.");
+    }, 500);
 }
-function handleKeyPress(event) { if (event.key === 'Enter') sendMessage(); }
+
+function selectOption(option) {
+    const messages = {
+        'data': "What data does ImpactMojo collect?",
+        'delete': "How can I delete my data?",
+        'cookies': "Tell me about cookies on your site."
+    };
+    addUserMessage(messages[option]);
+    setTimeout(() => {
+        const responses = {
+            'data': "We collect minimal data: your name and email if you sign up, plus anonymous analytics. We never sell your data. See the full policy above for details.",
+            'delete': "To delete your data, email <a href='mailto:hello@impactmojo.in'>hello@impactmojo.in</a> with 'Data Deletion Request' in the subject. We'll process it within 30 days.",
+            'cookies': "We use cookies for theme preferences and Google Analytics (anonymized). You can opt out of Google Analytics using their browser add-on."
+        };
+        addBotMessage(responses[option]);
+    }, 500);
+}
+
+function addUserMessage(text) {
+    const d = document.getElementById('chatMessages');
+    const m = document.createElement('div');
+    m.className = 'message user-message';
+    m.innerHTML = `<div class="user-bubble">${text}</div>`;
+    d.appendChild(m);
+    d.scrollTop = d.scrollHeight;
+}
+
+function addBotMessage(text) {
+    const d = document.getElementById('chatMessages');
+    const m = document.createElement('div');
+    m.className = 'message bot-message';
+    m.innerHTML = `<div class="bot-avatar"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path></svg></div><div class="bot-bubble">${text}</div>`;
+    d.appendChild(m);
+    d.scrollTop = d.scrollHeight;
+}
+
+document.addEventListener('DOMContentLoaded', initTheme);
 </script>
 
-<script>
-(function(d){
-    var s = d.createElement("script");
-    s.setAttribute("data-account", "EksmhlPg9k");
-    s.setAttribute("src", "https://cdn.userway.org/widget.js");
-    (d.body || d.head).appendChild(s);
-})(document);
-</script>
 </body>
 </html>
