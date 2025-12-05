@@ -39,12 +39,12 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="version" content="8.0.1.20251205">
+<meta name="version" content="8.0.2.20251205">
 
 <!-- Aggressive cache-busting script -->
 <script>
 (function() {
-    var CURRENT_VERSION = '8.0.1.20251205';
+    var CURRENT_VERSION = '8.0.2.20251205';
     var STORAGE_KEY = 'imx_page_version';
     
     try {
@@ -5833,11 +5833,11 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 
 
 <!-- Popular Courses Section -->
-<section class="section">
+<section class="section" id="popular-courses">
 <h2 class="section-title">Popular Courses</h2>
 <p class="section-subtitle">Explore our most impactful development education courses</p>
 <div class="cards-grid">
-<div class="card">
+<div class="card" id="first-course-card">
 <a href="https://101.impactmojo.in/gender-studies" data-fallback="https://gender-studies-101-lzno8k1.gamma.site/" data-fallback="https://gender-studies-101-lzno8k1.gamma.site/" target="_blank" rel="noopener noreferrer">
 <div class="card-header">
 <span class="card-number">
@@ -13514,22 +13514,39 @@ IMX.Tour = {
             position: 'below-target',
             desktopOnly: true
         },
-        // AUTH BUTTONS - Account Access
+        // AUTH BUTTONS - Sign Up
         {
             target: '.auth-btn-signup',
             icon: 'cursor',
-            title: 'Account Access',
+            title: 'Sign Up',
             desc: 'Sign up for free to track your progress, save bookmarks, take notes, and unlock premium features! Your learning journey stays with you.',
             position: 'below-target',
             desktopOnly: true
         },
-        // CONTENT CARDS
+        // AUTH BUTTONS - Log In
         {
-            target: '.card:first-of-type',
+            target: '.auth-btn-login',
             icon: 'cursor',
-            title: 'Content Cards',
-            desc: 'Every card has Save and Compare buttons. Click any card to explore courses, labs, and games.',
-            position: 'top'
+            title: 'Log In',
+            desc: 'Already have an account? Log in here to continue your learning journey.',
+            position: 'below-target',
+            desktopOnly: true
+        },
+        // POPULAR COURSES SECTION
+        {
+            target: '#popular-courses',
+            icon: 'cursor',
+            title: 'Popular Courses',
+            desc: 'Browse our most popular development education courses. Each course includes multiple lessons with practical exercises.',
+            position: 'below-target'
+        },
+        // CONTENT CARDS - First Course Card
+        {
+            target: '#first-course-card',
+            icon: 'cursor',
+            title: 'Course Cards',
+            desc: 'Every card has Save and Compare buttons in the top-right corner. Click any card to explore courses, labs, and games. Use the bookmark to save for later!',
+            position: 'below-target'
         },
         // LEARNING TOOLBOX - includes Mojini
         {
@@ -13556,7 +13573,7 @@ IMX.Tour = {
             icon: 'cursor',
             title: 'What\'s New Section',
             desc: 'Here you\'ll find all our latest features! We\'re constantly adding new tools to enhance your learning experience.',
-            position: 'top'
+            position: 'below-target'
         },
         // SUPPORT US
         {
@@ -13564,7 +13581,7 @@ IMX.Tour = {
             icon: 'heart',
             title: 'Support Our Mission',
             desc: 'Pay what you think is fair and receive our curated resource pack — cheatsheets, checklists, and guides for development professionals. You can also share with colleagues or explore partnerships!',
-            position: 'top'
+            position: 'below-target'
         },
         // TOUR BUTTON - Last
         {
