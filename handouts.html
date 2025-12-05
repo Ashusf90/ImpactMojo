@@ -2,8 +2,14 @@
 <!--
     ╔══════════════════════════════════════════════════════════════════════════════╗
     ║  IMPACTMOJO - EDUCATIONAL HANDOUTS PAGE                                       ║
-    ║  Version: 2.0.0 - December 4, 2025                                            ║
+    ║  Version: 2.1.0 - December 5, 2025                                            ║
     ║  Dynamic GitHub loader - fetches all handouts from Handouts/ folder           ║
+    ║                                                                                ║
+    ║  CHANGELOG v2.1.0:                                                             ║
+    ║  - Fixed full 4-section footer matching index.html                            ║
+    ║  - Fixed email display (removed Cloudflare obfuscation)                       ║
+    ║  - Completed truncated JavaScript (search listener + init)                    ║
+    ║  - Updated newsletter URL to varna.substack.com                               ║
     ║                                                                                ║
     ║  INCLUDED FEATURES:                                                            ║
     ║  ✓ Google Analytics (G-JRCMEB9TBW)                                            ║
@@ -34,6 +40,8 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="version" content="2.1.0.20251205">
 
 <!-- Auto-refresh on back/forward navigation -->
 <script>
@@ -46,16 +54,16 @@ window.addEventListener('pageshow', function(event) {
 
 <!-- SEO Meta Tags -->
 <meta name="description" content="Free educational handouts and resources for MEAL, Theory of Change, research methods, gender studies, and development economics. 400+ HTML resources organized by theme.">
-<meta property="og:title" content="Educational Handouts & Resources | ImpactMojo">
+<meta property="og:title" content="Educational Handouts &amp; Resources | ImpactMojo">
 <meta property="og:description" content="Free educational handouts and resources for development professionals - MEAL, ToC, research methods, and more.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.impactmojo.in/handouts.html">
 <meta property="og:image" content="https://www.impactmojo.in/assets/images/ImpactMojo%20Logo.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Educational Handouts & Resources | ImpactMojo">
+<meta name="twitter:title" content="Educational Handouts &amp; Resources | ImpactMojo">
 <meta name="twitter:description" content="Free educational handouts for development professionals.">
 
-<title>Educational Handouts & Resources | ImpactMojo</title>
+<title>Educational Handouts &amp; Resources | ImpactMojo</title>
 
 <!-- Favicons -->
 <link href="assets/images/favicon.png" rel="icon" type="image/png">
@@ -471,11 +479,11 @@ body.light-mode .icon-moon { display: block; }
     margin-bottom: 16px;
 }
 
-/* Footer */
+/* Footer - Full 4-Section Structure */
 .footer {
     background: var(--secondary-bg);
     border-top: 1px solid var(--border-color);
-    padding: 40px 0;
+    padding: 60px 0 40px;
     margin-top: 60px;
 }
 
@@ -483,39 +491,88 @@ body.light-mode .icon-moon { display: block; }
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
+}
+
+.footer-sponsor {
     text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.9rem;
 }
 
-.footer-links {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 24px;
-    margin-bottom: 24px;
+.footer-sponsor a {
+    color: var(--accent-color);
+    text-decoration: none;
 }
 
-.footer-links a {
+.footer-sponsor a:hover {
+    text-decoration: underline;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-section h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section li {
+    margin-bottom: 12px;
+}
+
+.footer-section a {
     color: var(--text-secondary);
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.2s ease;
 }
 
-.footer-links a:hover {
+.footer-section a:hover {
     color: var(--accent-color);
 }
 
-.footer-info {
+.footer-section li:not(:has(a)) {
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
 
-.footer-info p {
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-bottom p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
     margin-bottom: 8px;
 }
 
-.footer-info a {
+.footer-bottom a {
     color: var(--accent-color);
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom strong {
+    color: var(--text-secondary);
 }
 
 /* Mojini Chatbot */
@@ -775,6 +832,11 @@ body.light-mode .icon-moon { display: block; }
         padding: 12px 16px;
     }
 
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
     .chatbot-modal {
         bottom: 0;
         right: 0;
@@ -784,10 +846,12 @@ body.light-mode .icon-moon { display: block; }
         max-height: 70vh;
         border-radius: 16px 16px 0 0;
     }
+}
 
-    .footer-links {
-        flex-direction: column;
-        gap: 12px;
+@media (max-width: 480px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
     }
 }
 
@@ -890,20 +954,69 @@ body.light-mode .icon-moon { display: block; }
     </div>
 </main>
 
-<!-- Footer -->
-<footer class="footer">
+<!-- Footer - Full 4-Section Structure -->
+<footer class="footer" id="contact">
     <div class="footer-content">
-        <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="catalog.html">Catalog</a>
-            <a href="workshops.html">Workshops</a>
-            <a href="blog.html">Blog</a>
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="terms-of-service.html">Terms of Service</a>
+        <div class="footer-sponsor">
+            Made with &#10084;&#65039; by <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">PinPoint Ventures</a>
         </div>
-        <div class="footer-info">
-            <p>© 2025 ImpactMojo. All rights reserved.</p>
-            <p>Questions? Email us at <a href="mailto:hello@impactmojo.in">hello@impactmojo.in</a></p>
+        
+        <div class="footer-grid">
+            <!-- About ImpactMojo -->
+            <div class="footer-section">
+                <h4>About ImpactMojo</h4>
+                <ul>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#support-us">Support Us</a></li>
+                    <li><a href="mailto:hello@impactmojo.in">Contact</a></li>
+                    <li><a href="https://github.com/Varnasr/ImpactMojo" target="_blank" rel="noopener">GitHub (Open Source)</a></li>
+                    <li>MIT License</li>
+                </ul>
+            </div>
+            
+            <!-- Legal -->
+            <div class="footer-section">
+                <h4>Legal (IT Act Compliance)</h4>
+                <ul>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                    <li><a href="grievance.html">Grievance Redressal</a></li>
+                    <li><a href="refund-policy.html">Refund Policy</a></li>
+                    <li><a href="data-protection.html">Data Protection</a></li>
+                </ul>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="catalog.html">All Courses</a></li>
+                    <li><a href="index.html#labs">All Labs</a></li>
+                    <li><a href="index.html#games">All Games</a></li>
+                    <li><a href="premium.html">Premium Content</a></li>
+                    <li><a href="workshops.html">Workshops</a></li>
+                </ul>
+            </div>
+            
+            <!-- Resources -->
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="handouts.html">Educational Handouts</a></li>
+                    <li><a href="https://varna.substack.com" target="_blank" rel="noopener">Research Newsletter</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&#169; 2025 ImpactMojo. All content for educational purposes only.</p>
+            <p><strong>DISCLAIMER:</strong> ImpactMojo is an educational resource platform focused on learning, not credentialing.</p>
+            <p>Released under <strong>MIT License</strong> - Free and Open Source | Supported by <a href="https://www.pinpointventures.in" target="_blank" rel="noopener">PinPoint Ventures</a></p>
+            <p>Registered in India | Compliant with Information Technology Act, 2000 and IT Rules, 2011</p>
         </div>
     </div>
 </footer>
@@ -917,7 +1030,7 @@ body.light-mode .icon-moon { display: block; }
             </svg>
             Mojini - ImpactMojo Assistant
         </h3>
-        <button class="chat-close" onclick="closeChatbot()">×</button>
+        <button class="chat-close" onclick="closeChatbot()">&#215;</button>
     </div>
     <div class="chat-messages" id="chatMessages">
         <div class="message bot-message">
@@ -950,11 +1063,11 @@ body.light-mode .icon-moon { display: block; }
 </div>
 
 <!-- Mojini FAB -->
-<div class="feedback-fab" onclick="openChatbot()">
+<button class="feedback-fab" onclick="openChatbot()" aria-label="Open chat assistant">
     <svg viewBox="0 0 24 24">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
     </svg>
-</div>
+</button>
 
 <!-- UserWay Accessibility Widget -->
 <script>
@@ -1247,17 +1360,23 @@ async function loadHandouts() {
                 <line x1="12" y1="16" x2="12.01" y2="16"></line>
             </svg>
             <p>Error loading handouts: ${error.message}</p>
-            <p style="margin-top: 8px;"><a href="https://github.com/Varnasr/ImpactMojo/tree/main/Handouts" target="_blank" style="color: var(--accent-color);">View on GitHub directly →</a></p>
+            <p style="margin-top: 8px;"><a href="https://github.com/Varnasr/ImpactMojo/tree/main/Handouts" target="_blank" style="color: var(--accent-color);">View on GitHub directly &rarr;</a></p>
         `;
     }
 }
 
-// Search functionality
-searchBox.addEventListener('input', () => {
-    renderCards(allGroups);
+// Search functionality - debounced
+let searchTimeout;
+searchBox.addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        renderCards(allGroups);
+    }, 300);
 });
 
-// Initialize on page load
+// =====================================================
+// Initialize Everything
+// =====================================================
 document.addEventListener('DOMContentLoaded', function() {
     initTheme();
     loadHandouts();
