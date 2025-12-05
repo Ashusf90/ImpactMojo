@@ -14,7 +14,7 @@
     ║  ✓ 40 Courses with category filtering                                       ║
     ║  ✓ 10 Labs with descriptions                                                ║
     ║  ✓ 12 Games with descriptions                                               ║
-    ║  ✓ 4 Premium Tools                                                          ║
+    ║  ✓ 3 Premium Tools                                                          ║
     ║  ✓ Handouts link                                                            ║
     ║  ✓ Tab-based navigation between sections                                    ║
     ║  ✓ Real-time search                                                         ║
@@ -1530,13 +1530,12 @@ const GAMES = [
 ];
 
 // =====================================================
-// DATA: PREMIUM TOOLS (4 tools)
+// DATA: PREMIUM TOOLS (3 tools)
 // =====================================================
 const PREMIUM_TOOLS = [
     { id: 1, title: "Statistical Code Converter Pro", url: "https://101.impactmojo.in/code-convert-pro", desc: "Convert statistical code between R, Stata, SPSS, and Python seamlessly. Perfect for multi-platform research teams.", tier: "Professional" },
     { id: 2, title: "Qualitative Insights Lab Pro", url: "https://101.impactmojo.in/qual-insights", desc: "Advanced qualitative data analysis with AI-assisted coding, theme identification, and visualisation tools.", tier: "Professional" },
-    { id: 3, title: "RQ Builder Pro", url: "https://101.impactmojo.in/researchQ-pro", desc: "Turn messy ideas into sharp, researchable questions with worked examples, templates, and 101-style guidance.", tier: "Professional" },
-    { id: 4, title: "Hypothesis Architect Pro", url: "https://101.impactmojo.in/IMResearchQuestionsPro", desc: "Advanced research question formulation and hypothesis development framework for thesis and academic work.", tier: "Practitioner" }
+    { id: 3, title: "RQ Builder Pro", url: "https://101.impactmojo.in/researchQ-pro", desc: "Turn messy ideas into sharp, researchable questions with worked examples, templates, and 101-style guidance.", tier: "Professional" }
 ];
 
 // =====================================================
@@ -1887,7 +1886,7 @@ function sendMessage() {
     if (lowerMsg.includes('meal') || lowerMsg.includes('monitoring') || lowerMsg.includes('evaluation')) {
         response = "Check out our MEAL courses: MEL Basics 101, Data Literacy 101, Data Storytelling 101, and Cost Effectiveness 101. Also try the MEL Design Lab and MEL Plan Lab!";
     } else if (lowerMsg.includes('research') || lowerMsg.includes('qualitative') || lowerMsg.includes('method')) {
-        response = "We have great research courses: Qualitative Methods 101, Research Ethics 101, Visual Ethnography 101. For premium users, try RQ Builder Pro or Hypothesis Architect Pro!";
+        response = "We have great research courses: Qualitative Methods 101, Research Ethics 101, Visual Ethnography 101. For premium users, try RQ Builder Pro!";
     } else if (lowerMsg.includes('lab')) {
         response = "We have 10 interactive labs including Theory of Change Lab, MEL Design Lab, Design Thinking Lab, and Storytelling Lab. Click the Labs tab to explore!";
         switchSection('labs');
@@ -1895,7 +1894,7 @@ function sendMessage() {
         response = "Explore 12 economics games! Learn about Public Goods, Prisoner's Dilemma, Network Effects, and more through interactive gameplay. Click the Games tab!";
         switchSection('games');
     } else if (lowerMsg.includes('premium') || lowerMsg.includes('pro')) {
-        response = "Our 4 premium tools: Statistical Code Converter Pro, Qualitative Insights Lab Pro, RQ Builder Pro, and Hypothesis Architect Pro. All on a pay-what-you-think-is-fair basis!";
+        response = "Our 3 premium tools: Statistical Code Converter Pro, Qualitative Insights Lab Pro, and RQ Builder Pro. All on a pay-what-you-think-is-fair basis!";
         switchSection('premium');
     } else if (lowerMsg.includes('handout') || lowerMsg.includes('pdf') || lowerMsg.includes('download')) {
         response = "We have downloadable PDF handouts organised by learning track. Click the Handouts tab or visit our dedicated handouts page!";
