@@ -39,12 +39,12 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="version" content="8.0.3.20251205">
+<meta name="version" content="8.0.4.20251205">
 
 <!-- Aggressive cache-busting script -->
 <script>
 (function() {
-    var CURRENT_VERSION = '8.0.3.20251205';
+    var CURRENT_VERSION = '8.0.4.20251205';
     var STORAGE_KEY = 'imx_page_version';
     
     try {
@@ -13485,26 +13485,10 @@ IMX.Tour = {
             desktopOnly: true
         },
         {
-            target: '#nav-whats-new',
-            icon: 'cursor',
-            title: 'What\'s New (Nav)',
-            desc: 'Quick link to see all new features and updates on ImpactMojo!',
-            position: 'right-of-target',
-            desktopOnly: true
-        },
-        {
             target: '#nav-support',
             icon: 'heart',
-            title: 'Support Us (Nav)',
+            title: 'Support Us',
             desc: 'Jump to our Support section to contribute and receive our curated resource pack.',
-            position: 'right-of-target',
-            desktopOnly: true
-        },
-        {
-            target: '#nav-contact',
-            icon: 'cursor',
-            title: 'Contact',
-            desc: 'Get in touch with us. Questions, feedback, or partnership inquiries welcome!',
             position: 'right-of-target',
             desktopOnly: true,
             action: function() {
@@ -13548,20 +13532,7 @@ IMX.Tour = {
             position: 'below-target',
             desktopOnly: true
         },
-        // POPULAR COURSES SECTION
-        {
-            target: '#popular-courses',
-            icon: 'cursor',
-            title: 'Popular Courses',
-            desc: 'Browse our most popular development education courses. Each course includes multiple lessons with practical exercises.',
-            position: 'below-target',
-            action: function() {
-                // Scroll to courses section smoothly
-                var section = document.querySelector('#popular-courses');
-                if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        },
-        // CONTENT CARDS - First Course Card
+        // FIRST COURSE CARD - Direct to card
         {
             target: '#first-course-card',
             icon: 'cursor',
