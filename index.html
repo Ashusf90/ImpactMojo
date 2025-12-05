@@ -4,26 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- Mobile Device Redirect -->
-<script>
-(function() {
-    var hostname = window.location.hostname;
-    var isMainDomain = hostname === 'www.impactmojo.in' || hostname === 'impactmojo.in';
-    var pathname = window.location.pathname;
-    var isHomepage = pathname === '/' || pathname === '/index.html' || pathname === '';
-    var urlParams = new URLSearchParams(window.location.search);
-    var forceDesktop = urlParams.get('desktop') === '1' || localStorage.getItem('imx-force-desktop') === '1';
-    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    var isSmallScreen = window.innerWidth <= 768;
-    
-    if ((isMobile || isSmallScreen) && isMainDomain && isHomepage && !forceDesktop) {
-        window.location.replace('mobile.html');
-    }
-})();
-</script>
 
-
-<!-- Version 9.2.0 - December 3, 2025 - Added auto-sync for cloud data + fixed feature URLs -->
+<!-- Version 9.4.3 - December 6, 2025 - Removed mobile redirect, fully responsive design -->
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
 <script>
@@ -39,7 +21,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="version" content="9.4.2.20251205">
+<meta name="version" content="9.4.3.20251205">
 
 <!-- Aggressive cache-busting script -->
 <script>
