@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<!--
+    ╔═══════════════════════════════════════════════════════════════════════════╗
+    ║  IMPACTMOJO MOBILE HOMEPAGE                                               ║
+    ║  Version: 1.0.0 - December 6, 2025                                        ║
+    ║                                                                           ║
+    ║  Clean, simple mobile version with guaranteed working navigation          ║
+    ║  Desktop users are redirected to index.html                               ║
+    ╚═══════════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+<!-- Redirect desktop users to main site -->
+<script>
+if (window.innerWidth > 768 && !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    window.location.replace('index.html');
+}
+</script>
+
+<!-- Google tag (gtag.js) - G-JRCMEB9TBW -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JRCMEB9TBW');
+</script>
+
+<title>ImpactMojo - Free Development Education</title>
+<meta name="description" content="Free MEAL, M&E and development courses for NGOs and impact teams across South Asia.">
+
+<!-- Favicons -->
+<link href="assets/images/favicon.png" rel="icon" type="image/png">
+<link href="assets/images/apple-touch-icon.png" rel="apple-touch-icon">
+<meta name="theme-color" content="#0EA5E9">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ========================================
+   MOBILE-FIRST STYLES
+   ======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --primary-bg: #0F172A;
+    --secondary-bg: #1E293B;
+    --accent-color: #0EA5E9;
+    --accent-hover: #0284C7;
+    --secondary-accent: #6366F1;
+    --success-color: #10B981;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --card-bg: #1E293B;
+    --border-color: #334155;
+    --gradient-primary: linear-gradient(135deg, #0EA5E9 0%, #6366F1 100%);
+    --nav-bg: rgba(15, 23, 42, 0.98);
+}
+
+body.light-mode {
+    --primary-bg: #F8FAFC;
+    --secondary-bg: #FFFFFF;
+    --accent-color: #0284C7;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --card-bg: #FFFFFF;
+    --border-color: #E2E8F0;
+    --nav-bg: rgba(255, 255, 255, 0.98);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ========================================
+   HEADER & NAVIGATION
+   ======================================== */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    max-width: 100%;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.logo-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+}
+
+.logo-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Hamburger Button - SIMPLE AND GUARANTEED TO WORK */
+#hamburgerBtn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 0;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+#hamburgerBtn:active {
+    background: var(--accent-color);
+    transform: scale(0.95);
+}
+
+.hamburger-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+#hamburgerBtn.open .hamburger-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+#hamburgerBtn.open .hamburger-bar:nth-child(2) {
+    opacity: 0;
+}
+
+#hamburgerBtn.open .hamburger-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Menu */
+#mobileMenu {
+    position: fixed;
+    top: 61px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--primary-bg);
+    z-index: 999;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    padding: 1rem;
+}
+
+#mobileMenu.open {
+    transform: translateX(0);
+}
+
+.menu-section {
+    margin-bottom: 1.5rem;
+}
+
+.menu-section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0.5rem;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 0.5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.menu-item:active {
+    background: var(--secondary-bg);
+}
+
+.menu-item svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--accent-color);
+    fill: none;
+    stroke-width: 2;
+}
+
+.menu-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 1rem 0;
+}
+
+/* Theme Toggle in Menu */
+.theme-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 0.5rem;
+    background: var(--secondary-bg);
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.theme-toggle-row span {
+    font-weight: 500;
+}
+
+#themeBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: var(--primary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#themeBtn svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--accent-color);
+    fill: none;
+    stroke-width: 2;
+}
+
+/* ========================================
+   MAIN CONTENT
+   ======================================== */
+main {
+    padding-top: 70px;
+}
+
+/* Hero Section */
+.hero {
+    padding: 2rem 1rem 3rem;
+    text-align: center;
+    background: var(--gradient-primary);
+    background-size: 200% 200%;
+    animation: gradientFlow 8s ease infinite;
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1.5rem;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    background: #fff;
+    color: #0EA5E9;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-cta:active {
+    transform: scale(0.98);
+}
+
+/* Stats Bar */
+.stats-bar {
+    display: flex;
+    justify-content: space-around;
+    padding: 1.25rem 1rem;
+    background: var(--secondary-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* Section Styles */
+.section {
+    padding: 2rem 1rem;
+}
+
+.section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-title svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--accent-color);
+    fill: none;
+    stroke-width: 2;
+}
+
+/* Cards */
+.card-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:active {
+    transform: scale(0.98);
+}
+
+.card-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.card-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background: var(--accent-color);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+/* Quick Links Grid */
+.quick-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.quick-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.quick-link:active {
+    background: var(--secondary-bg);
+}
+
+.quick-link svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--accent-color);
+    fill: none;
+    stroke-width: 1.5;
+}
+
+.quick-link span {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Footer */
+footer {
+    background: var(--secondary-bg);
+    padding: 2rem 1rem;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.footer-logo img {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+}
+
+.footer-logo span {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.footer-tagline {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+}
+
+.footer-copyright {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+/* Sponsor Badge */
+.sponsor-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 1rem;
+}
+
+/* Desktop Link */
+.desktop-link {
+    display: block;
+    text-align: center;
+    padding: 0.75rem;
+    background: var(--accent-color);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <nav class="nav-container">
+        <a href="index.html" class="logo-link">
+            <img src="assets/images/ImpactMojo Logo.png" alt="ImpactMojo" class="logo-img">
+            <span class="logo-text">ImpactMojo</span>
+        </a>
+        
+        <!-- Simple Hamburger Button -->
+        <button id="hamburgerBtn" type="button" aria-label="Menu">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+        </button>
+    </nav>
+</header>
+
+<!-- Mobile Menu (slides in) -->
+<nav id="mobileMenu">
+    <div class="menu-section">
+        <div class="menu-section-title">Learn</div>
+        <a href="catalog.html" class="menu-item">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            All Courses
+        </a>
+        <a href="index.html#courses" class="menu-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            MEAL & M&E
+        </a>
+        <a href="index.html#labs" class="menu-item">
+            <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            Interactive Labs
+        </a>
+        <a href="index.html#games" class="menu-item">
+            <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/></svg>
+            Economics Games
+        </a>
+        <a href="handouts.html" class="menu-item">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Resources
+        </a>
+    </div>
+    
+    <div class="menu-section">
+        <div class="menu-section-title">Services</div>
+        <a href="coaching.html" class="menu-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            1:1 Coaching
+        </a>
+        <a href="workshops.html" class="menu-item">
+            <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Workshops
+        </a>
+    </div>
+    
+    <div class="menu-section">
+        <div class="menu-section-title">About</div>
+        <a href="about.html" class="menu-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            About ImpactMojo
+        </a>
+        <a href="blog.html" class="menu-item">
+            <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Blog
+        </a>
+        <a href="podcast.html" class="menu-item">
+            <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            Podcast
+        </a>
+        <a href="contact.html" class="menu-item">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Contact
+        </a>
+    </div>
+    
+    <div class="menu-divider"></div>
+    
+    <div class="theme-toggle-row">
+        <span>Theme</span>
+        <button id="themeBtn" type="button" aria-label="Toggle theme">
+            <svg id="sunIcon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg id="moonIcon" viewBox="0 0 24 24" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main>
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Free Development Education for South Asia</h1>
+        <p>Master MEAL, M&E, and development practice with our free courses, labs, and tools.</p>
+        <a href="catalog.html" class="hero-cta">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Browse Courses
+        </a>
+    </section>
+    
+    <!-- Stats -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number">39+</div>
+            <div class="stat-label">Courses</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Labs</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">12+</div>
+            <div class="stat-label">Games</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">Free</div>
+            <div class="stat-label">Always</div>
+        </div>
+    </div>
+    
+    <!-- Quick Links -->
+    <section class="section">
+        <h2 class="section-title">
+            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Quick Access
+        </h2>
+        <div class="quick-links">
+            <a href="catalog.html" class="quick-link">
+                <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>Courses</span>
+            </a>
+            <a href="index.html#labs" class="quick-link">
+                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                <span>Labs</span>
+            </a>
+            <a href="index.html#games" class="quick-link">
+                <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4"/></svg>
+                <span>Games</span>
+            </a>
+            <a href="handouts.html" class="quick-link">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span>Resources</span>
+            </a>
+            <a href="premium.html" class="quick-link">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Premium</span>
+            </a>
+            <a href="blog.html" class="quick-link">
+                <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                <span>Blog</span>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Featured Courses -->
+    <section class="section" style="background: var(--secondary-bg);">
+        <h2 class="section-title">
+            <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            Popular Courses
+        </h2>
+        <div class="card-grid">
+            <a href="courses/meal/meal.html" class="card">
+                <span class="card-badge">Most Popular</span>
+                <div class="card-title">MEAL Fundamentals</div>
+                <div class="card-desc">Master Monitoring, Evaluation, Accountability & Learning for development programs.</div>
+            </a>
+            <a href="courses/toc/toc.html" class="card">
+                <div class="card-title">Theory of Change</div>
+                <div class="card-desc">Design compelling theories of change and impact pathways for your programs.</div>
+            </a>
+            <a href="courses/research-methods/research-methods.html" class="card">
+                <div class="card-title">Research Methods</div>
+                <div class="card-desc">Quantitative and qualitative methods for development research.</div>
+            </a>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="section">
+        <h2 class="section-title">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            Our Mission
+        </h2>
+        <div class="card">
+            <div class="card-desc">
+                ImpactMojo provides <strong>free, high-quality development education</strong> for NGOs and impact teams across South Asia. 
+                We believe everyone deserves access to professional MEAL and M&E training, regardless of budget.
+            </div>
+        </div>
+        <div class="sponsor-badge">
+            Proudly sponsored by PinPoint Ventures
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-logo">
+        <img src="assets/images/ImpactMojo Logo.png" alt="ImpactMojo">
+        <span>ImpactMojo</span>
+    </div>
+    <p class="footer-tagline">Development Know-How. Free Forever.</p>
+    <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+    </div>
+    <p class="footer-copyright">© 2025 ImpactMojo. All rights reserved.</p>
+</footer>
+
+<!-- Desktop Site Link -->
+<a href="index.html?force=desktop" class="desktop-link">View Desktop Site</a>
+
+<!-- Simple JavaScript -->
+<script>
+// ============================================
+// HAMBURGER MENU - ULTRA SIMPLE
+// ============================================
+(function() {
+    var btn = document.getElementById('hamburgerBtn');
+    var menu = document.getElementById('mobileMenu');
+    
+    if (btn && menu) {
+        btn.addEventListener('click', function() {
+            btn.classList.toggle('open');
+            menu.classList.toggle('open');
+            document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+        });
+        
+        // Close menu when clicking a link
+        var links = menu.querySelectorAll('a');
+        links.forEach(function(link) {
+            link.addEventListener('click', function() {
+                btn.classList.remove('open');
+                menu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+})();
+
+// ============================================
+// THEME TOGGLE
+// ============================================
+(function() {
+    var themeBtn = document.getElementById('themeBtn');
+    var sunIcon = document.getElementById('sunIcon');
+    var moonIcon = document.getElementById('moonIcon');
+    
+    // Check saved theme
+    var savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+        if (sunIcon) sunIcon.style.display = 'none';
+        if (moonIcon) moonIcon.style.display = 'block';
+    }
+    
+    if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            var isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            
+            if (sunIcon && moonIcon) {
+                sunIcon.style.display = isLight ? 'none' : 'block';
+                moonIcon.style.display = isLight ? 'block' : 'none';
+            }
+        });
+    }
+})();
+
+// ============================================
+// CHECK FOR FORCE DESKTOP
+// ============================================
+(function() {
+    if (window.location.search.includes('force=desktop')) {
+        sessionStorage.setItem('forceDesktop', 'true');
+        window.location.replace('index.html');
+    }
+})();
+</script>
+
+<!-- UserWay Accessibility Widget -->
+<script>
+(function(d){
+    var s = d.createElement("script");
+    s.setAttribute("data-account", "EksmhlPg9k");
+    s.setAttribute("src", "https://cdn.userway.org/widget.js");
+    (d.body || d.head).appendChild(s);
+})(document);
+</script>
+
+</body>
+</html>
