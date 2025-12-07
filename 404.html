@@ -1,25 +1,95 @@
 <!DOCTYPE html>
 <!--
     ╔══════════════════════════════════════════════════════════════════════════════╗
-    ║  IMPACTMOJO - 404 ERROR PAGE                                                  ║
-    ║  Version: 1.1.0 - December 4, 2025                                           ║
-    ║  Consistent with index.html v7.9.9.20251203                                  ║
+    ║  IMPACTMOJO - 404 ERROR PAGE                                                 ║
+    ║  Version: 3.0.0 - December 7, 2025                                           ║
+    ║  Based on PAGE-TEMPLATE v3.0.0 - Consistent with index.html standards        ║
     ║                                                                               ║
-    ║  CHANGELOG v1.1.0:                                                           ║
-    ║  - Fixed mojibake in footer (© and · characters)                             ║
+    ║  CHANGELOG v3.0.0:                                                           ║
+    ║  - Complete redesign to match V3 page template                               ║
+    ║  - Added V3 decorative elements (paper planes, gradient blobs)               ║
+    ║  - Updated navigation with dropdowns                                         ║
+    ║  - Updated 4-section footer                                                  ║
     ║  - Added Mojini chatbot with 404-specific quick options                      ║
-    ║  - Added version header comment block                                         ║
-    ║  - Added missing favicons (32x32, 16x16)                                     ║
-    ║  - Added Twitter Card meta tags                                              ║
-    ║  - Added UserWay positioning fix CSS                                         ║
+    ║  - Added cookie consent banner                                               ║
+    ║  - Mobile responsive design with fixed menu                                  ║
+    ║  - Preserved all original 404 functionality                                  ║
+    ║  - NO toolbox (error page, not course/resource page)                         ║
     ╚══════════════════════════════════════════════════════════════════════════════╝
 -->
 <html lang="en">
 <head>
+<!-- Early Mobile Menu Functions - Must load before DOM -->
+<script>
+/* Mobile Menu Functions - Defined early for onclick handlers */
+function toggleMobileMenu() {
+    var navLinks = document.getElementById('navLinks');
+    var toggle = document.getElementById('mobile-menu-btn');
+    var overlay = document.getElementById('mobileMenuOverlay');
+    var authSection = document.getElementById('mobileAuthSection');
+    
+    if (!navLinks) return;
+    
+    var isOpen = navLinks.classList.contains('active');
+    
+    if (isOpen) {
+        navLinks.classList.remove('active');
+        if (toggle) toggle.classList.remove('active');
+        if (overlay) overlay.classList.remove('active');
+        if (authSection) authSection.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        document.body.style.overflow = '';
+        document.querySelectorAll('.nav-links > li.has-dropdown.open').forEach(function(item) {
+            item.classList.remove('open');
+        });
+    } else {
+        navLinks.classList.add('active');
+        if (toggle) toggle.classList.add('active');
+        if (overlay) overlay.classList.add('active');
+        if (authSection) authSection.classList.add('active');
+        document.body.classList.add('menu-open');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeMobileMenu() {
+    var navLinks = document.getElementById('navLinks');
+    var toggle = document.getElementById('mobile-menu-btn');
+    var overlay = document.getElementById('mobileMenuOverlay');
+    var authSection = document.getElementById('mobileAuthSection');
+    
+    if (navLinks) navLinks.classList.remove('active');
+    if (toggle) toggle.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
+    if (authSection) authSection.classList.remove('active');
+    document.body.classList.remove('menu-open');
+    document.body.style.overflow = '';
+    
+    document.querySelectorAll('.nav-links > li.has-dropdown.open').forEach(function(item) {
+        item.classList.remove('open');
+    });
+}
+
+function toggleMobileDropdown(event, element) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    var li = element.closest('li.has-dropdown');
+    if (!li) return;
+    
+    if (window.innerWidth <= 768) {
+        document.querySelectorAll('.nav-links > li.has-dropdown.open').forEach(function(item) {
+            if (item !== li) item.classList.remove('open');
+        });
+        li.classList.toggle('open');
+    }
+}
+</script>
+
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) - G-JRCMEB9TBW -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -34,6 +104,8 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="version" content="3.0.0.20251207">
 
 <!-- Auto-refresh on back/forward navigation -->
 <script>
@@ -54,6 +126,7 @@ window.addEventListener('pageshow', function(event) {
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="404 - Page Not Found | ImpactMojo">
 <meta name="twitter:description" content="The page you're looking for doesn't exist. Return to ImpactMojo for free development education.">
+<meta name="twitter:image" content="https://www.impactmojo.in/assets/images/ImpactMojo%20Logo.png">
 
 <title>404 - Page Not Found | ImpactMojo</title>
 
@@ -63,7 +136,7 @@ window.addEventListener('pageshow', function(event) {
 <link href="assets/images/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="assets/images/apple-touch-icon.png" rel="apple-touch-icon">
 <link href="manifest.json" rel="manifest">
-<meta name="theme-color" content="#0066CC">
+<meta name="theme-color" content="#0EA5E9">
 
 <!-- Google Fonts - Inter & Poppins -->
 <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -71,13 +144,20 @@ window.addEventListener('pageshow', function(event) {
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet">
 
 <style>
+/* ========================================
+   CSS RESET
+   ======================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ========================================
+   CSS VARIABLES - V3 Design System
+   ======================================== */
 :root {
+    /* Primary Colors - Sky Blue Accent */
     --primary-bg: #0F172A;
     --secondary-bg: #1E293B;
     --accent-color: #0EA5E9;
@@ -86,20 +166,39 @@ window.addEventListener('pageshow', function(event) {
     --success-color: #10B981;
     --warning-color: #F59E0B;
     --danger-color: #EF4444;
+    
+    /* Text Colors */
     --text-primary: #F1F5F9;
     --text-secondary: #94A3B8;
     --text-muted: #64748B;
+    
+    /* Card & Surface */
     --card-bg: #1E293B;
     --hover-bg: #334155;
     --border-color: #334155;
+    
+    /* Gradients */
     --gradient-primary: linear-gradient(135deg, #0EA5E9 0%, #6366F1 100%);
+    --gradient-accent: linear-gradient(135deg, #0EA5E9 0%, #10B981 100%);
+    --gradient-hero: linear-gradient(180deg, rgba(14, 165, 233, 0.1) 0%, transparent 50%);
+    
+    /* Navigation */
     --nav-bg: rgba(15, 23, 42, 0.95);
+    --nav-text: #F1F5F9;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
+/* Light Mode Variables */
 body.light-mode {
-    --primary-bg: #FFFFFF;
-    --secondary-bg: #F8FAFC;
+    --primary-bg: #F8FAFC;
+    --secondary-bg: #FFFFFF;
+    --accent-color: #0284C7;
+    --accent-hover: #0369A1;
     --text-primary: #0F172A;
     --text-secondary: #475569;
     --text-muted: #94A3B8;
@@ -107,32 +206,109 @@ body.light-mode {
     --hover-bg: #F1F5F9;
     --border-color: #E2E8F0;
     --nav-bg: rgba(255, 255, 255, 0.95);
+    --nav-text: #0F172A;
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--primary-bg);
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
-    transition: all 0.3s ease;
+    overflow-x: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
     display: flex;
     flex-direction: column;
 }
 
-body::before {
-    content: '';
+/* ========================================
+   DECORATIVE ELEMENTS - V3
+   ======================================== */
+.floating-planes {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(circle at 20% 50%, rgba(14, 165, 233, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 1;
+    overflow: hidden;
 }
+
+.plane {
+    position: absolute;
+    opacity: 0.06;
+    animation: floatPlane 20s ease-in-out infinite;
+}
+
+.plane-1 {
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.plane-2 {
+    top: 60%;
+    right: 10%;
+    animation-delay: -7s;
+    transform: scaleX(-1);
+}
+
+.plane-3 {
+    bottom: 20%;
+    left: 15%;
+    animation-delay: -14s;
+}
+
+@keyframes floatPlane {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-30px) rotate(5deg); }
+}
+
+.gradient-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+    animation: pulseBlob 15s ease-in-out infinite;
+}
+
+.blob-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(14, 165, 233, 0.15);
+    top: -100px;
+    right: -100px;
+}
+
+.blob-2 {
+    width: 300px;
+    height: 300px;
+    background: rgba(99, 102, 241, 0.12);
+    bottom: -50px;
+    left: -50px;
+    animation-delay: -7.5s;
+}
+
+@keyframes pulseBlob {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.1); opacity: 0.5; }
+}
+
+body.light-mode .plane { opacity: 0.08; }
+body.light-mode .blob-1 { background: rgba(14, 165, 233, 0.1); opacity: 0.6; }
+body.light-mode .blob-2 { background: rgba(99, 102, 241, 0.08); opacity: 0.5; }
 
 /* ========================================
    HEADER & NAVIGATION
@@ -163,31 +339,114 @@ body::before {
     gap: 12px;
     text-decoration: none;
     color: var(--text-primary);
+    z-index: 1001;
 }
 
-.logo-icon {
+.logo img {
     width: 40px;
     height: 40px;
-    background: var(--gradient-primary);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 18px;
-    color: white;
+    border-radius: 10px;
 }
 
 .logo-text {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     font-size: 1.25rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Desktop Navigation */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+}
+
+.nav-links > li {
+    position: relative;
+}
+
+.nav-links > li > a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.nav-links > li > a:hover {
+    background: var(--hover-bg);
+    color: var(--accent-color);
+}
+
+.nav-links > li > a svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    transition: transform 0.2s ease;
+}
+
+/* Dropdown Menus */
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-lg);
+    z-index: 1002;
+}
+
+.has-dropdown:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 14px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.dropdown a:hover {
+    background: var(--hover-bg);
+    color: var(--accent-color);
+}
+
+/* Nav Right Section */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .theme-toggle {
     width: 44px;
     height: 44px;
-    border-radius: 12px;
+    border-radius: 10px;
     border: 1px solid var(--border-color);
     background: var(--card-bg);
     color: var(--text-primary);
@@ -216,71 +475,169 @@ body::before {
 body.light-mode .icon-sun { display: none; }
 body.light-mode .icon-moon { display: block; }
 
+/* Auth Button */
+.auth-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--gradient-primary);
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+}
+
+.auth-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    width: 44px;
+    height: 44px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    z-index: 1001;
+}
+
+.mobile-menu-btn span {
+    width: 20px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+}
+
+/* Mobile Auth Section */
+.mobile-auth-section {
+    display: none;
+    padding: 16px 24px;
+    border-top: 1px solid var(--border-color);
+    background: var(--secondary-bg);
+}
+
 /* ========================================
-   MAIN CONTENT - 404 ERROR
+   MAIN CONTENT - 404 PAGE
    ======================================== */
 .main-content {
+    position: relative;
+    z-index: 2;
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
-    position: relative;
-    z-index: 2;
+    padding: 2rem 1.5rem;
 }
 
 .error-container {
     text-align: center;
-    max-width: 500px;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
+/* 404 Illustration */
+.error-illustration {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+    position: relative;
+}
+
+.error-illustration svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Error Code */
 .error-code {
     font-family: 'Poppins', sans-serif;
     font-size: 8rem;
     font-weight: 800;
+    line-height: 1;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    line-height: 1;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
+    animation: pulse 2s ease-in-out infinite;
 }
 
-.error-icon {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 24px;
-    position: relative;
-}
-
-.error-icon svg {
-    width: 100%;
-    height: 100%;
-    stroke: var(--accent-color);
-    fill: none;
-    stroke-width: 1;
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
 .error-title {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 12px;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
 }
 
 .error-message {
     color: var(--text-secondary);
     font-size: 1.1rem;
-    margin-bottom: 32px;
-    line-height: 1.6;
+    line-height: 1.7;
+    margin-bottom: 2rem;
 }
 
 /* Action Buttons */
 .action-btns {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
     justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
 }
 
 .action-btn {
@@ -288,32 +645,11 @@ body.light-mode .icon-moon { display: block; }
     align-items: center;
     gap: 10px;
     padding: 14px 28px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 600;
+    border-radius: 12px;
     font-size: 1rem;
-    transition: all 0.2s ease;
-}
-
-.action-btn.primary {
-    background: var(--gradient-primary);
-    color: white;
-}
-
-.action-btn.primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
-}
-
-.action-btn.secondary {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-}
-
-.action-btn.secondary:hover {
-    border-color: var(--accent-color);
-    color: var(--accent-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .action-btn svg {
@@ -324,40 +660,67 @@ body.light-mode .icon-moon { display: block; }
     stroke-width: 2;
 }
 
-/* Suggestions Section */
+.action-btn.primary {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.action-btn.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);
+}
+
+.action-btn.secondary {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.action-btn.secondary:hover {
+    background: var(--hover-bg);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+/* Suggestions */
 .suggestions {
-    margin-top: 48px;
-    padding-top: 32px;
-    border-top: 1px solid var(--border-color);
+    padding: 2rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
 }
 
 .suggestions h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 16px;
-    color: var(--text-muted);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
 }
 
 .suggestion-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
     justify-content: center;
+    gap: 0.75rem;
 }
 
 .suggestion-link {
-    padding: 8px 16px;
-    background: var(--secondary-bg);
-    border-radius: 8px;
+    padding: 10px 20px;
+    background: var(--hover-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
     color: var(--text-secondary);
     text-decoration: none;
     font-size: 0.9rem;
+    font-weight: 500;
     transition: all 0.2s ease;
 }
 
 .suggestion-link:hover {
-    background: var(--hover-bg);
-    color: var(--accent-color);
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
 }
 
 /* ========================================
@@ -366,23 +729,99 @@ body.light-mode .icon-moon { display: block; }
 .footer {
     background: var(--secondary-bg);
     border-top: 1px solid var(--border-color);
-    padding: 32px 0;
+    padding: 60px 24px 30px;
     position: relative;
     z-index: 2;
 }
 
-.footer-content {
-    max-width: 1200px;
+.footer-container {
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 24px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    gap: 48px;
+    margin-bottom: 48px;
+}
+
+.footer-brand {
+    max-width: 300px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.footer-logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.footer-logo-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.footer-brand p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.footer-social {
+    display: flex;
+    gap: 12px;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--hover-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.social-link:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.social-link svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.footer-section h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 20px;
 }
 
 .footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    justify-content: center;
-    margin-bottom: 20px;
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
 }
 
 .footer-links a {
@@ -396,46 +835,99 @@ body.light-mode .icon-moon { display: block; }
     color: var(--accent-color);
 }
 
-.footer-info {
-    text-align: center;
+.footer-bottom {
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-copyright {
     color: var(--text-muted);
     font-size: 0.85rem;
 }
 
-.footer-info p {
-    margin-bottom: 4px;
-}
-
-.footer-info a {
+.footer-copyright a {
     color: var(--accent-color);
     text-decoration: none;
 }
 
-.footer-info a:hover {
-    text-decoration: underline;
+.footer-legal {
+    display: flex;
+    gap: 24px;
+}
+
+.footer-legal a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+}
+
+.footer-legal a:hover {
+    color: var(--accent-color);
 }
 
 /* ========================================
    MOJINI CHATBOT
    ======================================== */
+.chatbot-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.chatbot-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(14, 165, 233, 0.5);
+}
+
+.chatbot-fab svg {
+    width: 28px;
+    height: 28px;
+    stroke: white;
+    fill: none;
+    stroke-width: 2;
+}
+
 .chatbot-modal {
     position: fixed;
     bottom: 100px;
     right: 24px;
     width: 380px;
     max-width: calc(100vw - 48px);
-    background: var(--card-bg);
-    border-radius: 16px;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-color);
-    z-index: 1001;
-    display: none;
-    flex-direction: column;
     max-height: 500px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow-xl);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.3s ease;
 }
 
-.chatbot-modal.active {
-    display: flex;
+.chatbot-modal.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
 }
 
 .chat-header {
@@ -443,22 +935,22 @@ body.light-mode .icon-moon { display: block; }
     background: var(--gradient-primary);
     border-radius: 16px 16px 0 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
 
 .chat-header h3 {
-    color: white;
-    font-size: 0.95rem;
-    font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .chat-header svg {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     stroke: white;
     fill: none;
     stroke-width: 2;
@@ -468,11 +960,11 @@ body.light-mode .icon-moon { display: block; }
     background: rgba(255, 255, 255, 0.2);
     border: none;
     color: white;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    font-size: 1.25rem;
     cursor: pointer;
-    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -485,58 +977,50 @@ body.light-mode .icon-moon { display: block; }
 
 .chat-messages {
     flex: 1;
-    overflow-y: auto;
     padding: 16px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
 }
 
 .message {
     display: flex;
-    gap: 8px;
-    align-items: flex-start;
+    gap: 10px;
 }
 
 .bot-message {
-    flex-direction: row;
-}
-
-.user-message {
-    flex-direction: row-reverse;
+    align-items: flex-start;
 }
 
 .bot-avatar {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
     background: var(--gradient-primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
 }
 
 .bot-avatar svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     stroke: white;
     fill: none;
     stroke-width: 2;
 }
 
-.bot-bubble, .user-bubble {
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-size: 0.9rem;
-    max-width: 260px;
-    line-height: 1.5;
-}
-
 .bot-bubble {
-    background: var(--secondary-bg);
+    background: var(--hover-bg);
+    padding: 12px 16px;
+    border-radius: 12px;
+    border-top-left-radius: 4px;
     color: var(--text-primary);
-    border-bottom-left-radius: 4px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-width: 280px;
 }
 
 .bot-bubble a {
@@ -549,48 +1033,53 @@ body.light-mode .icon-moon { display: block; }
 }
 
 .user-bubble {
-    background: var(--accent-color);
+    margin-left: auto;
+    background: var(--gradient-primary);
     color: white;
-    border-bottom-right-radius: 4px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border-top-right-radius: 4px;
+    font-size: 0.9rem;
+    max-width: 280px;
 }
 
 .quick-options {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 8px;
+    gap: 8px;
+    margin-top: 12px;
 }
 
 .quick-option {
-    padding: 6px 12px;
-    background: var(--hover-bg);
+    padding: 8px 14px;
+    background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 20px;
     color: var(--text-secondary);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .quick-option:hover {
     background: var(--accent-color);
-    color: white;
     border-color: var(--accent-color);
+    color: white;
 }
 
 .chat-input-container {
-    padding: 12px 16px;
+    padding: 16px;
     border-top: 1px solid var(--border-color);
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 
 .chat-input {
     flex: 1;
-    padding: 10px 14px;
-    background: var(--secondary-bg);
+    padding: 12px 16px;
+    background: var(--hover-bg);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 10px;
     color: var(--text-primary);
     font-size: 0.9rem;
     outline: none;
@@ -606,16 +1095,16 @@ body.light-mode .icon-moon { display: block; }
 }
 
 .chat-send {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     background: var(--gradient-primary);
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .chat-send:hover {
@@ -623,132 +1112,442 @@ body.light-mode .icon-moon { display: block; }
 }
 
 .chat-send svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     stroke: white;
     fill: none;
     stroke-width: 2;
 }
 
-/* Mojini FAB Button */
-.feedback-fab {
+/* ========================================
+   COOKIE CONSENT
+   ======================================== */
+.cookie-consent {
+    display: none;
     position: fixed;
     bottom: 24px;
+    left: 24px;
     right: 24px;
-    width: 56px;
-    height: 56px;
-    background: var(--gradient-primary);
-    border-radius: 50%;
+    max-width: 400px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--shadow-xl);
+    z-index: 997;
+}
+
+.cookie-consent.hidden {
+    display: none !important;
+}
+
+.cookie-main {
     display: flex;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
-    z-index: 1000;
-    transition: all 0.3s ease;
+    justify-content: space-between;
+    gap: 16px;
 }
 
-.feedback-fab:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 30px rgba(14, 165, 233, 0.5);
+.cookie-text {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
-.feedback-fab svg {
+.cookie-text svg {
     width: 24px;
     height: 24px;
-    stroke: white;
+    min-width: 24px;
+    stroke: var(--accent-color);
     fill: none;
     stroke-width: 2;
 }
 
-/* ========================================
-   USERWAY POSITIONING FIX
-   ======================================== */
-.uwy.userway_p2 .uai {
-    top: 80px !important;
+.cookie-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.cookie-btn-accept {
+    padding: 10px 20px;
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cookie-btn-accept:hover {
+    transform: translateY(-1px);
+}
+
+.cookie-btn-settings {
+    padding: 10px 16px;
+    background: var(--hover-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cookie-btn-settings:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
 }
 
 /* ========================================
-   RESPONSIVE DESIGN
+   MOBILE RESPONSIVE
    ======================================== */
+@media (max-width: 1024px) {
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .footer-brand {
+        grid-column: span 2;
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
+    /* Mobile Menu */
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--primary-bg);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 80px 24px 24px;
+        gap: 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-100%);
+        transition: all 0.3s ease;
+        z-index: 999;
+        overflow-y: auto;
+    }
+    
+    .nav-links.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+    
+    .nav-links > li {
+        width: 100%;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .nav-links > li > a {
+        width: 100%;
+        padding: 16px 0;
+        justify-content: space-between;
+    }
+    
+    .dropdown {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0 0 16px 16px;
+        display: none;
+    }
+    
+    .has-dropdown.open .dropdown {
+        display: block;
+    }
+    
+    .mobile-menu-overlay {
+        display: block;
+    }
+    
+    .mobile-auth-section {
+        display: none;
+    }
+    
+    .mobile-auth-section.active {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+    
+    .auth-btn {
+        display: none;
+    }
+    
+    /* 404 Styles */
     .error-code {
         font-size: 5rem;
     }
     
     .error-title {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
+    }
+    
+    .error-message {
+        font-size: 1rem;
     }
     
     .action-btns {
         flex-direction: column;
+        align-items: center;
     }
     
     .action-btn {
         width: 100%;
+        max-width: 280px;
         justify-content: center;
     }
     
-    .chatbot-modal {
-        right: 12px;
-        bottom: 80px;
-        width: calc(100vw - 24px);
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
     }
     
-    .feedback-fab {
+    .footer-brand {
+        grid-column: span 1;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-legal {
+        justify-content: center;
+    }
+    
+    /* Chatbot */
+    .chatbot-modal {
+        right: 12px;
+        left: 12px;
+        width: auto;
+        bottom: 90px;
+    }
+    
+    .chatbot-fab {
         right: 16px;
         bottom: 16px;
+        width: 56px;
+        height: 56px;
+    }
+    
+    /* Cookie */
+    .cookie-consent {
+        left: 12px;
+        right: 12px;
+        max-width: 100%;
+    }
+    
+    .cookie-main {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .cookie-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .error-code {
+        font-size: 4rem;
+    }
+    
+    .error-title {
+        font-size: 1.25rem;
+    }
+    
+    .suggestions {
+        padding: 1.5rem 1rem;
+    }
+    
+    .suggestion-link {
+        padding: 8px 16px;
+        font-size: 0.85rem;
     }
 }
 </style>
 </head>
 <body>
 
+<!-- Decorative Elements -->
+<div class="floating-planes">
+    <div class="plane plane-1">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+        </svg>
+    </div>
+    <div class="plane plane-2">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+        </svg>
+    </div>
+    <div class="plane plane-3">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+        </svg>
+    </div>
+</div>
+
+<div class="gradient-blob blob-1"></div>
+<div class="gradient-blob blob-2"></div>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
+
 <!-- Header -->
 <header class="header">
     <nav class="nav-container">
         <a href="index.html" class="logo">
-            <div class="logo-icon">IM</div>
+            <img src="assets/images/ImpactMojo Logo.png" alt="ImpactMojo Logo">
             <span class="logo-text">ImpactMojo</span>
         </a>
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-            <svg class="icon-sun" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-            <svg class="icon-moon" viewBox="0 0 24 24">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-        </button>
+        
+        <ul class="nav-links" id="navLinks">
+            <li class="has-dropdown">
+                <a href="#" onclick="toggleMobileDropdown(event, this)">
+                    Learn
+                    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </a>
+                <div class="dropdown">
+                    <a href="catalog.html">Course Catalog</a>
+                    <a href="tracks.html">Learning Tracks</a>
+                    <a href="labs.html">Practice Labs</a>
+                    <a href="games.html">Learning Games</a>
+                    <a href="handouts.html">Resource Library</a>
+                </div>
+            </li>
+            <li class="has-dropdown">
+                <a href="#" onclick="toggleMobileDropdown(event, this)">
+                    Services
+                    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </a>
+                <div class="dropdown">
+                    <a href="workshops.html">Workshops</a>
+                    <a href="coaching.html">Coaching</a>
+                    <a href="hire-us.html">Hire Us</a>
+                </div>
+            </li>
+            <li class="has-dropdown">
+                <a href="#" onclick="toggleMobileDropdown(event, this)">
+                    About Us
+                    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </a>
+                <div class="dropdown">
+                    <a href="about.html">Our Story</a>
+                    <a href="team.html">Team</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="podcast.html">Podcast</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </li>
+            <li><a href="faq.html">FAQ</a></li>
+        </ul>
+        
+        <div class="nav-right">
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+                <svg class="icon-moon" viewBox="0 0 24 24">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
+            <a href="account.html" class="auth-btn">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Account
+            </a>
+            <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </nav>
 </header>
+
+<!-- Mobile Auth Section -->
+<div class="mobile-auth-section" id="mobileAuthSection">
+    <a href="account.html" class="auth-btn" style="display: flex; width: 100%; justify-content: center;">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        My Account
+    </a>
+</div>
 
 <!-- Main Content -->
 <main class="main-content">
     <div class="error-container">
+        <!-- Error Illustration -->
+        <div class="error-illustration">
+            <svg viewBox="0 0 200 200" fill="none">
+                <defs>
+                    <linearGradient id="errorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#0EA5E9"/>
+                        <stop offset="100%" style="stop-color:#6366F1"/>
+                    </linearGradient>
+                </defs>
+                <!-- Lost paper plane -->
+                <g transform="translate(60, 30)">
+                    <path d="M80 10L40 60M80 10L50 90L40 60L10 50L80 10Z" stroke="url(#errorGrad)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <animateTransform attributeName="transform" type="translate" values="0,0;5,-5;0,0" dur="2s" repeatCount="indefinite"/>
+                    </path>
+                </g>
+                <!-- Question marks -->
+                <text x="30" y="70" font-size="24" fill="#94A3B8" opacity="0.5">?</text>
+                <text x="160" y="50" font-size="20" fill="#94A3B8" opacity="0.5">?</text>
+                <text x="150" y="150" font-size="28" fill="#94A3B8" opacity="0.5">?</text>
+                <!-- Dotted path -->
+                <path d="M20 160 Q100 180 180 160" stroke="#334155" stroke-width="2" stroke-dasharray="5,5" fill="none"/>
+            </svg>
+        </div>
+        
         <div class="error-code">404</div>
         <h1 class="error-title">Page Not Found</h1>
-        <p class="error-message">Oops! The page you're looking for seems to have wandered off. It might have been moved, deleted, or perhaps never existed.</p>
+        <p class="error-message">Oops! The page you're looking for seems to have wandered off. It might have been moved, deleted, or perhaps never existed. Let's get you back on track!</p>
         
         <div class="action-btns">
             <a href="index.html" class="action-btn primary">
                 <svg viewBox="0 0 24 24">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
                 </svg>
                 Go Home
             </a>
             <a href="catalog.html" class="action-btn secondary">
                 <svg viewBox="0 0 24 24">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
                 </svg>
                 Browse Courses
             </a>
@@ -770,30 +1569,87 @@ body.light-mode .icon-moon { display: block; }
 
 <!-- Footer -->
 <footer class="footer">
-    <div class="footer-content">
-        <div class="footer-links">
-            <a href="index.html">Home</a>
-            <a href="catalog.html">Catalog</a>
-            <a href="workshops.html">Workshops</a>
-            <a href="blog.html">Blog</a>
-            <a href="about.html">About</a>
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="terms-of-service.html">Terms of Service</a>
+    <div class="footer-container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="footer-logo">
+                    <img src="assets/images/ImpactMojo Logo.png" alt="ImpactMojo">
+                    <span class="footer-logo-text">ImpactMojo</span>
+                </a>
+                <p>Free development education for NGOs and impact practitioners across South Asia. Build your skills in MEAL, Theory of Change, research methods, and more.</p>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/company/impactmojo" target="_blank" class="social-link" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="https://twitter.com/impactmojo" target="_blank" class="social-link" aria-label="X/Twitter">
+                        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/impactmojo" target="_blank" class="social-link" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/impactmojo" target="_blank" class="social-link" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>About</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html">Our Story</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="sponsors.html">Sponsors</a></li>
+                    <li><a href="partners.html">Partners</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Legal &amp; IT Act</h4>
+                <ul class="footer-links">
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="refund-policy.html">Refund Policy</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                    <li><a href="accessibility.html">Accessibility</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="catalog.html">Course Catalog</a></li>
+                    <li><a href="handouts.html">Resource Library</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="footer-info">
-            <p>© 2025 ImpactMojo. All rights reserved.</p>
-            <p>Questions? Email us at <a href="mailto:hello@impactmojo.in">hello@impactmojo.in</a></p>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">
+                © 2025 ImpactMojo. Released under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>. 
+                Supported by <a href="https://www.pinpointventures.in" target="_blank">PinPoint Ventures</a>
+            </p>
+            <div class="footer-legal">
+                <a href="privacy-policy.html">Privacy</a>
+                <a href="terms-of-service.html">Terms</a>
+                <a href="sitemap.html">Sitemap</a>
+            </div>
         </div>
     </div>
 </footer>
 
-<!-- Mojini Chatbot Modal -->
+<!-- Mojini Chatbot -->
+<div class="chatbot-fab" onclick="openChatbot()" aria-label="Open chat">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</div>
+
 <div class="chatbot-modal" id="chatbotModal">
     <div class="chat-header">
         <h3>
-            <svg viewBox="0 0 24 24">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             Mojini - ImpactMojo Assistant
         </h3>
         <button class="chat-close" onclick="closeChatbot()">×</button>
@@ -801,15 +1657,11 @@ body.light-mode .icon-moon { display: block; }
     <div class="chat-messages" id="chatMessages">
         <div class="message bot-message">
             <div class="bot-avatar">
-                <svg viewBox="0 0 24 24">
-                    <rect x="3" y="11" width="18" height="10" rx="2"></rect>
-                    <circle cx="12" cy="5" r="2"></circle>
-                    <path d="M12 7v4"></path>
-                </svg>
+                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>
             </div>
             <div>
                 <div class="bot-bubble">
-                    Hi! I'm Mojini. Looks like you've landed on a page that doesn't exist. Let me help you find what you're looking for!
+                    Hi! I'm Mojini. 🧭 Looks like you've landed on a page that doesn't exist. Let me help you find what you're looking for!
                 </div>
                 <div class="quick-options">
                     <button class="quick-option" onclick="selectOption('home')">Take me home</button>
@@ -820,26 +1672,30 @@ body.light-mode .icon-moon { display: block; }
         </div>
     </div>
     <div class="chat-input-container">
-        <input type="text" class="chat-input" id="chatInput" placeholder="What are you looking for?" onkeypress="handleKeyPress(event)">
-        <button class="chat-send" onclick="sendMessage()">
-            <svg viewBox="0 0 24 24">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
+        <input type="text" class="chat-input" id="chatInput" placeholder="What are you looking for?" onkeypress="handleChatKeyPress(event)">
+        <button class="chat-send" onclick="sendChatMessage()">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
     </div>
 </div>
 
-<!-- Mojini FAB Button -->
-<div class="feedback-fab" id="mojini-chat-toggle" onclick="openChatbot()">
-    <svg viewBox="0 0 24 24">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-    </svg>
+<!-- Cookie Consent -->
+<div class="cookie-consent" id="cookieConsent">
+    <div class="cookie-main">
+        <div class="cookie-text">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg>
+            <span>We use cookies to improve your experience.</span>
+        </div>
+        <div class="cookie-buttons">
+            <button class="cookie-btn-accept" onclick="acceptCookies()">Accept</button>
+            <button class="cookie-btn-settings" onclick="window.location.href='privacy-policy.html'">Learn More</button>
+        </div>
+    </div>
 </div>
 
 <!-- UserWay Accessibility Widget -->
 <script>
-    (function(d){
+    (function(d) {
       var s = d.createElement("script");
       s.setAttribute("data-position", 2);
       s.setAttribute("data-widget_layout", "full");
@@ -849,7 +1705,7 @@ body.light-mode .icon-moon { display: block; }
     })(document);
 </script>
 
-<!-- Theme & Chatbot Scripts -->
+<!-- JavaScript -->
 <script>
 // Theme Management
 function toggleTheme() {
@@ -861,86 +1717,140 @@ function toggleTheme() {
 function initTheme() {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
     if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
         document.body.classList.add('light-mode');
     }
 }
 
-// Mojini Chatbot Functions
-function openChatbot() {
-    document.getElementById('chatbotModal').classList.add('active');
+// Cookie Consent
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'true');
+    document.getElementById('cookieConsent').classList.add('hidden');
 }
 
-function closeChatbot() {
-    document.getElementById('chatbotModal').classList.remove('active');
-}
-
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-        sendMessage();
+function initCookieConsent() {
+    if (!localStorage.getItem('cookieConsent')) {
+        document.getElementById('cookieConsent').style.display = 'block';
+    } else {
+        document.getElementById('cookieConsent').classList.add('hidden');
     }
 }
 
-function sendMessage() {
-    const input = document.getElementById('chatInput');
-    const message = input.value.trim();
-    if (!message) return;
-    
-    addUserMessage(message);
-    input.value = '';
-    
-    setTimeout(() => {
-        addBotMessage("I understand you're looking for something specific. Try our <a href='sitemap.html'>sitemap</a> for a complete list of pages, or <a href='mailto:hello@impactmojo.in'>email us</a> if you need help finding something.");
-    }, 500);
+// Chatbot
+function openChatbot() {
+    document.getElementById('chatbotModal').classList.add('open');
+}
+
+function closeChatbot() {
+    document.getElementById('chatbotModal').classList.remove('open');
 }
 
 function selectOption(option) {
-    const messages = {
-        'home': "Take me to the homepage",
-        'courses': "I want to browse courses",
-        'help': "I need help finding something"
-    };
+    const messages = document.getElementById('chatMessages');
+    let response = '';
+    let userText = '';
     
-    addUserMessage(messages[option]);
+    switch(option) {
+        case 'home':
+            userText = 'Take me to the homepage';
+            response = "Sure! Click <a href='index.html'>here</a> to go to our homepage where you can explore all our free courses, labs, and games.";
+            break;
+        case 'courses':
+            userText = 'I want to browse courses';
+            response = "Great choice! Visit our <a href='catalog.html'>course catalog</a> to browse all 39 free courses on MEAL, Theory of Change, and more.";
+            break;
+        case 'help':
+            userText = 'I need help finding something';
+            response = "I'm here to help! You can check our <a href='faq.html'>FAQ</a>, browse the <a href='sitemap.html'>sitemap</a>, or email us at <a href='mailto:hello@impactmojo.in'>hello@impactmojo.in</a>.";
+            break;
+        default:
+            response = 'How can I help you today?';
+    }
+    
+    const userMsg = document.createElement('div');
+    userMsg.className = 'message';
+    userMsg.innerHTML = `<div class="user-bubble">${userText}</div>`;
+    messages.appendChild(userMsg);
     
     setTimeout(() => {
-        const responses = {
-            'home': "Sure! Click <a href='index.html'>here</a> to go to our homepage where you can explore all our free courses, labs, and games.",
-            'courses': "Great choice! Visit our <a href='catalog.html'>course catalog</a> to browse all 39 free courses on MEAL, Theory of Change, and more.",
-            'help': "I'm here to help! You can check our <a href='faq.html'>FAQ</a>, browse the <a href='sitemap.html'>sitemap</a>, or email us at <a href='mailto:hello@impactmojo.in'>hello@impactmojo.in</a>."
-        };
-        addBotMessage(responses[option]);
+        const botMsg = document.createElement('div');
+        botMsg.className = 'message bot-message';
+        botMsg.innerHTML = `
+            <div class="bot-avatar">
+                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>
+            </div>
+            <div class="bot-bubble">${response}</div>
+        `;
+        messages.appendChild(botMsg);
+        messages.scrollTop = messages.scrollHeight;
     }, 500);
 }
 
-function addUserMessage(text) {
-    const messagesDiv = document.getElementById('chatMessages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message user-message';
-    messageDiv.innerHTML = '<div class="user-bubble">' + text + '</div>';
-    messagesDiv.appendChild(messageDiv);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+function handleChatKeyPress(event) {
+    if (event.key === 'Enter') {
+        sendChatMessage();
+    }
 }
 
-function addBotMessage(text) {
-    const messagesDiv = document.getElementById('chatMessages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message bot-message';
-    messageDiv.innerHTML = 
-        '<div class="bot-avatar">' +
-            '<svg viewBox="0 0 24 24">' +
-                '<rect x="3" y="11" width="18" height="10" rx="2"></rect>' +
-                '<circle cx="12" cy="5" r="2"></circle>' +
-                '<path d="M12 7v4"></path>' +
-            '</svg>' +
-        '</div>' +
-        '<div class="bot-bubble">' + text + '</div>';
-    messagesDiv.appendChild(messageDiv);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+function sendChatMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    
+    if (!message) return;
+    
+    const messages = document.getElementById('chatMessages');
+    
+    const userMsg = document.createElement('div');
+    userMsg.className = 'message';
+    userMsg.innerHTML = `<div class="user-bubble">${message}</div>`;
+    messages.appendChild(userMsg);
+    
+    input.value = '';
+    
+    setTimeout(() => {
+        let response = "I understand you're looking for something specific. Try our <a href='sitemap.html'>sitemap</a> for a complete list of pages, or <a href='mailto:hello@impactmojo.in'>email us</a> if you need help finding something.";
+        
+        const lowerMsg = message.toLowerCase();
+        if (lowerMsg.includes('course') || lowerMsg.includes('learn')) {
+            response = "We offer free courses on MEAL, Theory of Change, Research Methods, and more! Check our <a href='catalog.html'>Catalog</a> for all courses.";
+        } else if (lowerMsg.includes('workshop') || lowerMsg.includes('training')) {
+            response = "We offer customized workshops for NGOs and development teams. Visit our <a href='workshops.html'>Workshops page</a> for details.";
+        } else if (lowerMsg.includes('blog') || lowerMsg.includes('article')) {
+            response = "Visit our <a href='blog.html'>Learning Loops blog</a> for insights on MEAL, Theory of Change, and development practice.";
+        } else if (lowerMsg.includes('free') || lowerMsg.includes('cost') || lowerMsg.includes('price')) {
+            response = "All core educational content on ImpactMojo is completely free! We follow a 'pay what you think is fair' philosophy.";
+        } else if (lowerMsg.includes('contact') || lowerMsg.includes('email')) {
+            response = "You can reach us at <a href='mailto:hello@impactmojo.in'>hello@impactmojo.in</a> or visit our <a href='contact.html'>Contact page</a>.";
+        }
+        
+        const botMsg = document.createElement('div');
+        botMsg.className = 'message bot-message';
+        botMsg.innerHTML = `
+            <div class="bot-avatar">
+                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>
+            </div>
+            <div class="bot-bubble">${response}</div>
+        `;
+        messages.appendChild(botMsg);
+        messages.scrollTop = messages.scrollHeight;
+    }, 800);
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', initTheme);
+// Initialization
+document.addEventListener('DOMContentLoaded', function() {
+    initTheme();
+    initCookieConsent();
+});
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.has-dropdown') && window.innerWidth <= 768) {
+        document.querySelectorAll('.has-dropdown.open').forEach(el => {
+            el.classList.remove('open');
+        });
+    }
+});
 </script>
 
 </body>
