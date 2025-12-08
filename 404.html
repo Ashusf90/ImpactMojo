@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <!--
-    ╔══════════════════════════════════════════════════════════════════════════════╗
-    ║  IMPACTMOJO - 404 ERROR PAGE                                                 ║
-    ║  Version: 3.0.0 - December 7, 2025                                           ║
-    ║  Based on PAGE-TEMPLATE v3.0.0 - Consistent with index.html standards        ║
-    ║                                                                               ║
-    ║  CHANGELOG v3.0.0:                                                           ║
-    ║  - Complete redesign to match V3 page template                               ║
-    ║  - Added V3 decorative elements (paper planes, gradient blobs)               ║
-    ║  - Updated navigation with dropdowns                                         ║
-    ║  - Updated 4-section footer                                                  ║
-    ║  - Added Mojini chatbot with 404-specific quick options                      ║
-    ║  - Added cookie consent banner                                               ║
-    ║  - Mobile responsive design with fixed menu                                  ║
-    ║  - Preserved all original 404 functionality                                  ║
-    ║  - NO toolbox (error page, not course/resource page)                         ║
-    ╚══════════════════════════════════════════════════════════════════════════════╝
+    +==============================================================================+
+    |  IMPACTMOJO - 404 ERROR PAGE                                                 |
+    |  Version: 3.0.0 - December 7, 2025                                           |
+    |  Based on PAGE-TEMPLATE v3.0.0 - Consistent with index.html standards        |
+    |                                                                               |
+    |  CHANGELOG v3.0.0:                                                           |
+    |  - Complete redesign to match V3 page template                               |
+    |  - Added V3 decorative elements (paper planes, gradient blobs)               |
+    |  - Updated navigation with dropdowns                                         |
+    |  - Updated 4-section footer                                                  |
+    |  - Added Mojini chatbot with 404-specific quick options                      |
+    |  - Added cookie consent banner                                               |
+    |  - Mobile responsive design with fixed menu                                  |
+    |  - Preserved all original 404 functionality                                  |
+    |  - NO toolbox (error page, not course/resource page)                         |
+    +==============================================================================+
 -->
 <html lang="en">
 <head>
@@ -1120,89 +1120,6 @@ body.light-mode .icon-moon { display: block; }
 }
 
 /* ========================================
-   COOKIE CONSENT
-   ======================================== */
-.cookie-consent {
-    display: none;
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
-    right: 24px;
-    max-width: 400px;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: var(--shadow-xl);
-    z-index: 997;
-}
-
-.cookie-consent.hidden {
-    display: none !important;
-}
-
-.cookie-main {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-}
-
-.cookie-text {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.cookie-text svg {
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    stroke: var(--accent-color);
-    fill: none;
-    stroke-width: 2;
-}
-
-.cookie-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.cookie-btn-accept {
-    padding: 10px 20px;
-    background: var(--gradient-primary);
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: 600;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.cookie-btn-accept:hover {
-    transform: translateY(-1px);
-}
-
-.cookie-btn-settings {
-    padding: 10px 16px;
-    background: var(--hover-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.cookie-btn-settings:hover {
-    border-color: var(--accent-color);
-    color: var(--accent-color);
-}
-
-/* ========================================
    MOBILE RESPONSIVE
    ======================================== */
 @media (max-width: 1024px) {
@@ -1353,22 +1270,7 @@ body.light-mode .icon-moon { display: block; }
         height: 56px;
     }
     
-    /* Cookie */
-    .cookie-consent {
-        left: 12px;
-        right: 12px;
-        max-width: 100%;
-    }
     
-    .cookie-main {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .cookie-buttons {
-        width: 100%;
-        justify-content: center;
-    }
 }
 
 @media (max-width: 480px) {
@@ -1629,7 +1531,7 @@ body.light-mode .icon-moon { display: block; }
         
         <div class="footer-bottom">
             <p class="footer-copyright">
-                © 2025 ImpactMojo. Released under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>. 
+                Â© 2025 ImpactMojo. Released under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>. 
                 Supported by <a href="https://www.pinpointventures.in" target="_blank">PinPoint Ventures</a>
             </p>
             <div class="footer-legal">
@@ -1652,7 +1554,7 @@ body.light-mode .icon-moon { display: block; }
             <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             Mojini - ImpactMojo Assistant
         </h3>
-        <button class="chat-close" onclick="closeChatbot()">×</button>
+        <button class="chat-close" onclick="closeChatbot()">Ã—</button>
     </div>
     <div class="chat-messages" id="chatMessages">
         <div class="message bot-message">
@@ -1661,7 +1563,7 @@ body.light-mode .icon-moon { display: block; }
             </div>
             <div>
                 <div class="bot-bubble">
-                    Hi! I'm Mojini. 🧭 Looks like you've landed on a page that doesn't exist. Let me help you find what you're looking for!
+                    Hi! I'm Mojini. ðŸ§­ Looks like you've landed on a page that doesn't exist. Let me help you find what you're looking for!
                 </div>
                 <div class="quick-options">
                     <button class="quick-option" onclick="selectOption('home')">Take me home</button>
@@ -1676,20 +1578,6 @@ body.light-mode .icon-moon { display: block; }
         <button class="chat-send" onclick="sendChatMessage()">
             <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
-    </div>
-</div>
-
-<!-- Cookie Consent -->
-<div class="cookie-consent" id="cookieConsent">
-    <div class="cookie-main">
-        <div class="cookie-text">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg>
-            <span>We use cookies to improve your experience.</span>
-        </div>
-        <div class="cookie-buttons">
-            <button class="cookie-btn-accept" onclick="acceptCookies()">Accept</button>
-            <button class="cookie-btn-settings" onclick="window.location.href='privacy-policy.html'">Learn More</button>
-        </div>
     </div>
 </div>
 
@@ -1720,20 +1608,6 @@ function initTheme() {
     
     if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
         document.body.classList.add('light-mode');
-    }
-}
-
-// Cookie Consent
-function acceptCookies() {
-    localStorage.setItem('cookieConsent', 'true');
-    document.getElementById('cookieConsent').classList.add('hidden');
-}
-
-function initCookieConsent() {
-    if (!localStorage.getItem('cookieConsent')) {
-        document.getElementById('cookieConsent').style.display = 'block';
-    } else {
-        document.getElementById('cookieConsent').classList.add('hidden');
     }
 }
 
@@ -1840,7 +1714,6 @@ function sendChatMessage() {
 // Initialization
 document.addEventListener('DOMContentLoaded', function() {
     initTheme();
-    initCookieConsent();
 });
 
 // Close dropdowns when clicking outside
