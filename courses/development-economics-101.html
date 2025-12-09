@@ -1420,6 +1420,20 @@
             margin: var(--spacing-xl) 0;
         }
         
+        /* Comparison Cards Container - for side-by-side institution comparisons */
+        .comparison-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+        
         .comparison-card {
             background: var(--color-bg);
             border: 1px solid var(--color-border);
