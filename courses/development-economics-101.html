@@ -5716,6 +5716,12 @@
             
             // Close sidebar on nav link click (mobile)
             document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 900) {
+                        toggleSidebar();
+                    }
+                });
+            });
             
             // ============================================
             // SIDEBAR COLLAPSE TOGGLE (Desktop)
@@ -5740,12 +5746,6 @@
             if (sidebarCollapseBtn) {
                 sidebarCollapseBtn.addEventListener('click', toggleSidebarCollapse);
             }
-                link.addEventListener('click', () => {
-                    if (window.innerWidth <= 900) {
-                        toggleSidebar();
-                    }
-                });
-            });
             
             // ============================================
             // THEME TOGGLE
