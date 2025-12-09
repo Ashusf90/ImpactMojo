@@ -79,6 +79,228 @@
             --notion-bg-hover: var(--hover-bg);
         }
         
+        /* Sargam Icon Styles */
+        .sargam-icon {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(2108%) hue-rotate(176deg) brightness(98%) contrast(91%);
+        }
+        
+        .section-header-icon {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-right: 8px;
+            filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(2108%) hue-rotate(176deg) brightness(98%) contrast(91%);
+        }
+        
+        .nav-icon {
+            width: 18px;
+            height: 18px;
+            filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(2108%) hue-rotate(176deg) brightness(98%) contrast(91%);
+        }
+        
+        .card-icon img, .comparison-icon img, .callout-icon img {
+            width: 28px;
+            height: 28px;
+            filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(2108%) hue-rotate(176deg) brightness(98%) contrast(91%);
+        }
+        
+        [data-theme="light"] .sargam-icon,
+        [data-theme="light"] .section-header-icon,
+        [data-theme="light"] .nav-icon,
+        [data-theme="light"] .card-icon img,
+        [data-theme="light"] .comparison-icon img,
+        [data-theme="light"] .callout-icon img,
+        [data-theme="light"] .resource-icon img {
+            filter: brightness(0) saturate(100%) invert(44%) sepia(98%) saturate(1388%) hue-rotate(176deg) brightness(97%) contrast(92%);
+        }
+        
+        /* ==========================================
+           COACH CALLOUT - Chat Bubble Style CTA
+           ========================================== */
+        .coach-callout {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: 16px;
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .coach-callout::before {
+            content: '';
+            position: absolute;
+            left: 52px;
+            top: -8px;
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
+            border-left: 1px solid rgba(14, 165, 233, 0.2);
+            border-top: 1px solid rgba(14, 165, 233, 0.2);
+            transform: rotate(45deg);
+        }
+        
+        .coach-photo {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            flex-shrink: 0;
+        }
+        
+        .coach-content {
+            flex: 1;
+        }
+        
+        .coach-name {
+            font-weight: 600;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .coach-message {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+        
+        .coach-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .coach-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.75rem;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .coach-link:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .coach-link.secondary {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .coach-link.secondary:hover {
+            background: rgba(14, 165, 233, 0.1);
+        }
+        
+        .coach-link img {
+            width: 14px;
+            height: 14px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .coach-link.secondary img {
+            filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(2108%) hue-rotate(176deg) brightness(98%) contrast(91%);
+        }
+        
+        [data-theme="light"] .coach-callout {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.06) 0%, rgba(99, 102, 241, 0.06) 100%);
+        }
+        
+        [data-theme="light"] .coach-callout::before {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.06) 0%, rgba(99, 102, 241, 0.06) 100%);
+        }
+        
+        @media (max-width: 600px) {
+            .coach-callout {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+            
+            .coach-callout::before {
+                display: none;
+            }
+            
+            .coach-photo {
+                width: 56px;
+                height: 56px;
+            }
+            
+            .coach-links {
+                justify-content: center;
+            }
+        }
+        
+        /* Quick Resource Links Box */
+        .resource-links-box {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+        }
+        
+        .resource-links-box h5 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 0.75rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .resource-links-box h5 img {
+            width: 16px;
+            height: 16px;
+            filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(2108%) hue-rotate(176deg) brightness(98%) contrast(91%);
+        }
+        
+        .resource-quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .resource-quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.65rem;
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--accent-color);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .resource-quick-link:hover {
+            background: rgba(14, 165, 233, 0.2);
+        }
+        
+        .resource-quick-link img {
+            width: 14px;
+            height: 14px;
+            filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(2108%) hue-rotate(176deg) brightness(98%) contrast(91%);
+        }
+        
         /* Light Theme */
         [data-theme="light"] {
             --primary-bg: #FFFFFF;
@@ -1203,7 +1425,13 @@
             border: 1px solid var(--color-border);
             border-radius: 8px;
             padding: var(--spacing-lg);
+        }
+        
+        .comparison-card .comparison-title,
+        .comparison-card .comparison-header {
             text-align: center;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
         }
         
         .comparison-card.highlight {
@@ -1214,6 +1442,7 @@
         .comparison-icon {
             font-size: 2rem;
             margin-bottom: var(--spacing-sm);
+            text-align: center;
         }
         
         .comparison-title {
@@ -1221,16 +1450,22 @@
             margin-bottom: var(--spacing-sm);
         }
         
+        /* Fix lists inside comparison cards - left align bullets and text */
+        .comparison-card ul,
         .comparison-list {
-            list-style: none;
-            padding: 0;
+            list-style: disc;
+            list-style-position: inside;
+            padding-left: 0;
+            margin: 0;
             text-align: left;
             font-size: 0.875rem;
         }
         
+        .comparison-card ul li,
         .comparison-list li {
             padding: var(--spacing-xs) 0;
-            border-bottom: 1px solid var(--color-border);
+            border-bottom: none;
+            text-align: left;
         }
         
         .comparison-list li:last-child {
@@ -1304,19 +1539,57 @@
         
         .resource-card {
             display: flex;
-            align-items: center;
-            gap: var(--spacing-md);
+            flex-direction: column;
             padding: var(--spacing-lg);
             background: var(--color-bg-secondary);
             border: 1px solid var(--color-border);
-            border-radius: 8px;
+            border-radius: 12px;
             transition: all var(--transition-fast);
+            text-decoration: none;
+            color: inherit;
         }
         
         .resource-card:hover {
             border-color: var(--color-accent);
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
+        }
+        
+        .resource-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 0.25rem 0;
+            color: var(--color-text);
+        }
+        
+        .resource-card .resource-author {
+            font-size: 0.85rem;
+            color: var(--color-accent);
+            margin: 0 0 0.75rem 0;
+            font-weight: 500;
+        }
+        
+        .resource-card p:not(.resource-author) {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+            margin: 0 0 1rem 0;
+            flex-grow: 1;
+        }
+        
+        .resource-card .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            margin-top: auto;
+        }
+        
+        .resource-card .resource-link:hover {
+            text-decoration: underline;
         }
         
         .resource-icon {
@@ -1327,8 +1600,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--color-accent);
+            margin-bottom: var(--spacing-md);
             flex-shrink: 0;
+        }
+        
+        .resource-icon img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(2108%) hue-rotate(176deg) brightness(98%) contrast(91%);
         }
         
         .resource-info {
@@ -1685,26 +1964,64 @@
         /* Collapsed sidebar state */
         .sidebar.collapsed {
             width: 60px;
+            background: var(--secondary-bg);
+            overflow: hidden;
         }
         
         .sidebar.collapsed .sidebar-logo-text,
-        .sidebar.collapsed .nav-link-text,
         .sidebar.collapsed .theme-label,
-        .sidebar.collapsed .sidebar-section-title {
-            display: none;
+        .sidebar.collapsed .nav-section-title {
+            display: none !important;
+        }
+        
+        .sidebar.collapsed .sidebar-header span:not(.sidebar-logo-icon) {
+            display: none !important;
         }
         
         .sidebar.collapsed .sidebar-logo {
             justify-content: center;
         }
         
-        .sidebar.collapsed .nav-link {
-            justify-content: center;
-            padding: var(--spacing-sm);
+        .sidebar.collapsed .sidebar-logo-icon {
+            margin-right: 0;
         }
         
-        .sidebar.collapsed .nav-link-number {
+        .sidebar.collapsed .nav-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-sm);
+            width: 60px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: clip;
+        }
+        
+        /* Hide all text nodes in collapsed nav-link by clipping */
+        .sidebar.collapsed .nav-link {
+            font-size: 0;
+            line-height: 0;
+        }
+        
+        .sidebar.collapsed .nav-link .nav-link-number {
+            font-size: 0.75rem;
+            line-height: 1.2;
             margin-right: 0;
+        }
+        
+        /* Hide icon images text in collapsed state - show only the icon */
+        .sidebar.collapsed .nav-link .nav-link-number img {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .sidebar.collapsed .sidebar-nav {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        .sidebar.collapsed .nav-section {
+            padding: var(--spacing-xs) 0;
         }
         
         .sidebar.collapsed + .sidebar-overlay + .main-content,
@@ -1719,6 +2036,25 @@
         
         .sidebar.collapsed .sidebar-collapse-btn svg {
             transform: rotate(180deg);
+        }
+        
+        .sidebar.collapsed .theme-toggle {
+            width: 40px;
+            justify-content: center;
+        }
+        
+        /* UserWay Widget Positioning - Small, Right Middle */
+        .uwy.userway_p5 {
+            right: 10px !important;
+            left: auto !important;
+            top: 50% !important;
+            bottom: auto !important;
+            transform: translateY(-50%) !important;
+        }
+        
+        .uwy .uai {
+            width: 40px !important;
+            height: 40px !important;
         }
         
         /* ==========================================
@@ -1974,7 +2310,7 @@
                 <path d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
         </button>
-        <a href="index.html" style="font-weight: 600; color: var(--color-text); text-decoration: none;">ImpactMojo</a>
+        <a href="../index.html" style="font-weight: 600; color: var(--color-text); text-decoration: none;">ImpactMojo</a>
         <div style="width: 40px;"></div>
     </div>
     
@@ -1991,9 +2327,9 @@
                 </svg>
             </button>
             <div class="sidebar-header">
-                <a href="index.html" class="sidebar-logo">
-                    <div class="sidebar-logo-icon">📊</div>
-                    <span>ImpactMojo</span>
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon"><img src="../assets/images/ImpactMojo%20Logo.png" alt="ImpactMojo" style="width: 32px; height: 32px; border-radius: 6px;"></div>
+                    <span class="sidebar-logo-text">ImpactMojo</span>
                 </a>
             </div>
             
@@ -2006,7 +2342,7 @@
                         Course Introduction
                     </a>
                     <a href="#resources" class="nav-link">
-                        <span class="nav-link-number">📚</span>
+                        <span class="nav-link-number"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="nav-icon"></span>
                         Papers & Resources
                     </a>
                 </div>
@@ -2083,15 +2419,15 @@
                         RCTs & Policy
                     </a>
                     <a href="#south-asia" class="nav-link">
-                        <span class="nav-link-number">🌏</span>
+                        <span class="nav-link-number"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="nav-icon"></span>
                         South Asia Deep Dive
                     </a>
                     <a href="#future" class="nav-link">
-                        <span class="nav-link-number">🔮</span>
+                        <span class="nav-link-number"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="nav-icon"></span>
                         Future Challenges
                     </a>
                     <a href="#founders" class="nav-link">
-                        <span class="nav-link-number">👥</span>
+                        <span class="nav-link-number"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="" class="nav-icon"></span>
                         Meet the Founders
                     </a>
                 </div>
@@ -2099,7 +2435,7 @@
             
             <div class="sidebar-footer">
                 <button class="theme-toggle" id="theme-toggle">
-                    <span class="theme-icon">☀️</span>
+                    <span class="theme-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="theme-toggle-icon"></span>
                     <span class="theme-label">Light mode</span>
                 </button>
             </div>
@@ -2185,7 +2521,7 @@
                     </div>
                     
                     <div class="callout callout-blue">
-                        <div class="callout-icon">💡</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>Development economics differs from standard economics</strong> in crucial ways: markets often fail, information is asymmetric, institutions are weak, and history matters profoundly. The same policy that works in Sweden may backfire in Bangladesh.</p>
                         </div>
@@ -2193,17 +2529,17 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">📊</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="sargam-icon"></div>
                             <h4>Evidence-Based Practice</h4>
                             <p>Move beyond intuition to rigorous evidence. Learn to evaluate what works, what doesn't, and why—using the same methods Nobel laureates use.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🔬</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Crosshair_detailed.svg" alt="" class="sargam-icon"></div>
                             <h4>Theoretical Foundations</h4>
                             <p>Understand the models that explain poverty traps, coordination failures, and structural transformation—essential for designing effective interventions.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🌏</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="sargam-icon"></div>
                             <h4>South Asian Context</h4>
                             <p>Deep focus on India, Bangladesh, Pakistan, and the region—where half the world's poor live and where your work will have maximum impact.</p>
                         </div>
@@ -2313,24 +2649,24 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">🍞</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon"></div>
                             <h4>Nutrition-Based Poverty Trap</h4>
                             <p>Malnourished workers are less productive → earn less → eat less → remain malnourished. Breaking this trap requires a "big push" above the nutritional threshold.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">💰</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon"></div>
                             <h4>Credit Trap</h4>
                             <p>Poor lack collateral → cannot borrow → cannot invest → remain poor. Microfinance attempts to break this cycle but faces challenges at scale.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">📚</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon"></div>
                             <h4>Education Trap</h4>
                             <p>Parents who didn't attend school undervalue education → don't send children → next generation lacks skills → poverty persists across generations.</p>
                         </div>
                     </div>
                     
                     <div class="callout callout-yellow">
-                        <div class="callout-icon">⚠️</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>Policy implication:</strong> Small, marginal interventions may fail because they don't push economies past the threshold into a better equilibrium. This is the logic behind "Big Push" theories of development—simultaneous, coordinated investments across multiple sectors.</p>
                         </div>
@@ -2342,7 +2678,7 @@
                     
                     <div class="comparison-grid">
                         <div class="comparison-card">
-                            <div class="comparison-icon">🏛️</div>
+                            <div class="comparison-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="sargam-icon"></div>
                             <div class="comparison-title">Institutions</div>
                             <ul class="comparison-list">
                                 <li><strong>Claim:</strong> Inclusive political and economic institutions drive prosperity</li>
@@ -2351,7 +2687,7 @@
                             </ul>
                         </div>
                         <div class="comparison-card">
-                            <div class="comparison-icon">🌍</div>
+                            <div class="comparison-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="sargam-icon"></div>
                             <div class="comparison-title">Geography</div>
                             <ul class="comparison-list">
                                 <li><strong>Claim:</strong> Climate, disease burden, and location shape development</li>
@@ -2360,7 +2696,7 @@
                             </ul>
                         </div>
                         <div class="comparison-card">
-                            <div class="comparison-icon">🎭</div>
+                            <div class="comparison-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="" class="sargam-icon"></div>
                             <div class="comparison-title">Culture</div>
                             <ul class="comparison-list">
                                 <li><strong>Claim:</strong> Values, trust, and social capital affect economic outcomes</li>
@@ -2369,7 +2705,7 @@
                             </ul>
                         </div>
                         <div class="comparison-card">
-                            <div class="comparison-icon">📜</div>
+                            <div class="comparison-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="" class="sargam-icon"></div>
                             <div class="comparison-title">History</div>
                             <ul class="comparison-list">
                                 <li><strong>Claim:</strong> Colonial extraction, slavery, and initial conditions persist</li>
@@ -2380,7 +2716,7 @@
                     </div>
                     
                     <div class="reading-box">
-                        <h4>📖 Essential Reading</h4>
+                        <h4><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="section-header-icon"> Essential Reading</h4>
                         <ul class="reading-list">
                             <li>
                                 <a href="https://www.dropbox.com/scl/fo/4n8bwqatkgxnva49kwfkb/AAcW4EFP_CRjI8mf5DVhd18?rlkey=iqykledl0yp2zsra3qcb5388m&st=466lm3zc&dl=0" target="_blank">
@@ -2401,6 +2737,27 @@
                                 </a>
                             </li>
                         </ul>
+                    </div>
+                    
+                    <!-- Coach CTA -->
+                    <div class="coach-callout">
+                        <img src="../assets/images/varna-photo.jpg" alt="Dr. Varna" class="coach-photo">
+                        <div class="coach-content">
+                            <div class="coach-name">Dr. Varna Sri Raman</div>
+                            <div class="coach-message">
+                                Finding the theoretical foundations challenging? I'd love to walk you through the concepts in a 1:1 session. We can discuss how these frameworks apply to your specific work context.
+                            </div>
+                            <div class="coach-links">
+                                <a href="../coaching.html" class="coach-link">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">
+                                    Book 1:1 Coaching
+                                </a>
+                                <a href="../index.html#labs" class="coach-link secondary">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                                    Try Interactive Labs
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="source-citation">
@@ -2425,17 +2782,17 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">❤️</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Heart.svg" alt="" class="sargam-icon"></div>
                             <h4>Health</h4>
                             <p>Measured by <strong>life expectancy at birth</strong>. Captures overall health environment, nutrition, and access to healthcare. Minimum: 20 years. Maximum: 85 years.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">📚</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon"></div>
                             <h4>Education</h4>
                             <p>Measured by <strong>mean years of schooling</strong> (adults 25+) and <strong>expected years of schooling</strong> (children). Captures both stock and flow of human capital.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">💵</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon"></div>
                             <h4>Standard of Living</h4>
                             <p>Measured by <strong>GNI per capita (PPP)</strong>. Uses purchasing power parity to compare real living standards across countries. Log transformation reduces weight of extreme values.</p>
                         </div>
@@ -2525,7 +2882,7 @@
                     </div>
                     
                     <div class="callout callout-orange">
-                        <div class="callout-icon">🔍</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>The Bangladesh Paradox:</strong> Bangladesh now outranks India on HDI despite lower per capita income. This reflects Bangladesh's superior performance on health (higher life expectancy, lower child mortality) and education (higher enrollment, especially for girls). The lesson: development isn't just about GDP.</p>
                         </div>
@@ -2682,7 +3039,7 @@
                     </div>
                     
                     <div class="callout callout-red">
-                        <div class="callout-icon">⚠️</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>Critique of $2.15 line:</strong> Many economists argue this threshold is too low to capture meaningful deprivation. At $2.15/day, you cannot afford adequate nutrition, let alone healthcare or education. The "societal poverty line" of ~$25/day better captures who is poor relative to their society.</p>
                         </div>
@@ -2738,7 +3095,7 @@
                     </div>
                     
                     <div class="reading-box">
-                        <h4>📖 Essential Reading</h4>
+                        <h4><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="section-header-icon"> Essential Reading</h4>
                         <ul class="reading-list">
                             <li>
                                 <a href="https://hdr.undp.org/content/human-development-report-2023-24" target="_blank">
@@ -2759,6 +3116,46 @@
                                 </a>
                             </li>
                         </ul>
+                    </div>
+                    
+                    <!-- Coach CTA -->
+                    <div class="coach-callout">
+                        <img src="../assets/images/vandana-photo.jpeg" alt="Vandana Soni" class="coach-photo">
+                        <div class="coach-content">
+                            <div class="coach-name">Vandana Soni</div>
+                            <div class="coach-message">
+                                Want hands-on practice with these indicators? Our interactive labs let you explore HDI, MPI, and poverty data for South Asian countries. Perfect for building practical skills!
+                            </div>
+                            <div class="coach-links">
+                                <a href="../index.html#labs" class="coach-link">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                                    Explore Labs
+                                </a>
+                                <a href="../workshops.html" class="coach-link secondary">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">
+                                    Request a Workshop
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Resources -->
+                    <div class="resource-links-box">
+                        <h5><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Direction_alt.svg" alt=""> Related Resources</h5>
+                        <div class="resource-quick-links">
+                            <a href="../handouts.html" class="resource-quick-link">
+                                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">
+                                Free Handouts
+                            </a>
+                            <a href="../index.html#games" class="resource-quick-link">
+                                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                                Economics Games
+                            </a>
+                            <a href="../catalog.html" class="resource-quick-link">
+                                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">
+                                All 39 Courses
+                            </a>
+                        </div>
                     </div>
                     
                     <div class="source-citation">
@@ -2855,7 +3252,7 @@
                     </div>
                     
                     <div class="callout callout-blue">
-                        <div class="callout-icon">💡</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>Consumption vs. Income Gini:</strong> India's Gini appears moderate because official surveys measure <em>consumption</em>, not income. Consumption inequality understates true inequality because the rich save more. Wealth inequality in India is among the highest in the world.</p>
                         </div>
@@ -2940,7 +3337,7 @@
                     </div>
                     
                     <div class="callout callout-purple">
-                        <div class="callout-icon">📊</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>Interpretation:</strong> Scheduled Tribes are nearly 4x more likely to be MPI-poor than general category households. This gap has persisted for decades despite affirmative action policies—suggesting structural barriers beyond formal discrimination.</p>
                         </div>
@@ -2950,22 +3347,22 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">👩‍💼</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="" class="sargam-icon"></div>
                             <h4>Female Labor Force Participation</h4>
                             <p>India: <strong>24%</strong> (one of world's lowest)<br>Bangladesh: 36%<br>Nepal: 26%<br>World average: 47%</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">💰</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon"></div>
                             <h4>Gender Pay Gap</h4>
                             <p>Women earn <strong>17% less</strong> than men for equivalent work (India)<br>Gap wider in informal sector<br>Motherhood penalty: 10-15% additional</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">📚</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon"></div>
                             <h4>Education Gap</h4>
                             <p>Female literacy: 65% (India)<br>Male literacy: 82%<br>Gap closing in younger cohorts but persists in poor states</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🏠</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="sargam-icon"></div>
                             <h4>Asset Ownership</h4>
                             <p>Only <strong>13%</strong> of women own land individually (India)<br>Women less likely to have bank accounts, phones, IDs</p>
                         </div>
@@ -2975,7 +3372,7 @@
                     
                     <div class="comparison-grid">
                         <div class="comparison-card">
-                            <div class="comparison-icon">🏙️</div>
+                            <div class="comparison-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="sargam-icon"></div>
                             <div class="comparison-title">Urban India</div>
                             <ul class="comparison-list">
                                 <li>MPI Headcount: <strong>5.3%</strong></li>
@@ -2985,7 +3382,7 @@
                             </ul>
                         </div>
                         <div class="comparison-card">
-                            <div class="comparison-icon">🌾</div>
+                            <div class="comparison-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                             <div class="comparison-title">Rural India</div>
                             <ul class="comparison-list">
                                 <li>MPI Headcount: <strong>19.3%</strong></li>
@@ -3066,14 +3463,14 @@
                     </div>
                     
                     <div class="callout callout-green">
-                        <div class="callout-icon">✅</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>Evidence on cash transfers:</strong> Multiple RCTs show cash transfers reduce poverty, increase food consumption, improve child health, and often boost productive investment. Fears about "lazy poor" spending on alcohol/tobacco are largely unfounded (Evans & Popova, 2017).</p>
                         </div>
                     </div>
                     
                     <div class="reading-box">
-                        <h4>📖 Essential Reading</h4>
+                        <h4><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="section-header-icon"> Essential Reading</h4>
                         <ul class="reading-list">
                             <li>
                                 <a href="https://www.dropbox.com/scl/fo/4n8bwqatkgxnva49kwfkb/AAcW4EFP_CRjI8mf5DVhd18?rlkey=iqykledl0yp2zsra3qcb5388m&st=466lm3zc&dl=0" target="_blank">
@@ -3094,6 +3491,27 @@
                                 </a>
                             </li>
                         </ul>
+                    </div>
+                    
+                    <!-- Coach CTA -->
+                    <div class="coach-callout">
+                        <img src="../assets/images/varna-photo.jpg" alt="Dr. Varna" class="coach-photo">
+                        <div class="coach-content">
+                            <div class="coach-name">Dr. Varna Sri Raman</div>
+                            <div class="coach-message">
+                                Inequality data can be overwhelming. If you're working on a poverty assessment or need help interpreting these indicators for your project, let's chat. I can help you choose the right metrics for your context.
+                            </div>
+                            <div class="coach-links">
+                                <a href="../coaching.html" class="coach-link">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">
+                                    Research Consultation
+                                </a>
+                                <a href="../premium.html" class="coach-link secondary">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                                    Premium Tools
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="source-citation">
@@ -3122,7 +3540,7 @@
                     </div>
                     
                     <div class="callout callout-yellow">
-                        <div class="callout-icon">⚠️</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>The "financing gap" fallacy:</strong> This model justified massive foreign aid—if poor countries can't save enough, transfer capital from rich countries. But decades of aid often failed to generate growth because capital isn't the only binding constraint. Institutions, technology, and human capital matter too.</p>
                         </div>
@@ -3162,22 +3580,22 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">📉</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="sargam-icon"></div>
                             <h4>Low Savings</h4>
                             <p>Many poor countries save 10-15% of GDP vs. 30-40% in East Asia. Lower savings → lower steady-state income.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">👶</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Heart.svg" alt="" class="sargam-icon"></div>
                             <h4>High Population Growth</h4>
                             <p>Capital must be spread across more workers. Pakistan's 2.4% population growth vs. Thailand's 0.3% means different outcomes.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🏫</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon"></div>
                             <h4>Human Capital Gaps</h4>
                             <p>The Solow model treats labor as homogeneous. In reality, education quality varies enormously—India's learning crisis means years of schooling ≠ skills.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🏛️</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="sargam-icon"></div>
                             <h4>Institutional Barriers</h4>
                             <p>Corruption, weak property rights, and policy uncertainty reduce investment returns. Same capital generates less output in weak institutions.</p>
                         </div>
@@ -3199,7 +3617,7 @@
                     
                     <div class="comparison-grid">
                         <div class="comparison-card">
-                            <div class="comparison-icon">🌾</div>
+                            <div class="comparison-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                             <div class="comparison-title">Traditional Sector</div>
                             <ul class="comparison-list">
                                 <li>Subsistence agriculture</li>
@@ -3209,7 +3627,7 @@
                             </ul>
                         </div>
                         <div class="comparison-card highlight">
-                            <div class="comparison-icon">🏭</div>
+                            <div class="comparison-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon"></div>
                             <div class="comparison-title">Modern Sector</div>
                             <ul class="comparison-list">
                                 <li>Manufacturing/Industry</li>
@@ -3274,7 +3692,7 @@
                     </div>
                     
                     <div class="callout callout-orange">
-                        <div class="callout-icon">🔍</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>India's anomaly:</strong> Agriculture's GDP share fell from 43% to 17%, but employment share only fell from 70% to 42%. This means agricultural labor productivity grew much slower than services—the opposite of Lewis's prediction. India may be experiencing "premature deindustrialization."</p>
                         </div>
@@ -3291,17 +3709,17 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">💡</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                             <h4>Non-Rivalry of Ideas</h4>
                             <p>Once created, an idea can be used by unlimited people simultaneously. This creates increasing returns at the economy level.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🎓</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon"></div>
                             <h4>Human Capital Externalities</h4>
                             <p>Educated workers make others more productive. Lucas (1988) showed these spillovers justify public education subsidies.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🔬</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Crosshair_detailed.svg" alt="" class="sargam-icon"></div>
                             <h4>R&D and Innovation</h4>
                             <p>Countries that invest more in R&D grow faster. But developing countries can also "catch up" by adopting existing technologies.</p>
                         </div>
@@ -3393,7 +3811,7 @@
                     </div>
                     
                     <div class="reading-box">
-                        <h4>📖 Essential Reading</h4>
+                        <h4><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="section-header-icon"> Essential Reading</h4>
                         <ul class="reading-list">
                             <li>
                                 <a href="https://www.dropbox.com/scl/fo/4n8bwqatkgxnva49kwfkb/AAcW4EFP_CRjI8mf5DVhd18?rlkey=iqykledl0yp2zsra3qcb5388m&st=466lm3zc&dl=0" target="_blank">
@@ -3408,6 +3826,27 @@
                                 </a>
                             </li>
                         </ul>
+                    </div>
+                    
+                    <!-- Coach CTA -->
+                    <div class="coach-callout">
+                        <img src="../assets/images/vandana-photo.jpeg" alt="Vandana Soni" class="coach-photo">
+                        <div class="coach-content">
+                            <div class="coach-name">Vandana Soni</div>
+                            <div class="coach-message">
+                                Growth models can seem abstract. Our economics games let you simulate different growth scenarios and see how policy choices affect development outcomes. Learning by doing!
+                            </div>
+                            <div class="coach-links">
+                                <a href="../index.html#games" class="coach-link">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                                    Play Economics Games
+                                </a>
+                                <a href="../catalog.html" class="coach-link secondary">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">
+                                    Browse All Courses
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="source-citation">
@@ -3448,7 +3887,7 @@
                     </div>
                     
                     <div class="callout callout-orange">
-                        <div class="callout-icon">📊</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>Productivity gap:</strong> Indian agricultural labor productivity is 1/5th China's and 1/25th the USA's. Moving workers from low-productivity agriculture to higher-productivity sectors could dramatically increase national income—if other sectors create jobs.</p>
                         </div>
@@ -3460,12 +3899,12 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">🔍</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt="" class="sargam-icon"></div>
                             <h4>Information Asymmetry</h4>
                             <p>Banks cannot distinguish good borrowers from bad. Rural borrowers lack credit histories, formal documentation, or verifiable income.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🏠</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="sargam-icon"></div>
                             <h4>No Collateral</h4>
                             <p>Poor farmers lack assets to pledge. Without collateral, banks face unlimited downside if loans default.</p>
                         </div>
@@ -3475,7 +3914,7 @@
                             <p>Weak legal systems make loan recovery costly. Farmers may default strategically knowing enforcement is unlikely.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🌧️</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="sargam-icon"></div>
                             <h4>Covariant Risk</h4>
                             <p>All farmers in a region face the same weather. A drought causes mass defaults, making diversification impossible for local lenders.</p>
                         </div>
@@ -3520,9 +3959,30 @@
                     </div>
                     
                     <div class="callout callout-blue">
-                        <div class="callout-icon">💡</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>Policy paradox:</strong> Creating more urban jobs may <em>increase</em> urban unemployment by attracting even more rural migrants. The only sustainable solution is raising rural productivity and incomes.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Coach CTA -->
+                    <div class="coach-callout">
+                        <img src="../assets/images/varna-photo.jpg" alt="Dr. Varna" class="coach-photo">
+                        <div class="coach-content">
+                            <div class="coach-name">Dr. Varna Sri Raman</div>
+                            <div class="coach-message">
+                                Working on agricultural development or rural livelihoods? I've conducted field research across South Asia and can help you design effective interventions. Let's discuss your project.
+                            </div>
+                            <div class="coach-links">
+                                <a href="../coaching.html" class="coach-link">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">
+                                    Book Consultation
+                                </a>
+                                <a href="../handouts.html" class="coach-link secondary">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">
+                                    Download Handouts
+                                </a>
+                            </div>
                         </div>
                     </div>
                     
@@ -3595,22 +4055,22 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">📈</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="sargam-icon"></div>
                             <h4>Unconditional Convergence</h4>
                             <p>Manufacturing productivity converges across countries regardless of institutions or geography. Services and agriculture don't show this pattern.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">👷</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon"></div>
                             <h4>Mass Employment</h4>
                             <p>Factories can absorb large numbers of workers with modest education. Services often require skills poor workers lack.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🔗</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Direction_alt.svg" alt="" class="sargam-icon"></div>
                             <h4>Linkages</h4>
                             <p>Manufacturing creates demand for inputs (backward linkages) and supplies intermediate goods to other sectors (forward linkages).</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🌍</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="sargam-icon"></div>
                             <h4>Export Potential</h4>
                             <p>Manufactured goods are tradable globally. Services face more barriers (language, regulatory, presence requirements).</p>
                         </div>
@@ -3673,7 +4133,7 @@
                     
                     <div class="comparison-grid">
                         <div class="comparison-card">
-                            <div class="comparison-icon">✅</div>
+                            <div class="comparison-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt="" class="sargam-icon"></div>
                             <div class="comparison-title">Success Story</div>
                             <ul class="comparison-list">
                                 <li>IT/BPO exports: $250 billion</li>
@@ -3683,7 +4143,7 @@
                             </ul>
                         </div>
                         <div class="comparison-card">
-                            <div class="comparison-icon">⚠️</div>
+                            <div class="comparison-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                             <div class="comparison-title">Limitations</div>
                             <ul class="comparison-list">
                                 <li>Only 1% of workforce</li>
@@ -3691,6 +4151,27 @@
                                 <li>Can't absorb 10M/year</li>
                                 <li>AI automation threat</li>
                             </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Coach CTA -->
+                    <div class="coach-callout">
+                        <img src="../assets/images/vandana-photo.jpeg" alt="Vandana Soni" class="coach-photo">
+                        <div class="coach-content">
+                            <div class="coach-name">Vandana Soni</div>
+                            <div class="coach-message">
+                                Interested in livelihoods programming or economic transformation? Our workshops cover practical approaches to designing effective employment and enterprise programs.
+                            </div>
+                            <div class="coach-links">
+                                <a href="../workshops.html" class="coach-link">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">
+                                    Request Workshop
+                                </a>
+                                <a href="../index.html#labs" class="coach-link secondary">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                                    Interactive Labs
+                                </a>
+                            </div>
                         </div>
                     </div>
                     
@@ -3751,17 +4232,17 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">📜</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="" class="sargam-icon"></div>
                             <h4>Signaling Theory</h4>
                             <p>Education may signal innate ability rather than build skills. If employers can't observe productivity directly, degrees serve as sorting mechanisms.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🧠</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                             <h4>Human Capital Theory</h4>
                             <p>Education genuinely increases productivity through cognitive skills, knowledge, and discipline. Returns reflect real skill gains.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">📉</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="sargam-icon"></div>
                             <h4>Credential Inflation</h4>
                             <p>As education expands, jobs that once required high school now demand degrees. Individual returns persist but social returns may be lower.</p>
                         </div>
@@ -3797,6 +4278,27 @@
                             <li>Building schools without addressing quality</li>
                             <li>Flip charts, libraries alone</li>
                         </ul>
+                    </div>
+                    
+                    <!-- Coach CTA -->
+                    <div class="coach-callout">
+                        <img src="../assets/images/varna-photo.jpg" alt="Dr. Varna" class="coach-photo">
+                        <div class="coach-content">
+                            <div class="coach-name">Dr. Varna Sri Raman</div>
+                            <div class="coach-message">
+                                Education research is my specialty. If you're designing an education intervention or evaluating learning outcomes, I can help you navigate the evidence and adapt it to your context.
+                            </div>
+                            <div class="coach-links">
+                                <a href="../coaching.html" class="coach-link">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">
+                                    Book Session
+                                </a>
+                                <a href="../catalog.html" class="coach-link secondary">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">
+                                    MEAL Courses
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="source-citation">
@@ -3842,7 +4344,7 @@
                     </div>
                     
                     <div class="callout callout-red">
-                        <div class="callout-icon">⚠️</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>The stunting crisis:</strong> 35% of Indian children under 5 are stunted—short for their age due to chronic malnutrition. Stunting causes irreversible cognitive damage, reducing lifetime earnings by 10-20%. India accounts for one-third of the world's stunted children.</p>
                         </div>
@@ -3880,29 +4382,29 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">🔍</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt="" class="sargam-icon"></div>
                             <h4>Information Asymmetry</h4>
                             <p>Patients cannot judge doctor quality. Das et al. (2016) find most Indian doctors fail basic competency tests but patients cannot distinguish good from bad.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">💊</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Heart.svg" alt="" class="sargam-icon"></div>
                             <h4>Supplier-Induced Demand</h4>
                             <p>Doctors prescribe unnecessary treatments. India has among the world's highest C-section rates in private hospitals—financial incentives, not medical need.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🏥</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Heart.svg" alt="" class="sargam-icon"></div>
                             <h4>Absenteeism</h4>
                             <p>Government health workers absent 40% of the time in some areas. Public system failures push poor to expensive private care.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">💸</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon"></div>
                             <h4>Catastrophic Expenditure</h4>
                             <p>55 million Indians pushed into poverty annually by health costs. Out-of-pocket spending is 55% of health expenditure—among world's highest.</p>
                         </div>
                     </div>
                     
                     <div class="reading-box">
-                        <h4>📖 Essential Reading</h4>
+                        <h4><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="section-header-icon"> Essential Reading</h4>
                         <ul class="reading-list">
                             <li>
                                 <a href="https://www.dropbox.com/scl/fo/4n8bwqatkgxnva49kwfkb/AAcW4EFP_CRjI8mf5DVhd18?rlkey=iqykledl0yp2zsra3qcb5388m&st=466lm3zc&dl=0" target="_blank">
@@ -3917,6 +4419,27 @@
                                 </a>
                             </li>
                         </ul>
+                    </div>
+                    
+                    <!-- Coach CTA -->
+                    <div class="coach-callout">
+                        <img src="../assets/images/vandana-photo.jpeg" alt="Vandana Soni" class="coach-photo">
+                        <div class="coach-content">
+                            <div class="coach-name">Vandana Soni</div>
+                            <div class="coach-message">
+                                Health programs are complex! If you're designing nutrition or healthcare interventions, our workshops cover evidence-based approaches that actually work in low-resource settings.
+                            </div>
+                            <div class="coach-links">
+                                <a href="../workshops.html" class="coach-link">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">
+                                    Request Workshop
+                                </a>
+                                <a href="../handouts.html" class="coach-link secondary">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">
+                                    Health Handouts
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="source-citation">
@@ -3960,17 +4483,17 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">✅</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt="" class="sargam-icon"></div>
                             <h4>What It Does</h4>
                             <p>Increases business investment, shifts from wage labor to self-employment, provides consumption smoothing, increases female control over household resources.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">❌</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Add_circle.svg" alt="" class="sargam-icon" style="transform: rotate(45deg);"></div>
                             <h4>What It Doesn't Do</h4>
                             <p>Dramatic poverty reduction, large income increases, women's "empowerment" (in measured outcomes), transformation of borrowers into entrepreneurs.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">⚠️</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                             <h4>Risks</h4>
                             <p>Over-indebtedness (multiple borrowing), high interest rates (20-30%), mission drift as MFIs commercialize, Andhra Pradesh crisis (2010).</p>
                         </div>
@@ -4009,6 +4532,27 @@
                             India Stack
                         </div>
                         <p><strong>JAM Trinity = Jan Dhan + Aadhaar + Mobile.</strong> This digital infrastructure enables direct benefit transfers, bypassing intermediaries. Government claims $33 billion in annual savings from reduced leakage. 318 schemes now use direct transfers to 1.4 billion Aadhaar-linked accounts.</p>
+                    </div>
+                    
+                    <!-- Coach CTA -->
+                    <div class="coach-callout">
+                        <img src="../assets/images/varna-photo.jpg" alt="Dr. Varna" class="coach-photo">
+                        <div class="coach-content">
+                            <div class="coach-name">Dr. Varna Sri Raman</div>
+                            <div class="coach-message">
+                                Financial inclusion is transforming development practice. Need help designing savings groups, understanding digital finance, or evaluating microfinance programs? Let's talk through your approach.
+                            </div>
+                            <div class="coach-links">
+                                <a href="../coaching.html" class="coach-link">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">
+                                    Book 1:1 Session
+                                </a>
+                                <a href="../index.html#games" class="coach-link secondary">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                                    Economics Games
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="source-citation">
@@ -4070,7 +4614,7 @@
                     </div>
                     
                     <div class="callout callout-yellow">
-                        <div class="callout-icon">📈</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>Tariff reversal:</strong> After decades of liberalization, India has raised tariffs since 2018 under "Atmanirbhar Bharat" (self-reliant India). This marks a shift toward protectionism, though economists debate whether this will boost or hinder manufacturing.</p>
                         </div>
@@ -4161,6 +4705,27 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    
+                    <!-- Coach CTA -->
+                    <div class="coach-callout">
+                        <img src="../assets/images/vandana-photo.jpeg" alt="Vandana Soni" class="coach-photo">
+                        <div class="coach-content">
+                            <div class="coach-name">Vandana Soni</div>
+                            <div class="coach-message">
+                                Trade and globalization affect every sector. Our interactive labs let you explore how trade policies impact poverty, employment, and growth in South Asian economies.
+                            </div>
+                            <div class="coach-links">
+                                <a href="../index.html#labs" class="coach-link">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                                    Explore Labs
+                                </a>
+                                <a href="../catalog.html" class="coach-link secondary">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">
+                                    All Courses
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="source-citation">
@@ -4300,9 +4865,30 @@
                     </div>
                     
                     <div class="callout callout-purple">
-                        <div class="callout-icon">🏛️</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>India's institutional paradox:</strong> India has strong formal institutions (independent judiciary, free press, competitive elections) but weak implementation. "State capacity"—the ability to actually deliver services and enforce rules—remains limited, especially at local levels.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Coach CTA -->
+                    <div class="coach-callout">
+                        <img src="../assets/images/varna-photo.jpg" alt="Dr. Varna" class="coach-photo">
+                        <div class="coach-content">
+                            <div class="coach-name">Dr. Varna Sri Raman</div>
+                            <div class="coach-message">
+                                Governance and institutions shape everything in development. If you're working on governance reforms, anti-corruption, or state capacity building, I can help you navigate the evidence and design effective approaches.
+                            </div>
+                            <div class="coach-links">
+                                <a href="../coaching.html" class="coach-link">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">
+                                    Strategy Session
+                                </a>
+                                <a href="../premium.html" class="coach-link secondary">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                                    Premium Tools
+                                </a>
+                            </div>
                         </div>
                     </div>
                     
@@ -4346,22 +4932,22 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">💊</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Heart.svg" alt="" class="sargam-icon"></div>
                             <h4>Deworming (Kenya)</h4>
                             <p><strong>Kremer & Miguel (2004):</strong> Deworming pills cost $0.50/child/year, increase school attendance 25%, raise adult earnings 20% a decade later. Among most cost-effective interventions ever measured.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🦟</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Crosshair_detailed.svg" alt="" class="sargam-icon"></div>
                             <h4>Bednets (Kenya)</h4>
                             <p><strong>Cohen & Dupas (2010):</strong> Free bednets used as much as purchased ones, contradicting claims that free distribution causes waste. Changed WHO policy to recommend free distribution.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">📚</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon"></div>
                             <h4>Remedial Education (India)</h4>
                             <p><strong>Banerjee et al. (2007):</strong> Pratham's "Teaching at the Right Level" program raised test scores by 0.28 SD at ~$5/child. Now scaled to millions across multiple countries.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">💰</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon"></div>
                             <h4>Cash Transfers (Multiple)</h4>
                             <p><strong>GiveDirectly studies:</strong> Unconditional cash transfers increase consumption, assets, and psychological wellbeing. No increase in "temptation goods" (alcohol, tobacco).</p>
                         </div>
@@ -4406,7 +4992,7 @@
                     </div>
                     
                     <div class="reading-box">
-                        <h4>📖 Essential Reading</h4>
+                        <h4><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="section-header-icon"> Essential Reading</h4>
                         <ul class="reading-list">
                             <li>
                                 <a href="https://www.dropbox.com/scl/fo/4n8bwqatkgxnva49kwfkb/AAcW4EFP_CRjI8mf5DVhd18?rlkey=iqykledl0yp2zsra3qcb5388m&st=466lm3zc&dl=0" target="_blank">
@@ -4427,6 +5013,50 @@
                                 </a>
                             </li>
                         </ul>
+                    </div>
+                    
+                    <!-- Coach CTA -->
+                    <div class="coach-callout">
+                        <img src="../assets/images/vandana-photo.jpeg" alt="Vandana Soni" class="coach-photo">
+                        <div class="coach-content">
+                            <div class="coach-name">Vandana Soni</div>
+                            <div class="coach-message">
+                                MEAL and evaluation are our core expertise! Whether you need help designing an RCT, understanding quasi-experimental methods, or just making sense of evidence—we've got you covered.
+                            </div>
+                            <div class="coach-links">
+                                <a href="../coaching.html" class="coach-link">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">
+                                    MEAL Coaching
+                                </a>
+                                <a href="../catalog.html" class="coach-link secondary">
+                                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">
+                                    MEAL Courses
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Resources -->
+                    <div class="resource-links-box">
+                        <h5><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Direction_alt.svg" alt=""> Deepen Your Learning</h5>
+                        <div class="resource-quick-links">
+                            <a href="../index.html#labs" class="resource-quick-link">
+                                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                                10 Interactive Labs
+                            </a>
+                            <a href="../index.html#games" class="resource-quick-link">
+                                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="">
+                                12 Economics Games
+                            </a>
+                            <a href="../handouts.html" class="resource-quick-link">
+                                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">
+                                Free Handouts
+                            </a>
+                            <a href="../premium.html" class="resource-quick-link">
+                                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Heart.svg" alt="">
+                                Premium Tools
+                            </a>
+                        </div>
                     </div>
                     
                     <div class="source-citation">
@@ -4526,22 +5156,22 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">🏭</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon"></div>
                             <h4>Missing Manufacturing</h4>
                             <p>India jumped from agriculture to services, bypassing labor-intensive manufacturing. Manufacturing employs only 11% vs. 28% in China. This limits job creation for the 10 million entering the workforce annually.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">👩</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="" class="sargam-icon"></div>
                             <h4>Women Left Behind</h4>
                             <p>Female labor force participation is 24%—among world's lowest. It has <em>declined</em> as incomes rose. Social norms, safety concerns, and lack of appropriate jobs keep women home.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🏥</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Heart.svg" alt="" class="sargam-icon"></div>
                             <h4>Health System Failures</h4>
                             <p>Public health spending is 1.3% of GDP. 55 million pushed into poverty by health costs annually. Private sector dominates but quality is poor and prices high.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">📚</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon"></div>
                             <h4>Education Quality Crisis</h4>
                             <p>Near-universal enrollment masks learning crisis. Half of Grade 5 students can't read Grade 2 text. Skills mismatch leaves millions unemployable despite degrees.</p>
                         </div>
@@ -4565,7 +5195,7 @@
                     <h4>Sri Lanka's Collapse (2022)</h4>
                     
                     <div class="callout callout-red">
-                        <div class="callout-icon">⚠️</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>Sri Lanka was South Asia's development success story—until it wasn't.</strong> The 2022 crisis offers lessons:</p>
                             <ul>
@@ -4631,22 +5261,22 @@
                     
                     <div class="card-grid">
                         <div class="card">
-                            <div class="card-icon">🤖</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                             <h4>AI & Automation</h4>
                             <p>Will AI eliminate the services jobs that employ millions? IT/BPO sector faces disruption. But AI may also enable leapfrogging—better healthcare diagnostics, personalized education, agricultural advice.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🏭</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon"></div>
                             <h4>Reshoring & Nearshoring</h4>
                             <p>Post-COVID, firms are shortening supply chains. Will "China+1" benefit South Asia, or will automation bring manufacturing back to rich countries?</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">📱</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                             <h4>Digital Public Infrastructure</h4>
                             <p>India's UPI, Aadhaar, ONDC show how digital rails can transform service delivery. But also raise surveillance, exclusion, and privacy concerns.</p>
                         </div>
                         <div class="card">
-                            <div class="card-icon">🌾</div>
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon"></div>
                             <h4>Agricultural Technology</h4>
                             <p>Precision agriculture, drought-resistant crops, mobile-based extension services could boost yields. Climate-smart agriculture is essential for food security.</p>
                         </div>
@@ -4655,7 +5285,7 @@
                     <h3>The SDG Challenge</h3>
                     
                     <div class="callout callout-blue">
-                        <div class="callout-icon">🎯</div>
+                        <div class="callout-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Crosshair_detailed.svg" alt="" class="sargam-icon"></div>
                         <div class="callout-content">
                             <p><strong>2030 is five years away. Most SDG targets will be missed.</strong></p>
                             <ul>
@@ -4688,7 +5318,7 @@
                         <div class="founders-grid">
                             <!-- Varna -->
                             <div class="founder-card">
-                                <img class="founder-photo" src="https://impactmojo.com/assets/images/varna-photo.jpg" alt="Dr. Varna Sri Raman" loading="lazy">
+                                <img class="founder-photo" src="../assets/images/varna-photo.jpg" alt="Dr. Varna Sri Raman" loading="lazy">
                                 <h4>Dr. Varna Sri Raman</h4>
                                 <p class="title">Founder & Lead of Learning Design</p>
                                 <p>Development Economist with a PhD, specializing in social impact measurement, gender studies, and development research across South Asia.</p>
@@ -4716,7 +5346,7 @@
                             
                             <!-- Vandana -->
                             <div class="founder-card">
-                                <img class="founder-photo" src="https://impactmojo.com/assets/images/vandana-photo.jpeg" alt="Vandana Soni" loading="lazy">
+                                <img class="founder-photo" src="../assets/images/vandana-photo.jpeg" alt="Vandana Soni" loading="lazy">
                                 <h4>Vandana Soni</h4>
                                 <p class="title">Co-Founder & Lead of Partnerships</p>
                                 <p>Education and development professional with 15+ years of experience designing impactful learning programs across India. Top Contributor in Education (Jobs for Her, 2022).</p>
@@ -4743,33 +5373,33 @@
                             Explore More on ImpactMojo
                         </h4>
                         <div class="resources-grid">
-                            <a href="https://impactmojo.com/catalog.html" class="resource-link" target="_blank">
+                            <a href="../catalog.html" class="resource-link" target="_blank">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
                                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                                 </svg>
                                 All 39 Courses
                             </a>
-                            <a href="https://impactmojo.com/index.html#labs" class="resource-link" target="_blank">
+                            <a href="../index.html#labs" class="resource-link" target="_blank">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
                                 </svg>
                                 Interactive Labs
                             </a>
-                            <a href="https://impactmojo.com/index.html#games" class="resource-link" target="_blank">
+                            <a href="../index.html#games" class="resource-link" target="_blank">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <rect x="2" y="6" width="20" height="12" rx="2"/>
                                     <path d="M6 12h4m-2-2v4m8 0h.01M18 10h.01"/>
                                 </svg>
                                 Economics Games
                             </a>
-                            <a href="https://impactmojo.com/premium.html" class="resource-link" target="_blank">
+                            <a href="../premium.html" class="resource-link" target="_blank">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                                 </svg>
                                 Premium Tools
                             </a>
-                            <a href="https://impactmojo.com/coaching.html" class="resource-link" target="_blank">
+                            <a href="../coaching.html" class="resource-link" target="_blank">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                                     <circle cx="9" cy="7" r="4"/>
@@ -4777,7 +5407,7 @@
                                 </svg>
                                 1:1 Coaching
                             </a>
-                            <a href="https://impactmojo.com/handouts.html" class="resource-link" target="_blank">
+                            <a href="../handouts.html" class="resource-link" target="_blank">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                                     <polyline points="14 2 14 8 20 8"/>
@@ -4798,11 +5428,11 @@
                         </p>
                     </div>
                     
-                    <h3>📚 Core Textbooks</h3>
+                    <h3><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="section-header-icon"> Core Textbooks</h3>
                     
                     <div class="resource-grid">
                         <div class="resource-card">
-                            <div class="resource-icon">📕</div>
+                            <div class="resource-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon"></div>
                             <h4>Development Economics</h4>
                             <p class="resource-author">Debraj Ray (1998)</p>
                             <p>The foundational textbook. Rigorous yet accessible. Covers growth, poverty, inequality, credit, land, nutrition. Still unmatched 25 years later.</p>
@@ -4811,30 +5441,30 @@
                             </a>
                         </div>
                         <div class="resource-card">
-                            <div class="resource-icon">📗</div>
+                            <div class="resource-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon"></div>
                             <h4>Poor Economics</h4>
                             <p class="resource-author">Banerjee & Duflo (2011)</p>
                             <p>Nobel laureates explain what RCTs reveal about poverty. Accessible, surprising, essential. The evidence-based development primer.</p>
                         </div>
                         <div class="resource-card">
-                            <div class="resource-icon">📘</div>
+                            <div class="resource-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon"></div>
                             <h4>Development as Freedom</h4>
                             <p class="resource-author">Amartya Sen (1999)</p>
                             <p>The capabilities approach in full. Development is expanding human freedoms, not just growing GDP. Philosophy meets economics.</p>
                         </div>
                         <div class="resource-card">
-                            <div class="resource-icon">📙</div>
+                            <div class="resource-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon"></div>
                             <h4>Why Nations Fail</h4>
                             <p class="resource-author">Acemoglu & Robinson (2012)</p>
                             <p>Institutions explain everything. Extractive vs. inclusive institutions determine prosperity. From 2024 Nobel laureates.</p>
                         </div>
                     </div>
                     
-                    <h3>🎬 Video Lectures</h3>
+                    <h3><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Album.svg" alt="" class="section-header-icon"> Video Lectures</h3>
                     
                     <div class="resource-grid">
                         <div class="resource-card">
-                            <div class="resource-icon">🎥</div>
+                            <div class="resource-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Album.svg" alt="" class="sargam-icon"></div>
                             <h4>MRU Development Economics</h4>
                             <p class="resource-author">Marginal Revolution University</p>
                             <p>256 short videos covering the entire field. Clear explanations with real-world examples. Perfect complement to readings.</p>
@@ -4843,7 +5473,7 @@
                             </a>
                         </div>
                         <div class="resource-card">
-                            <div class="resource-icon">🎓</div>
+                            <div class="resource-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon"></div>
                             <h4>MIT OCW Development</h4>
                             <p class="resource-author">MIT OpenCourseWare</p>
                             <p>Full MIT courses with lecture notes, problem sets, exams. PhD-level rigor, free access.</p>
@@ -4852,7 +5482,7 @@
                             </a>
                         </div>
                         <div class="resource-card">
-                            <div class="resource-icon">🤖</div>
+                            <div class="resource-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon"></div>
                             <h4>NotebookLM Study Companion</h4>
                             <p class="resource-author">AI-powered study tool</p>
                             <p>We've loaded core papers into NotebookLM. Ask questions, get summaries, explore connections.</p>
@@ -4862,7 +5492,7 @@
                         </div>
                     </div>
                     
-                    <h3>📊 Data Sources</h3>
+                    <h3><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="section-header-icon"> Data Sources</h3>
                     
                     <div class="table-wrapper">
                         <table>
@@ -4921,11 +5551,11 @@
                         </table>
                     </div>
                     
-                    <h3>🏛️ Key Organizations</h3>
+                    <h3><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="section-header-icon"> Key Organizations</h3>
                     
                     <div class="resource-grid">
                         <div class="resource-card">
-                            <div class="resource-icon">🔬</div>
+                            <div class="resource-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt="" class="sargam-icon"></div>
                             <h4>J-PAL</h4>
                             <p>Abdul Latif Jameel Poverty Action Lab. The hub for RCTs in development. Policy publications, evidence reviews, training.</p>
                             <a href="https://www.povertyactionlab.org/" class="resource-link" target="_blank">
@@ -4933,7 +5563,7 @@
                             </a>
                         </div>
                         <div class="resource-card">
-                            <div class="resource-icon">📈</div>
+                            <div class="resource-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="sargam-icon"></div>
                             <h4>World Bank Research</h4>
                             <p>Development Research Group. Working papers, policy reports, flagship publications like World Development Report.</p>
                             <a href="https://www.worldbank.org/en/research" class="resource-link" target="_blank">
@@ -4941,7 +5571,7 @@
                             </a>
                         </div>
                         <div class="resource-card">
-                            <div class="resource-icon">🌍</div>
+                            <div class="resource-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="sargam-icon"></div>
                             <h4>UNDP</h4>
                             <p>Human Development Reports, MPI methodology, SDG tracking. The capabilities approach in action.</p>
                             <a href="https://www.undp.org/" class="resource-link" target="_blank">
@@ -4949,7 +5579,7 @@
                             </a>
                         </div>
                         <div class="resource-card">
-                            <div class="resource-icon">📊</div>
+                            <div class="resource-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="sargam-icon"></div>
                             <h4>Our World in Data</h4>
                             <p>Beautiful visualizations of development data. Long-term trends, cross-country comparisons, research syntheses.</p>
                             <a href="https://ourworldindata.org/" class="resource-link" target="_blank">
@@ -4958,7 +5588,7 @@
                         </div>
                     </div>
                     
-                    <h3>📝 Landmark Papers</h3>
+                    <h3><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="" class="section-header-icon"> Landmark Papers</h3>
                     
                     <div class="concept-box">
                         <div class="concept-box-header">
@@ -5010,31 +5640,31 @@
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <a href="index.html">
-                        <img src="https://impactmojo.com/assets/images/logo.png" alt="ImpactMojo" height="40">
+                    <a href="../index.html">
+                        <img src="../assets/images/ImpactMojo%20Logo.png" alt="ImpactMojo" height="40">
                     </a>
                     <p>Free development education for everyone.</p>
                 </div>
                 <div class="footer-links">
                     <div class="footer-column">
                         <h4>Learn</h4>
-                        <a href="catalog.html">All Courses</a>
-                        <a href="workshops.html">Workshops</a>
-                        <a href="handouts.html">Handouts</a>
-                        <a href="podcast.html">Podcast</a>
+                        <a href="../catalog.html">All Courses</a>
+                        <a href="../workshops.html">Workshops</a>
+                        <a href="../handouts.html">Handouts</a>
+                        <a href="../podcast.html">Podcast</a>
                     </div>
                     <div class="footer-column">
                         <h4>Connect</h4>
-                        <a href="about.html">About Us</a>
-                        <a href="contact.html">Contact</a>
-                        <a href="faq.html">FAQ</a>
-                        <a href="blog.html">Blog</a>
+                        <a href="../about.html">About Us</a>
+                        <a href="../contact.html">Contact</a>
+                        <a href="../faq.html">FAQ</a>
+                        <a href="../blog.html">Blog</a>
                     </div>
                     <div class="footer-column">
                         <h4>Support</h4>
-                        <a href="premium.html">Premium</a>
+                        <a href="../premium.html">Premium</a>
                         <a href="https://pages.razorpay.com/impactmojo" target="_blank">Donate</a>
-                        <a href="coaching.html">Coaching</a>
+                        <a href="../coaching.html">Coaching</a>
                     </div>
                 </div>
             </div>
@@ -5116,7 +5746,7 @@
                 const icon = themeToggle?.querySelector('.theme-icon');
                 const label = themeToggle?.querySelector('.theme-label');
                 if (icon && label) {
-                    icon.textContent = isDark ? '☀️' : '🌙';
+                    // Theme icon handled by CSS
                     label.textContent = isDark ? 'Light mode' : 'Dark mode';
                 }
             }
@@ -5261,11 +5891,13 @@
             gtag('config', 'G-JRCMEB9TBW');
         </script>
         
-        <!-- UserWay Accessibility Widget -->
+        <!-- UserWay Accessibility Widget - Position 5 = Right Middle, Small -->
         <script>
             (function(d){
                 var s = d.createElement("script");
                 s.setAttribute("data-account", "EksmhlPg9k");
+                s.setAttribute("data-position", "5");
+                s.setAttribute("data-size", "small");
                 s.setAttribute("src", "https://cdn.userway.org/widget.js");
                 (d.body || d.head).appendChild(s);
             })(document);
