@@ -15,6 +15,19 @@
     <meta name="author" content="ImpactMojo">
     <link rel="canonical" href="https://101.impactmojo.in/dev-economics">
     
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Understanding Development: Theory, Evidence & Policy | ImpactMojo">
+    <meta property="og:description" content="A comprehensive, free course exploring poverty, growth, and economic transformation in developing nations. Deep focus on South Asia with rigorous academic foundations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://101.impactmojo.in/dev-economics">
+    <meta property="og:image" content="https://www.impactmojo.in/assets/images/dev-econ-og.jpg">
+    <meta property="og:site_name" content="ImpactMojo">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Understanding Development: Theory, Evidence & Policy | ImpactMojo">
+    <meta name="twitter:description" content="A comprehensive, free course exploring poverty, growth, and economic transformation in developing nations.">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1089,6 +1102,56 @@
             width: 18px;
             height: 18px;
             color: var(--color-accent);
+        }
+
+        /* Feature Tags - Homepage Style */
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0 1.5rem 0;
+        }
+
+        .feature-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.85rem;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+        }
+
+        .feature-tag img {
+            width: 14px;
+            height: 14px;
+            filter: invert(64%) sepia(71%) saturate(498%) hue-rotate(118deg) brightness(93%) contrast(89%);
+        }
+
+        .feature-tag.data {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .feature-tag.data img {
+            filter: invert(44%) sepia(63%) saturate(2453%) hue-rotate(225deg) brightness(99%) contrast(93%);
+        }
+
+        .feature-tag.cases {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+
+        .feature-tag.cases img {
+            filter: invert(72%) sepia(38%) saturate(2171%) hue-rotate(359deg) brightness(101%) contrast(93%);
+        }
+
+        .feature-tag.region {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
         }
         
         .hero-resources {
@@ -2377,6 +2440,58 @@
                 grid-template-columns: 1fr;
             }
         }
+    
+        /* ========================================
+           CHECK YOUR UNDERSTANDING - QUIZ STYLES
+           ======================================== */
+        .quiz-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(99, 102, 241, 0.05) 100%);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            border-left: 4px solid var(--indigo);
+        }
+        .quiz-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
+        .quiz-header svg { width: 28px; height: 28px; color: var(--indigo); }
+        .quiz-header h4 { margin: 0; font-size: 1.25rem; color: var(--text-primary); }
+        .quiz-intro { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-light); }
+        .quiz-question { margin-bottom: 1.5rem; padding: 1.25rem; background: var(--bg-primary); border-radius: 12px; border: 1px solid var(--border-light); }
+        .quiz-question:last-child { margin-bottom: 0; }
+        .question-number { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: var(--indigo); color: white; font-size: 0.75rem; font-weight: 600; border-radius: 50%; margin-right: 0.75rem; }
+        .question-text { font-weight: 500; color: var(--text-primary); margin-bottom: 1rem; line-height: 1.6; }
+        .question-type { display: inline-block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0.5rem; background: var(--bg-tertiary); color: var(--text-muted); border-radius: 4px; margin-left: 0.5rem; }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+        .quiz-option { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.75rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
+        .quiz-option:hover { border-color: var(--indigo); background: rgba(99, 102, 241, 0.05); }
+        .quiz-option input[type="radio"] { margin-top: 0.2rem; accent-color: var(--indigo); }
+        .quiz-option label { cursor: pointer; line-height: 1.5; color: var(--text-secondary); }
+        .quiz-option.correct { border-color: var(--success); background: rgba(16, 185, 129, 0.1); }
+        .quiz-option.incorrect { border-color: var(--orange); background: rgba(245, 158, 11, 0.1); }
+        .quiz-feedback { margin-top: 1rem; padding: 1rem; border-radius: 8px; font-size: 0.9rem; display: none; }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); color: var(--success); }
+        .quiz-feedback.incorrect { background: rgba(245, 158, 11, 0.1); border: 1px solid var(--orange); color: var(--text-primary); }
+        .reflection-prompt { padding: 1rem 1.25rem; background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%); border: 1px dashed var(--cyan); border-radius: 8px; margin-top: 0.75rem; }
+        .reflection-prompt p { margin: 0; font-style: italic; color: var(--text-secondary); line-height: 1.6; }
+        .check-answer-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; padding: 0.6rem 1.25rem; background: var(--indigo); color: white; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease; }
+        .check-answer-btn:hover { background: #4f46e5; transform: translateY(-1px); }
+        .check-answer-btn svg { width: 16px; height: 16px; }
+        .capstone-box { background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%); border: 2px solid var(--indigo); border-radius: 16px; padding: 2rem; margin-top: 2rem; }
+        .capstone-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .capstone-icon { width: 48px; height: 48px; background: var(--indigo); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .capstone-icon svg { width: 24px; height: 24px; color: white; stroke: white; }
+        .capstone-title { font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin: 0; }
+        .capstone-timeline { display: grid; gap: 1rem; margin: 1.5rem 0; }
+        .capstone-phase { display: flex; gap: 1rem; padding: 1.25rem; background: var(--bg-primary); border-radius: 12px; border: 1px solid var(--border-light); }
+        .phase-number { width: 32px; height: 32px; background: var(--cyan); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.9rem; flex-shrink: 0; }
+        .phase-content h5 { margin: 0 0 0.5rem 0; color: var(--text-primary); }
+        .phase-content p { margin: 0; font-size: 0.9rem; color: var(--text-secondary); }
+        .deliverables-list { list-style: none; padding: 0; margin: 1rem 0; }
+        .deliverables-list li { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border-light); }
+        .deliverables-list li:last-child { border-bottom: none; }
+        .deliverables-list svg { width: 20px; height: 20px; color: var(--success); stroke: var(--success); flex-shrink: 0; margin-top: 0.1rem; }
+
     </style>
 </head>
 <body>
@@ -2555,6 +2670,10 @@
                         <span class="nav-link-number">12</span>
                         RCTs & Policy
                     </a>
+                        <a href="#module13" class="nav-link">
+                            <span class="module-num">13</span>
+                            Capstone Project
+                        </a>
                     <a href="#south-asia" class="nav-link">
                         <span class="nav-link-number"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="nav-icon"></span>
                         South Asia Deep Dive
@@ -2596,6 +2715,21 @@
                     <p class="hero-subtitle">
                         A comprehensive journey through poverty, growth, and economic transformation in developing nations—with deep focus on South Asia and rigorous academic foundations built on Debraj Ray, Amartya Sen, and Nobel Prize-winning research.
                     </p>
+                    
+                    <div class="feature-tags">
+                        <span class="feature-tag data">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="">
+                            Data & Models
+                        </span>
+                        <span class="feature-tag cases">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">
+                            Case Studies
+                        </span>
+                        <span class="feature-tag region">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="">
+                            South Asia Focus
+                        </span>
+                    </div>
                     
                     <div class="hero-meta">
                         <div class="hero-meta-item">
@@ -5204,7 +5338,120 @@
                 <div class="divider"></div>
                 
                 <!-- SOUTH ASIA DEEP DIVE -->
-                <section class="section reveal" id="south-asia">
+                
+                <!-- MODULE 13: CAPSTONE PROJECT -->
+                <section class="section reveal" id="module13">
+                    <h2>Module 13: Capstone Project</h2>
+                    
+                    <div class="section-intro">
+                        <p class="lead">
+                            Apply the frameworks, evidence, and analytical skills from this course to produce a comprehensive 
+                            development policy analysis of a country or intervention of your choice.
+                        </p>
+                    </div>
+
+                    <h3>Project Overview</h3>
+                    <p>
+                        The capstone project demonstrates your ability to integrate multiple development economics concepts, 
+                        engage critically with empirical evidence, and produce policy-relevant analysis.
+                    </p>
+
+                    <div class="capstone-box">
+                        <div class="capstone-header">
+                            <div class="capstone-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
+                            </div>
+                            <h4 class="capstone-title">Development Policy Analysis</h4>
+                        </div>
+
+                        <div class="capstone-timeline">
+                            <div class="capstone-phase">
+                                <div class="phase-number">1</div>
+                                <div class="phase-content">
+                                    <h5>Week 1: Country & Issue Selection</h5>
+                                    <p>Select a developing country and specific development challenge. Justify why this issue matters.</p>
+                                </div>
+                            </div>
+                            <div class="capstone-phase">
+                                <div class="phase-number">2</div>
+                                <div class="phase-content">
+                                    <h5>Week 2: Diagnostic Analysis</h5>
+                                    <p>Apply course frameworks to diagnose the issue. Use data (HDI, poverty measures, Gini) to characterize the problem.</p>
+                                </div>
+                            </div>
+                            <div class="capstone-phase">
+                                <div class="phase-number">3</div>
+                                <div class="phase-content">
+                                    <h5>Week 3: Evidence Review</h5>
+                                    <p>Review empirical evidence on interventions. What do RCTs tell us? Be explicit about external validity concerns.</p>
+                                </div>
+                            </div>
+                            <div class="capstone-phase">
+                                <div class="phase-number">4</div>
+                                <div class="phase-content">
+                                    <h5>Week 4: Policy Recommendations</h5>
+                                    <p>Develop specific, feasible recommendations. Address implementation challenges and political economy constraints.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Deliverables</h3>
+                    <ul class="deliverables-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <div><strong>Policy Brief (3000-4000 words):</strong> Comprehensive analysis including context, diagnosis, evidence review, and recommendations.</div>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <div><strong>Data Visualization:</strong> At least 3 original visualizations presenting key data about your country/issue.</div>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <div><strong>Evidence Synthesis Table:</strong> Structured summary of 5-10 relevant empirical studies.</div>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <div><strong>Evaluation Design (500 words):</strong> How you would rigorously evaluate your proposed intervention.</div>
+                        </li>
+                    </ul>
+
+                    <h3>Evaluation Criteria</h3>
+                    <div class="grid-2">
+                        <div class="key-insight">
+                            <div class="key-insight-label">Analytical Rigor (35%)</div>
+                            <p>Accurate application of development economics frameworks and appropriate use of data.</p>
+                        </div>
+                        <div class="key-insight">
+                            <div class="key-insight-label">Evidence Engagement (25%)</div>
+                            <p>Quality of literature review and critical assessment of external validity.</p>
+                        </div>
+                        <div class="key-insight">
+                            <div class="key-insight-label">Policy Relevance (25%)</div>
+                            <p>Feasibility of recommendations and attention to implementation challenges.</p>
+                        </div>
+                        <div class="key-insight">
+                            <div class="key-insight-label">Communication (15%)</div>
+                            <p>Clarity, organization, and quality of visualizations.</p>
+                        </div>
+                    </div>
+
+                    <div class="coach-callout">
+                        <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Varna_1_ohsq1h.png" alt="Coach Varna" class="coach-photo">
+                        <div class="coach-content">
+                            <span class="coach-name">Coach Varna</span>
+                            <p class="coach-message">
+                                Your capstone is where all the pieces come together. Choose a challenge you want to understand deeply—
+                                perhaps one connected to South Asia or your own context. The best capstones combine rigorous analysis 
+                                with genuine curiosity.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+<section class="section reveal" id="south-asia">
                     <h2>South Asia Deep Dive</h2>
                     
                     <div class="section-intro">
@@ -5443,6 +5690,54 @@
                 </section>
                 <div class="divider"></div>
                 
+                <!-- LEXICON SECTION -->
+                <section class="section reveal" id="lexicon">
+                    <div class="section-badge">Reference</div>
+                    <h3>Development Economics Lexicon</h3>
+                    <p class="section-intro">A comprehensive vocabulary of key terms in development economics, from foundational concepts to contemporary debates.</p>
+                    
+                    <div class="content-card">
+                        <div class="key-terms-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                            <div class="term-card" style="background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: 8px; padding: 1rem;">
+                                <h5 style="color: var(--color-accent); margin-bottom: 0.25rem;">Poverty Trap</h5>
+                                <p style="font-size: 0.85rem; color: var(--color-text-secondary);">A self-reinforcing mechanism where poverty begets poverty across generations through lack of capital, health, and education.</p>
+                            </div>
+                            <div class="term-card" style="background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: 8px; padding: 1rem;">
+                                <h5 style="color: var(--color-accent); margin-bottom: 0.25rem;">Dutch Disease</h5>
+                                <p style="font-size: 0.85rem; color: var(--color-text-secondary);">The negative impact on an economy from a resource boom, typically causing currency appreciation and manufacturing decline.</p>
+                            </div>
+                            <div class="term-card" style="background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: 8px; padding: 1rem;">
+                                <h5 style="color: var(--color-accent); margin-bottom: 0.25rem;">Structural Transformation</h5>
+                                <p style="font-size: 0.85rem; color: var(--color-text-secondary);">The reallocation of economic activity from agriculture to manufacturing and services as economies develop.</p>
+                            </div>
+                            <div class="term-card" style="background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: 8px; padding: 1rem;">
+                                <h5 style="color: var(--color-accent); margin-bottom: 0.25rem;">Capabilities Approach</h5>
+                                <p style="font-size: 0.85rem; color: var(--color-text-secondary);">Amartya Sen's framework focusing on what people can do and be, rather than income or utility alone.</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--color-border);">
+                            <a href="https://www.dropbox.com/scl/fi/PLACEHOLDER-DEVECON-LEXICON" target="_blank" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; background: var(--color-accent); color: white; border-radius: 6px; font-size: 0.85rem; text-decoration: none;">
+                                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="" style="width: 14px; height: 14px; filter: brightness(0) invert(1);">
+                                Download Full Lexicon (XLSX)
+                            </a>
+                            <a href="#" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; background: transparent; border: 1px solid var(--color-accent); color: var(--color-accent); border-radius: 6px; font-size: 0.85rem; text-decoration: none;">
+                                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" style="width: 14px; height: 14px;">
+                                Interactive Lexicon App (Coming Soon)
+                            </a>
+                        </div>
+                        
+                        <div class="reflection-box" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 1.25rem; margin-top: 1.5rem;">
+                            <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; color: var(--color-text);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                                Reflection
+                            </h4>
+                            <p style="font-size: 0.9rem; color: var(--color-text-secondary);">Choose a term from the lexicon and find a real-world example from South Asia that illustrates the concept. How does context shape how the concept manifests?</p>
+                        </div>
+                    </div>
+                </section>
+                <div class="divider"></div>
+                
                 <!-- RESOURCES -->
                 
                 <!-- FOUNDERS CTA SECTION -->
@@ -5556,7 +5851,1399 @@
                             </a>
                         </div>
                     </div>
-                </section>
+                
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        According to Amartya Sen's capabilities approach, development should be measured by:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m1q1" id="m1q1a" value="a">
+                            <label for="m1q1a">GDP per capita growth</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m1q1" id="m1q1b" value="b">
+                            <label for="m1q1b">Industrial output</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m1q1" id="m1q1c" value="c">
+                            <label for="m1q1c">The expansion of human capabilities and freedoms</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m1q1" id="m1q1d" value="d">
+                            <label for="m1q1d">Trade surplus</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        The "Washington Consensus" of the 1980s emphasized:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m1q2" id="m1q2a" value="a">
+                            <label for="m1q2a">State-led industrialization</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m1q2" id="m1q2b" value="b">
+                            <label for="m1q2b">Fiscal discipline, privatization, and trade liberalization</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m1q2" id="m1q2c" value="c">
+                            <label for="m1q2c">Basic needs provision</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m1q2" id="m1q2d" value="d">
+                            <label for="m1q2d">Human development</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        In Sen's framework, "functionings" refer to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m1q3" id="m1q3a" value="a">
+                            <label for="m1q3a">Economic growth rates</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m1q3" id="m1q3b" value="b">
+                            <label for="m1q3b">What people actually do and are</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m1q3" id="m1q3c" value="c">
+                            <label for="m1q3c">Government capabilities</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m1q3" id="m1q3d" value="d">
+                            <label for="m1q3d">Market efficiency</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Compare development paradigms.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Consider two countries with similar GDP per capita but vastly different outcomes in education, health, and political freedom. Using Sen's capabilities framework, explain why GDP alone is insufficient to capture development.</p>
+                    </div>
+                </div>
+            </div>
+
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        The Human Development Index (HDI) combines indicators of:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m2q1" id="m2q1a" value="a">
+                            <label for="m2q1a">GDP, exports, and foreign investment</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m2q1" id="m2q1b" value="b">
+                            <label for="m2q1b">Health, education, and income</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m2q1" id="m2q1c" value="c">
+                            <label for="m2q1c">Industrialization, urbanization, and literacy</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m2q1" id="m2q1d" value="d">
+                            <label for="m2q1d">Democracy, freedom, and rights</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Purchasing Power Parity (PPP) adjustments are important because:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m2q2" id="m2q2a" value="a">
+                            <label for="m2q2a">They make poor countries look richer</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m2q2" id="m2q2b" value="b">
+                            <label for="m2q2b">They account for differences in local prices and living costs</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m2q2" id="m2q2c" value="c">
+                            <label for="m2q2c">They measure export competitiveness</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m2q2" id="m2q2d" value="d">
+                            <label for="m2q2d">They calculate government budgets</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        A limitation of GDP per capita as a development measure is:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m2q3" id="m2q3a" value="a">
+                            <label for="m2q3a">It is too easy to calculate</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m2q3" id="m2q3b" value="b">
+                            <label for="m2q3b">It ignores distribution—a country can have high average income but extreme inequality</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m2q3" id="m2q3c" value="c">
+                            <label for="m2q3c">It overestimates poverty</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m2q3" id="m2q3d" value="d">
+                            <label for="m2q3d">It measures too many factors</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Design a development dashboard.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>If you were advising a government on what indicators to track for development progress, what five measures would you prioritize beyond GDP? Justify each choice and explain what it captures that GDP misses.</p>
+                    </div>
+                </div>
+            </div>
+
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        The international poverty line of $2.15/day (2017 PPP) is set by:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m3q1" id="m3q1a" value="a">
+                            <label for="m3q1a">The United Nations</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m3q1" id="m3q1b" value="b">
+                            <label for="m3q1b">The World Bank</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m3q1" id="m3q1c" value="c">
+                            <label for="m3q1c">Individual country governments</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m3q1" id="m3q1d" value="d">
+                            <label for="m3q1d">The IMF</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        The Gini coefficient measures:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m3q2" id="m3q2a" value="a">
+                            <label for="m3q2a">Economic growth</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m3q2" id="m3q2b" value="b">
+                            <label for="m3q2b">Inequality in income or wealth distribution</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m3q2" id="m3q2c" value="c">
+                            <label for="m3q2c">Absolute poverty rates</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m3q2" id="m3q2d" value="d">
+                            <label for="m3q2d">Human development</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Multidimensional poverty measures capture:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m3q3" id="m3q3a" value="a">
+                            <label for="m3q3a">Only income poverty</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m3q3" id="m3q3b" value="b">
+                            <label for="m3q3b">Overlapping deprivations in health, education, and living standards</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m3q3" id="m3q3c" value="c">
+                            <label for="m3q3c">Economic growth rates</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m3q3" id="m3q3d" value="d">
+                            <label for="m3q3d">Government spending on welfare</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Absolute vs. relative poverty.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>A person in the UK earning £15,000/year might be considered relatively poor, while someone in rural Bangladesh earning $1,000/year might not be in absolute poverty. Discuss the implications of using absolute vs. relative measures for policy priorities.</p>
+                    </div>
+                </div>
+            </div>
+
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        The Solow growth model predicts that countries with lower capital per worker should:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m4q1" id="m4q1a" value="a">
+                            <label for="m4q1a">Grow slower than rich countries</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m4q1" id="m4q1b" value="b">
+                            <label for="m4q1b">Grow faster due to higher returns to capital (convergence)</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m4q1" id="m4q1c" value="c">
+                            <label for="m4q1c">Have constant growth rates</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m4q1" id="m4q1d" value="d">
+                            <label for="m4q1d">Never develop</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        The "poverty trap" hypothesis suggests that:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m4q2" id="m4q2a" value="a">
+                            <label for="m4q2a">All countries eventually become rich</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m4q2" id="m4q2b" value="b">
+                            <label for="m4q2b">Poor countries may be stuck at low equilibrium due to insufficient investment</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m4q2" id="m4q2c" value="c">
+                            <label for="m4q2c">Poverty is a choice</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m4q2" id="m4q2d" value="d">
+                            <label for="m4q2d">Growth is linear</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Endogenous growth theory differs from the Solow model by emphasizing:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m4q3" id="m4q3a" value="a">
+                            <label for="m4q3a">Diminishing returns to capital</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m4q3" id="m4q3b" value="b">
+                            <label for="m4q3b">Technology and human capital as engines of sustained growth</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m4q3" id="m4q3c" value="c">
+                            <label for="m4q3c">The role of natural resources</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m4q3" id="m4q3d" value="d">
+                            <label for="m4q3d">Population growth</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Diagnose a growth failure.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Choose a country that has experienced persistent low growth or stagnation. Using concepts from growth theory (poverty traps, convergence, institutions), diagnose why growth has been elusive and what interventions might help.</p>
+                    </div>
+                </div>
+            </div>
+
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        The Green Revolution involved:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m5q1" id="m5q1a" value="a">
+                            <label for="m5q1a">Environmental conservation programs</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m5q1" id="m5q1b" value="b">
+                            <label for="m5q1b">High-yielding crop varieties, irrigation, and chemical inputs</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m5q1" id="m5q1c" value="c">
+                            <label for="m5q1c">Organic farming methods</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m5q1" id="m5q1d" value="d">
+                            <label for="m5q1d">Land redistribution</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        A key challenge of smallholder agriculture in developing countries is:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m5q2" id="m5q2a" value="a">
+                            <label for="m5q2a">Too much access to credit</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m5q2" id="m5q2b" value="b">
+                            <label for="m5q2b">Lack of access to markets, credit, and inputs</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m5q2" id="m5q2c" value="c">
+                            <label for="m5q2c">Excessive mechanization</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m5q2" id="m5q2d" value="d">
+                            <label for="m5q2d">Over-irrigation</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        The "agricultural productivity paradox" refers to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m5q3" id="m5q3a" value="a">
+                            <label for="m5q3a">Farms being too productive</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m5q3" id="m5q3b" value="b">
+                            <label for="m5q3b">Agriculture employing most workers but contributing less to GDP as countries develop</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m5q3" id="m5q3c" value="c">
+                            <label for="m5q3c">Urban farms outperforming rural ones</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m5q3" id="m5q3d" value="d">
+                            <label for="m5q3d">Export crops being less valuable than food crops</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Evaluate agricultural development strategies.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Compare the approaches of promoting large-scale commercial agriculture versus supporting smallholder farmers. What are the tradeoffs in terms of efficiency, equity, employment, and food security?</p>
+                    </div>
+                </div>
+            </div>
+
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        The Lewis model of structural transformation describes:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m6q1" id="m6q1a" value="a">
+                            <label for="m6q1a">Government planning of industry</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m6q1" id="m6q1b" value="b">
+                            <label for="m6q1b">Labor moving from low-productivity agriculture to higher-productivity industry</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m6q1" id="m6q1c" value="c">
+                            <label for="m6q1c">Agricultural modernization only</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m6q1" id="m6q1d" value="d">
+                            <label for="m6q1d">Service sector growth</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Import substitution industrialization (ISI) involves:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m6q2" id="m6q2a" value="a">
+                            <label for="m6q2a">Promoting exports</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m6q2" id="m6q2b" value="b">
+                            <label for="m6q2b">Protecting domestic industries to replace imports with local production</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m6q2" id="m6q2c" value="c">
+                            <label for="m6q2c">Free trade policies</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m6q2" id="m6q2d" value="d">
+                            <label for="m6q2d">Foreign direct investment only</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        The success of East Asian industrialization is often attributed to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m6q3" id="m6q3a" value="a">
+                            <label for="m6q3a">Pure free market policies</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m6q3" id="m6q3b" value="b">
+                            <label for="m6q3b">Strategic government intervention combined with export orientation</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m6q3" id="m6q3c" value="c">
+                            <label for="m6q3c">Import substitution alone</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m6q3" id="m6q3d" value="d">
+                            <label for="m6q3d">Natural resource abundance</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Pathways to industrialization.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Can African countries today replicate the manufacturing-led growth of East Asia, or has automation and global value chains changed the game? What alternative pathways to structural transformation might be viable?</p>
+                    </div>
+                </div>
+            </div>
+
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Human capital refers to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m7q1" id="m7q1a" value="a">
+                            <label for="m7q1a">Physical infrastructure</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m7q1" id="m7q1b" value="b">
+                            <label for="m7q1b">Knowledge, skills, and health embodied in people</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m7q1" id="m7q1c" value="c">
+                            <label for="m7q1c">Financial assets</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m7q1" id="m7q1d" value="d">
+                            <label for="m7q1d">Natural resources</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Returns to education in developing countries are typically:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m7q2" id="m7q2a" value="a">
+                            <label for="m7q2a">Lower than in developed countries</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m7q2" id="m7q2b" value="b">
+                            <label for="m7q2b">Higher, especially for primary education</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m7q2" id="m7q2c" value="c">
+                            <label for="m7q2c">Zero</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m7q2" id="m7q2d" value="d">
+                            <label for="m7q2d">Negative</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        The gender gap in education has:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m7q3" id="m7q3a" value="a">
+                            <label for="m7q3a">Widened globally</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m7q3" id="m7q3b" value="b">
+                            <label for="m7q3b">Narrowed significantly but persists in some regions</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m7q3" id="m7q3c" value="c">
+                            <label for="m7q3c">Remained constant</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m7q3" id="m7q3d" value="d">
+                            <label for="m7q3d">Reversed to disadvantage boys everywhere</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Quality vs. quantity in education.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Many developing countries have achieved near-universal primary enrollment but learning outcomes remain poor. Discuss the "learning crisis" and what evidence suggests about improving education quality versus just access.</p>
+                    </div>
+                </div>
+            </div>
+
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        The demographic transition describes:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m8q1" id="m8q1a" value="a">
+                            <label for="m8q1a">Migration from rural to urban areas</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m8q1" id="m8q1b" value="b">
+                            <label for="m8q1b">The shift from high birth/death rates to low birth/death rates with development</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m8q1" id="m8q1c" value="c">
+                            <label for="m8q1c">Population decline</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m8q1" id="m8q1d" value="d">
+                            <label for="m8q1d">Aging of developed country populations</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Stunting in children is a measure of:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m8q2" id="m8q2a" value="a">
+                            <label for="m8q2a">Acute malnutrition</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m8q2" id="m8q2b" value="b">
+                            <label for="m8q2b">Chronic malnutrition reflected in low height-for-age</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m8q2" id="m8q2c" value="c">
+                            <label for="m8q2c">Obesity</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m8q2" id="m8q2d" value="d">
+                            <label for="m8q2d">Micronutrient deficiency only</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        The "double burden of malnutrition" refers to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m8q3" id="m8q3a" value="a">
+                            <label for="m8q3a">High food prices</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m8q3" id="m8q3b" value="b">
+                            <label for="m8q3b">Coexistence of undernutrition and obesity/overweight in the same population</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m8q3" id="m8q3c" value="c">
+                            <label for="m8q3c">Famine and drought</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m8q3" id="m8q3d" value="d">
+                            <label for="m8q3d">Food waste</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Health system priorities.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>A country with limited resources must choose between investing in primary healthcare (preventive) vs. hospitals (curative). Using evidence from development research, make the case for how resources should be allocated.</p>
+                    </div>
+                </div>
+            </div>
+
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Microfinance institutions primarily serve:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m9q1" id="m9q1a" value="a">
+                            <label for="m9q1a">Large corporations</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m9q1" id="m9q1b" value="b">
+                            <label for="m9q1b">Poor individuals excluded from formal banking</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m9q1" id="m9q1c" value="c">
+                            <label for="m9q1c">Government agencies</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m9q1" id="m9q1d" value="d">
+                            <label for="m9q1d">International investors</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        The 2019 RCT evidence on microcredit found:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m9q2" id="m9q2a" value="a">
+                            <label for="m9q2a">Large transformative effects on poverty</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m9q2" id="m9q2b" value="b">
+                            <label for="m9q2b">Modest positive effects but not the "silver bullet" initially hoped</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m9q2" id="m9q2c" value="c">
+                            <label for="m9q2c">Microcredit increased poverty</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m9q2" id="m9q2d" value="d">
+                            <label for="m9q2d">No measurable effects</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Mobile money (like M-Pesa) has been transformative because:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m9q3" id="m9q3a" value="a">
+                            <label for="m9q3a">It requires bank accounts</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m9q3" id="m9q3b" value="b">
+                            <label for="m9q3b">It enables financial services for the unbanked via mobile phones</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m9q3" id="m9q3c" value="c">
+                            <label for="m9q3c">It only works in developed countries</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m9q3" id="m9q3d" value="d">
+                            <label for="m9q3d">It replaced all other payment systems</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Financial inclusion tradeoffs.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Expanding credit access can help the poor invest in businesses, but it can also lead to over-indebtedness. How should policymakers balance promoting financial inclusion while protecting vulnerable borrowers?</p>
+                    </div>
+                </div>
+            </div>
+
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        The "infant industry" argument for trade protection holds that:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m10q1" id="m10q1a" value="a">
+                            <label for="m10q1a">All industries should be protected forever</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m10q1" id="m10q1b" value="b">
+                            <label for="m10q1b">New industries may need temporary protection to develop before competing globally</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m10q1" id="m10q1c" value="c">
+                            <label for="m10q1c">Only agriculture should be protected</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m10q1" id="m10q1d" value="d">
+                            <label for="m10q1d">Free trade always benefits everyone</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Evidence on trade liberalization in developing countries suggests:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m10q2" id="m10q2a" value="a">
+                            <label for="m10q2a">Universal benefits for all</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m10q2" id="m10q2b" value="b">
+                            <label for="m10q2b">Mixed results—aggregate gains but distributional effects matter</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m10q2" id="m10q2c" value="c">
+                            <label for="m10q2c">Only negative effects</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m10q2" id="m10q2d" value="d">
+                            <label for="m10q2d">No measurable impact</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Global value chains have changed development prospects by:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m10q3" id="m10q3a" value="a">
+                            <label for="m10q3a">Making trade irrelevant</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m10q3" id="m10q3b" value="b">
+                            <label for="m10q3b">Allowing countries to specialize in tasks rather than whole products</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m10q3" id="m10q3c" value="c">
+                            <label for="m10q3c">Eliminating manufacturing from developing countries</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m10q3" id="m10q3d" value="d">
+                            <label for="m10q3d">Only benefiting rich countries</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Trade policy for development.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Should developing countries today pursue free trade or strategic protection? Drawing on historical evidence (East Asia vs. Latin America) and contemporary challenges (automation, services), develop a position.</p>
+                    </div>
+                </div>
+            </div>
+
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Acemoglu and Robinson's thesis in "Why Nations Fail" argues that development depends primarily on:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m11q1" id="m11q1a" value="a">
+                            <label for="m11q1a">Geography and climate</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m11q1" id="m11q1b" value="b">
+                            <label for="m11q1b">Culture and religion</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m11q1" id="m11q1c" value="c">
+                            <label for="m11q1c">Inclusive vs. extractive economic and political institutions</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m11q1" id="m11q1d" value="d">
+                            <label for="m11q1d">Natural resource abundance</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        "Good governance" in development typically includes:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m11q2" id="m11q2a" value="a">
+                            <label for="m11q2a">Authoritarian control</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m11q2" id="m11q2b" value="b">
+                            <label for="m11q2b">Rule of law, property rights, low corruption, and accountability</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m11q2" id="m11q2c" value="c">
+                            <label for="m11q2c">State ownership of all enterprises</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m11q2" id="m11q2d" value="d">
+                            <label for="m11q2d">Minimal government</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        The "resource curse" refers to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m11q3" id="m11q3a" value="a">
+                            <label for="m11q3a">Countries with resources developing faster</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m11q3" id="m11q3b" value="b">
+                            <label for="m11q3b">Natural resource abundance often correlating with poor governance and slow growth</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m11q3" id="m11q3c" value="c">
+                            <label for="m11q3c">Depletion of resources</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m11q3" id="m11q3d" value="d">
+                            <label for="m11q3d">High resource prices</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Institutions and development.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>If institutions are the key to development, how do countries change institutions? Discuss the challenge of institutional reform—what conditions enable it, and why do extractive institutions persist even when they harm growth?</p>
+                    </div>
+                </div>
+            </div>
+
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        The 2019 Nobel Prize in Economics was awarded for:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m12q1" id="m12q1a" value="a">
+                            <label for="m12q1a">Macroeconomic theory</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m12q1" id="m12q1b" value="b">
+                            <label for="m12q1b">The experimental approach to alleviating global poverty (RCTs)</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m12q1" id="m12q1c" value="c">
+                            <label for="m12q1c">Trade theory</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m12q1" id="m12q1d" value="d">
+                            <label for="m12q1d">Financial economics</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Randomized Controlled Trials (RCTs) in development are valuable because:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m12q2" id="m12q2a" value="a">
+                            <label for="m12q2a">They are cheap and easy</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m12q2" id="m12q2b" value="b">
+                            <label for="m12q2b">Random assignment allows causal identification of program impacts</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m12q2" id="m12q2c" value="c">
+                            <label for="m12q2c">They replace all other research methods</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m12q2" id="m12q2d" value="d">
+                            <label for="m12q2d">They only work for health interventions</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        A limitation of RCTs in development is:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m12q3" id="m12q3a" value="a">
+                            <label for="m12q3a">They cannot measure anything</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m12q3" id="m12q3b" value="b">
+                            <label for="m12q3b">External validity—results may not generalize to different contexts</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m12q3" id="m12q3c" value="c">
+                            <label for="m12q3c">They are too rigorous</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m12q3" id="m12q3d" value="d">
+                            <label for="m12q3d">They only measure short-term effects</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Evidence-based policy limits.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>RCTs have revolutionized our knowledge of "what works," but critics argue they cannot answer big questions about growth and institutions. What is the appropriate role of experimental evidence in development policy? What questions require other methods?</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
                 <section class="section reveal" id="resources">
                     <h2>Resources & Further Learning</h2>
                     
@@ -6074,5 +7761,42 @@
                 (d.body || d.head).appendChild(s);
             })(document);
         </script>
-    </body>
+        <script>
+
+        // Quiz functionality
+        function checkAnswer(button) {
+            const question = button.closest('.quiz-question');
+            const correct = question.dataset.correct;
+            const selected = question.querySelector('input[type="radio"]:checked');
+            const feedback = question.querySelector('.quiz-feedback');
+            
+            if (!selected) {
+                feedback.textContent = 'Please select an answer.';
+                feedback.className = 'quiz-feedback show incorrect';
+                return;
+            }
+            
+            const answer = selected.value;
+            const options = question.querySelectorAll('.quiz-option');
+            
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                if (opt.dataset.option === correct) {
+                    opt.classList.add('correct');
+                } else if (opt.dataset.option === answer && answer !== correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+            
+            if (answer === correct) {
+                feedback.textContent = '✓ Correct! Well done.';
+                feedback.className = 'quiz-feedback show correct';
+            } else {
+                feedback.textContent = '✗ Not quite. The correct answer is highlighted above.';
+                feedback.className = 'quiz-feedback show incorrect';
+            }
+        }
+
+    </script>
+</body>
 </html>
