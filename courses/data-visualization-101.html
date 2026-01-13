@@ -2236,6 +2236,65 @@
             height: 16px;
             filter: var(--icon-filter, none);
         }
+
+        /* Coach Callout Popup Animation */
+        .coach-callout {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .coach-callout.popup-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .coach-callout.popup-visible .coach-photo {
+            animation: photoPopIn 0.5s ease-out 0.2s both;
+        }
+        
+        .coach-callout.popup-visible .coach-content {
+            animation: contentSlideIn 0.5s ease-out 0.3s both;
+        }
+        
+        @keyframes photoPopIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes contentSlideIn {
+            0% {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .coach-callout .coach-photo {
+            opacity: 0;
+        }
+        
+        .coach-callout .coach-content {
+            opacity: 0;
+        }
+        
+        .coach-callout.popup-visible .coach-photo,
+        .coach-callout.popup-visible .coach-content {
+            opacity: 1;
+        }
+
     </style>
 </head>
 <body>
@@ -2809,7 +2868,7 @@
 
             <!-- Coach Callout - Varna -->
             <div class="coach-callout">
-                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Varna_1_ohsq1h.png" alt="Coach Varna" class="coach-photo">
+                <img src="https://www.impactmojo.in/assets/images/varna-photo.jpg" alt="Coach Varna" class="coach-photo">
                 <div class="coach-content">
                     <div class="coach-name">Dr. Varna Sri Raman</div>
                     <div class="coach-message">
@@ -3255,7 +3314,7 @@
 
             <!-- Coach Callout - Vandana -->
             <div class="coach-callout">
-                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Vandana_1_ohsq1h.png" alt="Coach Vandana" class="coach-photo">
+                <img src="https://www.impactmojo.in/assets/images/vandana-photo.jpeg" alt="Coach Vandana" class="coach-photo">
                 <div class="coach-content">
                     <div class="coach-name">Vandana Soni</div>
                     <div class="coach-message">
@@ -3775,7 +3834,7 @@
             <!-- Check Your Understanding -->
             <div class="
             <div class="coach-callout">
-                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Vandana_1_ohsq1h.png" alt="Coach Vandana" class="coach-photo">
+                <img src="https://www.impactmojo.in/assets/images/vandana-photo.jpeg" alt="Coach Vandana" class="coach-photo">
                 <div class="coach-content">
                     <span class="coach-name">Coach Vandana</span>
                     <p class="coach-message">Cleveland and McGill's research on visual encoding is foundational. Their hierarchy—position is most accurate, then length, then angle, then area—should guide every chart choice you make.</p>
@@ -4145,7 +4204,7 @@
 
             <!-- Coach Callout - Varna -->
             <div class="coach-callout">
-                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Varna_1_ohsq1h.png" alt="Coach Varna" class="coach-photo">
+                <img src="https://www.impactmojo.in/assets/images/varna-photo.jpg" alt="Coach Varna" class="coach-photo">
                 <div class="coach-content">
                     <div class="coach-name">Dr. Varna Sri Raman</div>
                     <div class="coach-message">
@@ -4572,7 +4631,7 @@
 
             <!-- Coach Callout - Vandana -->
             <div class="coach-callout">
-                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Vandana_1_ohsq1h.png" alt="Coach Vandana" class="coach-photo">
+                <img src="https://www.impactmojo.in/assets/images/vandana-photo.jpeg" alt="Coach Vandana" class="coach-photo">
                 <div class="coach-content">
                     <div class="coach-name">Vandana Soni</div>
                     <div class="coach-message">
@@ -4921,7 +4980,7 @@
             <!-- Check Your Understanding -->
             <div class="
             <div class="coach-callout">
-                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Varna_1_ohsq1h.png" alt="Coach Varna" class="coach-photo">
+                <img src="https://www.impactmojo.in/assets/images/varna-photo.jpg" alt="Coach Varna" class="coach-photo">
                 <div class="coach-content">
                     <span class="coach-name">Coach Varna</span>
                     <p class="coach-message">A style guide may seem bureaucratic, but it's what separates amateur work from professional output. Even a simple guide with consistent colors and fonts transforms your visualizations.</p>
@@ -5214,7 +5273,7 @@
 
             <!-- Coach Callout - Varna -->
             <div class="coach-callout">
-                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Varna_1_ohsq1h.png" alt="Coach Varna" class="coach-photo">
+                <img src="https://www.impactmojo.in/assets/images/varna-photo.jpg" alt="Coach Varna" class="coach-photo">
                 <div class="coach-content">
                     <div class="coach-name">Dr. Varna Sri Raman</div>
                     <div class="coach-message">
@@ -5639,7 +5698,7 @@
 
             <!-- Coach Callout - Vandana -->
             <div class="coach-callout">
-                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Vandana_1_ohsq1h.png" alt="Coach Vandana" class="coach-photo">
+                <img src="https://www.impactmojo.in/assets/images/vandana-photo.jpeg" alt="Coach Vandana" class="coach-photo">
                 <div class="coach-content">
                     <div class="coach-name">Vandana Soni</div>
                     <div class="coach-message">
@@ -6028,7 +6087,7 @@
             <!-- Check Your Understanding -->
             <div class="
             <div class="coach-callout">
-                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Vandana_1_ohsq1h.png" alt="Coach Vandana" class="coach-photo">
+                <img src="https://www.impactmojo.in/assets/images/vandana-photo.jpeg" alt="Coach Vandana" class="coach-photo">
                 <div class="coach-content">
                     <span class="coach-name">Coach Vandana</span>
                     <p class="coach-message">Interactive visualizations are powerful but easy to overdo. Ask yourself: does this interaction reveal something the user couldn't see otherwise? If not, a static chart may be better.</p>
@@ -6304,7 +6363,7 @@
 
             <!-- Coach Callout - Varna -->
             <div class="coach-callout">
-                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Varna_1_ohsq1h.png" alt="Coach Varna" class="coach-photo">
+                <img src="https://www.impactmojo.in/assets/images/varna-photo.jpg" alt="Coach Varna" class="coach-photo">
                 <div class="coach-content">
                     <div class="coach-name">Dr. Varna Sri Raman</div>
                     <div class="coach-message">
@@ -6641,7 +6700,7 @@
 
             <!-- Coach Callout - Vandana -->
             <div class="coach-callout">
-                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Vandana_1_ohsq1h.png" alt="Coach Vandana" class="coach-photo">
+                <img src="https://www.impactmojo.in/assets/images/vandana-photo.jpeg" alt="Coach Vandana" class="coach-photo">
                 <div class="coach-content">
                     <div class="coach-name">Vandana Soni</div>
                     <div class="coach-message">
@@ -7020,7 +7079,7 @@
             <!-- Check Your Understanding -->
             <div class="
             <div class="coach-callout">
-                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Varna_1_ohsq1h.png" alt="Coach Varna" class="coach-photo">
+                <img src="https://www.impactmojo.in/assets/images/varna-photo.jpg" alt="Coach Varna" class="coach-photo">
                 <div class="coach-content">
                     <span class="coach-name">Coach Varna</span>
                     <p class="coach-message">Your capstone portfolio is your professional calling card. Document not just what you made, but why you made the choices you did. That reasoning demonstrates expertise.</p>
@@ -7486,13 +7545,13 @@
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
                 <div class="content-card" style="text-align: center; padding: 2rem;">
-                    <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Varna_1_ohsq1h.png" alt="Coach Varna" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; border: 3px solid var(--cyan);"><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%230EA5E9%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>V</text></svg>'">
+                    <img src="https://www.impactmojo.in/assets/images/varna-photo.jpg" alt="Coach Varna" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; border: 3px solid var(--cyan);"><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%230EA5E9%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>V</text></svg>'">
                     <h3 style="margin-bottom: 0.25rem;">Dr. Varna Sri Raman</h3>
                     <p style="color: var(--cyan); font-size: 0.9rem; margin-bottom: 0.75rem;">Founder & Lead of Learning Design</p>
                     <p style="font-size: 0.9rem; color: var(--text-muted);">Development Economist with a PhD, specializing in social impact measurement, gender studies, and development research across South Asia.</p>
                 </div>
                 <div class="content-card" style="text-align: center; padding: 2rem;">
-                    <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Vandana_1_ohsq1h.png" alt="Coach Vandana" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; border: 3px solid var(--indigo);"><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%236366F1%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>VS</text></svg>'">
+                    <img src="https://www.impactmojo.in/assets/images/vandana-photo.jpeg" alt="Coach Vandana" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; border: 3px solid var(--indigo);"><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%236366F1%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>VS</text></svg>'">
                     <h3 style="margin-bottom: 0.25rem;">Vandana Soni</h3>
                     <p style="color: var(--indigo); font-size: 0.9rem; margin-bottom: 0.75rem;">Co-Founder & Lead of Partnerships</p>
                     <p style="font-size: 0.9rem; color: var(--text-muted);">Education professional with 15+ years designing impactful learning programs and driving large-scale education initiatives across India.</p>
@@ -7880,6 +7939,27 @@
                 feedback.className = 'quiz-feedback show incorrect';
             }
         }
+
+
+            // ============================================
+            // COACH CALLOUT POPUP ANIMATION
+            // ============================================
+            const coachCallouts = document.querySelectorAll('.coach-callout');
+            
+            const popupObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('popup-visible');
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            coachCallouts.forEach(callout => {
+                popupObserver.observe(callout);
+            });
 
     </script>
 </body>
