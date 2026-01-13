@@ -3,7 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Understanding Politics by MK Gandhi | ImpactMojo</title>
+    <title>Gandhian Political Philosophy | ImpactMojo</title>
+    <meta name="description" content="A comprehensive journey through Gandhi's political thought—from Swaraj and Satyagraha to Gram Swaraj and Trusteeship. Includes an interactive lexicon with 55+ annotated terms.">
+    <meta name="keywords" content="Gandhi, Gandhian philosophy, Satyagraha, Swaraj, Ahimsa, non-violence, political philosophy, Indian independence, civil disobedience, ImpactMojo, free course">
+    <meta name="author" content="ImpactMojo">
+    <link rel="canonical" href="https://101.impactmojo.in/gandhi-politics">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Gandhian Political Philosophy | ImpactMojo">
+    <meta property="og:description" content="A comprehensive journey through Gandhi's political thought—from Swaraj and Satyagraha to Gram Swaraj and Trusteeship. Includes an interactive lexicon with 55+ annotated terms.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://101.impactmojo.in/gandhi-politics">
+    <meta property="og:image" content="https://www.impactmojo.in/assets/images/gandhi-og.jpg">
+    <meta property="og:site_name" content="ImpactMojo">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gandhian Political Philosophy | ImpactMojo">
+    <meta name="twitter:description" content="A comprehensive journey through Gandhi's political thought—from Swaraj to Sarvodaya.">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
@@ -415,6 +433,48 @@
             position: relative;
             z-index: 1;
             flex-wrap: wrap;
+        }
+
+        /* Feature Tags - Homepage Style */
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.25rem 0;
+        }
+
+        .feature-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.85rem;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #F5F1E6;
+        }
+
+        .feature-tag img {
+            width: 14px;
+            height: 14px;
+            filter: brightness(0) invert(1);
+        }
+
+        .feature-tag.lexicon {
+            background: rgba(255, 153, 51, 0.3);
+            border-color: var(--saffron);
+        }
+
+        .feature-tag.resources {
+            background: rgba(19, 136, 8, 0.3);
+            border-color: var(--green-india);
+        }
+
+        .feature-tag.sources {
+            background: rgba(220, 53, 69, 0.3);
+            border-color: #dc3545;
         }
 
         .btn {
@@ -1064,9 +1124,643 @@
         .footer-bottom a:hover {
             color: var(--saffron);
         }
+
+        /* ==========================================
+           READING PROGRESS BAR
+           ========================================== */
+        .reading-progress {
+            position: fixed;
+            top: 6px;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--saffron) 0%, var(--green-india) 100%);
+            z-index: 1002;
+            transition: width 0.1s linear;
+        }
+
+        /* ==========================================
+           MOBILE HEADER
+           ========================================== */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 6px;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 999;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        .mobile-header a {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .mobile-menu-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text-primary);
+            fill: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-header {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: flex;
+            }
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0 !important;
+            }
+        }
+
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* ==========================================
+           SIDEBAR COLLAPSE BUTTON
+           ========================================== */
+        .sidebar-collapse-btn {
+            position: absolute;
+            top: 50%;
+            right: -12px;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 101;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-collapse-btn:hover {
+            background: var(--saffron);
+            border-color: var(--saffron);
+        }
+
+        .sidebar-collapse-btn svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--text-muted);
+            fill: none;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-collapse-btn:hover svg {
+            stroke: white;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .nav-section-title,
+        .sidebar.collapsed .nav-link span:not(.num),
+        .sidebar.collapsed .sidebar-title,
+        .sidebar.collapsed .theme-toggle span,
+        .sidebar.collapsed .charkha-icon,
+        .sidebar.collapsed .sidebar-logo span {
+            display: none;
+        }
+
+        .sidebar.collapsed .nav-link {
+            justify-content: center;
+            padding: 0.55rem 0;
+        }
+
+        .sidebar.collapsed .sidebar-collapse-btn svg {
+            transform: rotate(180deg);
+        }
+
+        .sidebar.collapsed + .sidebar-overlay + .main-content,
+        .sidebar.collapsed ~ .main-content {
+            margin-left: 60px;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar-collapse-btn {
+                display: none;
+            }
+        }
+
+        /* ==========================================
+           COACH CALLOUT - Standardized Style
+           ========================================== */
+        .coach-callout {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, rgba(255, 153, 51, 0.08) 0%, rgba(19, 136, 8, 0.08) 100%);
+            border: 1px solid rgba(255, 153, 51, 0.25);
+            border-radius: 16px;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .coach-callout::before {
+            content: '';
+            position: absolute;
+            left: 48px;
+            top: -8px;
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, rgba(255, 153, 51, 0.08) 0%, rgba(19, 136, 8, 0.08) 100%);
+            border-left: 1px solid rgba(255, 153, 51, 0.25);
+            border-top: 1px solid rgba(255, 153, 51, 0.25);
+            transform: rotate(45deg);
+        }
+
+        .coach-photo {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--saffron);
+            flex-shrink: 0;
+        }
+
+        .coach-content {
+            flex: 1;
+        }
+
+        .coach-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            color: var(--saffron);
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .coach-message {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .coach-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .coach-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.75rem;
+            background: var(--saffron);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .coach-link:hover {
+            background: var(--saffron-dark);
+            transform: translateY(-1px);
+        }
+
+        .coach-link.secondary {
+            background: transparent;
+            border: 1px solid var(--saffron);
+            color: var(--saffron);
+        }
+
+        .coach-link.secondary:hover {
+            background: rgba(255, 153, 51, 0.1);
+        }
+
+        .coach-link img {
+            width: 14px;
+            height: 14px;
+            filter: brightness(0) invert(1);
+        }
+
+        .coach-link.secondary img {
+            filter: brightness(0) saturate(100%) invert(63%) sepia(89%) saturate(1061%) hue-rotate(360deg) brightness(103%) contrast(103%);
+        }
+
+        /* ==========================================
+           SOURCE CITATION
+           ========================================== */
+        .source-citation {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        /* ==========================================
+           RESOURCE LINKS BOX
+           ========================================== */
+        .resource-links-box {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .resource-links-box h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0 0 0.75rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resource-quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .resource-quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.45rem 0.85rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .resource-quick-link:hover {
+            border-color: var(--saffron);
+            background: rgba(255, 153, 51, 0.1);
+        }
+
+        .resource-quick-link img {
+            width: 14px;
+            height: 14px;
+            filter: brightness(0) saturate(100%) invert(63%) sepia(89%) saturate(1061%) hue-rotate(360deg) brightness(103%) contrast(103%);
+        }
+    
+        /* ========================================
+           CHECK YOUR UNDERSTANDING - QUIZ STYLES
+           ======================================== */
+        .quiz-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(99, 102, 241, 0.05) 100%);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            border-left: 4px solid var(--indigo);
+        }
+        
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .quiz-header svg {
+            width: 28px;
+            height: 28px;
+            color: var(--indigo);
+        }
+        
+        .quiz-header h4 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+        }
+        
+        .quiz-intro {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .quiz-question {
+            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+        
+        .quiz-question:last-child {
+            margin-bottom: 0;
+        }
+        
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--indigo);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+        }
+        
+        .question-text {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .question-type {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.5rem;
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .quiz-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--indigo);
+            background: rgba(99, 102, 241, 0.05);
+        }
+        
+        .quiz-option input[type="radio"] {
+            margin-top: 0.2rem;
+            accent-color: var(--indigo);
+        }
+        
+        .quiz-option label {
+            cursor: pointer;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+        
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .quiz-option.incorrect {
+            border-color: var(--orange);
+            background: rgba(245, 158, 11, 0.1);
+        }
+        
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .quiz-feedback.show {
+            display: block;
+        }
+        
+        .quiz-feedback.correct {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+        
+        .quiz-feedback.incorrect {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--orange);
+            color: var(--text-primary);
+        }
+        
+        .reflection-prompt {
+            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%);
+            border: 1px dashed var(--cyan);
+            border-radius: 8px;
+            margin-top: 0.75rem;
+        }
+        
+        .reflection-prompt p {
+            margin: 0;
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .check-answer-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.6rem 1.25rem;
+            background: var(--indigo);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .check-answer-btn:hover {
+            background: #4f46e5;
+            transform: translateY(-1px);
+        }
+        
+        .check-answer-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Capstone Section Styles */
+        .capstone-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%);
+            border: 2px solid var(--indigo);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .capstone-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .capstone-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--indigo);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .capstone-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+            stroke: white;
+        }
+        
+        .capstone-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .capstone-timeline {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .capstone-phase {
+            display: flex;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+        
+        .phase-number {
+            width: 32px;
+            height: 32px;
+            background: var(--cyan);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        .phase-content h5 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text-primary);
+        }
+        
+        .phase-content p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .deliverables-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+        
+        .deliverables-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .deliverables-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .deliverables-list svg {
+            width: 20px;
+            height: 20px;
+            color: var(--success);
+            stroke: var(--success);
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
     </style>
 </head>
 <body>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="reading-progress"></div>
+    
     <!-- Tricolor Bar -->
     <div class="tricolor-bar">
         <span class="saffron"></span>
@@ -1074,8 +1768,40 @@
         <span class="green"></span>
     </div>
 
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu">
+            <svg viewBox="0 0 24 24" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+        <a href="https://www.impactmojo.in">ImpactMojo</a>
+        <button onclick="toggleTheme()" aria-label="Toggle theme" style="background: transparent; border: none; cursor: pointer;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+            </svg>
+        </button>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
     <!-- Sidebar Navigation -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
+        <!-- Sidebar Collapse Button -->
+        <button class="sidebar-collapse-btn" id="sidebar-collapse-btn" title="Collapse sidebar">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+            </svg>
+        </button>
         <div class="sidebar-header">
             <a href="https://www.impactmojo.in" class="sidebar-logo">
                 <span>ImpactMojo</span>
@@ -1133,6 +1859,7 @@
                 <a href="#module10" class="nav-link"><span class="num">10</span> The Karyakarta</a>
                 <a href="#module11" class="nav-link"><span class="num">11</span> Communal Harmony</a>
                 <a href="#module12" class="nav-link"><span class="num">12</span> Contemporary Applications</a>
+                <a href="#module13" class="nav-link"><span class="num">13</span> Capstone Project</a>
             </div>
             <div class="nav-section">
                 <a href="#lexicon" class="nav-link">
@@ -1152,8 +1879,25 @@
         <!-- Hero Section -->
         <section id="hero" class="hero">
             <span class="hero-badge">Flagship Course - Free Forever</span>
-            <h1>Understanding Politics by MK Gandhi</h1>
+            <h1>Gandhian Political Philosophy</h1>
+            <p class="hero-subtitle">From Swaraj to Sarvodaya</p>
             <p class="hero-subtitle">A comprehensive journey through Gandhian political philosophy, from the reconception of politics as dharma to the practical methods of non-violent transformation. Rigorous primary sources from Gandhi's Collected Works, Young India, Harijan, and scholarly analysis.</p>
+            
+            <div class="feature-tags">
+                <span class="feature-tag lexicon">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                    Interactive Lexicon
+                </span>
+                <span class="feature-tag resources">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">
+                    Downloadable Resources
+                </span>
+                <span class="feature-tag sources">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">
+                    Primary Sources
+                </span>
+            </div>
+            
             <div class="hero-stats">
                 <div class="hero-stat">
                     <div class="hero-stat-value">12</div>
@@ -1176,6 +1920,22 @@
                 <a href="#module1" class="btn btn-primary">Begin Learning</a>
                 <a href="#lexicon" class="btn btn-secondary">Explore Lexicon</a>
                 <a href="https://www.gandhiheritageportal.org/" class="btn btn-secondary" target="_blank">Gandhi Heritage Portal</a>
+            </div>
+            
+            <!-- Hero Resources -->
+            <div class="hero-resources" style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.15);">
+                <a href="https://www.dropbox.com/scl/fo/PLACEHOLDER-GANDHI-RESOURCES" target="_blank" class="hero-resource-btn" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: #F5F1E6; font-size: 0.85rem; text-decoration: none;">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="" style="width: 16px; height: 16px; filter: brightness(0) invert(1);">
+                    Course Papers Collection
+                </a>
+                <a href="https://notebooklm.google.com/notebook/PLACEHOLDER-GANDHI-NOTEBOOK" target="_blank" class="hero-resource-btn" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255,153,51,0.15); border: 1px solid rgba(255,153,51,0.4); border-radius: 6px; color: #F5F1E6; font-size: 0.85rem; text-decoration: none;">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" style="width: 16px; height: 16px; filter: brightness(0) invert(1);">
+                    AI Study Companion
+                </a>
+                <a href="#video-lectures" class="hero-resource-btn" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: #F5F1E6; font-size: 0.85rem; text-decoration: none;">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Album.svg" alt="" style="width: 16px; height: 16px; filter: brightness(0) invert(1);">
+                    Video Lectures
+                </a>
             </div>
         </section>
 
@@ -1355,26 +2115,146 @@
                 </ul>
             </div>
 
-            <!-- Founder Callout -->
-            <div class="founder-callout">
-                <img src="../assets/images/varna-photo.jpg" alt="Dr. Varna Sri Raman" onerror="this.style.display='none'">
-                <div class="founder-callout-content">
-                    <h4>Dr. Varna Sri Raman</h4>
-                    <p>Finding Gandhian philosophy challenging to apply in contemporary contexts? I can help you connect these foundational concepts to your practical political work. Let's discuss how dharma-based politics might inform your specific challenges.</p>
-                    <div class="founder-callout-links">
-                        <a href="/coaching">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <!-- Coach Callout - Dr. Varna -->
+            <div class="coach-callout">
+                <img src="../assets/images/varna-photo.jpg" alt="Dr. Varna Sri Raman" class="coach-photo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%23FF9933%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>V</text></svg>'">
+                <div class="coach-content">
+                    <div class="coach-name">Dr. Varna Sri Raman</div>
+                    <div class="coach-message">
+                        Finding Gandhian philosophy challenging to apply in contemporary contexts? I can help you connect these foundational concepts to your practical political work. Let's discuss how dharma-based politics might inform your specific challenges.
+                    </div>
+                    <div class="coach-links">
+                        <a href="https://www.impactmojo.in/coaching.html" class="coach-link">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">
                             Book 1:1 Coaching
                         </a>
-                        <a href="/#labs">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        <a href="https://101.impactmojo.in" class="coach-link secondary">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
                             Interactive Labs
                         </a>
                     </div>
                 </div>
             </div>
 
-            <p class="sources-note">Sources: CWMG Vol. 10 (Hind Swaraj); Parel (2006, 2009); Harijan, December 24, 1938</p>
+            <div class="source-citation">
+                Sources: CWMG Vol. 10 (Hind Swaraj); Parel (2006, 2009); Harijan, December 24, 1938
+            </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        According to Gandhi, what is the relationship between politics and ethics?
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m1q1" id="m1q1a" value="a">
+                            <label for="m1q1a">Politics should be free from ethical constraints</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m1q1" id="m1q1b" value="b">
+                            <label for="m1q1b">Ethics is separate from but influences politics</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m1q1" id="m1q1c" value="c">
+                            <label for="m1q1c">Politics without ethics is meaningless</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m1q1" id="m1q1d" value="d">
+                            <label for="m1q1d">Ethics should guide politics only in extreme cases</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="d">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        In Anthony Parel's framework, which purushartha relates to political freedom leading to spiritual liberation?
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m1q2" id="m1q2a" value="a">
+                            <label for="m1q2a">Dharma</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m1q2" id="m1q2b" value="b">
+                            <label for="m1q2b">Artha</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m1q2" id="m1q2c" value="c">
+                            <label for="m1q2c">Kama</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m1q2" id="m1q2d" value="d">
+                            <label for="m1q2d">Moksha</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        In Hind Swaraj, Gandhi critiques railways primarily because they:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m1q3" id="m1q3a" value="a">
+                            <label for="m1q3a">Are too expensive for India</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m1q3" id="m1q3b" value="b">
+                            <label for="m1q3b">Enable exploitation and spread disease faster</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m1q3" id="m1q3c" value="c">
+                            <label for="m1q3c">Were built by the British</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m1q3" id="m1q3d" value="d">
+                            <label for="m1q3d">Reduce employment for cart drivers</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Apply Gandhi's critique to a modern technology.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Consider a technology you use daily. Using Gandhi's framework of "true civilization" vs "modern civilization," analyze whether this technology helps humans achieve self-mastery and moral growth, or whether it multiplies wants and measures progress by material accumulation.</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- Module 2: Swaraj -->
@@ -1584,42 +2464,172 @@
                 </ul>
             </div>
 
-            <!-- Founder Callout -->
-            <div class="founder-callout">
-                <img src="../assets/images/vandana-photo.jpeg" alt="Vandana Soni" onerror="this.style.display='none'">
-                <div class="founder-callout-content">
-                    <h4>Vandana Soni</h4>
-                    <p>Want to explore how the concept of Swaraj applies to contemporary development practice? Our workshops help practitioners connect Gandhian principles to their field work, from community organizing to institutional reform.</p>
-                    <div class="founder-callout-links">
-                        <a href="/workshops">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            <!-- Coach Callout - Vandana -->
+            <div class="coach-callout">
+                <img src="../assets/images/vandana-photo.jpeg" alt="Vandana Soni" class="coach-photo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%23138808%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>VS</text></svg>'">
+                <div class="coach-content">
+                    <div class="coach-name">Vandana Soni</div>
+                    <div class="coach-message">
+                        Want to explore how the concept of Swaraj applies to contemporary development practice? Our workshops help practitioners connect Gandhian principles to their field work, from community organizing to institutional reform.
+                    </div>
+                    <div class="coach-links">
+                        <a href="https://www.impactmojo.in/workshops.html" class="coach-link">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">
                             Request Workshop
                         </a>
-                        <a href="/handouts">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+                        <a href="https://www.impactmojo.in/handouts.html" class="coach-link secondary">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">
                             Download Handouts
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="related-resources">
-                <h5>Related Resources</h5>
-                <a href="/catalog">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                    All 39 Courses
-                </a>
-                <a href="/#games">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16 10,8"/></svg>
-                    Economics Games
-                </a>
-                <a href="/premium">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"/></svg>
-                    Premium Tools
-                </a>
+            <!-- Resource Links Box -->
+            <div class="resource-links-box">
+                <h5>
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Direction_alt.svg" alt="">
+                    Related ImpactMojo Resources
+                </h5>
+                <div class="resource-quick-links">
+                    <a href="https://www.impactmojo.in/catalog.html" class="resource-quick-link">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">
+                        All 39 Courses
+                    </a>
+                    <a href="https://101.impactmojo.in" class="resource-quick-link">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                        Interactive Labs
+                    </a>
+                    <a href="https://www.impactmojo.in/premium.html" class="resource-quick-link">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Heart.svg" alt="">
+                        Premium Tools
+                    </a>
+                    <a href="https://www.impactmojo.in/handouts.html" class="resource-quick-link">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">
+                        Free Handouts
+                    </a>
+                </div>
             </div>
 
-            <p class="sources-note">Sources: CWMG Vol. 10, 50; Young India, January 29, 1925; Lahore Congress Resolution 1929</p>
+            <div class="source-citation">
+                Sources: CWMG Vol. 10, 50; Young India, January 29, 1925; Lahore Congress Resolution 1929
+            </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        The Sanskrit etymology of Swaraj (sva + raj) literally means:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m2q1" id="m2q1a" value="a">
+                            <label for="m2q1a">National freedom</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m2q1" id="m2q1b" value="b">
+                            <label for="m2q1b">Self-rule</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m2q1" id="m2q1c" value="c">
+                            <label for="m2q1c">Democratic governance</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m2q1" id="m2q1d" value="d">
+                            <label for="m2q1d">Political independence</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        For Gandhi, the "self" in Swaraj refers to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m2q2" id="m2q2a" value="a">
+                            <label for="m2q2a">The individual ego</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m2q2" id="m2q2b" value="b">
+                            <label for="m2q2b">The nation-state</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m2q2" id="m2q2c" value="c">
+                            <label for="m2q2c">The soul</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m2q2" id="m2q2d" value="d">
+                            <label for="m2q2d">The political party</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Poorna Swaraj (Complete Independence) was declared at:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m2q3" id="m2q3a" value="a">
+                            <label for="m2q3a">Dandi, 1930</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m2q3" id="m2q3b" value="b">
+                            <label for="m2q3b">Lahore Congress, 1929</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m2q3" id="m2q3c" value="c">
+                            <label for="m2q3c">Calcutta Congress, 1920</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m2q3" id="m2q3d" value="d">
+                            <label for="m2q3d">Karachi Congress, 1931</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Distinguish between external and internal Swaraj.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Gandhi argued that political freedom without self-mastery is meaningless. Reflect on an area of your life where you have external freedom but may lack internal Swaraj. What would achieving true Swaraj in this area look like?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- Placeholder sections for remaining modules -->
@@ -1851,6 +2861,122 @@
                     </li>
                 </ul>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Gandhi's famous statement about truth evolved from "God is Truth" to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m3q1" id="m3q1a" value="a">
+                            <label for="m3q1a">Truth is Power</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m3q1" id="m3q1b" value="b">
+                            <label for="m3q1b">Truth is God</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m3q1" id="m3q1c" value="c">
+                            <label for="m3q1c">Truth is Justice</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m3q1" id="m3q1d" value="d">
+                            <label for="m3q1d">Truth is Freedom</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Ahimsa in Gandhi's philosophy means:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m3q2" id="m3q2a" value="a">
+                            <label for="m3q2a">Passive resistance only</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m3q2" id="m3q2b" value="b">
+                            <label for="m3q2b">Absence of physical violence</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m3q2" id="m3q2c" value="c">
+                            <label for="m3q2c">Non-injury in thought, word, and deed combined with active love</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m3q2" id="m3q2d" value="d">
+                            <label for="m3q2d">Pacifism in all circumstances</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        According to Gandhi, when Satya and Ahimsa appear to conflict:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m3q3" id="m3q3a" value="a">
+                            <label for="m3q3a">Truth always takes precedence</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m3q3" id="m3q3b" value="b">
+                            <label for="m3q3b">Ahimsa always takes precedence</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m3q3" id="m3q3c" value="c">
+                            <label for="m3q3c">The situation determines which is more important</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m3q3" id="m3q3d" value="d">
+                            <label for="m3q3d">One must withdraw from action</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Examine the hierarchy of truth and non-violence.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Think of a situation where telling the complete truth might cause harm to someone. How would Gandhi's principle that ahimsa takes precedence guide your action? Does this imply that some truths should remain unspoken?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section id="module4" class="section">
@@ -2131,6 +3257,122 @@
                     </li>
                 </ul>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Satyagraha literally translates to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m4q1" id="m4q1a" value="a">
+                            <label for="m4q1a">Passive resistance</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m4q1" id="m4q1b" value="b">
+                            <label for="m4q1b">Civil disobedience</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m4q1" id="m4q1c" value="c">
+                            <label for="m4q1c">Truth-force or holding onto truth</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m4q1" id="m4q1d" value="d">
+                            <label for="m4q1d">Non-violent protest</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Gandhi distinguished Satyagraha from passive resistance because:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m4q2" id="m4q2a" value="a">
+                            <label for="m4q2a">Satyagraha is only for Indians</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m4q2" id="m4q2b" value="b">
+                            <label for="m4q2b">Passive resistance may use violence when convenient</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m4q2" id="m4q2c" value="c">
+                            <label for="m4q2c">Passive resistance is more effective</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m4q2" id="m4q2d" value="d">
+                            <label for="m4q2d">Satyagraha requires government permission</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        The first Satyagraha campaign was conducted in:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m4q3" id="m4q3a" value="a">
+                            <label for="m4q3a">India, 1917</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m4q3" id="m4q3b" value="b">
+                            <label for="m4q3b">South Africa, 1906</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m4q3" id="m4q3c" value="c">
+                            <label for="m4q3c">England, 1909</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m4q3" id="m4q3d" value="d">
+                            <label for="m4q3d">India, 1920</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Design a Satyagraha campaign.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Choose a contemporary injustice you feel strongly about. Following Gandhi's principles, outline the stages of a Satyagraha campaign: negotiation, public education, self-purification, and finally direct action. What suffering might participants need to accept?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section id="module5" class="section">
@@ -2435,6 +3677,122 @@
                     </li>
                 </ul>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Gandhi called his Constructive Programme the:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m5q1" id="m5q1a" value="a">
+                            <label for="m5q1a">Sword of Satyagraha</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m5q1" id="m5q1b" value="b">
+                            <label for="m5q1b">Foundation of Swaraj</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m5q1" id="m5q1c" value="c">
+                            <label for="m5q1c">Truthful path to Swaraj</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m5q1" id="m5q1d" value="d">
+                            <label for="m5q1d">Economic independence</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        The relationship between civil disobedience and constructive programme is:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m5q2" id="m5q2a" value="a">
+                            <label for="m5q2a">They are alternatives to each other</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m5q2" id="m5q2b" value="b">
+                            <label for="m5q2b">Civil disobedience comes first</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m5q2" id="m5q2c" value="c">
+                            <label for="m5q2c">Constructive programme provides the foundation for effective civil disobedience</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m5q2" id="m5q2d" value="d">
+                            <label for="m5q2d">They are unrelated strategies</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        The 18-point Constructive Programme did NOT include:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m5q3" id="m5q3a" value="a">
+                            <label for="m5q3a">Communal unity</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m5q3" id="m5q3b" value="b">
+                            <label for="m5q3b">Removal of untouchability</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m5q3" id="m5q3c" value="c">
+                            <label for="m5q3c">Armed revolution</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m5q3" id="m5q3d" value="d">
+                            <label for="m5q3d">Basic education (Nai Talim)</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Identify a local constructive programme.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Gandhi argued that protest without construction is incomplete. Identify an issue in your community where people focus on protest but neglect building alternatives. What constructive programme could complement existing activism?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section id="module6" class="section">
@@ -2672,6 +4030,122 @@
                     </li>
                 </ul>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Tapasya in Gandhi's philosophy refers to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m6q1" id="m6q1a" value="a">
+                            <label for="m6q1a">Religious rituals</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m6q1" id="m6q1b" value="b">
+                            <label for="m6q1b">Self-suffering voluntarily accepted for truth</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m6q1" id="m6q1c" value="c">
+                            <label for="m6q1c">Meditation practices</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m6q1" id="m6q1d" value="d">
+                            <label for="m6q1d">Physical exercise</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Gandhi's fasts were a form of Tapasya because:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m6q2" id="m6q2a" value="a">
+                            <label for="m6q2a">They hurt his opponents</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m6q2" id="m6q2b" value="b">
+                            <label for="m6q2b">They gained media attention</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m6q2" id="m6q2c" value="c">
+                            <label for="m6q2c">He took suffering upon himself to appeal to conscience</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m6q2" id="m6q2d" value="d">
+                            <label for="m6q2d">They were required by his religion</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="a">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        The principle of Tapasya distinguishes Satyagraha from coercion because:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m6q3" id="m6q3a" value="a">
+                            <label for="m6q3a">The Satyagrahi suffers, not the opponent</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m6q3" id="m6q3b" value="b">
+                            <label for="m6q3b">It is less effective</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m6q3" id="m6q3c" value="c">
+                            <label for="m6q3c">It requires government approval</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m6q3" id="m6q3d" value="d">
+                            <label for="m6q3d">It avoids confrontation</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Evaluate the ethics of self-suffering.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Critics argue that Gandhi's fasts were a form of emotional blackmail. Defenders say they represent the highest form of moral appeal. What distinguishes legitimate self-suffering from manipulation? Are there limits to Tapasya?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section id="module7" class="section">
@@ -2869,6 +4343,122 @@
                     </li>
                 </ul>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Swadeshi literally means:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m7q1" id="m7q1a" value="a">
+                            <label for="m7q1a">Buy Indian</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m7q1" id="m7q1b" value="b">
+                            <label for="m7q1b">Of one's own country</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m7q1" id="m7q1c" value="c">
+                            <label for="m7q1c">Handmade goods</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m7q1" id="m7q1d" value="d">
+                            <label for="m7q1d">Economic independence</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        For Gandhi, Khadi (hand-spun cloth) was important because:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m7q2" id="m7q2a" value="a">
+                            <label for="m7q2a">It was cheaper than mill cloth</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m7q2" id="m7q2b" value="b">
+                            <label for="m7q2b">It provided employment and symbolized self-reliance</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m7q2" id="m7q2c" value="c">
+                            <label for="m7q2c">It was of higher quality</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m7q2" id="m7q2d" value="d">
+                            <label for="m7q2d">The British banned machine cloth</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        The Swadeshi movement challenged British colonialism by:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m7q3" id="m7q3a" value="a">
+                            <label for="m7q3a">Military resistance</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m7q3" id="m7q3b" value="b">
+                            <label for="m7q3b">Boycotting British goods and promoting Indian production</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m7q3" id="m7q3c" value="c">
+                            <label for="m7q3c">Seeking international intervention</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m7q3" id="m7q3d" value="d">
+                            <label for="m7q3d">Negotiating trade agreements</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Apply Swadeshi to global supply chains.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Consider the clothes you're wearing right now. Trace their likely journey through global supply chains. How might a contemporary Swadeshi ethic—prioritizing local, sustainable production—change your consumption patterns? What tradeoffs would this involve?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section id="module8" class="section">
@@ -3092,6 +4682,122 @@
                     </li>
                 </ul>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Gandhi's concept of Trusteeship holds that:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m8q1" id="m8q1a" value="a">
+                            <label for="m8q1a">The state should own all property</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m8q1" id="m8q1b" value="b">
+                            <label for="m8q1b">Wealth should be abolished</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m8q1" id="m8q1c" value="c">
+                            <label for="m8q1c">The wealthy are trustees, not owners, of their wealth for society's benefit</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m8q1" id="m8q1d" value="d">
+                            <label for="m8q1d">Private property is sacred</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Trusteeship differs from socialism in that:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m8q2" id="m8q2a" value="a">
+                            <label for="m8q2a">It supports unlimited accumulation</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m8q2" id="m8q2b" value="b">
+                            <label for="m8q2b">It relies on voluntary transformation rather than state coercion</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m8q2" id="m8q2c" value="c">
+                            <label for="m8q2c">It opposes redistribution entirely</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m8q2" id="m8q2d" value="d">
+                            <label for="m8q2d">It is purely spiritual with no economic implications</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        If wealthy trustees refuse to share, Gandhi proposed:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m8q3" id="m8q3a" value="a">
+                            <label for="m8q3a">Armed revolution</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m8q3" id="m8q3b" value="b">
+                            <label for="m8q3b">Government seizure of property</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m8q3" id="m8q3c" value="c">
+                            <label for="m8q3c">Non-violent non-cooperation to change their hearts</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m8q3" id="m8q3d" value="d">
+                            <label for="m8q3d">Acceptance of inequality</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Evaluate Trusteeship for contemporary inequality.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Is Gandhi's Trusteeship a realistic response to contemporary wealth inequality? Consider arguments for and against relying on the voluntary conscience of billionaires versus state-enforced redistribution. What conditions might make Trusteeship more or less effective?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section id="module9" class="section">
@@ -3330,6 +5036,122 @@
                     </li>
                 </ul>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Gram Swaraj envisions India as:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m9q1" id="m9q1a" value="a">
+                            <label for="m9q1a">A centralized industrial state</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m9q1" id="m9q1b" value="b">
+                            <label for="m9q1b">A federation of self-governing village republics</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m9q1" id="m9q1c" value="c">
+                            <label for="m9q1c">A parliamentary democracy</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m9q1" id="m9q1d" value="d">
+                            <label for="m9q1d">A monarchy with village councils</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Gandhi's "Oceanic Circle" model of governance places at the center:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m9q2" id="m9q2a" value="a">
+                            <label for="m9q2a">The national government</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m9q2" id="m9q2b" value="b">
+                            <label for="m9q2b">The individual</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m9q2" id="m9q2c" value="c">
+                            <label for="m9q2c">The village</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m9q2" id="m9q2d" value="d">
+                            <label for="m9q2d">The state legislature</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Gandhi opposed the Nehruvian model of development because:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m9q3" id="m9q3a" value="a">
+                            <label for="m9q3a">He was against all technology</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m9q3" id="m9q3b" value="b">
+                            <label for="m9q3b">He preferred British rule</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m9q3" id="m9q3c" value="c">
+                            <label for="m9q3c">Heavy industrialization would destroy village economy and increase inequality</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m9q3" id="m9q3d" value="d">
+                            <label for="m9q3d">He wanted faster industrial growth</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Assess Gram Swaraj for the 21st century.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Is Gandhi's vision of village-centered development viable in an age of urbanization, climate change, and digital connectivity? What elements of Gram Swaraj remain relevant? What would need to be reimagined?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section id="module10" class="section">
@@ -3548,6 +5370,122 @@
                     </li>
                 </ul>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        A Karyakarta in Gandhian terminology is:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m10q1" id="m10q1a" value="a">
+                            <label for="m10q1a">A political leader</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m10q1" id="m10q1b" value="b">
+                            <label for="m10q1b">A village headman</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m10q1" id="m10q1c" value="c">
+                            <label for="m10q1c">A dedicated worker/activist committed to service</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m10q1" id="m10q1d" value="d">
+                            <label for="m10q1d">A religious priest</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Gandhi emphasized that a true Karyakarta must:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m10q2" id="m10q2a" value="a">
+                            <label for="m10q2a">Seek political power</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m10q2" id="m10q2b" value="b">
+                            <label for="m10q2b">Live simply and practice what they preach</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m10q2" id="m10q2c" value="c">
+                            <label for="m10q2c">Have formal education</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m10q2" id="m10q2d" value="d">
+                            <label for="m10q2d">Come from a wealthy family</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        The role of the Karyakarta in the Constructive Programme is to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m10q3" id="m10q3a" value="a">
+                            <label for="m10q3a">Lead protests only</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m10q3" id="m10q3b" value="b">
+                            <label for="m10q3b">Work alongside villagers building self-reliance</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m10q3" id="m10q3c" value="c">
+                            <label for="m10q3c">Collect donations for the Congress</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m10q3" id="m10q3d" value="d">
+                            <label for="m10q3d">Recruit soldiers for the freedom struggle</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Profile a modern Karyakarta.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Identify someone you know or have read about who embodies Karyakarta qualities—dedicated service, simple living, bridge-building between communities. What can we learn from their example about effective social change in the contemporary context?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section id="module11" class="section">
@@ -3764,6 +5702,122 @@
                     </li>
                 </ul>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Gandhi's approach to communal harmony was based on:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m11q1" id="m11q1a" value="a">
+                            <label for="m11q1a">Establishing Hinduism as the state religion</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m11q1" id="m11q1b" value="b">
+                            <label for="m11q1b">Separating religious communities</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m11q1" id="m11q1c" value="c">
+                            <label for="m11q1c">Finding the ethical core common to all religions</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m11q1" id="m11q1d" value="d">
+                            <label for="m11q1d">Promoting atheism</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Gandhi's multi-faith prayer meetings included:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m11q2" id="m11q2a" value="a">
+                            <label for="m11q2a">Only Hindu prayers</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m11q2" id="m11q2b" value="b">
+                            <label for="m11q2b">Readings from Hindu, Muslim, Christian, and other scriptures</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m11q2" id="m11q2c" value="c">
+                            <label for="m11q2c">Political speeches only</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m11q2" id="m11q2d" value="d">
+                            <label for="m11q2d">Silent meditation exclusively</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="c">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Gandhi undertook his final fast in January 1948 to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m11q3" id="m11q3a" value="a">
+                            <label for="m11q3a">Protest British rule</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m11q3" id="m11q3b" value="b">
+                            <label for="m11q3b">Demand release of political prisoners</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m11q3" id="m11q3c" value="c">
+                            <label for="m11q3c">Stop communal violence and ensure payment of funds owed to Pakistan</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m11q3" id="m11q3d" value="d">
+                            <label for="m11q3d">Protest the constitution</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Apply Gandhian communal harmony today.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Religious polarization remains a challenge globally. How might Gandhi's approach—emphasizing the common ethical core while respecting distinct traditions—apply to contemporary interfaith tensions? What specific practices could promote understanding?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <section id="module12" class="section">
@@ -4022,6 +6076,299 @@
                     </li>
                 </ul>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Which movement explicitly acknowledged Gandhi's influence on its methods?
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m12q1" id="m12q1a" value="a">
+                            <label for="m12q1a">French Revolution</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m12q1" id="m12q1b" value="b">
+                            <label for="m12q1b">American Civil Rights Movement</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m12q1" id="m12q1c" value="c">
+                            <label for="m12q1c">Russian Revolution</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m12q1" id="m12q1d" value="d">
+                            <label for="m12q1d">Chinese Cultural Revolution</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="a">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Gandhi's methods have been applied in the 21st century to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m12q2" id="m12q2a" value="a">
+                            <label for="m12q2a">Climate activism and environmental movements</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m12q2" id="m12q2b" value="b">
+                            <label for="m12q2b">Stock market trading</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m12q2" id="m12q2c" value="c">
+                            <label for="m12q2c">Military strategy</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m12q2" id="m12q2d" value="d">
+                            <label for="m12q2d">Social media marketing</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        A key critique of applying Gandhi's methods today is:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m12q3" id="m12q3a" value="a">
+                            <label for="m12q3a">They are too effective</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m12q3" id="m12q3b" value="b">
+                            <label for="m12q3b">They require media attention and a conscience to appeal to</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m12q3" id="m12q3c" value="c">
+                            <label for="m12q3c">They are too violent</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m12q3" id="m12q3d" value="d">
+                            <label for="m12q3d">They were only designed for India</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Evaluate Gandhian methods for digital resistance.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>How might Gandhian principles translate to digital activism, surveillance resistance, or online movements? What is the equivalent of "spinning khadi" in the digital age? What are the limits of non-violent digital resistance?</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Video Lectures Section -->
+        
+        <!-- ========================================
+             MODULE 13: CAPSTONE PROJECT
+             ======================================== -->
+        <section id="module13" class="section">
+            <div class="section-header">
+                <div class="section-number">Module 13</div>
+                <h2>Capstone Project <span class="devanagari">समापन परियोजना</span></h2>
+                <p class="section-intro">Apply Gandhian principles to analyze and design interventions for a contemporary social issue. Demonstrate mastery of key concepts through a comprehensive project.</p>
+            </div>
+
+            <div class="content-card">
+                <h3>Project Overview</h3>
+                <p>
+                    The capstone project challenges you to apply Gandhian political philosophy to a real-world issue you care about. 
+                    You will analyze the issue through Gandhian frameworks, design an intervention strategy incorporating both 
+                    constructive programme and potential satyagraha, and reflect on the ethical implications of your approach.
+                </p>
+
+                <div class="capstone-box">
+                    <div class="capstone-header">
+                        <div class="capstone-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                            </svg>
+                        </div>
+                        <h4 class="capstone-title">Capstone: Gandhian Analysis & Action Plan</h4>
+                    </div>
+
+                    <div class="capstone-timeline">
+                        <div class="capstone-phase">
+                            <div class="phase-number">1</div>
+                            <div class="phase-content">
+                                <h5>Week 1-2: Issue Selection & Analysis</h5>
+                                <p>Select a contemporary issue (climate justice, economic inequality, communal conflict, labor rights, etc.). 
+                                Analyze it through Gandhian frameworks: What are the structural injustices? Who are the stakeholders? 
+                                What forms of violence (direct and structural) are involved?</p>
+                            </div>
+                        </div>
+                        <div class="capstone-phase">
+                            <div class="phase-number">2</div>
+                            <div class="phase-content">
+                                <h5>Week 3: Constructive Programme Design</h5>
+                                <p>Design a constructive programme addressing the issue. What alternative institutions, practices, or 
+                                communities would need to be built? How does this reflect Swaraj, Swadeshi, and Trusteeship principles? 
+                                What would a contemporary "khadi" be for this issue?</p>
+                            </div>
+                        </div>
+                        <div class="capstone-phase">
+                            <div class="phase-number">3</div>
+                            <div class="phase-content">
+                                <h5>Week 4: Satyagraha Strategy</h5>
+                                <p>If constructive work alone proves insufficient, outline a potential satyagraha campaign. 
+                                What forms would it take? What suffering might participants need to accept? 
+                                How would you maintain ahimsa while confronting injustice?</p>
+                            </div>
+                        </div>
+                        <div class="capstone-phase">
+                            <div class="phase-number">4</div>
+                            <div class="phase-content">
+                                <h5>Week 5: Integration & Reflection</h5>
+                                <p>Synthesize your analysis into a final document (3000-4000 words) or presentation. 
+                                Include a critical reflection: What are the limitations of applying Gandhian methods to this issue? 
+                                What adaptations would Gandhi's approach require for the 21st century?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3>Deliverables</h3>
+                <ul class="deliverables-list">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div><strong>Issue Analysis (1000 words):</strong> Gandhian framework analysis of your chosen contemporary issue, identifying stakeholders, structural violence, and ethical dimensions.</div>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div><strong>Constructive Programme Plan (1000 words):</strong> Detailed design for building alternatives, including practical steps, resources needed, and community engagement strategy.</div>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div><strong>Satyagraha Strategy (800 words):</strong> Outline of non-violent direct action if needed, including escalation stages, self-purification, and media strategy.</div>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div><strong>Critical Reflection (500 words):</strong> Honest assessment of limitations and necessary adaptations of Gandhian methods for contemporary context.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Evaluation Criteria</h3>
+                <div class="grid-2">
+                    <div class="feature-card">
+                        <h4>Conceptual Mastery (40%)</h4>
+                        <p>Accurate and nuanced application of Gandhian concepts (Swaraj, Satyagraha, Ahimsa, Constructive Programme, Trusteeship). 
+                        Integration of multiple concepts rather than superficial treatment.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Practical Application (30%)</h4>
+                        <p>Feasibility and specificity of proposed interventions. Realistic assessment of challenges and resources. 
+                        Clear connection between Gandhian principles and concrete actions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Critical Thinking (20%)</h4>
+                        <p>Honest engagement with limitations and critiques of Gandhian approach. 
+                        Thoughtful consideration of alternative perspectives and contemporary adaptations.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Communication (10%)</h4>
+                        <p>Clear, well-organized writing. Appropriate use of primary sources and citations. 
+                        Persuasive presentation of argument.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="coach-callout">
+                <img src="https://res.cloudinary.com/impactmojo/image/upload/v1745055037/Logo_Varna_1_ohsq1h.png" alt="Coach Varna" class="coach-photo">
+                <div class="coach-content">
+                    <span class="coach-name">Coach Varna</span>
+                    <p class="coach-message">
+                        This capstone is your opportunity to move from understanding Gandhian philosophy to actually applying it. 
+                        Choose an issue you genuinely care about—your passion will show in your work. Remember: Gandhi's methods evolved 
+                        through practice, not just study. Your project is a form of intellectual Satyagraha!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+<section id="video-lectures" class="section">
+            <div class="section-header">
+                <div class="section-number">Resources</div>
+                <h2>Video Lectures</h2>
+                <p class="section-intro">Curated video resources to deepen your understanding of Gandhian philosophy and its contemporary relevance.</p>
+            </div>
+            <div class="content-card">
+                <div class="grid-2" style="gap: 1.5rem;">
+                    <div class="resource-card" style="background: var(--bg-tertiary); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.25rem;">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">Gandhi Heritage Portal Lectures</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Official lectures and documentaries from the Gandhi Heritage Portal archives.</p>
+                        <a href="https://www.gandhiheritageportal.org/audio-video" target="_blank" class="coach-link" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Album.svg" alt="" style="width: 14px; height: 14px;">
+                            Watch Lectures →
+                        </a>
+                    </div>
+                    <div class="resource-card" style="background: var(--bg-tertiary); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.25rem;">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">PLACEHOLDER: Additional Video Series</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Additional curated video lectures on Gandhian political philosophy.</p>
+                        <a href="#" class="coach-link secondary" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Album.svg" alt="" style="width: 14px; height: 14px;">
+                            Coming Soon
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="reflection-box" style="margin-top: 1.5rem;">
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        Exercise: Video Reflection
+                    </h4>
+                    <p>After watching a lecture, write a 200-word reflection connecting one Gandhian concept to a contemporary political challenge in your context.</p>
+                </div>
+            </div>
         </section>
 
         <!-- Lexicon Section -->
@@ -4033,13 +6380,13 @@
             </div>
             <div class="content-card">
                 <p>The complete interactive lexicon is available as a separate resource, featuring searchable terms across seven categories: Core Political Concepts, Movement Strategy, Ethical-Spiritual Vocabulary, Organizational Terms, Economic Thought, Social Reform, and Institutional Framework.</p>
-                <div class="founder-callout-links" style="margin-top: 1rem;">
-                    <a href="https://www.dropbox.com/scl/fi/9foplmubg4xen9seywr9s/Gandhian-Lexicon-Annotated.xlsx?rlkey=6dcghlcrkdqmlq807kuqhs0jl&st=ugj6g0s1&dl=1" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                <div class="coach-links" style="margin-top: 1rem;">
+                    <a href="https://www.dropbox.com/scl/fi/9foplmubg4xen9seywr9s/Gandhian-Lexicon-Annotated.xlsx?rlkey=6dcghlcrkdqmlq807kuqhs0jl&st=ugj6g0s1&dl=1" target="_blank" class="coach-link">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">
                         Download Lexicon (XLSX)
                     </a>
-                    <a href="lexicon.html">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <a href="lexicon.html" class="coach-link secondary">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
                         Interactive Lexicon App
                     </a>
                 </div>
@@ -4120,7 +6467,9 @@
             
             // Update button text
             const btn = document.querySelector('.theme-toggle span');
-            btn.textContent = newTheme === 'dark' ? 'Dark mode' : 'Light mode';
+            if (btn) {
+                btn.textContent = newTheme === 'dark' ? 'Dark mode' : 'Light mode';
+            }
             
             // Save preference
             localStorage.setItem('theme', newTheme);
@@ -4146,9 +6495,161 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
+                    // Close mobile sidebar after navigation
+                    closeSidebar();
                 }
             });
         });
+
+        // ============================================
+        // READING PROGRESS BAR
+        // ============================================
+        const progressBar = document.getElementById('reading-progress');
+        
+        function updateProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            if (progressBar) {
+                progressBar.style.width = Math.min(progress, 100) + '%';
+            }
+        }
+        
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+
+        // ============================================
+        // MOBILE SIDEBAR TOGGLE
+        // ============================================
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', toggleSidebar);
+        }
+
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', closeSidebar);
+        }
+
+        // ============================================
+        // SIDEBAR COLLAPSE
+        // ============================================
+        const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
+        
+        function toggleSidebarCollapse() {
+            sidebar.classList.toggle('collapsed');
+            localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+        }
+        
+        // Initialize from saved preference
+        const savedCollapsed = localStorage.getItem('sidebarCollapsed');
+        if (savedCollapsed === 'true') {
+            sidebar.classList.add('collapsed');
+        }
+        
+        if (sidebarCollapseBtn) {
+            sidebarCollapseBtn.addEventListener('click', toggleSidebarCollapse);
+        }
+
+        // ============================================
+        // ACTIVE NAV HIGHLIGHTING
+        // ============================================
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function highlightNav() {
+            const scrollPos = window.scrollY + 200;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + sectionId) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', highlightNav);
+        highlightNav();
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JRCMEB9TBW');
+    </script>
+    
+    <!-- UserWay Accessibility Widget -->
+    <script>
+        (function(d){
+            var s = d.createElement("script");
+            s.setAttribute("data-account", "EksmhlPg9k");
+            s.setAttribute("data-position", "5");
+            s.setAttribute("data-size", "small");
+            s.setAttribute("src", "https://cdn.userway.org/widget.js");
+            (d.body || d.head).appendChild(s);
+        })(document);
+    </script>
+    <script>
+
+        // Quiz functionality
+        function checkAnswer(button) {
+            const question = button.closest('.quiz-question');
+            const correct = question.dataset.correct;
+            const selected = question.querySelector('input[type="radio"]:checked');
+            const feedback = question.querySelector('.quiz-feedback');
+            
+            if (!selected) {
+                feedback.textContent = 'Please select an answer.';
+                feedback.className = 'quiz-feedback show incorrect';
+                return;
+            }
+            
+            const answer = selected.value;
+            const options = question.querySelectorAll('.quiz-option');
+            
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                if (opt.dataset.option === correct) {
+                    opt.classList.add('correct');
+                } else if (opt.dataset.option === answer && answer !== correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+            
+            if (answer === correct) {
+                feedback.textContent = '✓ Correct! Well done.';
+                feedback.className = 'quiz-feedback show correct';
+            } else {
+                feedback.textContent = '✗ Not quite. The correct answer is highlighted above.';
+                feedback.className = 'quiz-feedback show incorrect';
+            }
+        }
+
     </script>
 </body>
 </html>
