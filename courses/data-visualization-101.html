@@ -9,6 +9,18 @@
     <meta property="og:description" content="Master data visualization for development impact. 12 modules covering theory, design, and practice.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.impactmojo.in/courses/data-visualization/">
+    <meta property="og:image" content="https://www.impactmojo.in/assets/images/data-viz-og.jpg">
+    <meta property="og:site_name" content="ImpactMojo">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Seeing Data: Visualization for Impact | ImpactMojo">
+    <meta name="twitter:description" content="Master data visualization for development impact. 12 modules covering theory, design, and practice.">
+    
+    <!-- Additional SEO -->
+    <meta name="keywords" content="data visualization, development, impact, charts, graphs, Tufte, Cairo, development economics, South Asia, ImpactMojo, free course">
+    <meta name="author" content="ImpactMojo">
+    <link rel="canonical" href="https://www.impactmojo.in/courses/data-visualization/">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -415,6 +427,50 @@
             margin-bottom: 1.5rem;
             position: relative;
             z-index: 1;
+        }
+
+        /* Feature Tags - Homepage Style */
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0 1.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.85rem;
+            background: rgba(14, 165, 233, 0.2);
+            border: 1px solid rgba(14, 165, 233, 0.4);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #E2E8F0;
+        }
+
+        .feature-tag img {
+            width: 14px;
+            height: 14px;
+            filter: brightness(0) invert(1);
+        }
+
+        .feature-tag.tools {
+            background: rgba(14, 165, 233, 0.2);
+            border-color: var(--cyan);
+        }
+
+        .feature-tag.ai {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: var(--orange);
+        }
+
+        .feature-tag.colab {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--success);
         }
 
         .hero-stats {
@@ -1266,6 +1322,109 @@
             fill: none;
         }
 
+        /* Mobile Header */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 4px;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 999;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        .mobile-header a {
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-header {
+                display: flex;
+            }
+        }
+
+        /* Sidebar Collapse Button */
+        .sidebar-collapse-btn {
+            position: absolute;
+            top: 50%;
+            right: -12px;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 101;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-collapse-btn:hover {
+            background: var(--cyan);
+            border-color: var(--cyan);
+        }
+
+        .sidebar-collapse-btn svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--text-muted);
+            fill: none;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-collapse-btn:hover svg {
+            stroke: white;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .nav-section-title,
+        .sidebar.collapsed .nav-link span:not(.num),
+        .sidebar.collapsed .sidebar-subtitle,
+        .sidebar.collapsed .sidebar-title,
+        .sidebar.collapsed .theme-toggle span,
+        .sidebar.collapsed .chart-icon {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-logo span {
+            display: none;
+        }
+
+        .sidebar.collapsed .nav-link {
+            justify-content: center;
+            padding: 0.55rem 0;
+        }
+
+        .sidebar.collapsed .sidebar-collapse-btn svg {
+            transform: rotate(180deg);
+        }
+
+        .sidebar.collapsed + .main-content,
+        .sidebar.collapsed ~ .main-content {
+            margin-left: 60px;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar-collapse-btn {
+                display: none;
+            }
+        }
+
         /* Footer */
         .course-footer {
             background: #0F172A;
@@ -1767,6 +1926,307 @@
             .coach-links { justify-content: center; }
             .data-source-grid { grid-template-columns: 1fr; }
         }
+    
+        /* ========================================
+           CHECK YOUR UNDERSTANDING - QUIZ STYLES
+           ======================================== */
+        .quiz-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(99, 102, 241, 0.05) 100%);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            border-left: 4px solid var(--indigo);
+        }
+        
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .quiz-header svg {
+            width: 28px;
+            height: 28px;
+            color: var(--indigo);
+        }
+        
+        .quiz-header h4 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+        }
+        
+        .quiz-intro {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .quiz-question {
+            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+        
+        .quiz-question:last-child {
+            margin-bottom: 0;
+        }
+        
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--indigo);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+        }
+        
+        .question-text {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .question-type {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.5rem;
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .quiz-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--indigo);
+            background: rgba(99, 102, 241, 0.05);
+        }
+        
+        .quiz-option input[type="radio"] {
+            margin-top: 0.2rem;
+            accent-color: var(--indigo);
+        }
+        
+        .quiz-option label {
+            cursor: pointer;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+        
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .quiz-option.incorrect {
+            border-color: var(--orange);
+            background: rgba(245, 158, 11, 0.1);
+        }
+        
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .quiz-feedback.show {
+            display: block;
+        }
+        
+        .quiz-feedback.correct {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+        
+        .quiz-feedback.incorrect {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--orange);
+            color: var(--text-primary);
+        }
+        
+        .reflection-prompt {
+            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%);
+            border: 1px dashed var(--cyan);
+            border-radius: 8px;
+            margin-top: 0.75rem;
+        }
+        
+        .reflection-prompt p {
+            margin: 0;
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .check-answer-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.6rem 1.25rem;
+            background: var(--indigo);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .check-answer-btn:hover {
+            background: #4f46e5;
+            transform: translateY(-1px);
+        }
+        
+        .check-answer-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Capstone Section Styles */
+        .capstone-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(14, 165, 233, 0.08) 100%);
+            border: 2px solid var(--indigo);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .capstone-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .capstone-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--indigo);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .capstone-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+            stroke: white;
+        }
+        
+        .capstone-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .capstone-timeline {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .capstone-phase {
+            display: flex;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+        
+        .phase-number {
+            width: 32px;
+            height: 32px;
+            background: var(--cyan);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        .phase-content h5 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text-primary);
+        }
+        
+        .phase-content p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .deliverables-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+        
+        .deliverables-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .deliverables-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .deliverables-list svg {
+            width: 20px;
+            height: 20px;
+            color: var(--success);
+            stroke: var(--success);
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
     </style>
 </head>
 <body>
@@ -1788,17 +2248,37 @@
     <!-- Gradient Header Bar -->
     <div class="gradient-bar"></div>
 
-    <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn" onclick="toggleSidebar()">
-        <svg viewBox="0 0 24 24" stroke-width="2">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-    </button>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Open navigation menu">
+            <svg viewBox="0 0 24 24" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+        <a href="https://www.impactmojo.in">ImpactMojo</a>
+        <button onclick="toggleTheme()" aria-label="Toggle theme" style="background: transparent; border: none; cursor: pointer;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+            </svg>
+        </button>
+    </header>
 
     <!-- Navigation Sidebar -->
     <aside class="sidebar" id="sidebar">
+        <!-- Sidebar Collapse Button -->
+        <button class="sidebar-collapse-btn" id="sidebar-collapse-btn" title="Collapse sidebar">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+            </svg>
+        </button>
         <div class="sidebar-header">
             <a href="https://www.impactmojo.in" class="sidebar-logo">
                 <div class="sidebar-logo-icon">
@@ -1944,10 +2424,27 @@
             </div>
 
             <h1>Seeing Data: <span class="highlight">Visualization for Impact</span></h1>
+            
+            <p class="hero-tagline" style="font-size: 1.15rem; color: rgba(255,255,255,0.85); margin: 0.5rem 0 1rem 0; font-weight: 500;">Data Visualization Masterclass</p>
 
             <p class="hero-subtitle">
                 Master the art and science of data visualization for development. From perceptual foundations to interactive dashboards—learn to communicate data that drives decisions and creates change.
             </p>
+
+            <div class="feature-tags">
+                <span class="feature-tag tools">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                    Interactive Tools
+                </span>
+                <span class="feature-tag ai">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">
+                    AI Study Companion
+                </span>
+                <span class="feature-tag colab">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Code.svg" alt="">
+                    Colab Notebooks
+                </span>
+            </div>
 
             <div class="hero-stats">
                 <div class="hero-stat">
@@ -1988,6 +2485,22 @@
                         <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
                     </svg>
                     AI Study Companion
+                </a>
+            </div>
+            
+            <!-- Hero Resources -->
+            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.15); position: relative; z-index: 1;">
+                <a href="https://www.dropbox.com/scl/fo/PLACEHOLDER-DATAVIZ-RESOURCES" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: #E2E8F0; font-size: 0.85rem; text-decoration: none;">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="" style="width: 16px; height: 16px; filter: brightness(0) invert(1);">
+                    Course Papers Collection
+                </a>
+                <a href="#video-lectures" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: #E2E8F0; font-size: 0.85rem; text-decoration: none;">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Album.svg" alt="" style="width: 16px; height: 16px; filter: brightness(0) invert(1);">
+                    Video Lectures
+                </a>
+                <a href="#lexicon" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: #E2E8F0; font-size: 0.85rem; text-decoration: none;">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" style="width: 16px; height: 16px; filter: brightness(0) invert(1);">
+                    Data Viz Lexicon
                 </a>
             </div>
         </section>
@@ -2370,6 +2883,122 @@
                     </a>
                 </div>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Anscombe's Quartet demonstrates that:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m1q1" id="m1q1a" value="a">
+                            <label for="m1q1a">Statistics are always accurate</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m1q1" id="m1q1b" value="b">
+                            <label for="m1q1b">Four datasets can have nearly identical statistics but look completely different when visualized</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m1q1" id="m1q1c" value="c">
+                            <label for="m1q1c">Visualization is decorative</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m1q1" id="m1q1d" value="d">
+                            <label for="m1q1d">Numbers are more important than charts</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Hans Rosling's Gapminder visualizations are famous for:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m1q2" id="m1q2a" value="a">
+                            <label for="m1q2a">Using only pie charts</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m1q2" id="m1q2b" value="b">
+                            <label for="m1q2b">Making complex development data accessible and challenging misconceptions</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m1q2" id="m1q2c" value="c">
+                            <label for="m1q2c">Avoiding animation</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m1q2" id="m1q2d" value="d">
+                            <label for="m1q2d">Using 3D charts exclusively</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        The primary purpose of data visualization is to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m1q3" id="m1q3a" value="a">
+                            <label for="m1q3a">Make reports look pretty</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m1q3" id="m1q3b" value="b">
+                            <label for="m1q3b">Extend human perception to detect patterns invisible in raw data</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m1q3" id="m1q3c" value="c">
+                            <label for="m1q3c">Hide complex information</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m1q3" id="m1q3d" value="d">
+                            <label for="m1q3d">Replace statistical analysis</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Recall a visualization that changed your understanding.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Think of a chart, map, or visualization that genuinely changed how you understood a topic. What made it effective? What design choices enabled that insight?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- ========================================
@@ -2694,6 +3323,122 @@
                     </a>
                 </div>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        The four main data types are:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m2q1" id="m2q1a" value="a">
+                            <label for="m2q1a">Good, bad, ugly, and missing</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m2q1" id="m2q1b" value="b">
+                            <label for="m2q1b">Nominal, ordinal, interval, and ratio</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m2q1" id="m2q1c" value="c">
+                            <label for="m2q1c">Numbers, text, dates, and images</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m2q1" id="m2q1d" value="d">
+                            <label for="m2q1d">Primary, secondary, tertiary, and quaternary</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Ordinal data differs from nominal data because:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m2q2" id="m2q2a" value="a">
+                            <label for="m2q2a">It uses numbers</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m2q2" id="m2q2b" value="b">
+                            <label for="m2q2b">It has a meaningful order or ranking</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m2q2" id="m2q2c" value="c">
+                            <label for="m2q2c">It can be averaged</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m2q2" id="m2q2d" value="d">
+                            <label for="m2q2d">It is always continuous</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Missing data should be handled by:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m2q3" id="m2q3a" value="a">
+                            <label for="m2q3a">Always deleting incomplete records</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m2q3" id="m2q3b" value="b">
+                            <label for="m2q3b">Understanding the pattern of missingness and choosing appropriate methods</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m2q3" id="m2q3c" value="c">
+                            <label for="m2q3c">Replacing all missing values with zero</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m2q3" id="m2q3d" value="d">
+                            <label for="m2q3d">Ignoring it completely</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Assess a dataset's quality.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Consider a dataset you've worked with recently. What data quality issues did you encounter (missing values, inconsistent formats, outliers)? How did you address them, and how might those choices affect visualization?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- ========================================
@@ -3018,6 +3763,122 @@
                     </a>
                 </div>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        According to Cleveland and McGill's research, the most accurate visual encoding is:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m3q1" id="m3q1a" value="a">
+                            <label for="m3q1a">Color saturation</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m3q1" id="m3q1b" value="b">
+                            <label for="m3q1b">Position along a common scale</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m3q1" id="m3q1c" value="c">
+                            <label for="m3q1c">Area</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m3q1" id="m3q1d" value="d">
+                            <label for="m3q1d">Angle</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Pre-attentive processing allows humans to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m3q2" id="m3q2a" value="a">
+                            <label for="m3q2a">Slowly analyze complex charts</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m3q2" id="m3q2b" value="b">
+                            <label for="m3q2b">Rapidly detect visual features like color and position without conscious effort</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m3q2" id="m3q2c" value="c">
+                            <label for="m3q2c">Read long texts quickly</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m3q2" id="m3q2d" value="d">
+                            <label for="m3q2d">Memorize data tables</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Using area to encode quantities is problematic because:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m3q3" id="m3q3a" value="a">
+                            <label for="m3q3a">It is too accurate</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m3q3" id="m3q3b" value="b">
+                            <label for="m3q3b">Humans systematically underestimate differences in area</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m3q3" id="m3q3c" value="c">
+                            <label for="m3q3c">It cannot show negative values</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m3q3" id="m3q3d" value="d">
+                            <label for="m3q3d">It requires color</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Redesign an ineffective chart.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Find a 3D pie chart or bubble chart in a report or news article. How could you redesign it using more effective visual encodings (position, length) to communicate the same information more accurately?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- ========================================
@@ -3343,6 +4204,122 @@
                     </a>
                 </div>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Approximately what percentage of people have some form of color vision deficiency?
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m4q1" id="m4q1a" value="a">
+                            <label for="m4q1a">0.1%</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m4q1" id="m4q1b" value="b">
+                            <label for="m4q1b">8% of men, 0.5% of women</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m4q1" id="m4q1c" value="c">
+                            <label for="m4q1c">50%</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m4q1" id="m4q1d" value="d">
+                            <label for="m4q1d">25%</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        A colorblind-safe palette should:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m4q2" id="m4q2a" value="a">
+                            <label for="m4q2a">Use only grayscale</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m4q2" id="m4q2b" value="b">
+                            <label for="m4q2b">Vary in both hue and luminance, avoiding red-green distinctions</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m4q2" id="m4q2c" value="c">
+                            <label for="m4q2c">Use maximum saturation</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m4q2" id="m4q2d" value="d">
+                            <label for="m4q2d">Include as many colors as possible</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Sequential color scales are best used for:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m4q3" id="m4q3a" value="a">
+                            <label for="m4q3a">Categorical data</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m4q3" id="m4q3b" value="b">
+                            <label for="m4q3b">Data ranging from low to high values</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m4q3" id="m4q3c" value="c">
+                            <label for="m4q3c">Data with a meaningful midpoint</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m4q3" id="m4q3d" value="d">
+                            <label for="m4q3d">Nominal categories</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Audit a visualization for accessibility.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Take a colorful visualization and test it with a colorblindness simulator. What information is lost? How would you redesign it to be accessible while maintaining visual appeal?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- ========================================
@@ -3656,6 +4633,122 @@
                     </a>
                 </div>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        A bar chart is preferred over a pie chart for comparisons because:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m5q1" id="m5q1a" value="a">
+                            <label for="m5q1a">It uses more ink</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m5q1" id="m5q1b" value="b">
+                            <label for="m5q1b">Humans compare lengths more accurately than angles or areas</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m5q1" id="m5q1c" value="c">
+                            <label for="m5q1c">It is older</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m5q1" id="m5q1d" value="d">
+                            <label for="m5q1d">It can only show positive values</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        A scatter plot is most appropriate for showing:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m5q2" id="m5q2a" value="a">
+                            <label for="m5q2a">Parts of a whole</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m5q2" id="m5q2b" value="b">
+                            <label for="m5q2b">Relationship between two continuous variables</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m5q2" id="m5q2c" value="c">
+                            <label for="m5q2c">Change over time only</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m5q2" id="m5q2d" value="d">
+                            <label for="m5q2d">Categorical comparisons</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        When should you use a line chart instead of a bar chart?
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m5q3" id="m5q3a" value="a">
+                            <label for="m5q3a">For categorical data</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m5q3" id="m5q3b" value="b">
+                            <label for="m5q3b">When showing continuous data over time where interpolation makes sense</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m5q3" id="m5q3c" value="c">
+                            <label for="m5q3c">When comparing parts of a whole</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m5q3" id="m5q3d" value="d">
+                            <label for="m5q3d">For survey results</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Match chart types to questions.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>For each question, identify the best chart type: (1) How has GDP changed over 50 years? (2) What share of budget goes to each department? (3) Is there a relationship between education and income? Justify your choices.</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- ========================================
@@ -3807,6 +4900,122 @@
                     typography specifications, and logo placement guidelines. Use an existing style guide as template.
                 </p>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        The "data-ink ratio" concept (Tufte) suggests:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m6q1" id="m6q1a" value="a">
+                            <label for="m6q1a">Use as much ink as possible</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m6q1" id="m6q1b" value="b">
+                            <label for="m6q1b">Maximize the proportion of ink devoted to data vs. decoration</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m6q1" id="m6q1c" value="c">
+                            <label for="m6q1c">Print in color only</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m6q1" id="m6q1d" value="d">
+                            <label for="m6q1d">Add decorative elements for engagement</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        A style guide for visualizations typically includes:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m6q2" id="m6q2a" value="a">
+                            <label for="m6q2a">Only font choices</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m6q2" id="m6q2b" value="b">
+                            <label for="m6q2b">Color palettes, typography, layout rules, and chart templates</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m6q2" id="m6q2c" value="c">
+                            <label for="m6q2c">Just the organization logo</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m6q2" id="m6q2d" value="d">
+                            <label for="m6q2d">Data collection methods</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Iteration in the design process means:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m6q3" id="m6q3a" value="a">
+                            <label for="m6q3a">Getting it right the first time</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m6q3" id="m6q3b" value="b">
+                            <label for="m6q3b">Refining designs through multiple cycles of feedback and improvement</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m6q3" id="m6q3c" value="c">
+                            <label for="m6q3c">Copying existing designs</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m6q3" id="m6q3d" value="d">
+                            <label for="m6q3d">Avoiding feedback</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Create a mini style guide.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>For an organization you work with (or a fictional one), define the basics of a visualization style guide: primary and secondary colors, fonts for titles and labels, and one rule for chart design. Explain each choice.</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- ========================================
@@ -4061,6 +5270,122 @@
                     </a>
                 </div>
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Narrative visualization combines:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m7q1" id="m7q1a" value="a">
+                            <label for="m7q1a">Only static charts</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m7q1" id="m7q1b" value="b">
+                            <label for="m7q1b">Data visualization with storytelling structure</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m7q1" id="m7q1c" value="c">
+                            <label for="m7q1c">Text without images</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m7q1" id="m7q1d" value="d">
+                            <label for="m7q1d">Random chart arrangements</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        The "martini glass" structure in data stories refers to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m7q2" id="m7q2a" value="a">
+                            <label for="m7q2a">A chart shaped like a glass</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m7q2" id="m7q2b" value="b">
+                            <label for="m7q2b">Author-driven narrative narrowing to a point, then opening for exploration</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m7q2" id="m7q2c" value="c">
+                            <label for="m7q2c">Celebratory visualizations</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m7q2" id="m7q2d" value="d">
+                            <label for="m7q2d">Liquid-themed color palettes</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        When designing for a specific audience, you should:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m7q3" id="m7q3a" value="a">
+                            <label for="m7q3a">Use the most complex charts possible</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m7q3" id="m7q3b" value="b">
+                            <label for="m7q3b">Consider their data literacy, interests, and what actions you want them to take</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m7q3" id="m7q3c" value="c">
+                            <label for="m7q3c">Ignore their preferences</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m7q3" id="m7q3d" value="d">
+                            <label for="m7q3d">Always use the same approach</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Structure a data story.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Take a dataset you know well. Outline a three-part data story: (1) Hook—what surprising finding will grab attention? (2) Build—what context and evidence supports it? (3) Call to action—what should the audience do?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- ========================================
@@ -4370,6 +5695,122 @@
             <div class="source-citation">
                 Sources: Wickham (2016) ggplot2; Bostock et al. (2011) D3.js; Murray (2017) Interactive Data Visualization for the Web; Satyanarayan et al. (2017) Vega-Lite
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Tableau, Power BI, and similar tools are classified as:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m8q1" id="m8q1a" value="a">
+                            <label for="m8q1a">Programming languages</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m8q1" id="m8q1b" value="b">
+                            <label for="m8q1b">Business intelligence/dashboarding tools</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m8q1" id="m8q1c" value="c">
+                            <label for="m8q1c">Spreadsheet software</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m8q1" id="m8q1d" value="d">
+                            <label for="m8q1d">Statistical packages</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        D3.js is particularly suited for:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m8q2" id="m8q2a" value="a">
+                            <label for="m8q2a">Quick automated charts</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m8q2" id="m8q2b" value="b">
+                            <label for="m8q2b">Custom, highly interactive web-based visualizations</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m8q2" id="m8q2c" value="c">
+                            <label for="m8q2c">Print publications only</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m8q2" id="m8q2d" value="d">
+                            <label for="m8q2d">Beginners with no coding experience</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        When choosing a visualization tool, key factors include:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m8q3" id="m8q3a" value="a">
+                            <label for="m8q3a">Only the price</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m8q3" id="m8q3b" value="b">
+                            <label for="m8q3b">Learning curve, output format, interactivity needs, and team skills</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m8q3" id="m8q3c" value="c">
+                            <label for="m8q3c">Just popularity</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m8q3" id="m8q3d" value="d">
+                            <label for="m8q3d">Number of chart types available</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Match tools to scenarios.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>For each scenario, recommend a tool: (1) Quick executive dashboard updated weekly (2) Custom interactive visualization for a journalism piece (3) Reproducible analysis for academic publication. Justify each recommendation.</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- ========================================
@@ -4557,6 +5998,122 @@
             <div class="source-citation">
                 Sources: Shneiderman (1996) "The Eyes Have It"; Yi et al. (2007) "Toward a Deeper Understanding of Interaction"; Heer & Shneiderman (2012) "Interactive Dynamics for Visual Analysis"
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Tooltips in interactive visualizations serve to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m9q1" id="m9q1a" value="a">
+                            <label for="m9q1a">Replace the main visualization</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m9q1" id="m9q1b" value="b">
+                            <label for="m9q1b">Provide details on demand without cluttering the main view</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m9q1" id="m9q1c" value="c">
+                            <label for="m9q1c">Hide important information</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m9q1" id="m9q1d" value="d">
+                            <label for="m9q1d">Slow down the user</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Linked views (brushing and linking) allow users to:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m9q2" id="m9q2a" value="a">
+                            <label for="m9q2a">See unrelated charts</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m9q2" id="m9q2b" value="b">
+                            <label for="m9q2b">Select data in one view and see it highlighted across multiple coordinated views</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m9q2" id="m9q2c" value="c">
+                            <label for="m9q2c">Print multiple pages</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m9q2" id="m9q2d" value="d">
+                            <label for="m9q2d">Change the data source</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        A key consideration for web-based interactive visualizations is:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m9q3" id="m9q3a" value="a">
+                            <label for="m9q3a">Maximum file size</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m9q3" id="m9q3b" value="b">
+                            <label for="m9q3b">Performance—loading time and responsiveness across devices</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m9q3" id="m9q3c" value="c">
+                            <label for="m9q3c">Using as many interactions as possible</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m9q3" id="m9q3d" value="d">
+                            <label for="m9q3d">Avoiding all animation</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Design an interactive dashboard.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Sketch an interactive dashboard for monitoring a program or project. What filters would users need? What drill-down capabilities? How would views be linked? Consider both expert and casual users.</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- ========================================
@@ -4792,6 +6349,122 @@
             <div class="source-citation">
                 Sources: DHIS2 Implementation Guide; Few (2006) Information Dashboard Design; Evergreen (2019) Effective Data Visualization; WHO Health Observatory Dashboard Standards
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        M&E dashboards for development projects typically track:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m10q1" id="m10q1a" value="a">
+                            <label for="m10q1a">Only financial data</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m10q1" id="m10q1b" value="b">
+                            <label for="m10q1b">Inputs, outputs, outcomes, and often geographic coverage</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m10q1" id="m10q1c" value="c">
+                            <label for="m10q1c">Just website analytics</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m10q1" id="m10q1d" value="d">
+                            <label for="m10q1d">Stock prices</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        A theory of change helps dashboard design by:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m10q2" id="m10q2a" value="a">
+                            <label for="m10q2a">Making the dashboard more colorful</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m10q2" id="m10q2b" value="b">
+                            <label for="m10q2b">Identifying which indicators to track and how they connect to outcomes</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m10q2" id="m10q2c" value="c">
+                            <label for="m10q2c">Increasing complexity</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m10q2" id="m10q2d" value="d">
+                            <label for="m10q2d">Replacing data collection</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Geographic visualization in M&E is valuable because:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m10q3" id="m10q3a" value="a">
+                            <label for="m10q3a">Maps are always better than charts</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m10q3" id="m10q3b" value="b">
+                            <label for="m10q3b">It can reveal spatial patterns, coverage gaps, and targeting issues</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m10q3" id="m10q3c" value="c">
+                            <label for="m10q3c">It replaces all other visualizations</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m10q3" id="m10q3d" value="d">
+                            <label for="m10q3d">It is easier to create</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Critique an M&E dashboard.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Find an M&E or development dashboard online (World Bank, UNDP, government). What does it do well? What could be improved? How well does it serve different audiences (program managers vs. policymakers vs. public)?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- ========================================
@@ -5015,6 +6688,122 @@
             <div class="source-citation">
                 Sources: D'Ignazio & Klein (2020) Data Feminism; Monmonier (2018) How to Lie with Maps; Roth (2017) "Visual Variables"; Hawley (2019) Ed Hawkins Warming Stripes
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Small multiples are effective for:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m11q1" id="m11q1a" value="a">
+                            <label for="m11q1a">Showing a single data point</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m11q1" id="m11q1b" value="b">
+                            <label for="m11q1b">Comparing the same visualization across categories or time periods</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m11q1" id="m11q1c" value="c">
+                            <label for="m11q1c">Hiding data patterns</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m11q1" id="m11q1d" value="d">
+                            <label for="m11q1d">Reducing clarity</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Network visualizations are best used for showing:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m11q2" id="m11q2a" value="a">
+                            <label for="m11q2a">Time series data</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m11q2" id="m11q2b" value="b">
+                            <label for="m11q2b">Relationships and connections between entities</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m11q2" id="m11q2c" value="c">
+                            <label for="m11q2c">Parts of a whole</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m11q2" id="m11q2d" value="d">
+                            <label for="m11q2d">Simple comparisons</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        When visualizing uncertainty, you should:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m11q3" id="m11q3a" value="a">
+                            <label for="m11q3a">Hide it to avoid confusing readers</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m11q3" id="m11q3b" value="b">
+                            <label for="m11q3b">Show confidence intervals, ranges, or probability distributions</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m11q3" id="m11q3c" value="c">
+                            <label for="m11q3c">Always use error bars even when inappropriate</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m11q3" id="m11q3d" value="d">
+                            <label for="m11q3d">Ignore it completely</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Apply an advanced technique.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Choose one advanced technique (small multiples, animation, network visualization, uncertainty) and identify a dataset or question from your work where it would be valuable. Sketch how you would implement it.</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- ========================================
@@ -5192,6 +6981,122 @@
             <div class="source-citation">
                 Sources: Harvard CS171 curriculum; NYT Graphics portfolio standards; Flowing Data tutorials; Information is Beautiful Awards criteria; PolicyViz podcast
             </div>
+        
+            <!-- Check Your Understanding -->
+            <div class="quiz-section">
+                <div class="quiz-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h4>Check Your Understanding</h4>
+                </div>
+                <p class="quiz-intro">Test your comprehension of the key concepts from this module.</p>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        A visualization portfolio should include:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m12q1" id="m12q1a" value="a">
+                            <label for="m12q1a">Only finished products</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m12q1" id="m12q1b" value="b">
+                            <label for="m12q1b">Diverse examples with process documentation and design rationales</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m12q1" id="m12q1c" value="c">
+                            <label for="m12q1c">Just screenshots</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m12q1" id="m12q1d" value="d">
+                            <label for="m12q1d">The most colorful charts</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Structured critique in visualization focuses on:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m12q2" id="m12q2a" value="a">
+                            <label for="m12q2a">Personal opinions only</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m12q2" id="m12q2b" value="b">
+                            <label for="m12q2b">Data integrity, visual encoding effectiveness, and audience appropriateness</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m12q2" id="m12q2c" value="c">
+                            <label for="m12q2c">Aesthetic preferences alone</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m12q2" id="m12q2d" value="d">
+                            <label for="m12q2d">Speed of creation</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question" data-correct="b">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        An effective capstone project demonstrates:
+                        <span class="question-type">Multiple Choice</span>
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-option="a">
+                            <input type="radio" name="m12q3" id="m12q3a" value="a">
+                            <label for="m12q3a">Just technical skills</label>
+                        </div>
+                        <div class="quiz-option" data-option="b">
+                            <input type="radio" name="m12q3" id="m12q3b" value="b">
+                            <label for="m12q3b">End-to-end process from data acquisition through insight communication</label>
+                        </div>
+                        <div class="quiz-option" data-option="c">
+                            <input type="radio" name="m12q3" id="m12q3c" value="c">
+                            <label for="m12q3c">Only design skills</label>
+                        </div>
+                        <div class="quiz-option" data-option="d">
+                            <input type="radio" name="m12q3" id="m12q3d" value="d">
+                            <label for="m12q3d">Use of every chart type</label>
+                        </div>
+                    </div>
+                    <button class="check-answer-btn" onclick="checkAnswer(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+                        Check Answer
+                    </button>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Plan your capstone.
+                        <span class="question-type">Reflection</span>
+                    </div>
+                    <div class="reflection-prompt">
+                        <p>Outline a capstone visualization project: What question will you explore? What data sources will you use? What audience are you designing for? What mix of chart types and techniques will you employ?</p>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- ========================================
@@ -5451,6 +7356,106 @@
             </div>
         </section>
 
+        <!-- Lexicon Section -->
+        <section id="lexicon" class="section">
+            <div class="section-header">
+                <div class="section-number">Reference</div>
+                <h2>Data Visualization Lexicon</h2>
+                <p class="section-intro">Essential terminology for data visualization practitioners, from perceptual principles to technical implementation.</p>
+            </div>
+            
+            <div class="content-card">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                    <div style="background: var(--bg-tertiary); border: 1px solid var(--border-light); border-radius: 8px; padding: 1rem;">
+                        <h5 style="color: var(--cyan); margin-bottom: 0.25rem;">Data-Ink Ratio</h5>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Edward Tufte's principle: maximize the share of ink devoted to data, minimize non-data ink.</p>
+                    </div>
+                    <div style="background: var(--bg-tertiary); border: 1px solid var(--border-light); border-radius: 8px; padding: 1rem;">
+                        <h5 style="color: var(--cyan); margin-bottom: 0.25rem;">Pre-attentive Processing</h5>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Visual features processed before conscious attention: color, size, orientation, motion.</p>
+                    </div>
+                    <div style="background: var(--bg-tertiary); border: 1px solid var(--border-light); border-radius: 8px; padding: 1rem;">
+                        <h5 style="color: var(--cyan); margin-bottom: 0.25rem;">Small Multiples</h5>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Series of similar charts showing different slices of data, enabling comparison through consistent design.</p>
+                    </div>
+                    <div style="background: var(--bg-tertiary); border: 1px solid var(--border-light); border-radius: 8px; padding: 1rem;">
+                        <h5 style="color: var(--cyan); margin-bottom: 0.25rem;">Lie Factor</h5>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Ratio of visual effect size to data effect size. A lie factor >1.05 or <0.95 indicates distortion.</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-light);">
+                    <a href="https://www.dropbox.com/scl/fi/PLACEHOLDER-DATAVIZ-LEXICON" target="_blank" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; background: var(--cyan); color: white; border-radius: 6px; font-size: 0.85rem; text-decoration: none;">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="" style="width: 14px; height: 14px; filter: brightness(0) invert(1);">
+                        Download Full Lexicon (XLSX)
+                    </a>
+                    <a href="#" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; background: transparent; border: 1px solid var(--cyan); color: var(--cyan); border-radius: 6px; font-size: 0.85rem; text-decoration: none;">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" style="width: 14px; height: 14px;">
+                        Interactive Lexicon App (Coming Soon)
+                    </a>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 12px; padding: 1.25rem; margin-top: 1.5rem;">
+                    <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; color: var(--text-primary);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        Reflection
+                    </h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">Find a data visualization from a recent development report. Evaluate it using the lexicon terms: What's the data-ink ratio? Are pre-attentive features used effectively? Is there any lie factor present?</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Lectures Section -->
+        <section id="video-lectures" class="section">
+            <div class="section-header">
+                <div class="section-number">Resources</div>
+                <h2>Video Lectures</h2>
+                <p class="section-intro">Curated video resources from leading data visualization practitioners and researchers.</p>
+            </div>
+            <div class="content-card">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <div style="background: var(--bg-tertiary); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.25rem;">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">Hans Rosling's TED Talks</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">The master of animated data storytelling. Essential viewing for anyone visualizing development data.</p>
+                        <a href="https://www.ted.com/speakers/hans_rosling" target="_blank" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; background: var(--cyan); color: white; text-decoration: none; border-radius: 6px; font-size: 0.8rem;">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Album.svg" alt="" style="width: 14px; height: 14px; filter: brightness(0) invert(1);">
+                            Watch on TED →
+                        </a>
+                    </div>
+                    <div style="background: var(--bg-tertiary); border: 1px solid var(--border-light); border-radius: 8px; padding: 1.25rem;">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">PLACEHOLDER: Data Viz Course Videos</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Additional curated video lectures on data visualization principles and practice.</p>
+                        <a href="#" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; background: transparent; border: 1px solid var(--cyan); color: var(--cyan); text-decoration: none; border-radius: 6px; font-size: 0.8rem;">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Album.svg" alt="" style="width: 14px; height: 14px;">
+                            Coming Soon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Founders Section -->
+        <section id="founders" class="section">
+            <div class="section-header">
+                <h2>Meet the Founders of ImpactMojo</h2>
+                <p class="section-intro">This course is brought to you by two practitioners passionate about democratizing development education.</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="content-card" style="text-align: center; padding: 2rem;">
+                    <img src="../assets/images/varna-photo.jpg" alt="Dr. Varna Sri Raman" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; border: 3px solid var(--cyan);" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%230EA5E9%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>V</text></svg>'">
+                    <h3 style="margin-bottom: 0.25rem;">Dr. Varna Sri Raman</h3>
+                    <p style="color: var(--cyan); font-size: 0.9rem; margin-bottom: 0.75rem;">Founder & Lead of Learning Design</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Development Economist with a PhD, specializing in social impact measurement, gender studies, and development research across South Asia.</p>
+                </div>
+                <div class="content-card" style="text-align: center; padding: 2rem;">
+                    <img src="../assets/images/vandana-photo.jpeg" alt="Vandana Soni" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; border: 3px solid var(--indigo);" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%236366F1%22/><text x=%2250%22 y=%2265%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22>VS</text></svg>'">
+                    <h3 style="margin-bottom: 0.25rem;">Vandana Soni</h3>
+                    <p style="color: var(--indigo); font-size: 0.9rem; margin-bottom: 0.75rem;">Co-Founder & Lead of Partnerships</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Education professional with 15+ years designing impactful learning programs and driving large-scale education initiatives across India.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Footer -->
         <footer class="course-footer">
             <p style="margin-bottom: 1rem;">
@@ -5643,6 +7648,83 @@
 
         window.addEventListener('scroll', updateReadingProgress);
         updateReadingProgress();
+
+        // Sidebar Collapse
+        const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
+        const sidebar = document.getElementById('sidebar');
+        
+        function toggleSidebarCollapse() {
+            sidebar.classList.toggle('collapsed');
+            localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+        }
+        
+        // Initialize from saved preference
+        const savedCollapsed = localStorage.getItem('sidebarCollapsed');
+        if (savedCollapsed === 'true') {
+            sidebar.classList.add('collapsed');
+        }
+        
+        if (sidebarCollapseBtn) {
+            sidebarCollapseBtn.addEventListener('click', toggleSidebarCollapse);
+        }
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JRCMEB9TBW');
+    </script>
+    
+    <!-- UserWay Accessibility Widget -->
+    <script>
+        (function(d){
+            var s = d.createElement("script");
+            s.setAttribute("data-account", "EksmhlPg9k");
+            s.setAttribute("data-position", "5");
+            s.setAttribute("data-size", "small");
+            s.setAttribute("src", "https://cdn.userway.org/widget.js");
+            (d.body || d.head).appendChild(s);
+        })(document);
+    </script>
+    <script>
+
+        // Quiz functionality
+        function checkAnswer(button) {
+            const question = button.closest('.quiz-question');
+            const correct = question.dataset.correct;
+            const selected = question.querySelector('input[type="radio"]:checked');
+            const feedback = question.querySelector('.quiz-feedback');
+            
+            if (!selected) {
+                feedback.textContent = 'Please select an answer.';
+                feedback.className = 'quiz-feedback show incorrect';
+                return;
+            }
+            
+            const answer = selected.value;
+            const options = question.querySelectorAll('.quiz-option');
+            
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                if (opt.dataset.option === correct) {
+                    opt.classList.add('correct');
+                } else if (opt.dataset.option === answer && answer !== correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+            
+            if (answer === correct) {
+                feedback.textContent = '✓ Correct! Well done.';
+                feedback.className = 'quiz-feedback show correct';
+            } else {
+                feedback.textContent = '✗ Not quite. The correct answer is highlighted above.';
+                feedback.className = 'quiz-feedback show incorrect';
+            }
+        }
+
     </script>
 </body>
 </html>
