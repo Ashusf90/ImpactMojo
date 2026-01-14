@@ -7592,11 +7592,6 @@
                 themeToggle.addEventListener('click', toggleTheme);
             }
 
-                // Theme Toggle
-        
-
-        
-
         // Mobile sidebar toggle
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('open');
@@ -7785,37 +7780,7 @@
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRCMEB9TBW"></script>
     <script>
-        // Theme Toggle
-            const themeToggle = document.getElementById('theme-toggle');
-            
-            function setTheme(isDark) {
-                document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                
-                const label = themeToggle?.querySelector('.theme-label');
-                if (label) {
-                    label.textContent = isDark ? 'Light mode' : 'Dark mode';
-                }
-            }
-            
-            function toggleTheme() {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                setTheme(currentTheme !== 'dark');
-            }
-            
-            // Initialize theme - default to light
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                setTheme(savedTheme === 'dark');
-            } else {
-                setTheme(false); // Default light
-            }
-            
-            if (themeToggle) {
-                themeToggle.addEventListener('click', toggleTheme);
-            }
-
-                window.dataLayer = window.dataLayer || [];
+        window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-JRCMEB9TBW');
@@ -7823,37 +7788,7 @@
     
     <!-- UserWay Accessibility Widget -->
     <script>
-        // Theme Toggle
-            const themeToggle = document.getElementById('theme-toggle');
-            
-            function setTheme(isDark) {
-                document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                
-                const label = themeToggle?.querySelector('.theme-label');
-                if (label) {
-                    label.textContent = isDark ? 'Light mode' : 'Dark mode';
-                }
-            }
-            
-            function toggleTheme() {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                setTheme(currentTheme !== 'dark');
-            }
-            
-            // Initialize theme - default to light
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                setTheme(savedTheme === 'dark');
-            } else {
-                setTheme(false); // Default light
-            }
-            
-            if (themeToggle) {
-                themeToggle.addEventListener('click', toggleTheme);
-            }
-
-                (function(d){
+        (function(d){
             var s = d.createElement("script");
             s.setAttribute("data-account", "EksmhlPg9k");
             s.setAttribute("data-position", "5");
@@ -7863,37 +7798,6 @@
         })(document);
     </script>
     <script>
-        // Theme Toggle
-            const themeToggle = document.getElementById('theme-toggle');
-            
-            function setTheme(isDark) {
-                document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                
-                const label = themeToggle?.querySelector('.theme-label');
-                if (label) {
-                    label.textContent = isDark ? 'Light mode' : 'Dark mode';
-                }
-            }
-            
-            function toggleTheme() {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                setTheme(currentTheme !== 'dark');
-            }
-            
-            // Initialize theme - default to light
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                setTheme(savedTheme === 'dark');
-            } else {
-                setTheme(false); // Default light
-            }
-            
-            if (themeToggle) {
-                themeToggle.addEventListener('click', toggleTheme);
-            }
-
-        
         // Quiz functionality
         function checkAnswer(button) {
             const question = button.closest('.quiz-question');
