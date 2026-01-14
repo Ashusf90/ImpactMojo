@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI for Impact: Data Monitoring & Evaluation in Development | ImpactMojo</title>
+    <meta name="description" content="Learn when and how to use AI tools in development M&E—from data collection and computer vision to algorithmic targeting and ethical frameworks. A rigorous, evidence-based course with South Asian and African case studies.">
+    <meta name="keywords" content="AI, machine learning, M&E, monitoring and evaluation, development, NLP, computer vision, GiveDirectly, J-PAL, satellite imagery, poverty targeting, algorithmic bias, Ghana, India, development economics">
+    <meta name="author" content="ImpactMojo">
+    <link rel="canonical" href="https://www.impactmojo.in/courses/ai-mne/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="AI for Impact: Data Monitoring & Evaluation in Development | ImpactMojo">
+    <meta property="og:description" content="When should you use AI in development M&E? A rigorous course covering computer vision, NLP, algorithmic targeting, and ethical frameworks.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.impactmojo.in/courses/ai-mne/">
+    <meta property="og:image" content="https://www.impactmojo.in/assets/images/ai-mne-og.png">
+    <meta property="og:site_name" content="ImpactMojo">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI for Impact: Data Monitoring & Evaluation in Development">
+    <meta name="twitter:description" content="When should you use AI in development M&E? A rigorous course with South Asian and African case studies.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Sargam Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/CSS/sargam.min.css">
+    
+    <style>
+        :root {
+            --color-primary: #4F46E5;
+            --color-primary-dark: #4338CA;
+            --color-accent-cyan: #06B6D4;
+            --color-accent-orange: #F59E0B;
+            --color-success: #10B981;
+            --color-warning: #EF4444;
+            --color-ai-primary: #7C3AED;
+            --color-ai-secondary: #A78BFA;
+            --color-ai-light: #EDE9FE;
+            --color-ai-dark: #5B21B6;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-tertiary: #F1F5F9;
+            --text-primary: #1E293B;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
+            --border-color: #E2E8F0;
+            --card-bg: #FFFFFF;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+            --font-display: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition-fast: 150ms ease;
+            --transition-base: 200ms ease;
+            --transition-slow: 300ms ease;
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-tertiary: #334155;
+            --text-primary: #F1F5F9;
+            --text-secondary: #CBD5E1;
+            --text-muted: #64748B;
+            --border-color: #334155;
+            --card-bg: #1E293B;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --color-ai-light: #2E1065;
+        }
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body { font-family: var(--font-body); background: var(--bg-primary); color: var(--text-primary); line-height: 1.7; transition: background var(--transition-base), color var(--transition-base); }
+        a { color: var(--color-ai-primary); text-decoration: none; transition: color var(--transition-fast); }
+        a:hover { color: var(--color-ai-dark); }
+        img { max-width: 100%; height: auto; }
+        
+        .reading-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--color-ai-primary), var(--color-ai-secondary)); z-index: 9999; transition: width 50ms linear; }
+        
+        .page-container { display: flex; min-height: 100vh; }
+        
+        .sidebar { position: fixed; left: 0; top: 0; width: 280px; height: 100vh; background: linear-gradient(180deg, #1E1B4B 0%, #312E81 100%); color: #fff; overflow-y: auto; z-index: 100; display: flex; flex-direction: column; }
+        .sidebar-header { padding: var(--spacing-lg); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-logo { display: flex; align-items: center; gap: var(--spacing-sm); color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; }
+        .sidebar-logo img { width: 32px; height: 32px; border-radius: 6px; }
+        .sidebar-nav { flex: 1; padding: var(--spacing-md) 0; overflow-y: auto; }
+        .nav-section { margin-bottom: var(--spacing-md); }
+        .nav-section-title { padding: var(--spacing-sm) var(--spacing-lg); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); }
+        .nav-link { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-sm) var(--spacing-lg); color: rgba(255,255,255,0.8); font-size: 0.9rem; transition: all var(--transition-fast); border-left: 3px solid transparent; }
+        .nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; border-left-color: var(--color-ai-secondary); }
+        .nav-link.active { background: rgba(255,255,255,0.15); color: #fff; border-left-color: var(--color-accent-cyan); }
+        .nav-link img { width: 18px; height: 18px; opacity: 0.8; }
+        .nav-number { font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.5); min-width: 24px; }
+        .sidebar-footer { padding: var(--spacing-lg); border-top: 1px solid rgba(255,255,255,0.1); }
+        .theme-toggle { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-sm) var(--spacing-md); background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: #fff; font-size: 0.85rem; cursor: pointer; transition: background var(--transition-fast); width: 100%; }
+        .theme-toggle:hover { background: rgba(255,255,255,0.2); }
+        .theme-toggle img { width: 18px; height: 18px; }
+        
+        .main-content { margin-left: 280px; flex: 1; min-width: 0; }
+        
+        .hero { background: linear-gradient(135deg, #1E1B4B 0%, #4C1D95 50%, #7C3AED 100%); color: #fff; padding: var(--spacing-3xl) var(--spacing-2xl); position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
+        .hero-content { max-width: 900px; position: relative; z-index: 1; }
+        .hero-badge { display: inline-flex; align-items: center; gap: var(--spacing-sm); background: rgba(255,255,255,0.2); padding: var(--spacing-xs) var(--spacing-md); border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: var(--spacing-lg); backdrop-filter: blur(10px); }
+        .hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.2; margin-bottom: var(--spacing-sm); }
+        .hero-tagline { font-size: 1.25rem; color: rgba(255,255,255,0.9); margin-bottom: var(--spacing-lg); font-weight: 500; }
+        .hero-description { font-size: 1.1rem; color: rgba(255,255,255,0.85); line-height: 1.8; max-width: 700px; margin-bottom: var(--spacing-xl); }
+        .hero-features { display: flex; flex-wrap: wrap; gap: var(--spacing-md); margin-bottom: var(--spacing-xl); }
+        .hero-feature { display: flex; align-items: center; gap: var(--spacing-sm); background: rgba(255,255,255,0.15); padding: var(--spacing-sm) var(--spacing-md); border-radius: 8px; font-size: 0.9rem; backdrop-filter: blur(10px); }
+        .hero-feature img { width: 20px; height: 20px; filter: brightness(0) invert(1); }
+        .hero-stats { display: flex; flex-wrap: wrap; gap: var(--spacing-xl); padding-top: var(--spacing-xl); border-top: 1px solid rgba(255,255,255,0.2); }
+        .hero-stat { text-align: center; }
+        .hero-stat-value { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; }
+        .hero-stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: var(--spacing-md); margin-top: var(--spacing-xl); }
+        .hero-btn { display: inline-flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-sm) var(--spacing-lg); border-radius: 8px; font-size: 0.9rem; font-weight: 600; transition: all var(--transition-fast); text-decoration: none; }
+        .hero-btn-primary { background: #fff; color: var(--color-ai-primary); }
+        .hero-btn-primary:hover { background: rgba(255,255,255,0.9); transform: translateY(-2px); }
+        .hero-btn-secondary { background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+        .hero-btn-secondary:hover { background: rgba(255,255,255,0.3); }
+        
+        .content-wrapper { max-width: 900px; margin: 0 auto; padding: var(--spacing-2xl); }
+        .section { margin-bottom: var(--spacing-3xl); scroll-margin-top: var(--spacing-xl); }
+        .section-header { margin-bottom: var(--spacing-xl); }
+        .section-number { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: var(--color-ai-light); color: var(--color-ai-primary); font-family: var(--font-display); font-weight: 700; font-size: 1rem; border-radius: 10px; margin-bottom: var(--spacing-md); }
+        [data-theme="dark"] .section-number { background: var(--color-ai-dark); color: var(--color-ai-secondary); }
+        .section h2 { font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--spacing-sm); }
+        .section-intro { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8; }
+        .section h3 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; color: var(--text-primary); margin: var(--spacing-xl) 0 var(--spacing-md); }
+        .section h4 { font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin: var(--spacing-lg) 0 var(--spacing-sm); }
+        .section p { margin-bottom: var(--spacing-md); color: var(--text-secondary); }
+        
+        .key-framework { background: var(--color-ai-light); border-left: 4px solid var(--color-ai-primary); padding: var(--spacing-lg); border-radius: 0 12px 12px 0; margin: var(--spacing-xl) 0; }
+        [data-theme="dark"] .key-framework { background: rgba(124, 58, 237, 0.15); }
+        .key-framework-title { font-family: var(--font-display); font-weight: 700; color: var(--color-ai-primary); margin-bottom: var(--spacing-sm); }
+        .key-framework p { color: var(--text-primary); margin-bottom: 0; }
+        
+        .insight-box { background: linear-gradient(135deg, var(--color-ai-light) 0%, rgba(167, 139, 250, 0.1) 100%); border-radius: 12px; padding: var(--spacing-lg); margin: var(--spacing-xl) 0; display: flex; gap: var(--spacing-md); align-items: flex-start; }
+        [data-theme="dark"] .insight-box { background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(167, 139, 250, 0.1) 100%); }
+        .insight-icon { width: 24px; height: 24px; flex-shrink: 0; filter: invert(29%) sepia(98%) saturate(1903%) hue-rotate(251deg) brightness(93%) contrast(97%); }
+        .insight-box p { margin: 0; color: var(--text-primary); }
+        
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--spacing-lg); margin: var(--spacing-xl) 0; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: var(--spacing-lg); transition: all var(--transition-base); }
+        .card:hover { box-shadow: var(--card-shadow); transform: translateY(-2px); }
+        .card-icon { width: 48px; height: 48px; background: var(--color-ai-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: var(--spacing-md); }
+        [data-theme="dark"] .card-icon { background: var(--color-ai-dark); }
+        .card-icon img { width: 24px; height: 24px; }
+        .card h4 { font-family: var(--font-display); font-weight: 600; margin-bottom: var(--spacing-sm); color: var(--text-primary); }
+        .card p { color: var(--text-secondary); font-size: 0.95rem; margin: 0; }
+        
+        .data-table-wrapper { overflow-x: auto; margin: var(--spacing-xl) 0; }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .data-table th, .data-table td { padding: var(--spacing-md); text-align: left; border-bottom: 1px solid var(--border-color); }
+        .data-table th { background: var(--bg-secondary); font-weight: 600; color: var(--text-primary); }
+        .data-table tr:hover { background: var(--bg-tertiary); }
+        
+        .coach-callout { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: var(--spacing-xl); margin: var(--spacing-2xl) 0; display: flex; gap: var(--spacing-lg); align-items: flex-start; opacity: 0; transform: translateY(20px); transition: all 0.5s ease-out; }
+        .coach-callout.popup-visible { opacity: 1; transform: translateY(0); }
+        .coach-photo { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid var(--color-ai-secondary); }
+        .coach-content h4 { font-family: var(--font-display); font-weight: 700; color: var(--text-primary); margin-bottom: var(--spacing-xs); }
+        .coach-content p { color: var(--text-secondary); margin-bottom: var(--spacing-md); }
+        .coach-actions { display: flex; flex-wrap: wrap; gap: var(--spacing-sm); }
+        .coach-btn { display: inline-flex; align-items: center; gap: var(--spacing-xs); padding: var(--spacing-sm) var(--spacing-md); background: var(--color-ai-light); color: var(--color-ai-primary); border-radius: 8px; font-size: 0.85rem; font-weight: 500; transition: all var(--transition-fast); }
+        [data-theme="dark"] .coach-btn { background: var(--color-ai-dark); color: var(--color-ai-secondary); }
+        .coach-btn:hover { background: var(--color-ai-primary); color: #fff; }
+        .coach-btn img { width: 16px; height: 16px; }
+        
+        .essential-reading { background: var(--bg-secondary); border-radius: 12px; padding: var(--spacing-lg); margin: var(--spacing-xl) 0; }
+        .essential-reading-title { display: flex; align-items: center; gap: var(--spacing-sm); font-family: var(--font-display); font-weight: 600; color: var(--text-primary); margin-bottom: var(--spacing-md); }
+        .essential-reading-title img { width: 20px; height: 20px; }
+        .essential-reading ul { list-style: none; }
+        .essential-reading li { margin-bottom: var(--spacing-sm); }
+        .essential-reading a { display: flex; align-items: flex-start; gap: var(--spacing-sm); color: var(--color-ai-primary); font-size: 0.95rem; }
+        .essential-reading a::before { content: '→'; flex-shrink: 0; }
+        
+        .source-citation { font-size: 0.85rem; color: var(--text-muted); font-style: italic; padding: var(--spacing-md) 0; border-top: 1px solid var(--border-color); margin-top: var(--spacing-xl); }
+        
+        .quiz-section { background: var(--bg-secondary); border-radius: 16px; padding: var(--spacing-xl); margin: var(--spacing-2xl) 0; }
+        .quiz-header { display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-lg); }
+        .quiz-header h4 { font-family: var(--font-display); font-weight: 600; color: var(--text-primary); margin: 0; }
+        .quiz-question { background: var(--card-bg); border-radius: 12px; padding: var(--spacing-lg); margin-bottom: var(--spacing-md); }
+        .quiz-question-number { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--color-ai-primary); color: #fff; border-radius: 50%; font-size: 0.85rem; font-weight: 600; margin-right: var(--spacing-sm); }
+        .quiz-question p { display: inline; font-weight: 500; color: var(--text-primary); }
+        .quiz-type { display: block; font-size: 0.8rem; color: var(--text-muted); margin-top: var(--spacing-sm); }
+        .quiz-options { margin-top: var(--spacing-md); }
+        .quiz-option { display: block; padding: var(--spacing-sm) var(--spacing-md); margin-bottom: var(--spacing-xs); background: var(--bg-secondary); border-radius: 8px; cursor: pointer; transition: all var(--transition-fast); color: var(--text-secondary); }
+        .quiz-option:hover { background: var(--color-ai-light); color: var(--color-ai-primary); }
+        .quiz-btn { display: inline-flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-sm) var(--spacing-lg); background: var(--color-ai-primary); color: #fff; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 500; cursor: pointer; margin-top: var(--spacing-md); transition: all var(--transition-fast); }
+        .quiz-btn:hover { background: var(--color-ai-dark); }
+        
+        .resource-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-md); margin: var(--spacing-xl) 0; }
+        .resource-link { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md); background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary); transition: all var(--transition-fast); }
+        .resource-link:hover { border-color: var(--color-ai-primary); box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15); }
+        .resource-link img { width: 20px; height: 20px; }
+        
+        .lexicon-section { background: linear-gradient(135deg, var(--color-ai-light) 0%, rgba(6, 182, 212, 0.1) 100%); border-radius: 16px; padding: var(--spacing-2xl); margin: var(--spacing-3xl) 0; }
+        [data-theme="dark"] .lexicon-section { background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%); }
+        .lexicon-section h2 { text-align: center; margin-bottom: var(--spacing-md); }
+        .lexicon-section > p { text-align: center; max-width: 600px; margin: 0 auto var(--spacing-xl); }
+        .lexicon-categories { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-xl); }
+        .lexicon-category { padding: var(--spacing-sm) var(--spacing-md); background: var(--card-bg); border-radius: 20px; font-size: 0.85rem; color: var(--text-secondary); border: 1px solid var(--border-color); }
+        .lexicon-actions { display: flex; justify-content: center; gap: var(--spacing-md); flex-wrap: wrap; }
+        
+        .founders-section { background: var(--bg-secondary); border-radius: 16px; padding: var(--spacing-2xl); margin: var(--spacing-3xl) 0; text-align: center; }
+        .founders-section h2 { margin-bottom: var(--spacing-xl); }
+        .founders-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--spacing-xl); max-width: 700px; margin: 0 auto; }
+        .founder-card { text-align: center; }
+        .founder-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: var(--spacing-md); border: 4px solid var(--color-ai-secondary); }
+        .founder-card h4 { font-family: var(--font-display); font-weight: 700; color: var(--text-primary); margin-bottom: var(--spacing-xs); }
+        .founder-card .role { color: var(--color-ai-primary); font-weight: 500; margin-bottom: var(--spacing-sm); }
+        .founder-card p { color: var(--text-secondary); font-size: 0.9rem; }
+        
+        .footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: var(--spacing-2xl); margin-top: var(--spacing-3xl); }
+        .footer-content { max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--spacing-xl); }
+        .footer-brand { display: flex; align-items: center; gap: var(--spacing-sm); font-family: var(--font-display); font-weight: 700; color: var(--text-primary); margin-bottom: var(--spacing-sm); }
+        .footer-brand img { width: 32px; height: 32px; border-radius: 6px; }
+        .footer-tagline { color: var(--text-secondary); font-size: 0.9rem; }
+        .footer-links { display: flex; flex-wrap: wrap; gap: var(--spacing-xl); }
+        .footer-column h5 { font-weight: 600; color: var(--text-primary); margin-bottom: var(--spacing-md); }
+        .footer-column a { display: block; color: var(--text-secondary); font-size: 0.9rem; margin-bottom: var(--spacing-sm); }
+        .footer-column a:hover { color: var(--color-ai-primary); }
+        .footer-bottom { max-width: 900px; margin: var(--spacing-xl) auto 0; padding-top: var(--spacing-lg); border-top: 1px solid var(--border-color); display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--spacing-md); font-size: 0.85rem; color: var(--text-muted); }
+        .footer-bottom a { color: var(--text-muted); }
+        
+        blockquote { border-left: 4px solid var(--color-ai-primary); padding-left: var(--spacing-lg); margin: var(--spacing-xl) 0; font-style: italic; color: var(--text-secondary); }
+        blockquote cite { display: block; margin-top: var(--spacing-sm); font-style: normal; font-weight: 500; }
+        
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--spacing-md); margin: var(--spacing-xl) 0; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: var(--spacing-lg); text-align: center; }
+        .stat-value { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--color-ai-primary); }
+        .stat-label { font-size: 0.85rem; color: var(--text-secondary); margin-top: var(--spacing-xs); }
+        
+        @media (max-width: 1024px) {
+            .sidebar { transform: translateX(-100%); transition: transform var(--transition-base); }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; }
+            .mobile-header { display: flex; align-items: center; justify-content: space-between; padding: var(--spacing-md) var(--spacing-lg); background: var(--bg-primary); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 50; }
+            .mobile-menu-btn { background: none; border: none; padding: var(--spacing-sm); cursor: pointer; }
+            .mobile-menu-btn span { display: block; width: 24px; height: 2px; background: var(--text-primary); margin: 5px 0; transition: all var(--transition-fast); }
+        }
+        @media (min-width: 1025px) { .mobile-header { display: none; } }
+        @media (max-width: 640px) {
+            .hero { padding: var(--spacing-xl) var(--spacing-lg); }
+            .hero h1 { font-size: 1.75rem; }
+            .content-wrapper { padding: var(--spacing-lg); }
+            .coach-callout { flex-direction: column; text-align: center; }
+            .coach-photo { margin: 0 auto; }
+            .coach-actions { justify-content: center; }
+            .founders-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="reading-progress" id="readingProgress"></div>
+    
+    <div class="page-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../../index.html" class="sidebar-logo">
+                    <img src="https://www.impactmojo.in/assets/images/ImpactMojo%20Logo.png" alt="ImpactMojo">
+                    ImpactMojo
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <a href="#hero" class="nav-link"><span class="nav-number">→</span>Course Introduction</a>
+                    <a href="#resources" class="nav-link"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Papers & Resources</a>
+                    <a href="#lexicon" class="nav-link"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">Lexicon (60 Terms)</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Foundations</div>
+                    <a href="#module1" class="nav-link"><span class="nav-number">01</span>The AI-M&E Landscape</a>
+                    <a href="#module2" class="nav-link"><span class="nav-number">02</span>Needs Assessment</a>
+                    <a href="#module3" class="nav-link"><span class="nav-number">03</span>AI for Data Collection</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">AI Applications</div>
+                    <a href="#module4" class="nav-link"><span class="nav-number">04</span>Computer Vision & Geospatial</a>
+                    <a href="#module5" class="nav-link"><span class="nav-number">05</span>NLP for Qualitative Data</a>
+                    <a href="#module6" class="nav-link"><span class="nav-number">06</span>Algorithmic Targeting</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Implementation</div>
+                    <a href="#module7" class="nav-link"><span class="nav-number">07</span>Real-Time Monitoring</a>
+                    <a href="#module8" class="nav-link"><span class="nav-number">08</span>Adaptive Programming</a>
+                    <a href="#module9" class="nav-link"><span class="nav-number">09</span>Limits of AI in Causal Inference</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Ethics & Practice</div>
+                    <a href="#module10" class="nav-link"><span class="nav-number">10</span>Ethics, Bias & Accountability</a>
+                    <a href="#module11" class="nav-link"><span class="nav-number">11</span>Context Assessment: Case Studies</a>
+                    <a href="#module12" class="nav-link"><span class="nav-number">12</span>Strategy Building</a>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Completion</div>
+                    <a href="#capstone" class="nav-link"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Crosshair_detailed.svg" alt="">Capstone Project</a>
+                    <a href="#founders" class="nav-link"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">Meet the Founders</a>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="theme-toggle" id="themeToggle">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                    <span>Light mode</span>
+                </button>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="mobile-header">
+                <a href="../../index.html" class="sidebar-logo">
+                    <img src="https://www.impactmojo.in/assets/images/ImpactMojo%20Logo.png" alt="ImpactMojo" style="width: 28px; height: 28px; border-radius: 4px;">
+                    ImpactMojo
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn"><span></span><span></span><span></span></button>
+            </header>
+            
+            <section class="hero" id="hero">
+                <div class="hero-content">
+                    <div class="hero-badge"><span>Flagship Course • Free Forever</span></div>
+                    <h1>AI for Impact: Data Monitoring & Evaluation in Development</h1>
+                    <p class="hero-tagline">When AI Helps, When It Doesn't, and How to Tell the Difference</p>
+                    <p class="hero-description">A rigorous, evidence-based exploration of AI applications in development M&E—from computer vision and NLP to algorithmic targeting and real-time monitoring. With deep focus on South Asia and Africa, where context determines everything.</p>
+                    
+                    <div class="hero-features">
+                        <div class="hero-feature"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="">Machine Learning</div>
+                        <div class="hero-feature"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="">Global Case Studies</div>
+                        <div class="hero-feature"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt="">Ethical Frameworks</div>
+                        <div class="hero-feature"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">Interactive Lexicon</div>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div class="hero-stat"><div class="hero-stat-value">12</div><div class="hero-stat-label">Comprehensive Modules</div></div>
+                        <div class="hero-stat"><div class="hero-stat-value">40+</div><div class="hero-stat-label">Academic Papers</div></div>
+                        <div class="hero-stat"><div class="hero-stat-value">60</div><div class="hero-stat-label">Lexicon Terms</div></div>
+                        <div class="hero-stat"><div class="hero-stat-value">PhD</div><div class="hero-stat-label">Level Rigor</div></div>
+                    </div>
+                    
+                    <div class="hero-actions">
+                        <a href="https://www.dropbox.com/scl/fo/ai-mne-papers/placeholder" class="hero-btn hero-btn-primary">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="" style="filter: invert(29%) sepia(98%) saturate(1903%) hue-rotate(251deg);">
+                            Course Papers Collection
+                        </a>
+                        <a href="https://notebooklm.google.com/notebook/placeholder-ai-mne" class="hero-btn hero-btn-secondary">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                            AI Study Companion
+                        </a>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="content-wrapper">
+                <!-- Why This Course -->
+                <section class="section" id="why">
+                    <h2>Why Study AI in Development M&E?</h2>
+                    <p>AI is reshaping how development organizations collect data, target beneficiaries, and monitor programs. But the gap between vendor promises and ground reality is vast. Organizations waste millions on tools that don't work in low-connectivity environments, or worse, deploy algorithms that systematically exclude the most vulnerable.</p>
+                    
+                    <div class="insight-box">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="insight-icon">
+                        <p><strong>This course differs from typical AI hype</strong> in crucial ways: we focus on what <em>actually works</em> in low-resource contexts, when simpler tools outperform AI, and how to assess whether your organization is ready for AI adoption—or whether the investment would be wasted.</p>
+                    </div>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt=""></div>
+                            <h4>Evidence-Based Assessment</h4>
+                            <p>Move beyond vendor demos to rigorous evaluation. Learn to assess tools using development research standards, not Silicon Valley metrics.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt=""></div>
+                            <h4>Context-Specific Application</h4>
+                            <p>What works in Accra may fail in Upper East Region. Deep focus on infrastructure constraints, data quality challenges, and organizational capacity.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Crosshair_detailed.svg" alt=""></div>
+                            <h4>Ethical Frameworks</h4>
+                            <p>Algorithmic bias, data sovereignty, consent in low-literacy contexts. The ethical dimensions that vendor pitches never mention.</p>
+                        </div>
+                    </div>
+                    
+                    <blockquote>
+                        "The question is not whether AI can help development—it clearly can, in specific contexts. The question is whether your organization is ready to use it responsibly, and whether simpler solutions might work better."
+                        <cite>— Adapted from J-PAL AI & Development Initiative</cite>
+                    </blockquote>
+                </section>
+
+                <!-- MODULE 1 -->
+                <section class="section" id="module1">
+                    <div class="section-header">
+                        <div class="section-number">01</div>
+                        <h2>The AI-M&E Landscape</h2>
+                        <p class="section-intro">What does "AI" actually mean in development practice? This module demystifies the taxonomy of tools—from simple automation to machine learning to large language models—and maps the current state of AI adoption in the sector.</p>
+                    </div>
+                    
+                    <h3>Taxonomy of AI Technologies in Development</h3>
+                    <p>The term "AI" is used loosely in development contexts, often conflating fundamentally different technologies. Clear taxonomy is essential for appropriate tool selection.</p>
+                    
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Technology</th><th>What It Does</th><th>M&E Applications</th><th>Data Requirements</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>Rule-Based Automation</strong></td><td>Follows explicit if-then rules</td><td>Data validation, skip logic, alerts</td><td>Low—rules defined manually</td></tr>
+                                <tr><td><strong>Classical ML</strong></td><td>Learns patterns from labeled data</td><td>Targeting, classification, prediction</td><td>Medium—thousands of labeled examples</td></tr>
+                                <tr><td><strong>Deep Learning</strong></td><td>Neural networks for complex patterns</td><td>Image recognition, NLP, anomaly detection</td><td>High—millions of examples, GPUs</td></tr>
+                                <tr><td><strong>Computer Vision</strong></td><td>Extracts information from images</td><td>Satellite imagery, infrastructure monitoring</td><td>High—labeled images, geospatial data</td></tr>
+                                <tr><td><strong>NLP</strong></td><td>Processes human language</td><td>Qualitative coding, sentiment, translation</td><td>Medium-High—domain-specific corpora</td></tr>
+                                <tr><td><strong>LLMs (GPT, Claude)</strong></td><td>General-purpose text generation</td><td>Report writing, data synthesis, chatbots</td><td>Low for use; high for fine-tuning</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="key-framework">
+                        <div class="key-framework-title">Key Distinction: Prediction vs. Causation</div>
+                        <p>ML excels at <strong>prediction</strong>—identifying who is likely to be poor, which programs are at risk of failure. But prediction ≠ causation. Knowing that households with tin roofs are poor doesn't tell you whether providing tin roofs reduces poverty. Development requires <em>both</em>—ML for targeting and monitoring, RCTs for causal inference.</p>
+                    </div>
+                    
+                    <h3>Case Study: Ghana's LEAP Program</h3>
+                    <p>Ghana's Livelihood Empowerment Against Poverty (LEAP) program illustrates both the promise and challenges of AI in social protection:</p>
+                    
+                    <div class="insight-box">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="insight-icon">
+                        <p><strong>LEAP uses proxy means testing (PMT)</strong> with ML-enhanced models to identify eligible households. Initial models trained on 2012 census data showed 70%+ accuracy in identifying the poor. But when verified against the 2017 census, accuracy dropped to 55%—worse than random selection in some districts. Why? Economic conditions changed, and the model couldn't adapt.</p>
+                    </div>
+                    
+                    <div class="essential-reading">
+                        <div class="essential-reading-title"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Essential Reading</div>
+                        <ul>
+                            <li><a href="#">Jean, N. et al. (2016). "Combining satellite imagery and machine learning to predict poverty." Science.</a></li>
+                            <li><a href="#">Blumenstock, J. (2018). "Don't forget people in the use of big data for development." Nature.</a></li>
+                            <li><a href="#">J-PAL. (2021). "Using Machine Learning for Social Protection." Policy Brief.</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source-citation">Sources: World Bank AI Lab; J-PAL AI & Development Initiative; Ghana Ministry of Gender, Children and Social Protection; Jean et al. (2016) Science</div>
+                    
+                    <div class="quiz-section">
+                        <div class="quiz-header"><h4>Check Your Understanding</h4></div>
+                        <div class="quiz-question">
+                            <span class="quiz-question-number">1</span>
+                            <p>The key difference between classical ML and deep learning is:</p>
+                            <span class="quiz-type">Multiple Choice</span>
+                            <div class="quiz-options">
+                                <label class="quiz-option">Deep learning requires less data</label>
+                                <label class="quiz-option">Deep learning uses neural networks and requires significantly more data</label>
+                                <label class="quiz-option">Classical ML is always more accurate</label>
+                                <label class="quiz-option">They are essentially the same</label>
+                            </div>
+                            <button class="quiz-btn">Check Answer</button>
+                        </div>
+                        <div class="quiz-question">
+                            <span class="quiz-question-number">2</span>
+                            <p>Why did Ghana's LEAP targeting model accuracy decline from 70% to 55% over 5 years?</p>
+                            <span class="quiz-type">Reflection</span>
+                        </div>
+                    </div>
+                </section>
+                
+                <div class="coach-callout">
+                    <img src="https://www.impactmojo.in/assets/images/varna-photo.jpg" alt="Dr. Varna Sri Raman" class="coach-photo">
+                    <div class="coach-content">
+                        <h4>Dr. Varna Sri Raman</h4>
+                        <p>Feeling overwhelmed by the AI landscape? I've evaluated dozens of AI tools for development organizations and can help you cut through the hype. Let's discuss which approaches actually make sense for your context.</p>
+                        <div class="coach-actions">
+                            <a href="../../coaching.html" class="coach-btn"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">Book 1:1 Coaching</a>
+                            <a href="../../index.html#labs" class="coach-btn"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">Try Interactive Labs</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULE 2 -->
+                <section class="section" id="module2">
+                    <div class="section-header">
+                        <div class="section-number">02</div>
+                        <h2>Needs Assessment for AI Integration</h2>
+                        <p class="section-intro">Before adopting any AI tool, organizations must assess readiness across multiple dimensions: data infrastructure, technical capacity, organizational culture, and—critically—whether AI is actually the right solution.</p>
+                    </div>
+                    
+                    <h3>The AI Readiness Framework</h3>
+                    <p>Most AI failures in development aren't technical—they're organizational. A tool that works brilliantly in a pilot often fails at scale because the underlying conditions weren't in place.</p>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt=""></div>
+                            <h4>Data Infrastructure</h4>
+                            <p>Do you have <strong>clean, consistent, accessible data</strong>? Most organizations underestimate data cleaning costs (typically 60-80% of AI project time).</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt=""></div>
+                            <h4>Technical Capacity</h4>
+                            <p>Who will <strong>maintain the system</strong> after the consultant leaves? AI requires ongoing maintenance, model updates, and troubleshooting.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt=""></div>
+                            <h4>Organizational Culture</h4>
+                            <p>Is leadership <strong>committed to data-driven decisions</strong>? Will staff trust algorithmic recommendations?</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt=""></div>
+                            <h4>Infrastructure Context</h4>
+                            <p><strong>Connectivity, power, devices</strong>—do field conditions support the tool? What's the fallback when systems fail?</p>
+                        </div>
+                    </div>
+                    
+                    <div class="key-framework">
+                        <div class="key-framework-title">The "Is AI Even Necessary?" Checklist</div>
+                        <p>
+                            <strong>1.</strong> Can a simpler solution work? (Excel formulas, conditional logic, rule-based systems)<br>
+                            <strong>2.</strong> Is the problem well-defined? (Vague problems produce vague AI)<br>
+                            <strong>3.</strong> Do you have enough data? (Hundreds of examples minimum; thousands preferred)<br>
+                            <strong>4.</strong> Is the data representative? (Models trained on urban data fail in rural contexts)<br>
+                            <strong>5.</strong> Can you afford to be wrong? (AI errors have consequences—what's the cost?)<br>
+                            <strong>6.</strong> Can you explain decisions? (Many contexts require human-interpretable reasoning)
+                        </p>
+                    </div>
+                    
+                    <h3>Case Study: India's PM-KISAN Targeting</h3>
+                    <p>India's PM-KISAN program provides ₹6,000/year to 110 million farming families. The program explored AI-based targeting to identify eligible farmers from land records, satellite imagery, and existing databases.</p>
+                    
+                    <div class="insight-box">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="insight-icon">
+                        <p><strong>The verdict: AI added limited value.</strong> Land records were incomplete (only 60% of farmers have clear titles). Satellite imagery couldn't distinguish owner-cultivators from tenant farmers. In the end, self-declaration with Aadhaar verification proved simpler and nearly as accurate—at a fraction of the cost.</p>
+                    </div>
+                    
+                    <div class="essential-reading">
+                        <div class="essential-reading-title"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Essential Reading</div>
+                        <ul>
+                            <li><a href="#">Björkegren, D. & Grissen, D. (2020). "Behavior Revealed in Mobile Phone Usage Predicts Credit Repayment." World Bank Economic Review.</a></li>
+                            <li><a href="#">Muralidharan, K. et al. (2016). "Building State Capacity: Evidence from Biometric Smartcards in India." AER.</a></li>
+                            <li><a href="#">World Bank. (2021). "AI in Development: A Framework for Readiness Assessment."</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source-citation">Sources: Ministry of Agriculture, Government of India; World Bank Development Report 2021; Muralidharan et al. (2016)</div>
+                </section>
+                
+                <div class="coach-callout">
+                    <img src="https://www.impactmojo.in/assets/images/vandana-photo.jpeg" alt="Vandana Soni" class="coach-photo">
+                    <div class="coach-content">
+                        <h4>Vandana Soni</h4>
+                        <p>Readiness assessments can feel abstract. Our workshops walk you through a practical framework for evaluating whether AI makes sense for your organization—and what to do if the answer is "not yet."</p>
+                        <div class="coach-actions">
+                            <a href="../../workshops.html" class="coach-btn"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">Request a Workshop</a>
+                            <a href="../../handouts.html" class="coach-btn"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">Free Handouts</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULE 3 -->
+                <section class="section" id="module3">
+                    <div class="section-header">
+                        <div class="section-number">03</div>
+                        <h2>AI for Data Collection</h2>
+                        <p class="section-intro">From voice-to-text transcription to intelligent chatbots, AI is transforming how development organizations collect data in the field. But implementation challenges—language diversity, connectivity, trust—determine success or failure.</p>
+                    </div>
+                    
+                    <h3>AI-Enhanced Data Collection Tools</h3>
+                    
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Tool Type</th><th>How It Works</th><th>Examples</th><th>Best For</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>Voice-to-Text</strong></td><td>Converts spoken responses to text</td><td>Google Speech API, Whisper</td><td>Qualitative data in low-literacy contexts</td></tr>
+                                <tr><td><strong>IVR Systems</strong></td><td>Interactive voice response surveys</td><td>Viamo, Premise, Echo Mobile</td><td>High-frequency, simple surveys at scale</td></tr>
+                                <tr><td><strong>Chatbots</strong></td><td>Conversational data collection</td><td>UNICEF U-Report, WhatsApp bots</td><td>Youth engagement, rapid polling</td></tr>
+                                <tr><td><strong>Translation Tools</strong></td><td>Real-time language translation</td><td>Google Translate, Meta NLLB</td><td>Multi-language survey deployment</td></tr>
+                                <tr><td><strong>Image Recognition</strong></td><td>Extracts data from photos</td><td>Computer vision for receipts, crops</td><td>Verification, agricultural monitoring</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h3>Case Study: UNICEF's U-Report in Uganda</h3>
+                    <p>U-Report is a free SMS and social media platform that allows young people to speak out on issues affecting their communities. With 13 million users across 68 countries, it demonstrates AI-enhanced data collection at scale.</p>
+                    
+                    <div class="stat-grid">
+                        <div class="stat-card"><div class="stat-value">13M+</div><div class="stat-label">Global Users</div></div>
+                        <div class="stat-card"><div class="stat-value">68</div><div class="stat-label">Countries</div></div>
+                        <div class="stat-card"><div class="stat-value">24hr</div><div class="stat-label">Response Time</div></div>
+                        <div class="stat-card"><div class="stat-value">85%</div><div class="stat-label">Youth Users</div></div>
+                    </div>
+                    
+                    <h3>Language Challenges in South Asia and Africa</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt=""></div>
+                            <h4>India: 22 Official Languages</h4>
+                            <p>Hindi speech recognition is decent; Bhojpuri, Maithili, Chhattisgarhi have almost no training data. Dialects within states vary significantly.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt=""></div>
+                            <h4>Ghana: 80+ Languages</h4>
+                            <p>Akan and Ewe have some support; Dagbani, Gonja, Frafra are severely under-resourced. Code-switching is near-universal.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt=""></div>
+                            <h4>Bangladesh: Dialect Variation</h4>
+                            <p>Standard Bengali works; regional dialects (Sylheti, Chittagonian) differ significantly and lack training data.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="essential-reading">
+                        <div class="essential-reading-title"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Essential Reading</div>
+                        <ul>
+                            <li><a href="#">Leo, B. & Morello, R. (2016). "Calling for Better Measurement: Estimating Mobile Phone Survey Accuracy." CGD.</a></li>
+                            <li><a href="#">Joshi, P. et al. (2020). "The State of Natural Language Processing for South Asian Languages." ACL.</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source-citation">Sources: UNICEF U-Report; CGD Mobile Phone Surveys Research; ACL South Asian NLP Workshop; Meta AI Massively Multilingual Speech Project</div>
+                </section>
+
+                <!-- MODULE 4 -->
+                <section class="section" id="module4">
+                    <div class="section-header">
+                        <div class="section-number">04</div>
+                        <h2>Computer Vision & Geospatial Analysis</h2>
+                        <p class="section-intro">Satellite imagery combined with machine learning has revolutionized poverty mapping, agricultural monitoring, and infrastructure tracking. But the gap between research papers and operational use remains significant.</p>
+                    </div>
+                    
+                    <h3>Applications in Development</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt=""></div>
+                            <h4>Poverty Mapping</h4>
+                            <p>Jean et al. (2016) showed satellite imagery can predict poverty at village level with r² > 0.7. World Bank uses this for targeting in data-sparse regions.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt=""></div>
+                            <h4>Agricultural Monitoring</h4>
+                            <p>Crop yield estimation, drought early warning, land use change detection. NASA's FEWS NET and USAID use these for food security alerts.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt=""></div>
+                            <h4>Infrastructure Tracking</h4>
+                            <p>Road quality assessment, building detection, electrification mapping. Useful for monitoring construction programs at scale.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Heart.svg" alt=""></div>
+                            <h4>Humanitarian Response</h4>
+                            <p>Damage assessment after disasters, refugee camp monitoring, population displacement tracking.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="key-framework">
+                        <div class="key-framework-title">Landmark Study: Jean et al. (2016) - Science</div>
+                        <p><strong>Method:</strong> Train a CNN on nighttime light imagery (proxy for economic activity), then use transfer learning to extract features from daytime satellite images.<br><br>
+                        <strong>Results:</strong> Explained 75% of variation in consumption expenditure in Nigeria, Tanzania, Uganda, Malawi, and Rwanda—comparable to expensive household surveys.<br><br>
+                        <strong>Implication:</strong> Poverty mapping in areas without recent survey data becomes feasible. But models require local calibration and don't capture inequality within villages.</p>
+                    </div>
+                    
+                    <div class="essential-reading">
+                        <div class="essential-reading-title"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Essential Reading</div>
+                        <ul>
+                            <li><a href="#">Jean, N. et al. (2016). "Combining satellite imagery and machine learning to predict poverty." Science 353(6301).</a></li>
+                            <li><a href="#">Burke, M. et al. (2021). "Using satellite imagery to understand and promote sustainable development." Science.</a></li>
+                            <li><a href="#">Chi, G. et al. (2022). "Micro-estimates of wealth for all low- and middle-income countries." PNAS.</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source-citation">Sources: Jean et al. (2016) Science; World Bank Poverty Maps; NASA FEWS NET; Facebook Data for Good</div>
+                </section>
+                
+                <div class="coach-callout">
+                    <img src="https://www.impactmojo.in/assets/images/varna-photo.jpg" alt="Dr. Varna Sri Raman" class="coach-photo">
+                    <div class="coach-content">
+                        <h4>Dr. Varna Sri Raman</h4>
+                        <p>Geospatial analysis is one of the most promising AI applications for development—and one of the most misunderstood. I can help you assess whether satellite imagery makes sense for your monitoring needs.</p>
+                        <div class="coach-actions">
+                            <a href="../../coaching.html" class="coach-btn"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">Research Consultation</a>
+                            <a href="../../premium.html" class="coach-btn"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">Premium Tools</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULE 5 -->
+                <section class="section" id="module5">
+                    <div class="section-header">
+                        <div class="section-number">05</div>
+                        <h2>NLP for Qualitative Data</h2>
+                        <p class="section-intro">Natural Language Processing can analyze thousands of open-ended survey responses, interview transcripts, and social media posts. But automated coding is not a replacement for human interpretation—it's a complement.</p>
+                    </div>
+                    
+                    <h3>NLP Applications in M&E</h3>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Application</th><th>What It Does</th><th>Accuracy</th><th>Human Oversight Needed?</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>Topic Modeling</strong></td><td>Identifies themes in large text corpora</td><td>Good for exploration</td><td>High—topics need human labeling</td></tr>
+                                <tr><td><strong>Sentiment Analysis</strong></td><td>Classifies text as positive/negative</td><td>70-85% for major languages</td><td>Medium—review edge cases</td></tr>
+                                <tr><td><strong>Named Entity Recognition</strong></td><td>Extracts names, places, organizations</td><td>90%+ for English</td><td>Low for structured extraction</td></tr>
+                                <tr><td><strong>Automated Coding</strong></td><td>Assigns codes to qualitative responses</td><td>60-80% agreement</td><td>High—cannot replace close reading</td></tr>
+                                <tr><td><strong>Summarization</strong></td><td>Generates summaries of long texts</td><td>Fluent but may miss nuance</td><td>High—verify key points</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="key-framework">
+                        <div class="key-framework-title">Critical Limitation: Context and Nuance</div>
+                        <p>NLP excels at <strong>scale</strong>—processing 10,000 survey responses that humans couldn't read. But it struggles with <strong>context</strong>: sarcasm, cultural references, implicit meanings, contradictions within a response. For sensitive topics (GBV, corruption, mental health), human interpretation remains essential. Use NLP to <em>triage</em> and <em>explore</em>; use humans to <em>understand</em>.</p>
+                    </div>
+                    
+                    <div class="essential-reading">
+                        <div class="essential-reading-title"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Essential Reading</div>
+                        <ul>
+                            <li><a href="#">Grimmer, J. & Stewart, B. (2013). "Text as Data: The Promise and Pitfalls of Automatic Content Analysis." Political Analysis.</a></li>
+                            <li><a href="#">Baden, C. et al. (2022). "Three Gaps in Computational Text Analysis Methods for Social Sciences."</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source-citation">Sources: Grimmer & Stewart (2013); GroundTruth Labs; USAID Beneficiary Feedback Initiative</div>
+                </section>
+
+                <!-- MODULE 6 -->
+                <section class="section" id="module6">
+                    <div class="section-header">
+                        <div class="section-number">06</div>
+                        <h2>Algorithmic Targeting & Beneficiary Selection</h2>
+                        <p class="section-intro">Who gets the transfer? Who receives the scholarship? Algorithmic targeting promises efficiency and objectivity—but can also systematically exclude the most vulnerable.</p>
+                    </div>
+                    
+                    <h3>Traditional vs. ML-Based Targeting</h3>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Method</th><th>How It Works</th><th>Advantages</th><th>Disadvantages</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>Proxy Means Test (PMT)</strong></td><td>Linear regression on asset indicators</td><td>Transparent, interpretable</td><td>Requires survey; can be gamed</td></tr>
+                                <tr><td><strong>Community-Based</strong></td><td>Local leaders identify beneficiaries</td><td>Local knowledge; legitimacy</td><td>Elite capture; bias against marginalized</td></tr>
+                                <tr><td><strong>Universal</strong></td><td>Everyone in category receives benefit</td><td>No exclusion errors; low admin cost</td><td>Expensive; may not reach poorest</td></tr>
+                                <tr><td><strong>ML on Administrative Data</strong></td><td>Uses existing records (phones, taxes)</td><td>Low marginal cost; real-time</td><td>Data gaps exclude poorest; bias</td></tr>
+                                <tr><td><strong>ML on Satellite Imagery</strong></td><td>Predicts poverty from spatial features</td><td>No household visit needed</td><td>Area-level only; can't identify households</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h3>The Algorithmic Bias Problem</h3>
+                    <div class="insight-box">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="insight-icon">
+                        <p><strong>Algorithms can encode and amplify existing biases.</strong> If training data underrepresents marginalized groups (women, minorities, people with disabilities), the model will systematically underserve them. In development contexts, this is particularly dangerous because the groups most likely to be excluded from data are often those most in need of services.</p>
+                    </div>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt=""></div>
+                            <h4>Gender Bias</h4>
+                            <p>Phone-based targeting excludes women (40% gender gap in mobile ownership in South Asia). Asset-based models may miss female-headed households.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt=""></div>
+                            <h4>Geographic Bias</h4>
+                            <p>Models trained on accessible areas perform poorly in remote regions. Urban training data may not transfer to rural contexts.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt=""></div>
+                            <h4>Documentation Bias</h4>
+                            <p>Algorithms using administrative data exclude those without documents—often the most marginalized (refugees, migrants, street children).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="essential-reading">
+                        <div class="essential-reading-title"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Essential Reading</div>
+                        <ul>
+                            <li><a href="#">Banerjee, A. et al. (2021). "Universal Basic Income versus Targeted Transfers." JEP.</a></li>
+                            <li><a href="#">Alatas, V. et al. (2012). "Targeting the Poor: Evidence from a Field Experiment in Indonesia." AER.</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source-citation">Sources: GiveDirectly Research; J-PAL Targeting the Poor Evidence Review; World Bank Social Protection Reports</div>
+                </section>
+                
+                <div class="coach-callout">
+                    <img src="https://www.impactmojo.in/assets/images/vandana-photo.jpeg" alt="Vandana Soni" class="coach-photo">
+                    <div class="coach-content">
+                        <h4>Vandana Soni</h4>
+                        <p>Targeting decisions are among the most consequential in program design. If you're grappling with inclusion/exclusion tradeoffs or evaluating algorithmic approaches, our workshops cover the evidence and practical frameworks.</p>
+                        <div class="coach-actions">
+                            <a href="../../workshops.html" class="coach-btn"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">Request Workshop</a>
+                            <a href="../../index.html#labs" class="coach-btn"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">Interactive Labs</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULE 7 -->
+                <section class="section" id="module7">
+                    <div class="section-header">
+                        <div class="section-number">07</div>
+                        <h2>Real-Time Monitoring & Anomaly Detection</h2>
+                        <p class="section-intro">Dashboard automation, data quality flags, and early warning systems. How AI enables faster response to program problems—and the human oversight that remains essential.</p>
+                    </div>
+                    
+                    <h3>AI-Powered Monitoring Systems</h3>
+                    <p>Traditional M&E operates on quarterly or annual cycles. AI enables continuous monitoring that can detect problems in days rather than months.</p>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt=""></div>
+                            <h4>Anomaly Detection</h4>
+                            <p>Algorithms flag unusual patterns: sudden drops in attendance, unexpected expenditure spikes, geographic clustering of complaints. UNHCR uses this for fraud detection in cash programs.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt=""></div>
+                            <h4>Predictive Early Warning</h4>
+                            <p>ML models predict which programs are at risk of failure based on early indicators. WFP's HungerMap combines satellite data, market prices, and conflict indicators for food security alerts.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt=""></div>
+                            <h4>Automated Data Quality</h4>
+                            <p>AI identifies suspicious survey responses: impossible combinations, pattern responses, outliers. Reduces reliance on manual data cleaning.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Case Study: WFP's HungerMap LIVE</h3>
+                    <div class="stat-grid">
+                        <div class="stat-card"><div class="stat-value">90+</div><div class="stat-label">Countries Monitored</div></div>
+                        <div class="stat-card"><div class="stat-value">Real-time</div><div class="stat-label">Updates</div></div>
+                        <div class="stat-card"><div class="stat-value">ML + Survey</div><div class="stat-label">Data Fusion</div></div>
+                        <div class="stat-card"><div class="stat-value">15min</div><div class="stat-label">Alert Response</div></div>
+                    </div>
+                    
+                    <div class="key-framework">
+                        <div class="key-framework-title">The Human-in-the-Loop Principle</div>
+                        <p>AI monitoring systems should <strong>augment</strong> human judgment, not replace it. Algorithms flag potential issues; humans investigate and decide. Fully autonomous systems risk: (1) False positives disrupting operations, (2) False negatives missing real problems, (3) Gaming once patterns are known, (4) Loss of contextual understanding.</p>
+                    </div>
+                    
+                    <div class="essential-reading">
+                        <div class="essential-reading-title"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Essential Reading</div>
+                        <ul>
+                            <li><a href="#">USAID. (2022). "Real-Time Monitoring and Adaptive Management." Guide.</a></li>
+                            <li><a href="#">Chandola, V. et al. (2009). "Anomaly Detection: A Survey." ACM Computing Surveys.</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source-citation">Sources: WFP HungerMap; UNHCR Cash Assistance; USAID CLA Guidelines</div>
+                </section>
+
+                <!-- MODULE 8 -->
+                <section class="section" id="module8">
+                    <div class="section-header">
+                        <div class="section-number">08</div>
+                        <h2>AI for Adaptive Programming</h2>
+                        <p class="section-intro">Feedback loops, course correction, and predictive analytics for implementation. Moving from static program design to continuous learning.</p>
+                    </div>
+                    
+                    <h3>The Adaptive Management Framework</h3>
+                    <p>Traditional programs follow linear designs: plan → implement → evaluate → report. Adaptive management uses continuous data to adjust implementation in real-time.</p>
+                    
+                    <div class="insight-box">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="insight-icon">
+                        <p><strong>AI enables adaptive management at scale</strong> by processing feedback faster than humans can. But adaptation requires: (1) Clear decision rules for when to adapt, (2) Authority to make changes, (3) Budget flexibility, (4) Organizational culture that accepts iteration.</p>
+                    </div>
+                    
+                    <h3>Applications</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Crosshair_detailed.svg" alt=""></div>
+                            <h4>Beneficiary Feedback Analysis</h4>
+                            <p>NLP analyzes thousands of feedback messages to identify emerging issues. GroundTruth uses this for humanitarian programs across Africa.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt=""></div>
+                            <h4>Predictive Resource Allocation</h4>
+                            <p>ML predicts where resources will have highest impact, enabling dynamic reallocation. GiveDirectly experiments with this for cash transfer timing.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt=""></div>
+                            <h4>Implementation Risk Scoring</h4>
+                            <p>Algorithms score implementing partners on risk indicators, enabling proactive support rather than reactive crisis management.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="essential-reading">
+                        <div class="essential-reading-title"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Essential Reading</div>
+                        <ul>
+                            <li><a href="#">Andrews, M. et al. (2017). "Building State Capability: Evidence, Analysis, Action." Oxford.</a></li>
+                            <li><a href="#">Pritchett, L. et al. (2013). "Looking Like a State: Techniques of Persistent Failure in State Capability for Implementation."</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source-citation">Sources: USAID CLA; GroundTruth Initiative; ODI Adaptive Programming</div>
+                </section>
+
+                <!-- MODULE 9 -->
+                <section class="section" id="module9">
+                    <div class="section-header">
+                        <div class="section-number">09</div>
+                        <h2>The Limits of AI in Causal Inference</h2>
+                        <p class="section-intro">Why ML ≠ RCT. Prediction vs. causation. Heterogeneity detection. Understanding what AI can and cannot tell us about program impact.</p>
+                    </div>
+                    
+                    <div class="key-framework">
+                        <div class="key-framework-title">The Fundamental Distinction</div>
+                        <p><strong>Prediction:</strong> ML excels at predicting outcomes—who is poor, which programs will fail, what areas need intervention. But prediction doesn't tell you <em>why</em>.<br><br>
+                        <strong>Causation:</strong> To know if a program <em>causes</em> outcomes, you need experimental or quasi-experimental methods. Correlation in ML predictions is not evidence of causal impact.<br><br>
+                        <strong>Implication:</strong> Use ML for targeting and monitoring; use RCTs and rigorous evaluation for impact assessment. They're complements, not substitutes.</p>
+                    </div>
+                    
+                    <h3>Where ML Can Support Causal Inference</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt=""></div>
+                            <h4>Heterogeneity Detection</h4>
+                            <p>Causal forests and other ML methods can identify <em>which</em> subgroups benefit most from interventions—going beyond average treatment effects.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt=""></div>
+                            <h4>Covariate Selection</h4>
+                            <p>ML can identify which variables to control for in quasi-experimental designs, improving precision without researcher degrees of freedom.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt=""></div>
+                            <h4>Synthetic Controls</h4>
+                            <p>ML-weighted synthetic control methods construct better counterfactuals for case study analysis.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Common Mistakes</h3>
+                    <div class="insight-box">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="insight-icon">
+                        <p><strong>Mistake 1:</strong> "Our ML model shows the program works" — No, it shows correlation.<br>
+                        <strong>Mistake 2:</strong> "We don't need an RCT; we have big data" — Big data amplifies biases; it doesn't eliminate them.<br>
+                        <strong>Mistake 3:</strong> "AI found the causal mechanism" — AI found patterns; humans interpret mechanisms.</p>
+                    </div>
+                    
+                    <div class="essential-reading">
+                        <div class="essential-reading-title"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Essential Reading</div>
+                        <ul>
+                            <li><a href="#">Athey, S. & Imbens, G. (2019). "Machine Learning Methods Economists Should Know About." Annual Review of Economics.</a></li>
+                            <li><a href="#">Mullainathan, S. & Spiess, J. (2017). "Machine Learning: An Applied Econometric Approach." JEP.</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source-citation">Sources: Athey & Imbens (2019); Mullainathan & Spiess (2017); J-PAL Causal Inference Methods</div>
+                </section>
+                
+                <div class="coach-callout">
+                    <img src="https://www.impactmojo.in/assets/images/varna-photo.jpg" alt="Dr. Varna Sri Raman" class="coach-photo">
+                    <div class="coach-content">
+                        <h4>Dr. Varna Sri Raman</h4>
+                        <p>The prediction-causation distinction trips up many organizations. If you're designing an evaluation or trying to understand what your data can actually tell you, let's work through it together.</p>
+                        <div class="coach-actions">
+                            <a href="../../coaching.html" class="coach-btn"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">Book Session</a>
+                            <a href="../../catalog.html" class="coach-btn"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">MEAL Courses</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULE 10 -->
+                <section class="section" id="module10">
+                    <div class="section-header">
+                        <div class="section-number">10</div>
+                        <h2>Ethics, Bias & Accountability</h2>
+                        <p class="section-intro">Algorithmic fairness, data sovereignty, consent in low-literacy contexts. The ethical dimensions that every development practitioner must understand.</p>
+                    </div>
+                    
+                    <h3>Core Ethical Principles for AI in Development</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt=""></div>
+                            <h4>Do No Harm</h4>
+                            <p>AI systems can cause harm through exclusion, discrimination, or privacy violations. "Move fast and break things" is not appropriate when lives are at stake.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt=""></div>
+                            <h4>Informed Consent</h4>
+                            <p>People have the right to understand how their data is used. Consent in low-literacy contexts requires more than a signature—it requires genuine understanding.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt=""></div>
+                            <h4>Transparency & Explainability</h4>
+                            <p>People affected by algorithmic decisions deserve to know how those decisions are made. "Black box" models are often inappropriate in development contexts.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt=""></div>
+                            <h4>Data Sovereignty</h4>
+                            <p>Communities should control their own data. Extractive data practices—collecting data without benefit to communities—replicate colonial patterns.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>The Algorithmic Accountability Framework</h3>
+                    <div class="key-framework">
+                        <div class="key-framework-title">Questions Every AI Deployment Should Answer</div>
+                        <p>
+                            <strong>1. Who benefits?</strong> Does the AI serve the organization or the beneficiaries?<br>
+                            <strong>2. Who is excluded?</strong> What groups might be systematically disadvantaged?<br>
+                            <strong>3. Who decides?</strong> Where is human judgment required, and who has that authority?<br>
+                            <strong>4. Who is accountable?</strong> When the algorithm fails, who bears responsibility?<br>
+                            <strong>5. Who can appeal?</strong> What recourse do people have if they're wrongly classified?
+                        </p>
+                    </div>
+                    
+                    <div class="essential-reading">
+                        <div class="essential-reading-title"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Essential Reading</div>
+                        <ul>
+                            <li><a href="#">D'Ignazio, C. & Klein, L. (2020). "Data Feminism." MIT Press.</a></li>
+                            <li><a href="#">Eubanks, V. (2018). "Automating Inequality." St. Martin's Press.</a></li>
+                            <li><a href="#">OXFAM. (2021). "Responsible Data in Development." Guidelines.</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source-citation">Sources: Data Feminism; Automating Inequality; OXFAM Responsible Data; DIAL Principles for Digital Development</div>
+                </section>
+
+                <!-- MODULE 11 -->
+                <section class="section" id="module11">
+                    <div class="section-header">
+                        <div class="section-number">11</div>
+                        <h2>Context Assessment: Case Studies</h2>
+                        <p class="section-intro">Deep dives into AI implementation in Ghana, India, Bangladesh, and Kenya. What worked, what failed, and why context determines everything.</p>
+                    </div>
+                    
+                    <h3>Ghana: LEAP Social Protection</h3>
+                    <div class="insight-box">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="insight-icon">
+                        <p><strong>Key lessons from Ghana:</strong><br>
+                        • PMT models need frequent updating (5-year-old models lose 20-30% accuracy)<br>
+                        • Community verification catches errors algorithms miss<br>
+                        • Data quality in northern regions is systematically worse—algorithms amplify this<br>
+                        • Political pressure for expansion can override targeting accuracy</p>
+                    </div>
+                    
+                    <h3>India: Aadhaar-Based Targeting</h3>
+                    <p>India's Aadhaar system enables biometric verification for 1.4 billion people. Its use in social protection demonstrates both potential and risks.</p>
+                    
+                    <div class="stat-grid">
+                        <div class="stat-card"><div class="stat-value">1.4B</div><div class="stat-label">Aadhaar IDs Issued</div></div>
+                        <div class="stat-card"><div class="stat-value">$33B</div><div class="stat-label">Annual Savings Claimed</div></div>
+                        <div class="stat-card"><div class="stat-value">318</div><div class="stat-label">DBT Schemes</div></div>
+                        <div class="stat-card"><div class="stat-value">???</div><div class="stat-label">Exclusion Errors</div></div>
+                    </div>
+                    
+                    <div class="key-framework">
+                        <div class="key-framework-title">The Exclusion Problem</div>
+                        <p>Aadhaar-based systems exclude those who cannot enroll (elderly with faded fingerprints, manual laborers with worn prints, people with disabilities) or whose biometrics fail to authenticate. Multiple deaths have been linked to denied rations due to authentication failures. <strong>Efficiency gains must be weighed against exclusion costs.</strong></p>
+                    </div>
+                    
+                    <h3>Bangladesh: bKash and Financial Inclusion</h3>
+                    <p>Mobile money in Bangladesh shows how digital infrastructure enables new forms of targeting—and creates new exclusions.</p>
+                    
+                    <h3>Kenya: M-Pesa and GiveDirectly</h3>
+                    <p>Kenya's mobile money infrastructure enables GiveDirectly's cash transfers and demonstrates how digital rails can reduce transaction costs while maintaining accountability.</p>
+                    
+                    <div class="essential-reading">
+                        <div class="essential-reading-title"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Essential Reading</div>
+                        <ul>
+                            <li><a href="#">Drèze, J. et al. (2017). "Aadhaar and Food Security in Jharkhand." Economic & Political Weekly.</a></li>
+                            <li><a href="#">Suri, T. & Jack, W. (2016). "The Long-Run Poverty and Gender Impacts of Mobile Money." Science.</a></li>
+                            <li><a href="#">Haushofer, J. & Shapiro, J. (2016). "The Short-term Impact of Unconditional Cash Transfers." QJE.</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source-citation">Sources: Ghana Ministry of Social Protection; UIDAI; Drèze et al. (2017); Suri & Jack (2016)</div>
+                </section>
+                
+                <div class="coach-callout">
+                    <img src="https://www.impactmojo.in/assets/images/vandana-photo.jpeg" alt="Vandana Soni" class="coach-photo">
+                    <div class="coach-content">
+                        <h4>Vandana Soni</h4>
+                        <p>These case studies show that context is everything. If you're adapting AI tools for a new context, our workshops help you anticipate challenges and design appropriate safeguards.</p>
+                        <div class="coach-actions">
+                            <a href="../../workshops.html" class="coach-btn"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">Request Workshop</a>
+                            <a href="../../handouts.html" class="coach-btn"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">Free Handouts</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODULE 12 -->
+                <section class="section" id="module12">
+                    <div class="section-header">
+                        <div class="section-number">12</div>
+                        <h2>Strategy Building: Build vs. Buy, Pilot Design, Sustainability</h2>
+                        <p class="section-intro">Practical guidance for organizations considering AI adoption. How to evaluate vendors, design pilots, build internal capacity, and plan for sustainability.</p>
+                    </div>
+                    
+                    <h3>The Build vs. Buy Decision</h3>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Consideration</th><th>Build In-House</th><th>Buy/Partner</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>Initial Cost</strong></td><td>Higher (staff, infrastructure)</td><td>Lower (licensing fees)</td></tr>
+                                <tr><td><strong>Long-term Cost</strong></td><td>Lower if scaled</td><td>Higher (recurring fees)</td></tr>
+                                <tr><td><strong>Customization</strong></td><td>Full control</td><td>Limited to vendor options</td></tr>
+                                <tr><td><strong>Maintenance</strong></td><td>Internal responsibility</td><td>Vendor responsibility</td></tr>
+                                <tr><td><strong>Data Control</strong></td><td>Full ownership</td><td>Depends on contract</td></tr>
+                                <tr><td><strong>Speed to Deploy</strong></td><td>Slower</td><td>Faster</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h3>Designing Effective Pilots</h3>
+                    <div class="key-framework">
+                        <div class="key-framework-title">Pilot Design Checklist</div>
+                        <p>
+                            <strong>1. Define success metrics</strong> — What would convince you to scale? What would convince you to stop?<br>
+                            <strong>2. Select representative sites</strong> — Pilots in easy contexts don't test real-world viability<br>
+                            <strong>3. Plan for failure</strong> — What's the fallback if AI doesn't work?<br>
+                            <strong>4. Document everything</strong> — Capture learnings systematically<br>
+                            <strong>5. Budget for iteration</strong> — First versions rarely work; plan for 2-3 cycles<br>
+                            <strong>6. Include sustainability from day one</strong> — Who maintains this after the pilot?
+                        </p>
+                    </div>
+                    
+                    <h3>Building Internal Capacity</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt=""></div>
+                            <h4>Data Literacy</h4>
+                            <p>Train program staff to interpret AI outputs critically. They don't need to build models, but they need to question them.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt=""></div>
+                            <h4>Technical Capacity</h4>
+                            <p>Hire or develop at least one person who can maintain systems, troubleshoot problems, and interface with vendors.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt=""></div>
+                            <h4>Leadership Buy-in</h4>
+                            <p>AI initiatives fail without sustained leadership commitment. Ensure decision-makers understand both potential and limitations.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="essential-reading">
+                        <div class="essential-reading-title"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">Essential Reading</div>
+                        <ul>
+                            <li><a href="#">DIAL. (2022). "Principles for Digital Development." Framework.</a></li>
+                            <li><a href="#">World Bank. (2021). "GovTech Maturity Index."</a></li>
+                            <li><a href="#">Accenture Development Partnerships. (2020). "AI for Social Good: Playbook."</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="source-citation">Sources: DIAL Principles for Digital Development; World Bank GovTech; USAID Digital Strategy</div>
+                </section>
+
+                <!-- CAPSTONE -->
+                <section class="section" id="capstone">
+                    <div class="section-header">
+                        <h2>Capstone Project: AI Integration Assessment</h2>
+                        <p class="section-intro">Apply course frameworks to produce a comprehensive AI readiness assessment and implementation plan for a development organization or program of your choice.</p>
+                    </div>
+                    
+                    <h3>Project Overview</h3>
+                    <p>The capstone demonstrates your ability to translate theoretical frameworks into practical recommendations for AI adoption in development contexts.</p>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt=""></div>
+                            <h4>Week 1: Context Analysis</h4>
+                            <p>Select an organization or program. Analyze current M&E practices, data infrastructure, and organizational capacity.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt=""></div>
+                            <h4>Week 2: Opportunity Mapping</h4>
+                            <p>Identify specific M&E challenges where AI might add value. Apply the "Is AI necessary?" checklist.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Crosshair_detailed.svg" alt=""></div>
+                            <h4>Week 3: Tool Evaluation</h4>
+                            <p>Research and evaluate 3-5 potential AI tools or approaches. Assess fit with organizational context.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt=""></div>
+                            <h4>Week 4: Implementation Plan</h4>
+                            <p>Develop a phased implementation roadmap with pilot design, success metrics, and sustainability plan.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Deliverables</h3>
+                    <ul style="list-style: none; margin: var(--spacing-lg) 0;">
+                        <li style="margin-bottom: var(--spacing-sm); display: flex; gap: var(--spacing-sm);"><span style="color: var(--color-ai-primary);">→</span><strong>AI Readiness Assessment (2000 words):</strong> Systematic evaluation using course frameworks</li>
+                        <li style="margin-bottom: var(--spacing-sm); display: flex; gap: var(--spacing-sm);"><span style="color: var(--color-ai-primary);">→</span><strong>Tool Comparison Matrix:</strong> Structured evaluation of 3-5 potential solutions</li>
+                        <li style="margin-bottom: var(--spacing-sm); display: flex; gap: var(--spacing-sm);"><span style="color: var(--color-ai-primary);">→</span><strong>Implementation Roadmap:</strong> Phased plan with timelines, resources, and risk mitigation</li>
+                        <li style="margin-bottom: var(--spacing-sm); display: flex; gap: var(--spacing-sm);"><span style="color: var(--color-ai-primary);">→</span><strong>Ethical Review (500 words):</strong> Assessment of ethical considerations and safeguards</li>
+                    </ul>
+                    
+                    <div class="quiz-section">
+                        <div class="quiz-header"><h4>Evaluation Criteria</h4></div>
+                        <div class="card-grid">
+                            <div class="card"><h4>Analytical Rigor (35%)</h4><p>Accurate application of course frameworks and appropriate use of evidence.</p></div>
+                            <div class="card"><h4>Context Sensitivity (25%)</h4><p>Understanding of organizational constraints and local conditions.</p></div>
+                            <div class="card"><h4>Practical Feasibility (25%)</h4><p>Realistic recommendations with attention to implementation challenges.</p></div>
+                            <div class="card"><h4>Communication (15%)</h4><p>Clarity, organization, and professional presentation.</p></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- LEXICON SECTION -->
+                <section class="lexicon-section" id="lexicon">
+                    <h2>AI for Development Lexicon</h2>
+                    <p>Master the vocabulary of AI in development M&E with our comprehensive glossary of <strong>60 essential terms</strong> across 8 thematic categories.</p>
+                    
+                    <div class="lexicon-categories">
+                        <span class="lexicon-category">AI Foundations</span>
+                        <span class="lexicon-category">Machine Learning</span>
+                        <span class="lexicon-category">Computer Vision</span>
+                        <span class="lexicon-category">NLP</span>
+                        <span class="lexicon-category">Data Infrastructure</span>
+                        <span class="lexicon-category">Ethics & Bias</span>
+                        <span class="lexicon-category">M&E Methods</span>
+                        <span class="lexicon-category">Implementation</span>
+                    </div>
+                    
+                    <div class="lexicon-actions">
+                        <a href="lexicon.html" class="hero-btn hero-btn-primary" style="background: var(--color-ai-primary); color: #fff;">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" style="filter: brightness(0) invert(1);">
+                            Interactive Lexicon App
+                        </a>
+                        <a href="https://www.dropbox.com/scl/fi/ai-mne-lexicon/AI-MNE-Lexicon.xlsx?dl=1" class="hero-btn hero-btn-secondary" style="background: var(--card-bg); color: var(--text-primary); border: 1px solid var(--border-color);">
+                            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">
+                            Download Lexicon (XLSX)
+                        </a>
+                    </div>
+                </section>
+
+                <!-- FOUNDERS SECTION -->
+                <section class="founders-section" id="founders">
+                    <h2>Meet the Founders of ImpactMojo</h2>
+                    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto var(--spacing-xl);">This course is brought to you by two practitioners passionate about democratizing development education.</p>
+                    
+                    <div class="founders-grid">
+                        <div class="founder-card">
+                            <img src="https://www.impactmojo.in/assets/images/varna-photo.jpg" alt="Dr. Varna Sri Raman" class="founder-photo">
+                            <h4>Dr. Varna Sri Raman</h4>
+                            <p class="role">Founder & Lead of Learning Design</p>
+                            <p>Development Economist with a PhD, specializing in social impact measurement, gender studies, and development research across South Asia.</p>
+                        </div>
+                        <div class="founder-card">
+                            <img src="https://www.impactmojo.in/assets/images/vandana-photo.jpeg" alt="Vandana Soni" class="founder-photo">
+                            <h4>Vandana Soni</h4>
+                            <p class="role">Co-Founder & Lead of Partnerships</p>
+                            <p>Education and development professional with 15+ years of experience designing impactful learning programs across India.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RESOURCES -->
+                <section class="section" id="resources">
+                    <h2>Explore More on ImpactMojo</h2>
+                    <div class="resource-links">
+                        <a href="../../catalog.html" class="resource-link"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">All 41 Courses</a>
+                        <a href="../../index.html#labs" class="resource-link"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">Interactive Labs</a>
+                        <a href="../../index.html#games" class="resource-link"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="">Economics Games</a>
+                        <a href="../../premium.html" class="resource-link"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Heart.svg" alt="">Premium Tools</a>
+                        <a href="../../coaching.html" class="resource-link"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="">1:1 Coaching</a>
+                        <a href="../../handouts.html" class="resource-link"><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="">Free Handouts</a>
+                    </div>
+                </section>
+            </div>
+
+            <footer class="footer">
+                <div class="footer-content">
+                    <div>
+                        <div class="footer-brand"><img src="https://www.impactmojo.in/assets/images/ImpactMojo%20Logo.png" alt="ImpactMojo">ImpactMojo</div>
+                        <p class="footer-tagline">Free development education for everyone.</p>
+                    </div>
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h5>Learn</h5>
+                            <a href="../../catalog.html">All Courses</a>
+                            <a href="../../workshops.html">Workshops</a>
+                            <a href="../../handouts.html">Handouts</a>
+                        </div>
+                        <div class="footer-column">
+                            <h5>Connect</h5>
+                            <a href="../../about.html">About Us</a>
+                            <a href="../../contact.html">Contact</a>
+                            <a href="../../faq.html">FAQ</a>
+                        </div>
+                        <div class="footer-column">
+                            <h5>Support</h5>
+                            <a href="../../premium.html">Premium</a>
+                            <a href="https://pages.razorpay.com/impactmojo">Donate</a>
+                            <a href="../../coaching.html">Coaching</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <span>© 2025 ImpactMojo. Pay What You Think Is Fair.</span>
+                    <div><a href="../../privacy-policy.html">Privacy</a> • <a href="../../terms-of-service.html">Terms</a> • <a href="../../disclaimer.html">Disclaimer</a></div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXXXXXXXX');</script>
+    <script src="https://cdn.userway.org/widget.js" data-account="xxxx"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeLabel = themeToggle.querySelector('span');
+            
+            function getPreferredTheme() {
+                const saved = localStorage.getItem('theme');
+                if (saved) return saved;
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+                const hour = new Date().getHours();
+                return (hour >= 18 || hour < 6) ? 'dark' : 'light';
+            }
+            
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                themeLabel.textContent = theme === 'dark' ? 'Dark mode' : 'Light mode';
+            }
+            
+            setTheme(getPreferredTheme());
+            themeToggle.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                setTheme(current === 'dark' ? 'light' : 'dark');
+            });
+            
+            const progressBar = document.getElementById('readingProgress');
+            function updateProgress() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = (scrollTop / docHeight) * 100;
+                progressBar.style.width = progress + '%';
+            }
+            window.addEventListener('scroll', updateProgress);
+            updateProgress();
+            
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() { sidebar.classList.toggle('open'); });
+            }
+            
+            const callouts = document.querySelectorAll('.coach-callout');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('popup-visible'); });
+            }, { threshold: 0.2 });
+            callouts.forEach(callout => observer.observe(callout));
+            
+            document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) { target.scrollIntoView({ behavior: 'smooth' }); sidebar.classList.remove('open'); }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
