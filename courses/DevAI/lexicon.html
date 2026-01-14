@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI for Development Lexicon | ImpactMojo</title>
+    <meta name="description" content="60 essential terms for AI in development M&E - from machine learning basics to ethical frameworks.">
+    <link rel="canonical" href="https://www.impactmojo.in/courses/ai-mne/lexicon.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/CSS/sargam.min.css">
+    
+    <style>
+        :root {
+            --color-ai-primary: #7C3AED;
+            --color-ai-secondary: #A78BFA;
+            --color-ai-light: #EDE9FE;
+            --color-ai-dark: #5B21B6;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --text-primary: #1E293B;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
+            --border-color: #E2E8F0;
+            --font-display: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            
+            --cat-foundations: #7C3AED;
+            --cat-ml: #2563EB;
+            --cat-cv: #059669;
+            --cat-nlp: #DC2626;
+            --cat-data: #D97706;
+            --cat-ethics: #DB2777;
+            --cat-methods: #0891B2;
+            --cat-implementation: #4F46E5;
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --text-primary: #F1F5F9;
+            --text-secondary: #CBD5E1;
+            --text-muted: #64748B;
+            --border-color: #334155;
+            --color-ai-light: #2E1065;
+        }
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
+        
+        .header { background: linear-gradient(135deg, #1E1B4B 0%, #4C1D95 50%, #7C3AED 100%); color: #fff; padding: 2rem; text-align: center; }
+        .header h1 { font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem; }
+        .header p { opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.8); margin-bottom: 1rem; text-decoration: none; font-size: 0.9rem; }
+        .back-link:hover { color: #fff; }
+        
+        .controls { background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); padding: 1rem 2rem; position: sticky; top: 0; z-index: 100; }
+        .controls-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+        .search-box { flex: 1; min-width: 250px; position: relative; }
+        .search-box input { width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; background: var(--bg-primary); color: var(--text-primary); }
+        .search-box input:focus { outline: none; border-color: var(--color-ai-primary); }
+        .search-icon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; opacity: 0.5; }
+        
+        .category-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .category-btn { padding: 0.5rem 1rem; border: none; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; background: var(--bg-primary); color: var(--text-secondary); border: 1px solid var(--border-color); }
+        .category-btn:hover { border-color: var(--color-ai-primary); }
+        .category-btn.active { background: var(--color-ai-primary); color: #fff; border-color: var(--color-ai-primary); }
+        
+        .stats { display: flex; gap: 2rem; font-size: 0.9rem; color: var(--text-muted); }
+        .stats span { font-weight: 600; color: var(--color-ai-primary); }
+        
+        .content { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        
+        .category-section { margin-bottom: 3rem; }
+        .category-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--border-color); }
+        .category-badge { width: 12px; height: 12px; border-radius: 50%; }
+        .category-header h2 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; }
+        .category-count { font-size: 0.85rem; color: var(--text-muted); margin-left: auto; }
+        
+        .terms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1rem; }
+        
+        .term-card { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem; transition: all 0.2s; cursor: pointer; }
+        .term-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: translateY(-2px); }
+        .term-card.expanded { grid-column: 1 / -1; }
+        
+        .term-header { display: flex; align-items: flex-start; gap: 0.75rem; }
+        .term-indicator { width: 4px; height: 24px; border-radius: 2px; flex-shrink: 0; margin-top: 2px; }
+        .term-title { font-weight: 600; color: var(--text-primary); font-size: 1rem; flex: 1; }
+        .term-expand { width: 20px; height: 20px; opacity: 0.5; transition: transform 0.2s; }
+        .term-card.expanded .term-expand { transform: rotate(180deg); }
+        
+        .term-definition { color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.75rem; line-height: 1.6; }
+        
+        .term-details { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color); }
+        .term-card.expanded .term-details { display: block; }
+        
+        .term-example { background: var(--bg-secondary); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+        .term-example-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .term-example p { color: var(--text-secondary); font-size: 0.9rem; margin: 0; }
+        
+        .term-source { font-size: 0.85rem; color: var(--text-muted); }
+        .term-source a { color: var(--color-ai-primary); }
+        
+        .no-results { text-align: center; padding: 4rem 2rem; color: var(--text-muted); }
+        .no-results h3 { font-family: var(--font-display); margin-bottom: 0.5rem; color: var(--text-secondary); }
+        
+        .footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 2rem; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--color-ai-primary); }
+        .footer-copy { font-size: 0.85rem; color: var(--text-muted); }
+        
+        .theme-toggle { position: fixed; bottom: 2rem; right: 2rem; width: 48px; height: 48px; border-radius: 50%; background: var(--color-ai-primary); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3); z-index: 1000; }
+        .theme-toggle img { width: 24px; height: 24px; filter: brightness(0) invert(1); }
+        
+        @media (max-width: 640px) {
+            .header { padding: 1.5rem 1rem; }
+            .header h1 { font-size: 1.5rem; }
+            .controls { padding: 1rem; }
+            .content { padding: 1rem; }
+            .terms-grid { grid-template-columns: 1fr; }
+            .stats { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="back-link">← Back to Course</a>
+        <h1>AI for Development Lexicon</h1>
+        <p>60 essential terms for understanding AI in development monitoring & evaluation</p>
+    </header>
+    
+    <div class="controls">
+        <div class="controls-inner">
+            <div class="search-box">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt="" class="search-icon">
+                <input type="text" id="searchInput" placeholder="Search terms...">
+            </div>
+            <div class="category-filters">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="foundations">AI Foundations</button>
+                <button class="category-btn" data-category="ml">Machine Learning</button>
+                <button class="category-btn" data-category="cv">Computer Vision</button>
+                <button class="category-btn" data-category="nlp">NLP</button>
+                <button class="category-btn" data-category="data">Data Infrastructure</button>
+                <button class="category-btn" data-category="ethics">Ethics & Bias</button>
+                <button class="category-btn" data-category="methods">M&E Methods</button>
+                <button class="category-btn" data-category="implementation">Implementation</button>
+            </div>
+            <div class="stats">
+                <div>Showing <span id="visibleCount">60</span> of 60 terms</div>
+            </div>
+        </div>
+    </div>
+    
+    <main class="content" id="termsContainer"></main>
+    
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="index.html">← Back to Course</a>
+            <a href="https://www.dropbox.com/scl/fi/ai-mne-lexicon/AI-MNE-Lexicon.xlsx?dl=1">Download XLSX</a>
+            <a href="../../catalog.html">All Courses</a>
+            <a href="../../index.html">ImpactMojo Home</a>
+        </div>
+        <p class="footer-copy">© 2025 ImpactMojo. Free development education for everyone.</p>
+    </footer>
+    
+    <button class="theme-toggle" id="themeToggle">
+        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="Toggle theme">
+    </button>
+    
+    <script>
+        const lexiconData = [
+            // AI Foundations (8 terms)
+            { term: "Artificial Intelligence (AI)", category: "foundations", definition: "The simulation of human intelligence in machines programmed to think and learn. In development, often refers to any automated data processing beyond simple rules.", example: "Chatbots for beneficiary feedback, automated data validation, predictive targeting systems.", source: "Russell & Norvig (2020)" },
+            { term: "Machine Learning (ML)", category: "foundations", definition: "A subset of AI where algorithms learn patterns from data without being explicitly programmed. The foundation for most 'AI' applications in development.", example: "A model that learns to predict poverty from household survey features.", source: "Bishop (2006)" },
+            { term: "Deep Learning", category: "foundations", definition: "ML using neural networks with many layers ('deep'). Requires large datasets and computational power but achieves state-of-the-art results on complex tasks.", example: "Image recognition for satellite poverty mapping, speech recognition for IVR systems.", source: "Goodfellow et al. (2016)" },
+            { term: "Algorithm", category: "foundations", definition: "A step-by-step procedure for solving a problem or accomplishing a task. In AI, refers to the mathematical rules that process data.", example: "A targeting algorithm that scores households based on asset ownership.", source: "Cormen et al. (2009)" },
+            { term: "Training Data", category: "foundations", definition: "The dataset used to teach an ML model patterns. Model quality depends heavily on training data quality and representativeness.", example: "Historical poverty survey data used to train a poverty prediction model.", source: "Géron (2019)" },
+            { term: "Model", category: "foundations", definition: "The mathematical representation learned from training data. A 'trained model' contains the patterns discovered and can make predictions on new data.", example: "A random forest model trained to predict crop yields from satellite imagery.", source: "Hastie et al. (2009)" },
+            { term: "Inference", category: "foundations", definition: "Using a trained model to make predictions on new, unseen data. The deployment phase after training.", example: "Running the poverty model on new census data to identify eligible households.", source: "Murphy (2012)" },
+            { term: "API (Application Programming Interface)", category: "foundations", definition: "A way for software systems to communicate. AI APIs allow applications to use AI capabilities without building models from scratch.", example: "Using Google's Speech API for voice-to-text in mobile surveys.", source: "Fielding (2000)" },
+            
+            // Machine Learning (8 terms)
+            { term: "Supervised Learning", category: "ml", definition: "ML where the model learns from labeled examples (input-output pairs). The most common type in development applications.", example: "Training a model on households labeled 'poor' or 'non-poor' to predict poverty status.", source: "Bishop (2006)" },
+            { term: "Unsupervised Learning", category: "ml", definition: "ML where the model finds patterns in unlabeled data. Useful for exploration and clustering.", example: "Clustering beneficiaries into groups based on similar characteristics without predefined categories.", source: "Bishop (2006)" },
+            { term: "Classification", category: "ml", definition: "Predicting which category an observation belongs to. Binary (yes/no) or multi-class.", example: "Classifying whether a household is eligible (yes/no) for a social protection program.", source: "James et al. (2013)" },
+            { term: "Regression", category: "ml", definition: "Predicting a continuous numerical value rather than a category.", example: "Predicting household income or consumption expenditure from survey variables.", source: "James et al. (2013)" },
+            { term: "Feature Engineering", category: "ml", definition: "Creating input variables (features) from raw data that help the model learn. Often requires domain expertise.", example: "Creating a 'roof material score' from multiple housing quality indicators.", source: "Kuhn & Johnson (2013)" },
+            { term: "Overfitting", category: "ml", definition: "When a model learns the training data too well, including noise, and fails to generalize to new data.", example: "A model that perfectly predicts poverty in the training district but fails in other districts.", source: "Hastie et al. (2009)" },
+            { term: "Cross-Validation", category: "ml", definition: "A technique to assess how well a model generalizes by testing on held-out portions of the data.", example: "Testing the targeting model on 20% of data not used for training.", source: "Hastie et al. (2009)" },
+            { term: "Random Forest", category: "ml", definition: "An ensemble ML method that builds many decision trees and combines their predictions. Popular for its accuracy and interpretability.", example: "A random forest model for PMT-style poverty targeting.", source: "Breiman (2001)" },
+            
+            // Computer Vision (7 terms)
+            { term: "Computer Vision", category: "cv", definition: "AI that extracts information from images and videos. Enables analysis of satellite imagery, photos, and documents.", example: "Extracting building footprints from satellite images to estimate population density.", source: "Szeliski (2010)" },
+            { term: "Convolutional Neural Network (CNN)", category: "cv", definition: "A type of deep learning architecture designed for image processing. The backbone of most modern computer vision.", example: "A CNN that classifies land cover types from Landsat imagery.", source: "LeCun et al. (1998)" },
+            { term: "Transfer Learning", category: "cv", definition: "Using a model trained on one task as the starting point for a different but related task. Reduces data requirements.", example: "Using a model trained on ImageNet to extract features from satellite images for poverty prediction.", source: "Pan & Yang (2010)" },
+            { term: "Object Detection", category: "cv", definition: "Identifying and locating specific objects within images. Goes beyond classification to find where objects are.", example: "Detecting rooftops in satellite imagery to count buildings.", source: "Redmon et al. (2016)" },
+            { term: "Satellite Imagery", category: "cv", definition: "Images captured by satellites orbiting Earth. Key data source for remote monitoring in development.", example: "Sentinel-2 imagery for agricultural monitoring; nighttime lights for economic activity.", source: "Jean et al. (2016)" },
+            { term: "Resolution (Spatial)", category: "cv", definition: "The size of the smallest distinguishable feature in an image. Higher resolution = more detail but more cost.", example: "10m resolution (Sentinel) can see fields; 30cm resolution (commercial) can see individual houses.", source: "Jensen (2015)" },
+            { term: "Nighttime Lights", category: "cv", definition: "Satellite imagery of artificial light at night. Proxy for economic activity and electrification.", example: "DMSP and VIIRS nighttime lights used in poverty prediction models.", source: "Henderson et al. (2012)" },
+            
+            // NLP (8 terms)
+            { term: "Natural Language Processing (NLP)", category: "nlp", definition: "AI that processes and understands human language. Enables analysis of text data at scale.", example: "Analyzing thousands of open-ended survey responses to identify common themes.", source: "Jurafsky & Martin (2020)" },
+            { term: "Tokenization", category: "nlp", definition: "Breaking text into smaller units (tokens) like words or subwords. The first step in most NLP pipelines.", example: "Splitting 'food security' into tokens ['food', 'security'] for analysis.", source: "Manning & Schütze (1999)" },
+            { term: "Sentiment Analysis", category: "nlp", definition: "Determining the emotional tone (positive, negative, neutral) of text. Common in feedback analysis.", example: "Classifying beneficiary feedback messages as satisfied or dissatisfied.", source: "Liu (2012)" },
+            { term: "Topic Modeling", category: "nlp", definition: "Discovering abstract topics in a collection of documents. Useful for exploring large text datasets.", example: "Finding that beneficiary complaints cluster around 'delays', 'staff behavior', and 'eligibility'.", source: "Blei et al. (2003)" },
+            { term: "Named Entity Recognition (NER)", category: "nlp", definition: "Identifying and classifying named entities (people, places, organizations) in text.", example: "Extracting location names from incident reports for geographic mapping.", source: "Nadeau & Sekine (2007)" },
+            { term: "Large Language Model (LLM)", category: "nlp", definition: "AI models trained on massive text datasets that can generate and understand text. GPT, Claude, Llama.", example: "Using an LLM to draft reports from structured data or answer questions about documents.", source: "Brown et al. (2020)" },
+            { term: "Embedding", category: "nlp", definition: "Representing words or documents as numerical vectors that capture semantic meaning.", example: "Converting survey responses to embeddings for clustering similar responses.", source: "Mikolov et al. (2013)" },
+            { term: "Code-Switching", category: "nlp", definition: "Mixing languages within a conversation or sentence. Common in multilingual contexts and challenging for NLP.", example: "A response mixing Hindi and English: 'Bahut accha service mila, very helpful staff'.", source: "Sitaram et al. (2019)" },
+            
+            // Data Infrastructure (7 terms)
+            { term: "Data Pipeline", category: "data", definition: "The automated flow of data from collection through processing to storage and analysis.", example: "Survey data flowing from tablets → cloud storage → cleaning scripts → analysis dashboard.", source: "Kleppmann (2017)" },
+            { term: "Data Lake", category: "data", definition: "A storage repository holding raw data in native format until needed. Flexible but can become a 'data swamp'.", example: "Storing all program data (surveys, photos, GPS) in one repository for future analysis.", source: "Inmon (2016)" },
+            { term: "ETL (Extract, Transform, Load)", category: "data", definition: "The process of extracting data from sources, transforming it into usable format, and loading into a destination.", example: "Daily ETL job that pulls survey data, cleans it, and updates the monitoring dashboard.", source: "Kimball & Ross (2013)" },
+            { term: "Data Quality", category: "data", definition: "The degree to which data is accurate, complete, consistent, and timely. The foundation for any AI application.", example: "Checking for duplicates, impossible values, and missing fields before training a model.", source: "Redman (1996)" },
+            { term: "Interoperability", category: "data", definition: "The ability of different systems to exchange and use data. Critical for integrating multiple data sources.", example: "Linking beneficiary data from health, education, and social protection systems.", source: "IEEE (1990)" },
+            { term: "Data Dictionary", category: "data", definition: "Documentation describing data elements: definitions, formats, allowed values, relationships.", example: "A document specifying that 'age' is an integer between 0-120, 'gender' is coded 1/2/3.", source: "Redman (1996)" },
+            { term: "Ground Truth", category: "data", definition: "Verified, accurate data used to train or validate models. The 'correct answers' that models learn from.", example: "Household-level poverty status from a gold-standard consumption survey.", source: "Foody (2002)" },
+            
+            // Ethics & Bias (8 terms)
+            { term: "Algorithmic Bias", category: "ethics", definition: "Systematic errors in AI systems that create unfair outcomes for certain groups. Can arise from biased data or model design.", example: "A targeting model that systematically excludes female-headed households due to training data gaps.", source: "Mehrabi et al. (2021)" },
+            { term: "Fairness", category: "ethics", definition: "The principle that AI systems should treat individuals and groups equitably. Multiple mathematical definitions exist and can conflict.", example: "Should the model have equal accuracy across ethnic groups, or equal selection rates?", source: "Chouldechova (2017)" },
+            { term: "Explainability", category: "ethics", definition: "The ability to understand and explain how an AI system makes decisions. Important for accountability.", example: "Being able to tell a rejected applicant why they were not selected for a program.", source: "Molnar (2020)" },
+            { term: "Data Sovereignty", category: "ethics", definition: "The principle that communities should control data about themselves. Challenges extractive data practices.", example: "Indigenous data sovereignty frameworks requiring community consent for data use.", source: "Kukutai & Taylor (2016)" },
+            { term: "Informed Consent", category: "ethics", definition: "Agreement to participate based on clear understanding of how data will be used. Challenging in low-literacy contexts.", example: "Ensuring beneficiaries understand that their data will be used for targeting before collecting.", source: "Beauchamp & Childress (2019)" },
+            { term: "Privacy", category: "ethics", definition: "The right to control personal information. AI systems can threaten privacy through inference and aggregation.", example: "Even without names, combining location + demographics can re-identify individuals.", source: "Nissenbaum (2009)" },
+            { term: "Accountability", category: "ethics", definition: "Responsibility for AI system outcomes. Requires clear governance structures and redress mechanisms.", example: "Who is responsible when an algorithm wrongly denies someone food rations?", source: "Diakopoulos (2016)" },
+            { term: "Exclusion Error", category: "ethics", definition: "When eligible individuals are wrongly excluded from a program. Often more harmful than inclusion errors.", example: "A poor household denied benefits because the algorithm predicted them as non-poor.", source: "Coady et al. (2004)" },
+            
+            // M&E Methods (7 terms)
+            { term: "Proxy Means Test (PMT)", category: "methods", definition: "A targeting method that predicts poverty using observable household characteristics (assets, housing) as proxies for income.", example: "A formula scoring households based on roof material, water source, and asset ownership.", source: "Grosh et al. (2008)" },
+            { term: "Randomized Controlled Trial (RCT)", category: "methods", definition: "The gold standard for causal inference. Random assignment ensures treatment and control groups are comparable.", example: "Randomly assigning villages to receive cash transfers vs. not to measure impact.", source: "Duflo et al. (2007)" },
+            { term: "Causal Inference", category: "methods", definition: "Methods for determining whether X causes Y, not just correlates with it. Essential for understanding impact.", example: "Does the program reduce poverty, or do non-poor households self-select into it?", source: "Angrist & Pischke (2009)" },
+            { term: "Heterogeneity", category: "methods", definition: "Variation in treatment effects across different subgroups. ML can help identify who benefits most.", example: "Cash transfers may have larger effects for female-headed households than male-headed ones.", source: "Athey & Imbens (2016)" },
+            { term: "Treatment Effect", category: "methods", definition: "The causal impact of an intervention. Average Treatment Effect (ATE) is the mean impact across all recipients.", example: "The average increase in consumption caused by receiving the cash transfer.", source: "Rubin (1974)" },
+            { term: "Counterfactual", category: "methods", definition: "What would have happened without the intervention. The fundamental challenge in impact evaluation.", example: "What would beneficiaries' income be if they had not received the program?", source: "Lewis (1973)" },
+            { term: "External Validity", category: "methods", definition: "Whether findings from one context generalize to other contexts. A key concern when applying research evidence.", example: "Does a successful intervention in Kenya work in Bangladesh?", source: "Campbell & Stanley (1963)" },
+            
+            // Implementation (7 terms)
+            { term: "Pilot", category: "implementation", definition: "A small-scale test of an intervention or technology before full rollout. Allows learning and iteration.", example: "Testing the AI targeting system in 5 villages before scaling to 500.", source: "Rogers (2003)" },
+            { term: "Scalability", category: "implementation", definition: "The ability of a system to handle growth in users, data, or scope without proportional increase in cost.", example: "Can the satellite-based monitoring system scale from 100 to 10,000 villages?", source: "Hill (2010)" },
+            { term: "Sustainability", category: "implementation", definition: "Whether an intervention or system can continue after initial funding ends. Requires local ownership and capacity.", example: "Who maintains the AI dashboard after the consultant contract ends?", source: "Scheirer (2005)" },
+            { term: "Capacity Building", category: "implementation", definition: "Developing skills, processes, and resources within an organization to perform functions independently.", example: "Training local staff to interpret AI outputs and troubleshoot data quality issues.", source: "UNDP (2009)" },
+            { term: "Human-in-the-Loop", category: "implementation", definition: "AI systems that keep humans involved in decision-making rather than fully automating. Essential for high-stakes contexts.", example: "AI flags potential fraud cases; humans investigate before taking action.", source: "Amershi et al. (2014)" },
+            { term: "Model Drift", category: "implementation", definition: "Degradation of model performance over time as real-world conditions change from training conditions.", example: "A poverty model trained in 2015 becoming less accurate as economic conditions change.", source: "Lu et al. (2018)" },
+            { term: "Technical Debt", category: "implementation", definition: "Accumulated cost of quick fixes and shortcuts in technology systems. Grows over time if not addressed.", example: "Manual data cleaning workarounds that become unsustainable as data volume grows.", source: "Cunningham (1992)" }
+        ];
+        
+        const categoryInfo = {
+            foundations: { name: "AI Foundations", color: "var(--cat-foundations)" },
+            ml: { name: "Machine Learning", color: "var(--cat-ml)" },
+            cv: { name: "Computer Vision", color: "var(--cat-cv)" },
+            nlp: { name: "NLP", color: "var(--cat-nlp)" },
+            data: { name: "Data Infrastructure", color: "var(--cat-data)" },
+            ethics: { name: "Ethics & Bias", color: "var(--cat-ethics)" },
+            methods: { name: "M&E Methods", color: "var(--cat-methods)" },
+            implementation: { name: "Implementation", color: "var(--cat-implementation)" }
+        };
+        
+        let activeCategory = 'all';
+        let searchQuery = '';
+        let expandedCard = null;
+        
+        function filterTerms() {
+            return lexiconData.filter(item => {
+                const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
+                const matchesSearch = searchQuery === '' || 
+                    item.term.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    item.definition.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+        }
+        
+        function renderTerms() {
+            const container = document.getElementById('termsContainer');
+            const filteredTerms = filterTerms();
+            
+            document.getElementById('visibleCount').textContent = filteredTerms.length;
+            
+            if (filteredTerms.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <h3>No terms found</h3>
+                        <p>Try adjusting your search or category filter.</p>
+                    </div>`;
+                return;
+            }
+            
+            const groupedTerms = {};
+            filteredTerms.forEach(item => {
+                if (!groupedTerms[item.category]) groupedTerms[item.category] = [];
+                groupedTerms[item.category].push(item);
+            });
+            
+            let html = '';
+            Object.keys(categoryInfo).forEach(cat => {
+                if (!groupedTerms[cat]) return;
+                
+                const info = categoryInfo[cat];
+                html += `
+                    <section class="category-section" data-category="${cat}">
+                        <div class="category-header">
+                            <div class="category-badge" style="background: ${info.color}"></div>
+                            <h2>${info.name}</h2>
+                            <span class="category-count">${groupedTerms[cat].length} terms</span>
+                        </div>
+                        <div class="terms-grid">
+                            ${groupedTerms[cat].map((item, idx) => `
+                                <div class="term-card" data-index="${cat}-${idx}" onclick="toggleCard(this)">
+                                    <div class="term-header">
+                                        <div class="term-indicator" style="background: ${info.color}"></div>
+                                        <div class="term-title">${item.term}</div>
+                                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Add_circle.svg" class="term-expand" alt="">
+                                    </div>
+                                    <div class="term-definition">${item.definition}</div>
+                                    <div class="term-details">
+                                        <div class="term-example">
+                                            <div class="term-example-label">Example in Development Context</div>
+                                            <p>${item.example}</p>
+                                        </div>
+                                        <div class="term-source">Source: ${item.source}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>`;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function toggleCard(card) {
+            const wasExpanded = card.classList.contains('expanded');
+            
+            document.querySelectorAll('.term-card.expanded').forEach(c => c.classList.remove('expanded'));
+            
+            if (!wasExpanded) {
+                card.classList.add('expanded');
+            }
+        }
+        
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderTerms();
+        });
+        
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeCategory = btn.dataset.category;
+                renderTerms();
+            });
+        });
+        
+        const themeToggle = document.getElementById('themeToggle');
+        function getPreferredTheme() {
+            const saved = localStorage.getItem('theme');
+            if (saved) return saved;
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+        setTheme(getPreferredTheme());
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        });
+        
+        renderTerms();
+    </script>
+</body>
+</html>
