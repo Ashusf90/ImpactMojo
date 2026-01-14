@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization Lexicon | ImpactMojo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #10B981;
+            --primary-dark: #059669;
+            --primary-light: #D1FAE5;
+            --secondary: #0EA5E9;
+            --accent: #8B5CF6;
+            --warning: #F59E0B;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text: #1E293B;
+            --text-secondary: #64748B;
+            --border: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .stat strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Search and Filters */
+        .controls {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: white;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            color: var(--text-secondary);
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: white;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Cards Grid */
+        .cards-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            gap: 1rem;
+        }
+
+        .term {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .original {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 0.25rem;
+        }
+
+        .category {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+
+        /* Category Colors */
+        .cat-principles { background: #DBEAFE; color: #1E40AF; }
+        .cat-charts { background: #F3E8FF; color: #6B21A8; }
+        .cat-perception { background: #FCE7F3; color: #9D174D; }
+        .cat-data { background: #D1FAE5; color: #065F46; }
+        .cat-design { background: #FEF3C7; color: #92400E; }
+        .cat-tools { background: #E0E7FF; color: #3730A3; }
+        .cat-statistical { background: #CCFBF1; color: #115E59; }
+        .cat-accessibility { background: #FEE2E2; color: #991B1B; }
+
+        .definition {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            line-height: 1.65;
+        }
+
+        .example {
+            background: linear-gradient(135deg, var(--primary-light) 0%, rgba(14, 165, 233, 0.1) 100%);
+            border-left: 3px solid var(--primary);
+            padding: 0.75rem 1rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .example-label {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .sources {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .sources strong {
+            color: var(--text);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: var(--primary-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-bar {
+                gap: 1rem;
+            }
+            
+            .stat {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* No results */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .no-results h3 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Back to Course
+            </a>
+            <h1>📊 Data Visualization Lexicon</h1>
+            <p>Essential concepts for communicating data effectively</p>
+        </div>
+    </header>
+
+    <div class="stats-bar">
+        <div class="stat">
+            <strong id="totalTerms">58</strong> Terms
+        </div>
+        <div class="stat">
+            <strong>8</strong> Categories
+        </div>
+        <div class="stat">
+            <strong id="visibleTerms">58</strong> Showing
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <input type="text" id="searchInput" placeholder="Search terms, definitions, or examples...">
+        </div>
+        <div class="filters">
+            <button class="filter-btn active" data-category="all">All Categories</button>
+            <button class="filter-btn" data-category="principles">Principles</button>
+            <button class="filter-btn" data-category="charts">Chart Types</button>
+            <button class="filter-btn" data-category="perception">Perception</button>
+            <button class="filter-btn" data-category="data">Data & Stats</button>
+            <button class="filter-btn" data-category="design">Design</button>
+            <button class="filter-btn" data-category="tools">Tools</button>
+            <button class="filter-btn" data-category="statistical">Statistical Graphics</button>
+            <button class="filter-btn" data-category="accessibility">Accessibility</button>
+        </div>
+    </div>
+
+    <div class="cards-container">
+        <div class="cards-grid" id="cardsGrid"></div>
+        <div class="no-results" id="noResults" style="display: none;">
+            <h3>No terms found</h3>
+            <p>Try adjusting your search or filter criteria</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Part of <a href="index.html">Seeing Data: Visualization for Impact</a></p>
+        <p style="margin-top: 0.5rem; opacity: 0.7; font-size: 0.85rem;">© 2025 ImpactMojo | CC-BY-4.0</p>
+    </footer>
+
+    <script>
+        const LEXICON = [
+            // Visualization Principles
+            { term: "Data-Ink Ratio", original: "", category: "Visualization Principles", categoryClass: "cat-principles", definition: "The proportion of ink devoted to displaying actual data versus non-data elements. Tufte advocates maximizing this ratio by removing chartjunk and redundant elements.", example: "Removing gridlines, background colors, and 3D effects from a bar chart increases the data-ink ratio, making the data more prominent.", sources: "Tufte (1983) The Visual Display of Quantitative Information" },
+            { term: "Chartjunk", original: "", category: "Visualization Principles", categoryClass: "cat-principles", definition: "Unnecessary or distracting visual elements that don't convey data—including excessive gridlines, decorative graphics, and gratuitous 3D effects.", example: "A pie chart with shadows, bevels, and explosion effects contains chartjunk that obscures the actual proportions.", sources: "Tufte (1983)" },
+            { term: "Lie Factor", original: "", category: "Visualization Principles", categoryClass: "cat-principles", definition: "The ratio of the size of an effect shown in a graphic to the size of the effect in the data. A lie factor of 1 is accurate; above 1 exaggerates, below 1 understates.", example: "If GDP doubles but the graphic shows a bar 4x taller, the lie factor is 2.0—a significant distortion.", sources: "Tufte (1983)" },
+            { term: "Small Multiples", original: "", category: "Visualization Principles", categoryClass: "cat-principles", definition: "A series of similar charts using the same scale and axes, allowing comparison across different categories or time periods.", example: "Showing literacy rates for 10 states as 10 identical line charts side-by-side enables easy comparison of trends.", sources: "Tufte (1990) Envisioning Information" },
+            { term: "Sparklines", original: "", category: "Visualization Principles", categoryClass: "cat-principles", definition: "Small, word-sized graphics embedded in text or tables, showing trends without axes or labels.", example: "Embedding tiny line charts next to each country's name in a table shows GDP trends at a glance.", sources: "Tufte (2006) Beautiful Evidence" },
+            { term: "Graphical Integrity", original: "", category: "Visualization Principles", categoryClass: "cat-principles", definition: "The principle that visual representation should accurately reflect the underlying data without distortion or deception.", example: "Using a zero baseline for bar charts maintains graphical integrity; truncating the y-axis can mislead.", sources: "Tufte (1983)" },
+            { term: "Information Density", original: "", category: "Visualization Principles", categoryClass: "cat-principles", definition: "The amount of data conveyed per unit of space in a visualization. High-quality graphics often have high information density.", example: "A well-designed dashboard displaying 20 metrics in one view has high information density while remaining readable.", sources: "Tufte (1990)" },
+
+            // Chart Types
+            { term: "Scatter Plot", original: "", category: "Chart Types", categoryClass: "cat-charts", definition: "A chart using Cartesian coordinates to display values for two variables, with each point representing an observation.", example: "Plotting GDP per capita vs. life expectancy for 150 countries reveals the Preston Curve relationship.", sources: "Cleveland (1994) The Elements of Graphing Data" },
+            { term: "Choropleth Map", original: "", category: "Chart Types", categoryClass: "cat-charts", definition: "A thematic map where geographic areas are shaded in proportion to a statistical variable.", example: "A map of India with districts colored by child stunting rates reveals spatial patterns of malnutrition.", sources: "Slocum et al. (2009) Thematic Cartography" },
+            { term: "Treemap", original: "", category: "Chart Types", categoryClass: "cat-charts", definition: "A visualization displaying hierarchical data as nested rectangles, where size represents a quantitative variable.", example: "Showing government budget allocation where rectangle size indicates spending amount for each department.", sources: "Shneiderman (1992)" },
+            { term: "Sankey Diagram", original: "", category: "Chart Types", categoryClass: "cat-charts", definition: "A flow diagram where arrow width represents flow quantity, commonly used for energy, money, or migration flows.", example: "Visualizing migration flows between countries, with thicker arrows indicating larger migrant populations.", sources: "Schmidt (2008)" },
+            { term: "Slope Chart", original: "", category: "Chart Types", categoryClass: "cat-charts", definition: "A line chart connecting two time points, emphasizing the change and ranking shift between periods.", example: "Comparing HDI rankings of South Asian countries between 2000 and 2020 using connected dots.", sources: "Tufte (1983)" },
+            { term: "Bump Chart", original: "", category: "Chart Types", categoryClass: "cat-charts", definition: "A chart showing how rankings change over time, with lines connecting each entity's position across periods.", example: "Tracking how the top 10 export commodities' rankings changed over a decade.", sources: "Cairo (2016) The Truthful Art" },
+            { term: "Waffle Chart", original: "", category: "Chart Types", categoryClass: "cat-charts", definition: "A grid of squares (usually 100) where filled squares represent proportions, an alternative to pie charts.", example: "Showing that 23 out of 100 squares are filled to represent 23% female parliamentarians.", sources: "Kosara & Skau (2016)" },
+            { term: "Dot Plot", original: "", category: "Chart Types", categoryClass: "cat-charts", definition: "A chart displaying individual data points along a single axis, useful for showing distributions or comparing categories.", example: "Showing vaccination rates for 30 districts as dots along a horizontal axis.", sources: "Cleveland (1994)" },
+
+            // Perception & Cognition
+            { term: "Pre-attentive Attributes", original: "", category: "Perception & Cognition", categoryClass: "cat-perception", definition: "Visual properties processed by the brain almost instantaneously (<250ms) without conscious effort—including color, size, position, and orientation.", example: "A single red dot among blue dots 'pops out' instantly due to pre-attentive color processing.", sources: "Ware (2012) Information Visualization" },
+            { term: "Gestalt Principles", original: "", category: "Perception & Cognition", categoryClass: "cat-perception", definition: "Perceptual laws describing how humans group visual elements—including proximity, similarity, continuity, closure, and enclosure.", example: "Points close together in a scatter plot are perceived as a cluster due to the proximity principle.", sources: "Koffka (1935); Ware (2012)" },
+            { term: "Change Blindness", original: "", category: "Perception & Cognition", categoryClass: "cat-perception", definition: "The failure to notice changes in a visual scene when attention is directed elsewhere or during visual disruption.", example: "Viewers may miss a sudden shift in chart data if distracted by animated transitions.", sources: "Simons & Rensink (2005)" },
+            { term: "Visual Hierarchy", original: "", category: "Perception & Cognition", categoryClass: "cat-perception", definition: "The arrangement of elements to guide the viewer's eye through information in order of importance.", example: "Making the title largest, key numbers bold, and footnotes small creates clear hierarchy.", sources: "Few (2012) Show Me the Numbers" },
+            { term: "Color Perception", original: "", category: "Perception & Cognition", categoryClass: "cat-perception", definition: "How humans perceive and interpret colors, including limitations like color blindness affecting ~8% of males.", example: "Using red-green color schemes excludes colorblind users; blue-orange is more accessible.", sources: "Brewer (1994); Stone (2006)" },
+            { term: "Weber's Law", original: "", category: "Perception & Cognition", categoryClass: "cat-perception", definition: "The principle that the just-noticeable difference between stimuli is proportional to their magnitude.", example: "Distinguishing between bars of 100 and 105 pixels is harder than between 10 and 15 pixels.", sources: "Cleveland & McGill (1984)" },
+            { term: "Encoding Accuracy", original: "", category: "Perception & Cognition", categoryClass: "cat-perception", definition: "How precisely humans can decode different visual encodings. Position is most accurate, followed by length, angle, and area.", example: "Bar charts (using position/length) enable more accurate comparisons than pie charts (using angle/area).", sources: "Cleveland & McGill (1984)" },
+
+            // Data Transformation
+            { term: "Normalization", original: "", category: "Data & Statistics", categoryClass: "cat-data", definition: "Transforming data to a common scale, often to enable comparison across different units or magnitudes.", example: "Converting GDP to GDP per capita normalizes for population size, enabling fair country comparisons.", sources: "Few (2009)" },
+            { term: "Binning", original: "", category: "Data & Statistics", categoryClass: "cat-data", definition: "Grouping continuous data into discrete intervals (bins) for visualization in histograms or choropleth maps.", example: "Grouping income into $0-10k, $10-20k, $20-50k, $50k+ bins for a choropleth map.", sources: "Wilkinson (2005) The Grammar of Graphics" },
+            { term: "Aggregation", original: "", category: "Data & Statistics", categoryClass: "cat-data", definition: "Combining multiple data points into summary statistics like sums, means, or counts.", example: "Aggregating daily COVID cases to weekly totals smooths out day-of-week reporting effects.", sources: "Munzner (2014) Visualization Analysis and Design" },
+            { term: "Outliers", original: "", category: "Data & Statistics", categoryClass: "cat-data", definition: "Data points significantly different from other observations, which can distort scales or reveal important anomalies.", example: "Luxembourg's GDP per capita is an outlier that compresses the scale for other European countries.", sources: "Tukey (1977)" },
+            { term: "Missing Data", original: "", category: "Data & Statistics", categoryClass: "cat-data", definition: "Absent values in a dataset that must be handled carefully—shown explicitly, imputed, or excluded with documentation.", example: "Showing gaps in a time series rather than interpolating reveals actual data availability.", sources: "Little & Rubin (2019)" },
+            { term: "Data Types", original: "", category: "Data & Statistics", categoryClass: "cat-data", definition: "Categories of data including nominal (categories), ordinal (ranked), interval (equal spacing), and ratio (true zero).", example: "Income is ratio data; education level is ordinal; country names are nominal—each requires different visual encodings.", sources: "Stevens (1946); Munzner (2014)" },
+            { term: "Log Scale", original: "", category: "Data & Statistics", categoryClass: "cat-data", definition: "A scale where equal distances represent equal ratios rather than equal differences, useful for data spanning orders of magnitude.", example: "Plotting COVID cases on a log scale reveals whether growth is exponential (straight line) or slowing.", sources: "Cleveland (1994)" },
+
+            // Design & Storytelling
+            { term: "Annotation", original: "", category: "Design & Storytelling", categoryClass: "cat-design", definition: "Text, lines, or markers added to highlight key points, explain context, or guide interpretation of a visualization.", example: "Labeling 'Lockdown begins' on a time series helps readers understand a sudden change in trend.", sources: "Cairo (2016)" },
+            { term: "Scrollytelling", original: "", category: "Design & Storytelling", categoryClass: "cat-design", definition: "A narrative technique where visualizations update or animate as users scroll through a story.", example: "The NYT's 'Snow Fall' pioneered scrollytelling; now common for data-driven longform journalism.", sources: "Segel & Heer (2010)" },
+            { term: "Narrative Arc", original: "", category: "Design & Storytelling", categoryClass: "cat-design", definition: "The structure of a data story with beginning (context), middle (tension/insight), and end (resolution/call to action).", example: "Starting with 'Poverty is falling' (hook), showing where it isn't (tension), proposing solutions (resolution).", sources: "Knaflic (2015) Storytelling with Data" },
+            { term: "Exploratory vs. Explanatory", original: "", category: "Design & Storytelling", categoryClass: "cat-design", definition: "Exploratory visualizations help analysts discover patterns; explanatory ones communicate specific findings to audiences.", example: "A dashboard for internal analysis is exploratory; a final report chart is explanatory.", sources: "Knaflic (2015)" },
+            { term: "Call to Action", original: "", category: "Design & Storytelling", categoryClass: "cat-design", definition: "The recommended response or next step that a visualization is designed to elicit from its audience.", example: "'Donate now' or 'Contact your representative' following a visualization of humanitarian needs.", sources: "Knaflic (2015)" },
+            { term: "Chart Title", original: "", category: "Design & Storytelling", categoryClass: "cat-design", definition: "The headline of a visualization—should communicate the main insight, not just describe the data.", example: "'Maternal mortality halved since 2000' is more effective than 'Maternal mortality rate, 2000-2020'.", sources: "Schwabish (2021) Better Data Visualizations" },
+            { term: "White Space", original: "Negative Space", category: "Design & Storytelling", categoryClass: "cat-design", definition: "Empty areas in a design that provide visual breathing room and help organize elements.", example: "Adding margins between chart elements improves readability and reduces cognitive load.", sources: "Few (2012)" },
+
+            // Tools & Technology
+            { term: "D3.js", original: "Data-Driven Documents", category: "Tools & Technology", categoryClass: "cat-tools", definition: "A JavaScript library for creating custom, interactive data visualizations in web browsers using SVG, HTML, and CSS.", example: "The New York Times and The Guardian use D3.js for their interactive graphics.", sources: "Bostock et al. (2011)" },
+            { term: "SVG", original: "Scalable Vector Graphics", category: "Tools & Technology", categoryClass: "cat-tools", definition: "An XML-based vector image format for two-dimensional graphics that scales without losing quality.", example: "Charts exported as SVG remain crisp at any size, unlike pixel-based formats like PNG.", sources: "W3C" },
+            { term: "ggplot2", original: "", category: "Tools & Technology", categoryClass: "cat-tools", definition: "An R package implementing the Grammar of Graphics, enabling layered construction of statistical graphics.", example: "ggplot2 code builds charts layer by layer: data + aesthetics + geoms + scales + themes.", sources: "Wickham (2016)" },
+            { term: "Observable", original: "", category: "Tools & Technology", categoryClass: "cat-tools", definition: "A web-based platform for creating and sharing interactive data visualizations using JavaScript notebooks.", example: "Observable notebooks allow live coding where changes update visualizations in real-time.", sources: "Observable Inc." },
+            { term: "Tableau", original: "", category: "Tools & Technology", categoryClass: "cat-tools", definition: "A commercial business intelligence platform for creating interactive dashboards without programming.", example: "Nonprofits use Tableau Public to share interactive visualizations of their impact data.", sources: "Tableau Software" },
+            { term: "Grammar of Graphics", original: "", category: "Tools & Technology", categoryClass: "cat-tools", definition: "A theoretical framework decomposing graphics into components: data, aesthetics, geometries, facets, statistics, coordinates, and themes.", example: "ggplot2, Vega-Lite, and Altair all implement the Grammar of Graphics approach.", sources: "Wilkinson (2005)" },
+            { term: "Canvas vs. SVG", original: "", category: "Tools & Technology", categoryClass: "cat-tools", definition: "Two web technologies for rendering graphics: Canvas is pixel-based and fast for many elements; SVG is vector-based and interactive.", example: "Use Canvas for 100,000+ point scatter plots; use SVG for interactive charts with tooltips.", sources: "Bostock (2017)" },
+
+            // Statistical Graphics
+            { term: "Box Plot", original: "Box-and-Whisker Plot", category: "Statistical Graphics", categoryClass: "cat-statistical", definition: "A chart showing distribution through five summary statistics: minimum, first quartile, median, third quartile, and maximum.", example: "Comparing income distributions across states using side-by-side box plots reveals medians and spreads.", sources: "Tukey (1977) Exploratory Data Analysis" },
+            { term: "Violin Plot", original: "", category: "Statistical Graphics", categoryClass: "cat-statistical", definition: "A chart combining a box plot with a kernel density plot, showing the full distribution shape.", example: "Violin plots reveal bimodal income distributions that box plots would miss.", sources: "Hintze & Nelson (1998)" },
+            { term: "Confidence Interval", original: "", category: "Statistical Graphics", categoryClass: "cat-statistical", definition: "A range of values likely to contain the true population parameter, visualized as error bars or bands.", example: "Showing 95% confidence intervals around survey estimates conveys uncertainty.", sources: "Cumming & Finch (2005)" },
+            { term: "Regression Line", original: "Line of Best Fit", category: "Statistical Graphics", categoryClass: "cat-statistical", definition: "A line fitted to scatter plot data showing the predicted relationship between variables.", example: "Adding a regression line to GDP vs. CO2 scatter plot shows the overall positive relationship.", sources: "Cleveland (1994)" },
+            { term: "Histogram", original: "", category: "Statistical Graphics", categoryClass: "cat-statistical", definition: "A chart showing frequency distribution of continuous data using adjacent bars whose heights represent counts in each bin.", example: "A histogram of household incomes reveals whether the distribution is normal or skewed.", sources: "Freedman et al. (2007)" },
+            { term: "Density Plot", original: "Kernel Density Estimate", category: "Statistical Graphics", categoryClass: "cat-statistical", definition: "A smoothed version of a histogram showing the probability density function of a continuous variable.", example: "Overlaying density plots for male and female wages reveals distributional differences.", sources: "Silverman (1986)" },
+            { term: "Q-Q Plot", original: "Quantile-Quantile Plot", category: "Statistical Graphics", categoryClass: "cat-statistical", definition: "A chart comparing two probability distributions by plotting their quantiles against each other.", example: "A Q-Q plot against a normal distribution reveals whether data is normally distributed.", sources: "Wilk & Gnanadesikan (1968)" },
+            { term: "Error Bars", original: "", category: "Statistical Graphics", categoryClass: "cat-statistical", definition: "Lines extending from data points indicating variability or uncertainty, often showing standard deviation or confidence intervals.", example: "Adding error bars to mean income by education level shows within-group variation.", sources: "Cumming & Finch (2005)" },
+
+            // Accessibility
+            { term: "Color Blindness", original: "Color Vision Deficiency", category: "Accessibility", categoryClass: "cat-accessibility", definition: "Reduced ability to distinguish certain colors, affecting ~8% of males and ~0.5% of females, requiring accessible color choices.", example: "Using ColorBrewer palettes designed for colorblind viewers ensures charts are accessible.", sources: "Brewer (2003)" },
+            { term: "Alt Text", original: "Alternative Text", category: "Accessibility", categoryClass: "cat-accessibility", definition: "Descriptive text for images that screen readers can read aloud to visually impaired users.", example: "'Bar chart showing India's GDP growth increasing from 5% in 2010 to 7% in 2019'.", sources: "W3C WCAG" },
+            { term: "Color Contrast", original: "", category: "Accessibility", categoryClass: "cat-accessibility", definition: "The difference in luminance between foreground and background colors, with minimum ratios required for accessibility.", example: "WCAG requires 4.5:1 contrast ratio for normal text—light gray on white fails this test.", sources: "W3C WCAG 2.1" },
+            { term: "Semantic HTML", original: "", category: "Accessibility", categoryClass: "cat-accessibility", definition: "Using meaningful HTML elements (headings, lists, tables) that convey structure to assistive technologies.", example: "Using <table> for data tables rather than <div> elements helps screen readers navigate.", sources: "W3C" },
+            { term: "Keyboard Navigation", original: "", category: "Accessibility", categoryClass: "cat-accessibility", definition: "Ensuring all interactive elements can be accessed and operated using only a keyboard, without requiring a mouse.", example: "Users should be able to tab through chart tooltips and interact with filters using arrow keys.", sources: "W3C WCAG" },
+            { term: "ARIA Labels", original: "Accessible Rich Internet Applications", category: "Accessibility", categoryClass: "cat-accessibility", definition: "Attributes added to HTML elements to provide additional context for screen readers.", example: "Adding aria-label='Chart showing maternal mortality trends' to an SVG element.", sources: "W3C WAI-ARIA" },
+            { term: "Data Tables", original: "", category: "Accessibility", categoryClass: "cat-accessibility", definition: "Providing underlying data in table format alongside visualizations for users who cannot perceive charts.", example: "Including a 'View data table' option below every chart ensures data accessibility.", sources: "Cesal (2020) Chartability" }
+        ];
+
+        const grid = document.getElementById('cardsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const noResults = document.getElementById('noResults');
+        const visibleTermsEl = document.getElementById('visibleTerms');
+        const totalTermsEl = document.getElementById('totalTerms');
+
+        totalTermsEl.textContent = LEXICON.length;
+
+        function renderCards(terms) {
+            grid.innerHTML = '';
+            
+            if (terms.length === 0) {
+                noResults.style.display = 'block';
+                visibleTermsEl.textContent = '0';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            visibleTermsEl.textContent = terms.length;
+
+            terms.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div>
+                            <div class="term">${item.term}</div>
+                            ${item.original ? `<div class="original">${item.original}</div>` : ''}
+                        </div>
+                        <span class="category ${item.categoryClass}">${item.category}</span>
+                    </div>
+                    <p class="definition">${item.definition}</p>
+                    <div class="example">
+                        <div class="example-label">Example</div>
+                        ${item.example}
+                    </div>
+                    <div class="sources"><strong>Sources:</strong> ${item.sources}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterTerms() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.category;
+
+            let filtered = LEXICON;
+
+            if (activeFilter !== 'all') {
+                const categoryMap = {
+                    'principles': 'Visualization Principles',
+                    'charts': 'Chart Types',
+                    'perception': 'Perception & Cognition',
+                    'data': 'Data & Statistics',
+                    'design': 'Design & Storytelling',
+                    'tools': 'Tools & Technology',
+                    'statistical': 'Statistical Graphics',
+                    'accessibility': 'Accessibility'
+                };
+                filtered = filtered.filter(item => item.category === categoryMap[activeFilter]);
+            }
+
+            if (searchTerm) {
+                filtered = filtered.filter(item =>
+                    item.term.toLowerCase().includes(searchTerm) ||
+                    item.definition.toLowerCase().includes(searchTerm) ||
+                    item.example.toLowerCase().includes(searchTerm) ||
+                    (item.original && item.original.toLowerCase().includes(searchTerm))
+                );
+            }
+
+            renderCards(filtered);
+        }
+
+        searchInput.addEventListener('input', filterTerms);
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterTerms();
+            });
+        });
+
+        // Initial render
+        renderCards(LEXICON);
+    </script>
+</body>
+</html>
