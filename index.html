@@ -7417,8 +7417,10 @@ footer::before {
   .imx-heading{display:flex;align-items:baseline;gap:1rem;margin-bottom:1rem}
   .imx-kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;color:var(--text-secondary)}
   .imx-h2{font-family:Poppins,system-ui,sans-serif;font-size:1.9rem;letter-spacing:.1px;margin:.1rem 0 .1rem;background:linear-gradient(135deg,#0EA5E9,#6366F1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-  .imx-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
-  @media (max-width:1180px){ .imx-row{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))} }
+  .imx-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+  @media (max-width:1280px){ .imx-row{grid-template-columns:repeat(3,1fr)} }
+  @media (max-width:900px){ .imx-row{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:600px){ .imx-row{grid-template-columns:1fr} }
   .imx-card{display:flex;flex-direction:column;min-height:320px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:16px;padding:1rem;transition:transform .15s ease,border-color .15s ease}
   .imx-card:hover{transform:translateY(-2px);border-color:var(--accent-color)}
   .imx-card-h{display:flex;align-items:center;gap:.6rem;margin-bottom:.4rem}
@@ -14116,17 +14118,17 @@ document.addEventListener('keydown', function(e) {
 // ========================================
 IMX.DailyTip = {
     tips: [
-        "Theory of Change is not just a document""it's a living roadmap. Review and update yours quarterly as you learn what works.",
+        "Theory of Change is not just a document—it's a living roadmap. Review and update yours quarterly as you learn what works.",
         "The best M&E systems are designed WITH communities, not FOR them. Participatory approaches increase data quality and ownership.",
         "Disaggregate your data by gender, age, and location. Averages often hide who's being left behind.",
         "Qualitative data is not 'soft' data. Stories and context explain the 'why' behind the numbers.",
-        "Baseline data isn't just a requirement""it's your starting point for measuring real change. Don't skip it!",
+        "Baseline data isn't just a requirement—it's your starting point for measuring real change. Don't skip it!",
         "The Sustainable Development Goals are interconnected. Solving one problem often requires addressing multiple SDGs.",
         "Cost-effectiveness analysis helps donors compare impact across programs. Learn to calculate and communicate yours.",
         "Adaptive management means being willing to change course when evidence shows a better path.",
         "The 'Do No Harm' principle should guide every intervention. Always assess potential negative consequences.",
-        "Capacity building isn't just training""it's about creating systems that sustain after the project ends.",
-        "Mixed methods research combines the best of quantitative and qualitative""use them together for richer insights.",
+        "Capacity building isn't just training—it's about creating systems that sustain after the project ends.",
+        "Mixed methods research combines the best of quantitative and qualitative—use them together for richer insights.",
         "Randomized Controlled Trials (RCTs) are the gold standard, but not always feasible. Know your alternatives.",
         "Social accountability mechanisms empower communities to hold service providers responsible.",
         "Gender analysis should happen at design stage, not be retrofitted later.",
@@ -14141,6 +14143,13 @@ IMX.DailyTip = {
     currentIndex: 0,
     
     init: function() {
+        // Check if element exists before initializing
+        var tipEl = document.getElementById('imxDailyTipText');
+        if (!tipEl) {
+            console.warn('Daily Tip element not found. Skipping initialization.');
+            return;
+        }
+        
         // Show a tip based on the day of year for consistency
         var dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
         this.currentIndex = dayOfYear % this.tips.length;
@@ -14177,7 +14186,19 @@ IMX.DailyTip = {
 
 // Initialize daily tip on page load
 document.addEventListener('DOMContentLoaded', function() {
-    IMX.DailyTip.init();
+    // Try to initialize immediately
+    if (typeof IMX !== 'undefined' && IMX.DailyTip) {
+        IMX.DailyTip.init();
+        
+        // If element still shows "Loading tip...", retry after a brief delay
+        setTimeout(function() {
+            var tipEl = document.getElementById('imxDailyTipText');
+            if (tipEl && tipEl.textContent === 'Loading tip...') {
+                console.log('Daily Tip retry...');
+                IMX.DailyTip.init();
+            }
+        }, 500);
+    }
 });
 
 // ========================================
