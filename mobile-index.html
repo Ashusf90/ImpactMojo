@@ -2,9 +2,11 @@
 <!--
     ╔═══════════════════════════════════════════════════════════════════════════╗
     ║  IMPACTMOJO MOBILE HOMEPAGE                                               ║
-    ║  Version: 1.2.0 - December 6, 2025                                        ║
+    ║  Version: 1.3.0 - January 15, 2026                                        ║
     ║                                                                           ║
     ║  Features:                                                                ║
+    ║  - User login/logout with Supabase auth                                   ║
+    ║  - Dashboard access via header & menu                                     ║
     ║  - Team section with Varna, Vandana, Vignesh                              ║
     ║  - Support ImpactMojo section                                             ║
     ║  - Subtle single plane animation                                          ║
@@ -123,12 +125,13 @@ header {
 .nav-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 0.75rem 1rem;
     max-width: 100%;
+    gap: 8px;
 }
 
 .logo-link {
+    flex: 1;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -962,7 +965,196 @@ body.light-mode .mobile-plane {
     transform: scale(0.98);
 }
 
+/* =====================================================
+   AUTH BUTTONS IN HEADER
+   ===================================================== */
+.header-auth {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 12px;
+}
+
+.header-auth-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.header-auth-btn.login {
+    color: var(--text-primary);
+    background: transparent;
+    border: 1px solid var(--border-color);
+}
+
+.header-auth-btn.signup {
+    color: white;
+    background: linear-gradient(135deg, #0EA5E9 0%, #6366F1 100%);
+    border: none;
+}
+
+.header-auth-btn:active {
+    transform: scale(0.95);
+}
+
+/* Account button (when logged in) */
+.header-account-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0EA5E9 0%, #6366F1 100%);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 12px;
+    transition: all 0.2s ease;
+}
+
+.header-account-btn:active {
+    transform: scale(0.95);
+}
+
+.header-account-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: white;
+    stroke-width: 2;
+    fill: none;
+}
+
+/* Hide auth buttons based on state */
+.auth-logged-out { display: flex; }
+.auth-logged-in { display: none; }
+body.user-logged-in .auth-logged-out { display: none; }
+body.user-logged-in .auth-logged-in { display: flex; }
+
+/* Menu auth section */
+.menu-auth-section {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    gap: 10px;
+}
+
+.menu-auth-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.menu-auth-btn.login {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.menu-auth-btn.signup {
+    background: linear-gradient(135deg, #0EA5E9 0%, #6366F1 100%);
+    color: white;
+}
+
+.menu-auth-btn:active {
+    transform: scale(0.98);
+}
+
+.menu-auth-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+
+/* Logged in user section in menu */
+.menu-user-section {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menu-user-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0EA5E9 0%, #6366F1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.menu-user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.menu-user-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menu-user-email {
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menu-dashboard-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.menu-dashboard-link svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+
 </style>
+
+<!-- Supabase Auth -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/auth.js"></script>
 </head>
 <body>
 
@@ -979,6 +1171,17 @@ body.light-mode .mobile-plane {
         <a href="index.html" class="logo-link">
             <img src="assets/images/ImpactMojo Logo.png" alt="ImpactMojo" class="logo-img">
             <span class="logo-text">ImpactMojo</span>
+        </a>
+        
+        <!-- Auth Buttons (logged out) -->
+        <div class="header-auth auth-logged-out">
+            <a href="/login" class="header-auth-btn login">Log In</a>
+            <a href="/signup" class="header-auth-btn signup">Sign Up</a>
+        </div>
+        
+        <!-- Account Button (logged in) -->
+        <a href="/account" class="header-account-btn auth-logged-in" id="headerAccountBtn" title="My Account">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </a>
         
         <!-- Simple Hamburger Button -->
@@ -1005,6 +1208,31 @@ body.light-mode .mobile-plane {
 
 <!-- Mobile Menu (slides in) -->
 <nav id="mobileMenu">
+    <!-- Auth Section (logged out) -->
+    <div class="menu-auth-section auth-logged-out">
+        <a href="/login" class="menu-auth-btn login">
+            <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            Log In
+        </a>
+        <a href="/signup" class="menu-auth-btn signup">
+            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+            Sign Up Free
+        </a>
+    </div>
+    
+    <!-- User Section (logged in) -->
+    <div class="menu-user-section auth-logged-in">
+        <div class="menu-user-avatar" id="menuUserAvatar">U</div>
+        <div class="menu-user-info">
+            <div class="menu-user-name" id="menuUserName">User</div>
+            <div class="menu-user-email" id="menuUserEmail">user@example.com</div>
+        </div>
+        <a href="/account" class="menu-dashboard-link">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Dashboard
+        </a>
+    </div>
+    
     <div class="menu-section">
         <div class="menu-section-title">Learn</div>
         <a href="catalog.html" class="menu-item">
@@ -1476,6 +1704,73 @@ body.light-mode .mobile-plane {
     if (window.location.search.includes('force=desktop')) {
         sessionStorage.setItem('forceDesktop', 'true');
         window.location.replace('index.html');
+    }
+})();
+</script>
+
+<!-- Auth State Management for Mobile -->
+<script>
+(function() {
+    // Wait for ImpactMojoAuth to be available
+    function initMobileAuth() {
+        if (typeof ImpactMojoAuth === 'undefined') {
+            // Retry after a short delay if auth isn't ready
+            setTimeout(initMobileAuth, 100);
+            return;
+        }
+        
+        // Initialize auth and update UI
+        ImpactMojoAuth.init().then(() => {
+            updateMobileAuthUI();
+        }).catch(err => {
+            console.log('Auth init error:', err);
+        });
+        
+        // Listen for auth state changes
+        if (typeof supabaseClient !== 'undefined') {
+            supabaseClient.auth.onAuthStateChange((event, session) => {
+                updateMobileAuthUI();
+            });
+        }
+    }
+    
+    function updateMobileAuthUI() {
+        const user = ImpactMojoAuth.user;
+        const profile = ImpactMojoAuth.profile;
+        
+        if (user) {
+            // User is logged in
+            document.body.classList.add('user-logged-in');
+            
+            // Update user info in menu
+            const avatar = document.getElementById('menuUserAvatar');
+            const name = document.getElementById('menuUserName');
+            const email = document.getElementById('menuUserEmail');
+            
+            if (avatar) {
+                // Show initials or first letter
+                const displayName = profile?.full_name || user.email || 'User';
+                avatar.textContent = displayName.charAt(0).toUpperCase();
+            }
+            
+            if (name) {
+                name.textContent = profile?.full_name || 'ImpactMojo User';
+            }
+            
+            if (email) {
+                email.textContent = user.email || '';
+            }
+        } else {
+            // User is logged out
+            document.body.classList.remove('user-logged-in');
+        }
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileAuth);
+    } else {
+        initMobileAuth();
     }
 })();
 </script>
