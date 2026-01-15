@@ -572,54 +572,78 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 10px;
     background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
-    padding: 12px 16px;
+    padding: 10px 12px;
     color: white;
-    font-size: 14px;
-    position: relative;
-    z-index: 100;
+    font-size: 13px;
+    position: fixed;
+    top: 56px; /* Below the fixed header */
+    left: 0;
+    right: 0;
+    z-index: 999;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .desktop-banner.hidden {
     display: none;
 }
 
+/* Add spacing for fixed header + banner */
+main {
+    padding-top: 108px; /* 56px header + 52px banner */
+}
+
+body.banner-dismissed main {
+    padding-top: 56px; /* Only header when banner dismissed */
+}
+
 .desktop-banner-content {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex: 1;
+    min-width: 0;
 }
 
 .desktop-banner-icon {
-    font-size: 18px;
+    font-size: 16px;
+    flex-shrink: 0;
 }
 
 .desktop-banner-text {
     flex: 1;
+    min-width: 0;
 }
 
 .desktop-banner-text strong {
     display: block;
     font-weight: 600;
-    margin-bottom: 2px;
+    font-size: 12px;
 }
 
 .desktop-banner-text span {
-    opacity: 0.9;
-    font-size: 12px;
+    display: none;
+}
+
+@media (min-width: 400px) {
+    .desktop-banner-text span {
+        display: block;
+        opacity: 0.9;
+        font-size: 11px;
+    }
 }
 
 .desktop-banner-link {
     background: rgba(255,255,255,0.2);
     color: white;
-    padding: 8px 14px;
+    padding: 6px 10px;
     border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 11px;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .desktop-banner-link:active {
@@ -630,11 +654,12 @@ footer {
     background: none;
     border: none;
     color: white;
-    font-size: 20px;
-    padding: 4px 8px;
+    font-size: 18px;
+    padding: 4px;
     cursor: pointer;
     opacity: 0.8;
     line-height: 1;
+    flex-shrink: 0;
 }
 
 .desktop-banner-close:active {
@@ -940,19 +965,6 @@ body.light-mode .mobile-plane {
 </head>
 <body>
 
-<!-- Dismissable Desktop Site Banner -->
-<div class="desktop-banner" id="desktopBanner">
-    <div class="desktop-banner-content">
-        <span class="desktop-banner-icon">🖥️</span>
-        <div class="desktop-banner-text">
-            <strong>Want more features?</strong>
-            <span>View tracks, newsletters & more on full site</span>
-        </div>
-    </div>
-    <a href="index.html?force=desktop" class="desktop-banner-link" id="viewDesktopBtn">View Full Site</a>
-    <button class="desktop-banner-close" id="closeBanner" aria-label="Close banner">×</button>
-</div>
-
 <!-- Subtle Background Plane Animation -->
 <div class="mobile-plane" aria-hidden="true">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -976,6 +988,19 @@ body.light-mode .mobile-plane {
         </button>
     </nav>
 </header>
+
+<!-- Dismissable Desktop Site Banner -->
+<div class="desktop-banner" id="desktopBanner">
+    <div class="desktop-banner-content">
+        <span class="desktop-banner-icon">🖥️</span>
+        <div class="desktop-banner-text">
+            <strong>Want more features?</strong>
+            <span>View tracks, newsletters & more on full site</span>
+        </div>
+    </div>
+    <a href="index.html?force=desktop" class="desktop-banner-link" id="viewDesktopBtn">View Full Site</a>
+    <button class="desktop-banner-close" id="closeBanner" aria-label="Close banner">×</button>
+</div>
 
 <!-- Mobile Menu (slides in) -->
 <nav id="mobileMenu">
@@ -1421,12 +1446,14 @@ body.light-mode .mobile-plane {
     // Check if banner was previously dismissed
     if (localStorage.getItem('desktopBannerDismissed') === 'true') {
         if (banner) banner.classList.add('hidden');
+        document.body.classList.add('banner-dismissed');
     }
     
     // Close button handler
     if (closeBtn && banner) {
         closeBtn.addEventListener('click', function() {
             banner.classList.add('hidden');
+            document.body.classList.add('banner-dismissed');
             localStorage.setItem('desktopBannerDismissed', 'true');
         });
     }
