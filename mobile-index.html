@@ -567,6 +567,80 @@ footer {
     font-size: 0.875rem;
 }
 
+/* Dismissable Desktop Banner */
+.desktop-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+    padding: 12px 16px;
+    color: white;
+    font-size: 14px;
+    position: relative;
+    z-index: 100;
+}
+
+.desktop-banner.hidden {
+    display: none;
+}
+
+.desktop-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.desktop-banner-icon {
+    font-size: 18px;
+}
+
+.desktop-banner-text {
+    flex: 1;
+}
+
+.desktop-banner-text strong {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.desktop-banner-text span {
+    opacity: 0.9;
+    font-size: 12px;
+}
+
+.desktop-banner-link {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.desktop-banner-link:active {
+    background: rgba(255,255,255,0.3);
+}
+
+.desktop-banner-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 4px 8px;
+    cursor: pointer;
+    opacity: 0.8;
+    line-height: 1;
+}
+
+.desktop-banner-close:active {
+    opacity: 1;
+}
+
 /* ========================================
    SUBTLE PLANE ANIMATION
    ======================================== */
@@ -865,6 +939,19 @@ body.light-mode .mobile-plane {
 </style>
 </head>
 <body>
+
+<!-- Dismissable Desktop Site Banner -->
+<div class="desktop-banner" id="desktopBanner">
+    <div class="desktop-banner-content">
+        <span class="desktop-banner-icon">🖥️</span>
+        <div class="desktop-banner-text">
+            <strong>Want more features?</strong>
+            <span>View tracks, newsletters & more on full site</span>
+        </div>
+    </div>
+    <a href="index.html?force=desktop" class="desktop-banner-link" id="viewDesktopBtn">View Full Site</a>
+    <button class="desktop-banner-close" id="closeBanner" aria-label="Close banner">×</button>
+</div>
 
 <!-- Subtle Background Plane Animation -->
 <div class="mobile-plane" aria-hidden="true">
@@ -1319,6 +1406,37 @@ body.light-mode .mobile-plane {
                 sunIcon.style.display = isLight ? 'none' : 'block';
                 moonIcon.style.display = isLight ? 'block' : 'none';
             }
+        });
+    }
+})();
+
+// ============================================
+// DESKTOP BANNER - DISMISSABLE
+// ============================================
+(function() {
+    var banner = document.getElementById('desktopBanner');
+    var closeBtn = document.getElementById('closeBanner');
+    var viewBtn = document.getElementById('viewDesktopBtn');
+    
+    // Check if banner was previously dismissed
+    if (localStorage.getItem('desktopBannerDismissed') === 'true') {
+        if (banner) banner.classList.add('hidden');
+    }
+    
+    // Close button handler
+    if (closeBtn && banner) {
+        closeBtn.addEventListener('click', function() {
+            banner.classList.add('hidden');
+            localStorage.setItem('desktopBannerDismissed', 'true');
+        });
+    }
+    
+    // View desktop site handler
+    if (viewBtn) {
+        viewBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            sessionStorage.setItem('forceDesktop', 'true');
+            window.location.href = 'index.html';
         });
     }
 })();
