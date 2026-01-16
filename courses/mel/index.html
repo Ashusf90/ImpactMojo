@@ -612,8 +612,9 @@
             width: var(--sidebar-width);
             height: 100vh;
             height: 100dvh;
-            background: var(--color-bg-secondary);
-            border-right: 1px solid var(--color-border);
+            background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+            color: #F1F5F9;
+            border-right: 1px solid rgba(255,255,255,0.1);
             display: flex;
             flex-direction: column;
             z-index: 1001;
@@ -621,9 +622,13 @@
             will-change: transform;
         }
         
+        [data-theme="dark"] .sidebar {
+            background: linear-gradient(180deg, #020617 0%, #0F172A 100%);
+        }
+        
         .sidebar-header {
             padding: var(--spacing-lg);
-            border-bottom: 1px solid var(--color-border);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
         .sidebar-logo {
@@ -633,7 +638,7 @@
             font-family: var(--font-sans);
             font-weight: 700;
             font-size: 1rem;
-            color: var(--color-text);
+            color: #F1F5F9;
             text-decoration: none;
             cursor: pointer;
         }
@@ -680,7 +685,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: var(--color-text-light);
+            color: #94A3B8;
         }
         
         /* NAV LINKS - CLICKABLE */
@@ -689,7 +694,7 @@
             align-items: center;
             gap: var(--spacing-sm);
             padding: var(--spacing-sm) var(--spacing-lg);
-            color: var(--color-text-secondary);
+            color: #CBD5E1;
             font-size: 0.875rem;
             transition: all var(--transition-fast);
             border-left: 2px solid transparent;
@@ -698,13 +703,13 @@
         }
         
         .nav-link:hover {
-            background: var(--notion-bg-hover);
-            color: var(--color-text);
+            background: rgba(255,255,255,0.1);
+            color: #F1F5F9;
             text-decoration: none;
         }
         
         .nav-link.active {
-            background: var(--color-accent-light);
+            background: rgba(14, 165, 233, 0.15);
             color: var(--accent-color);
             border-left-color: var(--accent-color);
             font-weight: 500;
@@ -713,14 +718,14 @@
         .nav-link-number {
             font-size: 0.7rem;
             font-weight: 600;
-            color: var(--color-text-light);
+            color: #94A3B8;
             min-width: 18px;
         }
         
         /* Sidebar Footer */
         .sidebar-footer {
             padding: var(--spacing-md) var(--spacing-lg);
-            border-top: 1px solid var(--color-border);
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
         
         .theme-toggle {
@@ -730,16 +735,16 @@
             padding: var(--spacing-sm) var(--spacing-md);
             width: 100%;
             background: transparent;
-            border: 1px solid var(--color-border);
+            border: 1px solid rgba(255,255,255,0.2);
             border-radius: 8px;
-            color: var(--color-text-secondary);
+            color: #CBD5E1;
             font-size: 0.8rem;
             cursor: pointer;
             transition: all var(--transition-fast);
         }
         
         .theme-toggle:hover {
-            background: var(--notion-bg-hover);
+            background: rgba(255,255,255,0.1);
             border-color: var(--accent-color);
         }
         
@@ -2896,13 +2901,13 @@
                     </div>
                     
                     <div class="hero-resources">
-                        <a href="#" target="_blank" class="hero-resource-btn">
+                        <a href="https://www.dropbox.com/scl/fo/4bxck9fg67r3a5qajn21s/APtQiVIejLNWuA2ib7IVZ4U?rlkey=g9bsvm03yssln0bjxk6bqkyv5&dl=0" target="_blank" class="hero-resource-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z"/>
                             </svg>
                             Course Papers Collection
                         </a>
-                        <a href="#" target="_blank" class="hero-resource-btn">
+                        <a href="https://notebooklm.google.com/notebook/cc450613-e857-4889-9406-a85638f42966" target="_blank" class="hero-resource-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
@@ -4947,11 +4952,11 @@
                             Course Resources
                         </h4>
                         <div class="resources-grid">
-                            <a href="#" class="resource-link" target="_blank">
+                            <a href="https://www.dropbox.com/scl/fo/4bxck9fg67r3a5qajn21s/APtQiVIejLNWuA2ib7IVZ4U?rlkey=g9bsvm03yssln0bjxk6bqkyv5&dl=0" class="resource-link" target="_blank">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z"/></svg>
                                 Dropbox Paper Collection
                             </a>
-                            <a href="#" class="resource-link" target="_blank">
+                            <a href="https://notebooklm.google.com/notebook/cc450613-e857-4889-9406-a85638f42966" class="resource-link" target="_blank">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                                 NotebookLM AI Companion
                             </a>
@@ -4971,9 +4976,9 @@
                     <div class="reading-box">
                         <h4><img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="section-header-icon"> Core Texts</h4>
                         <ul class="reading-list">
-                            <li><a href="#">Gertler et al. (2016). <em>Impact Evaluation in Practice</em>. World Bank.</a></li>
-                            <li><a href="#">Kusek & Rist (2004). <em>Ten Steps to a Results-Based M&E System</em>. World Bank.</a></li>
-                            <li><a href="#">Patton, M.Q. (2011). <em>Developmental Evaluation</em>. Guilford Press.</a></li>
+                            <li><a href="https://www.worldbank.org/en/programs/sief-trust-fund/publication/impact-evaluation-in-practice" target="_blank">Gertler et al. (2016). <em>Impact Evaluation in Practice</em>. World Bank.</a></li>
+                            <li><a href="https://openknowledge.worldbank.org/handle/10986/14926" target="_blank">Kusek & Rist (2004). <em>Ten Steps to a Results-Based M&E System</em>. World Bank.</a></li>
+                            <li><a href="https://www.betterevaluation.org/methods-approaches/approaches/developmental-evaluation" target="_blank">Patton, M.Q. (2011). <em>Developmental Evaluation</em>. Guilford Press.</a></li>
                         </ul>
                     </div>
                     
@@ -5070,36 +5075,46 @@
     
     <script>
         // ============================================
-        // THEME TOGGLE
+        // THEME TOGGLE WITH SYSTEM PREFERENCE SUPPORT
         // ============================================
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme') || 'dark';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        // Get preferred theme: saved > system preference > default dark
+        function getPreferredTheme() {
+            const saved = localStorage.getItem('impactmojo-theme');
+            if (saved) return saved;
             
-            html.setAttribute('data-theme', newTheme);
-            
-            // Update button text - target .theme-label specifically
-            const themeLabel = document.querySelector('.theme-label');
-            if (themeLabel) {
-                themeLabel.textContent = newTheme === 'dark' ? 'Light mode' : 'Dark mode';
+            // Check system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return 'dark';
+            }
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                return 'light';
             }
             
-            // Save preference
-            localStorage.setItem('theme', newTheme);
+            return 'dark'; // Default
         }
+        
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('impactmojo-theme', theme);
+            
+            // Update button text
+            const themeLabel = document.querySelector('.theme-label');
+            if (themeLabel) {
+                themeLabel.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+            }
+        }
+        
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        }
+        
+        // Initialize theme immediately
+        setTheme(getPreferredTheme());
         
         // Load saved theme and attach click handlers
         document.addEventListener('DOMContentLoaded', function() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            
-            // Update theme label
-            const themeLabel = document.querySelector('.theme-label');
-            if (themeLabel) {
-                themeLabel.textContent = savedTheme === 'dark' ? 'Light mode' : 'Dark mode';
-            }
-            
             // Attach click handler to sidebar theme toggle
             const themeToggleBtn = document.getElementById('theme-toggle');
             if (themeToggleBtn) {
@@ -5112,6 +5127,16 @@
                 mobileThemeToggle.addEventListener('click', toggleTheme);
             }
         });
+        
+        // Listen for system preference changes
+        if (window.matchMedia) {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                // Only auto-switch if user hasn't set a preference
+                if (!localStorage.getItem('impactmojo-theme')) {
+                    setTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+        }
         
         // ============================================
         // MOBILE SIDEBAR
