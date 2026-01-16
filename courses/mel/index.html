@@ -5079,23 +5079,37 @@
             
             html.setAttribute('data-theme', newTheme);
             
-            // Update button text
-            const themeToggle = document.querySelector('.theme-toggle span');
-            if (themeToggle) {
-                themeToggle.textContent = newTheme === 'dark' ? 'Light mode' : 'Dark mode';
+            // Update button text - target .theme-label specifically
+            const themeLabel = document.querySelector('.theme-label');
+            if (themeLabel) {
+                themeLabel.textContent = newTheme === 'dark' ? 'Light mode' : 'Dark mode';
             }
             
             // Save preference
             localStorage.setItem('theme', newTheme);
         }
         
-        // Load saved theme
+        // Load saved theme and attach click handlers
         document.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem('theme') || 'dark';
             document.documentElement.setAttribute('data-theme', savedTheme);
-            const themeToggle = document.querySelector('.theme-toggle span');
-            if (themeToggle) {
-                themeToggle.textContent = savedTheme === 'dark' ? 'Light mode' : 'Dark mode';
+            
+            // Update theme label
+            const themeLabel = document.querySelector('.theme-label');
+            if (themeLabel) {
+                themeLabel.textContent = savedTheme === 'dark' ? 'Light mode' : 'Dark mode';
+            }
+            
+            // Attach click handler to sidebar theme toggle
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', toggleTheme);
+            }
+            
+            // Attach click handler to mobile theme toggle
+            const mobileThemeToggle = document.getElementById('theme-toggle-mobile');
+            if (mobileThemeToggle) {
+                mobileThemeToggle.addEventListener('click', toggleTheme);
             }
         });
         
