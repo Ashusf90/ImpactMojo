@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojos | ImpactMojo</title>
+    <meta name="description" content="Practice-based learning cohorts for development practitioners. 12-week programs building thinking skills through hands-on sessions in Delhi, Bangalore, and Online.">
+    
+    <!-- Google Analytics (replace with your actual GA ID) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #faf9f7;
+            --bg-card: #ffffff;
+            --text: #1a1a1a;
+            --text-muted: #666;
+            --accent: #0891b2;
+            --accent-light: #e0f7fa;
+            --indigo: #4f46e5;
+            --indigo-light: #eef2ff;
+            --success: #059669;
+            --success-light: #d1fae5;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --border: #e5e5e5;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-lg: 0 4px 12px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f0f0f;
+            --bg-card: #1a1a1a;
+            --text: #f5f5f5;
+            --text-muted: #a3a3a3;
+            --accent-light: #164e63;
+            --indigo-light: #312e81;
+            --success-light: #064e3b;
+            --warning-light: #78350f;
+            --border: #333;
+            --shadow: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-lg: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .sargam-icon {
+            width: 18px;
+            height: 18px;
+            vertical-align: middle;
+        }
+
+        [data-theme="dark"] .sargam-icon {
+            filter: invert(1);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 36px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 3.5rem;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+        }
+
+        /* Skill Selection - "Pick the ones you like" */
+        .skill-categories {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 2rem;
+            background: var(--bg-card);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text);
+        }
+
+        .category-btn:hover {
+            border-color: var(--accent);
+        }
+
+        .category-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .category-btn.active .sargam-icon {
+            filter: brightness(0) invert(1);
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .skill-card {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        .skill-card.selected {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .skill-card[data-category="thinking"].selected {
+            border-color: var(--indigo);
+            background: var(--indigo-light);
+        }
+
+        .skill-card[data-category="evidence"].selected {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .skill-card[data-category="action"].selected {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .skill-card[data-category="communication"].selected {
+            border-color: var(--warning);
+            background: var(--warning-light);
+        }
+
+        .skill-icon-wrap {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .skill-icon-wrap img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .skill-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .skill-category-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .skill-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .skill-card.selected .skill-checkbox {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .skill-card[data-category="thinking"].selected .skill-checkbox {
+            background: var(--indigo);
+            border-color: var(--indigo);
+        }
+
+        .skill-card[data-category="action"].selected .skill-checkbox {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .skill-card[data-category="communication"].selected .skill-checkbox {
+            background: var(--warning);
+            border-color: var(--warning);
+        }
+
+        .skill-checkbox img {
+            width: 14px;
+            height: 14px;
+            filter: brightness(0) invert(1);
+            opacity: 0;
+        }
+
+        .skill-card.selected .skill-checkbox img {
+            opacity: 1;
+        }
+
+        /* Selected Summary */
+        .selected-summary {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .selected-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .selected-count {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .selected-count strong {
+            color: var(--accent);
+        }
+
+        .clear-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-decoration: underline;
+            font-family: inherit;
+        }
+
+        .clear-btn:hover {
+            color: var(--text);
+        }
+
+        .selected-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            min-height: 40px;
+            align-items: center;
+        }
+
+        .selected-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.8rem;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 2rem;
+            font-size: 0.85rem;
+        }
+
+        .selected-placeholder {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .submit-interest {
+            margin-top: 1.5rem;
+            text-align: right;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0e7490;
+        }
+
+        .btn-primary:disabled {
+            background: var(--border);
+            cursor: not-allowed;
+        }
+
+        .btn-primary img {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Quote */
+        .quote-section {
+            background: var(--bg-card);
+            border-left: 4px solid var(--accent);
+            padding: 2rem;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            margin: 3rem 0;
+        }
+
+        blockquote {
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        cite {
+            font-style: normal;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Pricing */
+        .pricing-box {
+            background: var(--bg-card);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .price {
+            font-family: 'Fraunces', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .price-period {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .price-note {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Series Cards */
+        .series-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .series-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all 0.2s;
+        }
+
+        .series-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .series-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .series-number {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .series-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        .series-meta {
+            text-align: right;
+        }
+
+        .series-duration {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .series-location {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .series-description {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .series-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .series-skill {
+            font-size: 0.8rem;
+            padding: 0.35rem 0.75rem;
+            background: var(--bg);
+            border-radius: 1rem;
+            color: var(--text-muted);
+        }
+
+        /* Format Section */
+        .format-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .format-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .format-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .format-icon img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .format-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .format-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--accent), var(--indigo));
+            border-radius: var(--radius);
+            padding: 3rem;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            color: white;
+        }
+
+        .cta-section p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .cta-section .btn-primary {
+            background: white;
+            color: var(--indigo);
+        }
+
+        .cta-section .btn-primary:hover {
+            background: #f0f0f0;
+        }
+
+        .cta-section .btn-primary img {
+            filter: none;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 1rem;
+            background: var(--bg-card);
+            color: var(--text);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            main {
+                padding: 6rem 1rem 2rem;
+            }
+
+            h1 {
+                font-size: 2.25rem;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .skill-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .series-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .series-meta {
+                text-align: left;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html" class="logo">
+            <img src="https://www.impactmojo.in/assets/images/ImpactMojo%20Logo.png" alt="ImpactMojo">
+        </a>
+        <nav class="nav-links">
+            <a href="../catalog.html">Courses</a>
+            <a href="../workshops.html">Workshops</a>
+            <a href="dojos.html" class="active">Dojos</a>
+            <a href="../coaching.html">Coaching</a>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="Toggle theme" class="sargam-icon">
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-badge">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon">
+                Practice-Based Learning
+            </div>
+            <h1>Dojos</h1>
+            <p>12-week cohorts that build thinking skills for development practitioners. Not lectures—practice sessions where you actually use the techniques.</p>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Weeks</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">90</div>
+                    <div class="stat-label">Min Sessions</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">₹1,500</div>
+                    <div class="stat-label">Per Session</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Selection -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Pick the Skills You Want to Practice</h2>
+                <p>Select the skills you're interested in. We'll notify you when relevant cohorts open.</p>
+            </div>
+
+            <div class="skill-categories">
+                <button class="category-btn active" data-filter="all">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Grid.svg" alt="" class="sargam-icon">
+                    All
+                </button>
+                <button class="category-btn" data-filter="thinking">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Crosshair_detailed.svg" alt="" class="sargam-icon">
+                    Thinking
+                </button>
+                <button class="category-btn" data-filter="evidence">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="sargam-icon">
+                    Evidence
+                </button>
+                <button class="category-btn" data-filter="action">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon">
+                    Action
+                </button>
+                <button class="category-btn" data-filter="communication">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="" class="sargam-icon">
+                    Communication
+                </button>
+            </div>
+
+            <div class="skill-grid" id="skillGrid">
+                <!-- Thinking Skills -->
+                <div class="skill-card" data-category="thinking" data-skill="premortems">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Crosshair_detailed.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Pre-mortems</div>
+                        <div class="skill-category-label">Thinking</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="thinking" data-skill="counterfactual">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Direction_alt.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Counterfactual Thinking</div>
+                        <div class="skill-category-label">Thinking</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="thinking" data-skill="cruxfinding">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Crux-Finding</div>
+                        <div class="skill-category-label">Thinking</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="thinking" data-skill="goalfactoring">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Goal Factoring</div>
+                        <div class="skill-category-label">Thinking</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="thinking" data-skill="intuition">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Calibrating Intuition</div>
+                        <div class="skill-category-label">Thinking</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <!-- Evidence Skills -->
+                <div class="skill-card" data-category="evidence" data-skill="rctreading">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Reading RCTs</div>
+                        <div class="skill-category-label">Evidence</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="evidence" data-skill="updating">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Refresh_outlined.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Updating on Evidence</div>
+                        <div class="skill-category-label">Evidence</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="evidence" data-skill="costeffectiveness">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Cost-Effectiveness</div>
+                        <div class="skill-category-label">Evidence</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="evidence" data-skill="publication-bias">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Alert_triangle.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Spotting Publication Bias</div>
+                        <div class="skill-category-label">Evidence</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <!-- Action Skills -->
+                <div class="skill-card" data-category="action" data-skill="taps">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Trigger-Action Plans</div>
+                        <div class="skill-category-label">Action</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="action" data-skill="implementation">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Tool.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Implementation Diagnosis</div>
+                        <div class="skill-category-label">Action</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="action" data-skill="stakeholder">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Users.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Stakeholder Mapping</div>
+                        <div class="skill-category-label">Action</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="action" data-skill="scaling">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Trending_up.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Scaling Decisions</div>
+                        <div class="skill-category-label">Action</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <!-- Communication Skills -->
+                <div class="skill-card" data-category="communication" data-skill="disagreements">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Productive Disagreements</div>
+                        <div class="skill-category-label">Communication</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="communication" data-skill="failure">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Communicating Failure</div>
+                        <div class="skill-category-label">Communication</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="communication" data-skill="funder">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Heart.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Funder Psychology</div>
+                        <div class="skill-category-label">Communication</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <!-- New Skills -->
+                <div class="skill-card" data-category="evidence" data-skill="indicator-design">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Crosshair_detailed.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Indicator Design</div>
+                        <div class="skill-category-label">Evidence</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="action" data-skill="results-chain">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Direction_alt.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Results Chain Architecture</div>
+                        <div class="skill-category-label">Action</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="thinking" data-skill="fermi">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Calculator.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Fermi Estimation</div>
+                        <div class="skill-category-label">Thinking</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="communication" data-skill="facilitation">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Users.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Live Facilitation Tools</div>
+                        <div class="skill-category-label">Communication</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="communication" data-skill="budget-defense">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Shield.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Budget Defense</div>
+                        <div class="skill-category-label">Communication</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="action" data-skill="value-pricing">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Tag.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Value Pricing</div>
+                        <div class="skill-category-label">Action</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="action" data-skill="service-design">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Layout.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Service Design</div>
+                        <div class="skill-category-label">Action</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <!-- Thinking - New -->
+                <div class="skill-card" data-category="thinking" data-skill="systems-mapping">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Refresh_outlined.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Systems Mapping</div>
+                        <div class="skill-category-label">Thinking</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="thinking" data-skill="red-teaming">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Alert_triangle.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Red Teaming</div>
+                        <div class="skill-category-label">Thinking</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="thinking" data-skill="scenario-planning">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Layers.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Scenario Planning</div>
+                        <div class="skill-category-label">Thinking</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <!-- Evidence - New -->
+                <div class="skill-card" data-category="evidence" data-skill="rapid-evidence">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Rapid Evidence Review</div>
+                        <div class="skill-category-label">Evidence</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="evidence" data-skill="qual-synthesis">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Qualitative Synthesis</div>
+                        <div class="skill-category-label">Evidence</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="evidence" data-skill="sampling">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Grid.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Sampling Shortcuts</div>
+                        <div class="skill-category-label">Evidence</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <!-- Action - New -->
+                <div class="skill-card" data-category="action" data-skill="exit-strategy">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Log_out.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Exit Strategy Design</div>
+                        <div class="skill-category-label">Action</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="action" data-skill="adaptive-management">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Refresh_outlined.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Adaptive Management</div>
+                        <div class="skill-category-label">Action</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="action" data-skill="risk-registers">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Shield.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Risk Registers</div>
+                        <div class="skill-category-label">Action</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <!-- Communication - New -->
+                <div class="skill-card" data-category="communication" data-skill="data-storytelling">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Bar_chart.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Data Storytelling</div>
+                        <div class="skill-category-label">Communication</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="communication" data-skill="negotiation">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Handshake.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Negotiation Tactics</div>
+                        <div class="skill-category-label">Communication</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="skill-card" data-category="communication" data-skill="participatory">
+                    <div class="skill-icon-wrap">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Users.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="skill-info">
+                        <div class="skill-name">Participatory Facilitation</div>
+                        <div class="skill-category-label">Communication</div>
+                    </div>
+                    <div class="skill-checkbox">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check.svg" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selected Summary -->
+            <div class="selected-summary">
+                <div class="selected-header">
+                    <div class="selected-count"><strong id="selectedCount">0</strong> skills selected</div>
+                    <button class="clear-btn" onclick="clearSelection()">Clear all</button>
+                </div>
+                <div class="selected-tags" id="selectedTags">
+                    <span class="selected-placeholder">Click skills above to build your learning path</span>
+                </div>
+                <div class="submit-interest">
+                    <button class="btn btn-primary" id="submitBtn" disabled onclick="showModal()">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="" class="sargam-icon">
+                        Express Interest
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote -->
+        <section class="quote-section">
+            <blockquote>
+                "Applied rationality is very much something you learn by doing, and it works best when taught in a structured environment that makes the default action to practice things."
+            </blockquote>
+            <cite>— Neel Nanda, Cambridge EA Rationality Workshops</cite>
+        </section>
+
+        <!-- Pricing -->
+        <section class="pricing-box">
+            <h2>Simple Pricing</h2>
+            <div class="price">₹1,500 <span class="price-period">/ session</span></div>
+            <p class="price-note">Payment required before each session. No long-term commitments.</p>
+        </section>
+
+        <!-- Dojo Series -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Dojo Series</h2>
+                <p>Structured cohorts. Join one or build your own path from individual skills.</p>
+            </div>
+
+            <div class="series-grid">
+                <div class="series-card">
+                    <div class="series-header">
+                        <div>
+                            <div class="series-number">Series 01</div>
+                            <div class="series-title">Thinking Clearly in Development</div>
+                        </div>
+                        <div class="series-meta">
+                            <div class="series-duration">8 weeks</div>
+                            <div class="series-location">Delhi • Bangalore • Online</div>
+                        </div>
+                    </div>
+                    <p class="series-description">
+                        Foundation skills for practitioners. Notice confusion, anticipate failure, resolve disagreements productively, and debug your own avoidance patterns.
+                    </p>
+                    <div class="series-skills">
+                        <span class="series-skill">Pre-mortems</span>
+                        <span class="series-skill">Crux-Finding</span>
+                        <span class="series-skill">Trigger-Action Plans</span>
+                        <span class="series-skill">Goal Factoring</span>
+                        <span class="series-skill">Calibrating Intuition</span>
+                    </div>
+                </div>
+
+                <div class="series-card">
+                    <div class="series-header">
+                        <div>
+                            <div class="series-number">Series 02</div>
+                            <div class="series-title">Evidence Reasoning</div>
+                        </div>
+                        <div class="series-meta">
+                            <div class="series-duration">6 weeks</div>
+                            <div class="series-location">Delhi • Bangalore • Online</div>
+                        </div>
+                    </div>
+                    <p class="series-description">
+                        Critical thinking for consuming research. Read RCTs without getting fooled, spot publication bias, develop cost-effectiveness intuition, and update gracefully.
+                    </p>
+                    <div class="series-skills">
+                        <span class="series-skill">Reading RCTs</span>
+                        <span class="series-skill">Publication Bias</span>
+                        <span class="series-skill">Cost-Effectiveness</span>
+                        <span class="series-skill">Updating on Evidence</span>
+                    </div>
+                </div>
+
+                <div class="series-card">
+                    <div class="series-header">
+                        <div>
+                            <div class="series-number">Series 03</div>
+                            <div class="series-title">Political Economy & Implementation</div>
+                        </div>
+                        <div class="series-meta">
+                            <div class="series-duration">6 weeks</div>
+                            <div class="series-location">Delhi • Bangalore • Online</div>
+                        </div>
+                    </div>
+                    <p class="series-description">
+                        The messy reality of making things work. Map stakeholder power, diagnose implementation failure, navigate funder psychology, and decide when to scale.
+                    </p>
+                    <div class="series-skills">
+                        <span class="series-skill">Stakeholder Mapping</span>
+                        <span class="series-skill">Implementation Diagnosis</span>
+                        <span class="series-skill">Funder Psychology</span>
+                        <span class="series-skill">Scaling Decisions</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Session Format -->
+        <section class="section">
+            <div class="section-header">
+                <h2>How Sessions Work</h2>
+                <p>90 minutes. Bi-weekly. Practice over theory.</p>
+            </div>
+
+            <div class="format-grid">
+                <div class="format-card">
+                    <div class="format-icon">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="format-title">Concept</div>
+                    <div class="format-desc">15 min — Brief framework introduction</div>
+                </div>
+                <div class="format-card">
+                    <div class="format-icon">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Album.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="format-title">Demo</div>
+                    <div class="format-desc">15 min — Worked example from Indian development</div>
+                </div>
+                <div class="format-card">
+                    <div class="format-icon">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Activity.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="format-title">Practice</div>
+                    <div class="format-desc">45 min — Apply to your own context</div>
+                </div>
+                <div class="format-card">
+                    <div class="format-icon">
+                        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="" class="sargam-icon">
+                    </div>
+                    <div class="format-title">Debrief</div>
+                    <div class="format-desc">15 min — Share, troubleshoot, refine</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>Join a Cohort</h2>
+            <p>Next cohorts begin February 2026 in Delhi, Bangalore, and Online.</p>
+            <button class="btn btn-primary" onclick="showModal()">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Chat.svg" alt="" class="sargam-icon">
+                Register Interest
+            </button>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">ImpactMojo</div>
+            <div class="footer-links">
+                <a href="../catalog.html">Courses</a>
+                <a href="../coaching.html">Coaching</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interest Form Modal (Formspree Integration) -->
+    <div class="modal-overlay" id="interestModal">
+        <div class="modal">
+            <h3>Express Interest in Dojos</h3>
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="interestForm">
+                <input type="hidden" name="_subject" value="Dojos Interest Form">
+                
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="organization">Organization</label>
+                    <input type="text" id="organization" name="organization">
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Preferred Location *</label>
+                    <select id="location" name="location" required>
+                        <option value="">Select location</option>
+                        <option value="delhi">Delhi</option>
+                        <option value="bangalore">Bangalore</option>
+                        <option value="online">Online</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="skills">Selected Skills</label>
+                    <input type="text" id="formSkills" name="skills" readonly>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+            localStorage.setItem('theme', current === 'dark' ? 'light' : 'dark');
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+
+        // Skill Selection
+        const selectedSkills = new Set();
+        const skillCards = document.querySelectorAll('.skill-card');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+
+        skillCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const skill = card.dataset.skill;
+                
+                if (selectedSkills.has(skill)) {
+                    selectedSkills.delete(skill);
+                    card.classList.remove('selected');
+                } else {
+                    selectedSkills.add(skill);
+                    card.classList.add('selected');
+                }
+                
+                updateSelectedDisplay();
+            });
+        });
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.filter;
+                
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                skillCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        function updateSelectedDisplay() {
+            const countEl = document.getElementById('selectedCount');
+            const tagsEl = document.getElementById('selectedTags');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            countEl.textContent = selectedSkills.size;
+            
+            if (selectedSkills.size === 0) {
+                tagsEl.innerHTML = '<span class="selected-placeholder">Click skills above to build your learning path</span>';
+                submitBtn.disabled = true;
+            } else {
+                const tags = Array.from(selectedSkills).map(skill => {
+                    const card = document.querySelector(`[data-skill="${skill}"]`);
+                    const name = card.querySelector('.skill-name').textContent;
+                    return `<span class="selected-tag">${name}</span>`;
+                }).join('');
+                tagsEl.innerHTML = tags;
+                submitBtn.disabled = false;
+            }
+        }
+
+        function clearSelection() {
+            selectedSkills.clear();
+            skillCards.forEach(card => card.classList.remove('selected'));
+            updateSelectedDisplay();
+        }
+
+        // Modal
+        function showModal() {
+            const modal = document.getElementById('interestModal');
+            const skillsInput = document.getElementById('formSkills');
+            
+            const skillNames = Array.from(selectedSkills).map(skill => {
+                const card = document.querySelector(`[data-skill="${skill}"]`);
+                return card.querySelector('.skill-name').textContent;
+            });
+            
+            skillsInput.value = skillNames.join(', ') || 'No specific skills selected';
+            modal.classList.add('active');
+        }
+
+        function hideModal() {
+            document.getElementById('interestModal').classList.remove('active');
+        }
+
+        // Close modal on outside click
+        document.getElementById('interestModal').addEventListener('click', (e) => {
+            if (e.target.id === 'interestModal') {
+                hideModal();
+            }
+        });
+
+        // Form submission handling
+        document.getElementById('interestForm').addEventListener('submit', function(e) {
+            // Formspree will handle the form submission
+            // You can add GA event tracking here
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'form_submit', {
+                    'event_category': 'Dojos',
+                    'event_label': 'Interest Form'
+                });
+            }
+        });
+    </script>
+</body>
+</html>
