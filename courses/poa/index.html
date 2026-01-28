@@ -13,13 +13,13 @@
     <meta name="description" content="How India's rights-based architecture—RTI, NREGA, Food Security, Forest Rights—creates enabling conditions for poor households to imagine and pursue better futures. A comprehensive course bridging development economics, political economy, and grassroots practice.">
     <meta name="keywords" content="politics of aspiration, NREGA, RTI, food security, forest rights, social protection, capability approach, Amartya Sen, Arjun Appadurai, Debraj Ray, South Asia, India, ImpactMojo, free course">
     <meta name="author" content="ImpactMojo">
-    <link rel="canonical" href="https://101.impactmojo.in/politics-of-aspiration">
+    <link rel="canonical" href="https://www.impactmojo.in/courses/poa/">
     
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Politics of Aspiration: Rights, Insurance & Social Mobility | ImpactMojo">
     <meta property="og:description" content="How India's rights-based architecture creates enabling conditions for poor households to imagine and pursue better futures. A comprehensive course bridging development economics, political economy, and grassroots practice.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://101.impactmojo.in/politics-of-aspiration">
+    <meta property="og:url" content="https://www.impactmojo.in/courses/poa/">
     <meta property="og:image" content="https://www.impactmojo.in/assets/images/politics-aspiration-og.jpg">
     <meta property="og:site_name" content="ImpactMojo">
     
@@ -41,9 +41,9 @@
             /* ImpactMojo V3 Professional Dark Mode Colors */
             --primary-bg: #0F172A;
             --secondary-bg: #1E293B;
-            --accent-color: #F59E0B;
-            --accent-hover: #D97706;
-            --secondary-accent: #DC2626;
+            --accent-color: #0EA5E9;
+            --accent-hover: #0284C7;
+            --secondary-accent: #6366F1;
             --success-color: #10B981;
             --warning-color: #F59E0B;
             --danger-color: #EF4444;
@@ -53,8 +53,8 @@
             --card-bg: #1E293B;
             --hover-bg: #334155;
             --border-color: #334155;
-            --gradient-primary: linear-gradient(135deg, #F59E0B 0%, #DC2626 100%);
-            --gradient-accent: linear-gradient(135deg, #F59E0B 0%, #F97316 100%);
+            --gradient-primary: linear-gradient(135deg, #0EA5E9 0%, #6366F1 100%);
+            --gradient-accent: linear-gradient(135deg, #0EA5E9 0%, #10B981 100%);
             
             /* Layout */
             --sidebar-width: 260px;
@@ -90,7 +90,7 @@
             --color-text-secondary: var(--text-secondary);
             --color-text-light: var(--text-muted);
             --color-accent: var(--accent-color);
-            --color-accent-light: rgba(245, 158, 11, 0.15);
+            --color-accent-light: rgba(14, 165, 233, 0.15);
             --color-border: var(--border-color);
             --notion-bg-hover: var(--hover-bg);
         }
@@ -1050,8 +1050,19 @@
            HERO SECTION
            ========================================== */
         .hero {
-            padding: var(--spacing-3xl) 0;
+            /* Full-bleed: break out of content-wrapper to fill main-content */
+            width: calc(100vw - var(--sidebar-width));
+            margin-left: calc(50% - 50vw + var(--sidebar-width)/2);
+            margin-right: calc(50% - 50vw + var(--sidebar-width)/2);
+            margin-top: calc(-1 * var(--spacing-2xl));
             margin-bottom: var(--spacing-2xl);
+            padding: var(--spacing-3xl) var(--spacing-2xl);
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            border-radius: 0 0 16px 16px;
+        }
+        
+        [data-theme="dark"] .hero {
+            background: linear-gradient(135deg, #020617 0%, #0F172A 100%);
         }
         
         .hero-badge {
@@ -1073,12 +1084,13 @@
         }
         
         .hero h1 {
+            color: #F1F5F9 !important;
             margin-bottom: var(--spacing-md);
         }
         
         .hero-subtitle {
             font-size: 1.25rem;
-            color: var(--color-text-secondary);
+            color: #94A3B8 !important;
             max-width: 700px;
             line-height: 1.6;
             margin-bottom: var(--spacing-xl);
@@ -1096,7 +1108,7 @@
             align-items: center;
             gap: var(--spacing-xs);
             font-size: 0.9rem;
-            color: var(--color-text-secondary);
+            color: #94A3B8;
         }
         
         .hero-meta-item svg {
@@ -1177,17 +1189,17 @@
             align-items: center;
             gap: var(--spacing-sm);
             padding: var(--spacing-sm) var(--spacing-md);
-            background: var(--color-bg-secondary);
-            border: 1px solid var(--color-border);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
             border-radius: 6px;
-            color: var(--color-text);
+            color: #F1F5F9;
             font-size: 0.875rem;
             transition: all var(--transition-fast);
         }
         
         .hero-resource-btn:hover {
-            border-color: var(--color-accent);
-            background: var(--color-accent-light);
+            border-color: var(--accent-color);
+            background: rgba(14, 165, 233, 0.15);
             color: var(--color-accent);
         }
         
@@ -1974,7 +1986,12 @@
             }
             
             .hero {
-                padding: var(--spacing-xl) 0;
+                /* Full-bleed on mobile (no sidebar) */
+                width: 100vw;
+                margin-left: calc(50% - 50vw);
+                margin-right: calc(50% - 50vw);
+                margin-top: calc(-1 * var(--spacing-lg));
+                padding: var(--spacing-xl) var(--spacing-md);
             }
             
             .hero-meta {
@@ -5945,7 +5962,7 @@
                                 <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Article.svg" alt="" style="width: 14px; height: 14px; filter: brightness(0) invert(1);">
                                 Download Full Lexicon (XLSX)
                             </a>
-                            <a href="lexicon.html" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; background: transparent; border: 1px solid var(--color-accent); color: var(--color-accent); border-radius: 6px; font-size: 0.85rem; text-decoration: none;">
+                            <a href='/courses/poa/lexicon' style='display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; background: transparent; border: 1px solid var(--color-accent); color: var(--color-accent); border-radius: 6px; font-size: 0.85rem; text-decoration: none;'>
                                 <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="" style="width: 14px; height: 14px;">
                                 Interactive Lexicon App
                             </a>
