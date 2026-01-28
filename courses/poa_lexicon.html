@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politics of Aspiration Lexicon | ImpactMojo</title>
+    <meta name="description" content="Interactive glossary of 60+ key terms in aspiration theory, rights-based policy, and social protection in South Asia.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-bg: #0F172A;
+            --secondary-bg: #1E293B;
+            --accent-color: #F59E0B;
+            --accent-hover: #D97706;
+            --secondary-accent: #DC2626;
+            --success-color: #10B981;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --border-color: #334155;
+            --card-bg: #1E293B;
+            --hover-bg: #334155;
+            --gradient-primary: linear-gradient(135deg, #F59E0B 0%, #DC2626 100%);
+            
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-heading: 'Poppins', sans-serif;
+        }
+        
+        [data-theme="light"] {
+            --primary-bg: #F8FAFC;
+            --secondary-bg: #FFFFFF;
+            --text-primary: #1E293B;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border-color: #E2E8F0;
+            --card-bg: #FFFFFF;
+            --hover-bg: #F1F5F9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .back-link:hover {
+            color: var(--accent-hover);
+        }
+        
+        .header h1 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Controls */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--secondary-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+        
+        .search-box svg {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: var(--text-muted);
+        }
+        
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .filter-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        
+        /* Terms Grid */
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.25rem;
+        }
+        
+        .term-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all 0.2s ease;
+        }
+        
+        .term-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.1);
+        }
+        
+        .term-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        
+        .term-name {
+            font-weight: 600;
+            color: var(--accent-color);
+            font-size: 1.05rem;
+        }
+        
+        .term-category {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+        
+        .category-aspiration { background: rgba(245, 158, 11, 0.15); color: #F59E0B; }
+        .category-rights { background: rgba(220, 38, 38, 0.15); color: #EF4444; }
+        .category-nrega { background: rgba(16, 185, 129, 0.15); color: #10B981; }
+        .category-rti { background: rgba(139, 92, 246, 0.15); color: #A78BFA; }
+        .category-food { background: rgba(236, 72, 153, 0.15); color: #F472B6; }
+        .category-land { background: rgba(34, 197, 94, 0.15); color: #4ADE80; }
+        .category-risk { background: rgba(251, 146, 60, 0.15); color: #FB923C; }
+        .category-theory { background: rgba(56, 189, 248, 0.15); color: #38BDF8; }
+        
+        .term-definition {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+        
+        .term-source {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+        
+        .no-results svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .download-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .footer-links {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 0.75rem;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+        
+        .theme-toggle:hover {
+            border-color: var(--accent-color);
+        }
+        
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            color: var(--text-secondary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .stats {
+                gap: 1rem;
+            }
+            
+            .terms-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .category-filter {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="back-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Course
+            </a>
+            <h1>Politics of Aspiration Lexicon</h1>
+            <p>60 essential terms in aspiration theory, rights-based policy, and social protection</p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="total-terms">60</div>
+                    <div class="stat-label">Total Terms</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="visible-terms">60</div>
+                    <div class="stat-label">Showing</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="controls">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input type="text" id="search" placeholder="Search terms..." autocomplete="off">
+            </div>
+            
+            <div class="category-filter">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="aspiration">Aspiration</button>
+                <button class="filter-btn" data-category="rights">Rights</button>
+                <button class="filter-btn" data-category="nrega">NREGA</button>
+                <button class="filter-btn" data-category="rti">RTI</button>
+                <button class="filter-btn" data-category="food">Food Security</button>
+                <button class="filter-btn" data-category="land">Land/Forest</button>
+                <button class="filter-btn" data-category="risk">Risk/Insurance</button>
+                <button class="filter-btn" data-category="theory">Theory</button>
+            </div>
+        </div>
+        
+        <div class="terms-grid" id="terms-grid">
+            <!-- Terms will be inserted by JavaScript -->
+        </div>
+        
+        <div class="no-results" id="no-results" style="display: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <p>No terms found matching your search.</p>
+        </div>
+        
+        <footer class="footer">
+            <a href="#" class="download-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+                Download Lexicon (XLSX)
+            </a>
+            
+            <div class="footer-links">
+                <a href="index.html">Back to Course</a>
+                <a href="../index.html">ImpactMojo Home</a>
+                <a href="../coaching.html">Book Coaching</a>
+            </div>
+        </footer>
+    </div>
+    
+    <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+    </button>
+    
+    <script>
+        const terms = [
+            // ASPIRATION THEORY
+            { term: "Capacity to Aspire", definition: "Arjun Appadurai's concept: the navigational ability to imagine and pursue alternative futures, developed through practice and social reinforcement. Not equally distributed—the poor have fewer opportunities to practice aspirational thinking.", category: "aspiration", source: "Appadurai (2004)" },
+            { term: "Aspirations Window", definition: "Debraj Ray's framework: the cognitive range within which individuals set goals, shaped by reference groups and perceived possibilities. A narrow window limits ambition; exposure to successful role models can expand it.", category: "aspiration", source: "Ray (2006)" },
+            { term: "Aspirations Gap", definition: "The distance between current status and aspiration level. Too small = complacency; too large = frustration and resignation. Optimal gap motivates effort.", category: "aspiration", source: "Ray (2006)" },
+            { term: "Aspirations Failure", definition: "When aspirations are set too low (narrow window) or too high (frustration), leading to suboptimal investment in future-oriented behavior.", category: "aspiration", source: "Ray (2006)" },
+            { term: "Behavioral Poverty Trap", definition: "Poverty persists not just from resource constraints but from how poverty shapes psychology: reduced aspirations, shortened time horizons, depleted bandwidth.", category: "aspiration", source: "Mullainathan & Shafir (2013)" },
+            { term: "Voice", definition: "In Appadurai's framework, the ability to articulate aspirations, contest norms, and navigate bureaucratic systems. The poor often lack 'voice' due to social exclusion.", category: "aspiration", source: "Appadurai (2004)" },
+            { term: "Terms of Recognition", definition: "The cultural context that shapes whose aspirations are seen as legitimate. Marginalized groups may have their aspirations dismissed or pathologized.", category: "aspiration", source: "Appadurai (2004)" },
+            
+            // RIGHTS-BASED APPROACH
+            { term: "Rights-Based Approach", definition: "Framework where social protection entitlements are justiciable legal rights, not discretionary benefits. Citizens can claim against the state; officials face penalties for non-delivery.", category: "rights", source: "UN OHCHR" },
+            { term: "Justiciable Entitlement", definition: "A right that can be enforced through courts or administrative tribunals. NREGA's guarantee of employment is justiciable; many welfare schemes are not.", category: "rights", source: "Legal theory" },
+            { term: "Demand-Driven", definition: "Program design where supply responds to citizen demand, with open-ended budgets. Contrast with supply-driven approaches with fixed allocations.", category: "rights", source: "NREGA architecture" },
+            { term: "Accountability Mechanism", definition: "Institutional features enabling citizens to hold officials responsible: RTI, social audits, grievance redressal, transparency provisions.", category: "rights", source: "Governance literature" },
+            { term: "Proactive Disclosure", definition: "RTI provision requiring government offices to publish key information without waiting for requests. Suo motu disclosure under Section 4.", category: "rights", source: "RTI Act 2005" },
+            { term: "Citizen-State Interface", definition: "Points of contact between citizens and government where rights are claimed, services delivered, and accountability exercised.", category: "rights", source: "Governance literature" },
+            
+            // NREGA TERMS
+            { term: "NREGA/MGNREGA", definition: "Mahatma Gandhi National Rural Employment Guarantee Act (2005). Guarantees 100 days of wage employment per year to every rural household willing to do unskilled manual work.", category: "nrega", source: "NREGA Act 2005" },
+            { term: "Self-Targeting", definition: "Program design where conditions (manual labor at minimum wage, 5km from home) naturally select intended beneficiaries without means-testing, reducing inclusion/exclusion errors.", category: "nrega", source: "Development economics" },
+            { term: "Job Card", definition: "Document registering a household under NREGA, recording days worked and wages earned. Essential for accessing employment guarantee.", category: "nrega", source: "NREGA Act 2005" },
+            { term: "Unemployment Allowance", definition: "Cash compensation due when work is not provided within 15 days of application. Creates fiscal incentive for timely job provision.", category: "nrega", source: "NREGA Act 2005" },
+            { term: "Muster Roll", definition: "Official record of workers present at NREGA worksite each day. Key document for accountability; fake entries are common form of corruption.", category: "nrega", source: "NREGA implementation" },
+            { term: "Social Audit", definition: "Public accountability mechanism where program records are verified by beneficiaries in open hearings (gram sabha). Originated with MKSS in Rajasthan.", category: "nrega", source: "NREGA Act 2005" },
+            { term: "Worksite Facility", definition: "NREGA mandates shade, drinking water, first aid, and crèche at worksites—addressing practical barriers to women's participation.", category: "nrega", source: "NREGA Act 2005" },
+            { term: "Wage-Material Ratio", definition: "NREGA requires 60:40 ratio (wages to materials), ensuring program creates employment rather than enriching contractors.", category: "nrega", source: "NREGA Act 2005" },
+            { term: "Permissible Works", definition: "Schedule I and II of NREGA listing approved work categories: water conservation, drought-proofing, irrigation, land development, rural connectivity.", category: "nrega", source: "NREGA Act 2005" },
+            { term: "Person-Days", definition: "Standard unit measuring NREGA employment: one person working one day. Annual target measured in crore person-days generated.", category: "nrega", source: "NREGA MIS" },
+            
+            // RTI TERMS
+            { term: "Right to Information (RTI)", definition: "RTI Act 2005 gives citizens the right to request information from public authorities, with 30-day response deadline and penalties for non-compliance.", category: "rti", source: "RTI Act 2005" },
+            { term: "Public Information Officer (PIO)", definition: "Designated official responsible for responding to RTI applications within 30 days. Faces personal penalties (₹250/day) for delays.", category: "rti", source: "RTI Act 2005" },
+            { term: "First Appellate Authority", definition: "Senior official to whom citizens can appeal if PIO denies information or fails to respond within 30 days.", category: "rti", source: "RTI Act 2005" },
+            { term: "Information Commission", definition: "State and Central bodies (SIC, CIC) hearing second appeals and complaints. Can impose penalties and order disclosure.", category: "rti", source: "RTI Act 2005" },
+            { term: "Jan Sunwai", definition: "Public hearing format developed by MKSS where official records (especially muster rolls) are read aloud and verified by affected citizens.", category: "rti", source: "MKSS innovation" },
+            { term: "MKSS", definition: "Mazdoor Kisan Shakti Sangathan—Rajasthan-based social movement that pioneered social audits and catalyzed national RTI law through grassroots activism.", category: "rti", source: "Indian civil society" },
+            
+            // FOOD SECURITY
+            { term: "NFSA", definition: "National Food Security Act 2013—provides subsidized foodgrains to ~800 million people (75% rural, 50% urban) at ₹1-3/kg.", category: "food", source: "NFSA 2013" },
+            { term: "Public Distribution System (PDS)", definition: "Government network of ~500,000 Fair Price Shops distributing subsidized food to ration card holders. Reformed through digitization and GPS tracking.", category: "food", source: "Indian food policy" },
+            { term: "Antyodaya Anna Yojana (AAY)", definition: "PDS category for poorest of poor households, receiving 35kg/month at highest subsidy levels.", category: "food", source: "NFSA 2013" },
+            { term: "Priority Household (PHH)", definition: "NFSA category covering households not in AAY, receiving 5kg/person/month at subsidized rates.", category: "food", source: "NFSA 2013" },
+            { term: "Diversion/Leakage", definition: "Loss of PDS grains between procurement and beneficiary—historically 40-50%, now reduced to <15% in reformed states.", category: "food", source: "PDS literature" },
+            { term: "Doorstep Delivery", definition: "PDS reform where grains are delivered directly to villages rather than requiring beneficiaries to travel to FPS, reducing diversion.", category: "food", source: "Chhattisgarh model" },
+            { term: "Mid-Day Meal", definition: "School feeding program providing cooked lunch to primary students, improving nutrition and enrollment. Now part of NFSA.", category: "food", source: "NFSA 2013" },
+            { term: "ICDS", definition: "Integrated Child Development Services—flagship nutrition program for children 0-6 and pregnant/lactating women through anganwadi centers.", category: "food", source: "Indian social policy" },
+            
+            // LAND & FOREST RIGHTS
+            { term: "Forest Rights Act (FRA)", definition: "Scheduled Tribes and Other Traditional Forest Dwellers (Recognition of Forest Rights) Act 2006. Recognizes individual and community rights over forest land and resources.", category: "land", source: "FRA 2006" },
+            { term: "Individual Forest Rights (IFR)", definition: "FRA provision recognizing rights of forest dwellers over land they've cultivated (up to 4 hectares) prior to December 2005.", category: "land", source: "FRA 2006" },
+            { term: "Community Forest Rights (CFR)", definition: "FRA provision recognizing community rights over common forest resources for collection, grazing, water, and traditional practices.", category: "land", source: "FRA 2006" },
+            { term: "Habitat Rights", definition: "FRA Section 3(1)(e)—rights of PVTGs (Particularly Vulnerable Tribal Groups) over their traditional habitats.", category: "land", source: "FRA 2006" },
+            { term: "Gram Sabha", definition: "Village assembly (all adult residents) that initiates and verifies FRA claims. Key democratic institution for local governance.", category: "land", source: "FRA 2006, PESA" },
+            { term: "Land Tenure Security", definition: "Legal certainty over land rights that enables long-term investment, access to credit, and protection from eviction.", category: "land", source: "Development economics" },
+            { term: "Zamindari Abolition", definition: "Post-independence land reforms eliminating intermediary landlords. Partially successful—land often transferred to upper castes rather than tillers.", category: "land", source: "Indian land reform" },
+            
+            // RISK & INSURANCE
+            { term: "Covariate Shock", definition: "Risk event affecting entire communities simultaneously (drought, flood, price crash). Cannot be insured locally because everyone is hit together.", category: "risk", source: "Risk economics" },
+            { term: "Idiosyncratic Shock", definition: "Risk event affecting individual households (illness, job loss, death). Can potentially be insured within community through mutual support.", category: "risk", source: "Risk economics" },
+            { term: "Lifecycle Risk", definition: "Predictable but costly life transitions: education expenses, marriage costs, old age dependency. Can be planned for if resources permit.", category: "risk", source: "Risk economics" },
+            { term: "Ex-Ante Risk Management", definition: "Actions taken before shocks occur to reduce vulnerability: diversification, savings, avoiding risky investments. Often costly—'playing it safe' reduces income.", category: "risk", source: "Dercon (2002)" },
+            { term: "Ex-Post Coping", definition: "Actions taken after shocks to smooth consumption: selling assets, borrowing, reducing food intake, pulling children from school. Often has long-term costs.", category: "risk", source: "Risk economics" },
+            { term: "Asset Depletion", definition: "Selling productive assets (livestock, land, tools) to cope with shocks. Creates poverty traps by reducing future income-generating capacity.", category: "risk", source: "Carter & Barrett (2006)" },
+            { term: "Distress Migration", definition: "Forced movement seeking work during crisis—brick kilns, construction sites. Often involves entire families, children pulled from school, debt bondage.", category: "risk", source: "Migration literature" },
+            { term: "Option Value", definition: "The value of having an option available, even if not exercised. NREGA's guarantee changes behavior even for non-participants.", category: "risk", source: "Economics" },
+            { term: "Insurance Function", definition: "Social protection as risk mitigation: NREGA as unemployment insurance, PDS as food price insurance, health coverage as illness insurance.", category: "risk", source: "Social protection" },
+            
+            // THEORY & METHODS
+            { term: "Capabilities Approach", definition: "Amartya Sen's framework focusing on what people can do and be (functionings and capabilities), not just income or utility.", category: "theory", source: "Sen (1999)" },
+            { term: "Functionings", definition: "In Sen's framework: what people actually do and are—being well-nourished, being educated, participating in community, having self-respect.", category: "theory", source: "Sen (1999)" },
+            { term: "Agency", definition: "The ability to act on one's own values and objectives. Constrained by poverty, discrimination, lack of information, social norms.", category: "theory", source: "Sen (1999)" },
+            { term: "Poverty Trap", definition: "Self-reinforcing mechanism where poverty persists across generations through lack of capital, poor health, limited education, low aspirations.", category: "theory", source: "Development economics" },
+            { term: "Multiple Equilibria", definition: "Same fundamentals can produce different stable outcomes—a key insight of development economics explaining persistent poverty.", category: "theory", source: "Ray (1998)" },
+            { term: "Coordination Failure", definition: "When optimal outcomes require simultaneous action by multiple actors, but no individual has incentive to move first.", category: "theory", source: "Ray (1998)" },
+            { term: "Political Economy", definition: "Analysis of how political institutions, power relations, and interest groups shape economic policies and outcomes.", category: "theory", source: "Political science" },
+            { term: "Implementation Gap", definition: "Difference between policy on paper and actual delivery. India's rights-based laws often face severe implementation gaps.", category: "theory", source: "Policy studies" }
+        ];
+        
+        // Render terms
+        function renderTerms(filteredTerms) {
+            const grid = document.getElementById('terms-grid');
+            const noResults = document.getElementById('no-results');
+            const visibleCount = document.getElementById('visible-terms');
+            
+            if (filteredTerms.length === 0) {
+                grid.innerHTML = '';
+                noResults.style.display = 'block';
+                visibleCount.textContent = '0';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            visibleCount.textContent = filteredTerms.length;
+            
+            grid.innerHTML = filteredTerms.map(t => `
+                <div class="term-card">
+                    <div class="term-header">
+                        <span class="term-name">${t.term}</span>
+                        <span class="term-category category-${t.category}">${t.category}</span>
+                    </div>
+                    <p class="term-definition">${t.definition}</p>
+                    <p class="term-source">Source: ${t.source}</p>
+                </div>
+            `).join('');
+        }
+        
+        // Filter terms
+        let currentCategory = 'all';
+        let searchQuery = '';
+        
+        function filterTerms() {
+            let filtered = terms;
+            
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(t => t.category === currentCategory);
+            }
+            
+            if (searchQuery) {
+                const query = searchQuery.toLowerCase();
+                filtered = filtered.filter(t => 
+                    t.term.toLowerCase().includes(query) ||
+                    t.definition.toLowerCase().includes(query)
+                );
+            }
+            
+            renderTerms(filtered);
+        }
+        
+        // Event listeners
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.dataset.category;
+                filterTerms();
+            });
+        });
+        
+        document.getElementById('search').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            filterTerms();
+        });
+        
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            document.documentElement.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+        });
+        
+        // Initial render
+        document.getElementById('total-terms').textContent = terms.length;
+        renderTerms(terms);
+    </script>
+</body>
+</html>
