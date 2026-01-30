@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Policy | ImpactMojo</title>
+<meta name="description" content="ImpactMojo's policy on ethical AI use in development education. Guidelines for responsible AI integration in our courses, labs, and tools.">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://www.impactmojo.in/ai-policy.html">
+
+<!-- Open Graph -->
+<meta property="og:title" content="AI Policy | ImpactMojo">
+<meta property="og:description" content="ImpactMojo's policy on ethical AI use in development education.">
+<meta property="og:url" content="https://www.impactmojo.in/ai-policy.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.impactmojo.in/assets/images/og-image.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --primary-bg: #FFFFFF;
+    --secondary-bg: #F8FAFC;
+    --accent-color: #0EA5E9;
+    --accent-hover: #0284C7;
+    --secondary-accent: #6366F1;
+    --success-color: #10B981;
+    --warning-color: #F59E0B;
+    --danger-color: #EF4444;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    --card-bg: #FFFFFF;
+    --hover-bg: #F1F5F9;
+    --border-color: #E2E8F0;
+    --gradient-primary: linear-gradient(135deg, #0EA5E9 0%, #6366F1 100%);
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --nav-text: #0F172A;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode {
+    --primary-bg: #0F172A;
+    --secondary-bg: #1E293B;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --card-bg: #1E293B;
+    --hover-bg: #334155;
+    --border-color: #334155;
+    --nav-bg: rgba(15, 23, 42, 0.95);
+    --nav-text: #F1F5F9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.7;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Header */
+.header {
+    position: sticky;
+    top: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+}
+
+.logo-container img {
+    height: 36px;
+    width: auto;
+}
+
+.logo-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--accent-color);
+}
+
+.back-link img {
+    width: 18px;
+    height: 18px;
+    filter: brightness(0) saturate(100%);
+    opacity: 0.6;
+}
+
+body.dark-mode .back-link img {
+    filter: brightness(0) invert(1);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    background: var(--secondary-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.theme-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.theme-btn:hover {
+    background: var(--hover-bg);
+}
+
+.theme-btn.active {
+    background: var(--accent-color);
+}
+
+.theme-btn img {
+    width: 18px;
+    height: 18px;
+    filter: brightness(0) saturate(100%);
+    opacity: 0.7;
+}
+
+.theme-btn.active img {
+    filter: brightness(0) invert(1);
+    opacity: 1;
+}
+
+body.dark-mode .theme-btn img {
+    filter: brightness(0) invert(1);
+    opacity: 0.7;
+}
+
+body.dark-mode .theme-btn.active img {
+    filter: brightness(0) invert(1);
+    opacity: 1;
+}
+
+/* Main Content */
+.main-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+}
+
+/* Page Header */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px dashed var(--border-color);
+}
+
+.page-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    background: rgba(14, 165, 233, 0.1);
+    border-radius: 20px;
+    border: 2px dashed var(--accent-color);
+    font-weight: 700;
+}
+
+.page-eyebrow img {
+    width: 18px;
+    height: 18px;
+    filter: brightness(0) saturate(100%) invert(57%) sepia(80%) saturate(2000%) hue-rotate(165deg);
+}
+
+.page-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.effective-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--secondary-bg);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.effective-date img {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) saturate(100%);
+    opacity: 0.5;
+}
+
+body.dark-mode .effective-date img {
+    filter: brightness(0) invert(1);
+}
+
+/* Section Styles */
+.policy-section {
+    margin-bottom: 3rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(14, 165, 233, 0.1);
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.section-icon img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) saturate(100%) invert(57%) sepia(80%) saturate(2000%) hue-rotate(165deg);
+}
+
+.section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.section-content {
+    color: var(--text-secondary);
+}
+
+.section-content p {
+    margin-bottom: 1rem;
+}
+
+.section-content ul, .section-content ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.section-content li {
+    margin-bottom: 0.75rem;
+}
+
+/* Highlight Box */
+.highlight-box {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.08) 0%, rgba(99, 102, 241, 0.05) 100%);
+    border: 2px solid var(--accent-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.highlight-box.green {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.03) 100%);
+    border-color: var(--success-color);
+}
+
+.highlight-box.orange {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(245, 158, 11, 0.03) 100%);
+    border-color: var(--warning-color);
+}
+
+.highlight-box.red {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.03) 100%);
+    border-color: var(--danger-color);
+}
+
+.highlight-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.highlight-title img {
+    width: 20px;
+    height: 20px;
+}
+
+.highlight-title.cyan img {
+    filter: brightness(0) saturate(100%) invert(57%) sepia(80%) saturate(2000%) hue-rotate(165deg);
+}
+
+.highlight-title.green img {
+    filter: brightness(0) saturate(100%) invert(53%) sepia(89%) saturate(399%) hue-rotate(112deg) brightness(96%) contrast(92%);
+}
+
+.highlight-title.orange img {
+    filter: brightness(0) saturate(100%) invert(67%) sepia(74%) saturate(1000%) hue-rotate(360deg) brightness(100%) contrast(96%);
+}
+
+.highlight-title.red img {
+    filter: brightness(0) saturate(100%) invert(40%) sepia(90%) saturate(1500%) hue-rotate(340deg) brightness(95%) contrast(95%);
+}
+
+/* Principle Cards */
+.principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+}
+
+.principle-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0 rgba(14, 165, 233, 0.1);
+}
+
+.principle-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 rgba(14, 165, 233, 0.15);
+    border-color: var(--accent-color);
+}
+
+.principle-card::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+    margin-bottom: 1rem;
+}
+
+.principle-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(14, 165, 233, 0.1);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+.principle-icon img {
+    width: 28px;
+    height: 28px;
+    filter: brightness(0) saturate(100%) invert(57%) sepia(80%) saturate(2000%) hue-rotate(165deg);
+}
+
+.principle-card h4 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.principle-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Tables */
+.policy-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+
+.policy-table th,
+.policy-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.policy-table th {
+    background: var(--secondary-bg);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.policy-table td {
+    color: var(--text-secondary);
+}
+
+.policy-table tr:hover td {
+    background: var(--hover-bg);
+}
+
+/* Use Cases Grid */
+.use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.use-case {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: var(--secondary-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.use-case img {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.use-case.approved img {
+    filter: brightness(0) saturate(100%) invert(53%) sepia(89%) saturate(399%) hue-rotate(112deg) brightness(96%) contrast(92%);
+}
+
+.use-case.prohibited img {
+    filter: brightness(0) saturate(100%) invert(40%) sepia(90%) saturate(1500%) hue-rotate(340deg) brightness(95%) contrast(95%);
+}
+
+.use-case-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+/* Footer */
+.footer {
+    background: var(--secondary-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 3rem 1.5rem 2rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.footer-section h4 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.footer-section a {
+    display: block;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.25rem 0;
+    transition: color 0.2s;
+}
+
+.footer-section a:hover {
+    color: var(--accent-color);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 2rem auto 0;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.footer-logo img {
+    height: 32px;
+}
+
+.footer-tagline {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .main-content {
+        padding: 2rem 1rem 3rem;
+    }
+    
+    .page-title {
+        font-size: 1.75rem;
+    }
+    
+    .principles-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .policy-table {
+        font-size: 0.85rem;
+    }
+    
+    .policy-table th,
+    .policy-table td {
+        padding: 0.75rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="nav-container">
+        <a href="/" class="logo-container">
+            <img src="https://www.impactmojo.in/assets/images/ImpactMojo%20Logo.png" alt="ImpactMojo Logo">
+            <span class="logo-text">ImpactMojo</span>
+        </a>
+        
+        <div class="nav-right">
+            <a href="/" class="back-link">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Arrow_left.svg" alt="">
+                Back to Home
+            </a>
+            
+            <div class="theme-toggle">
+                <button class="theme-btn" data-theme="light" title="Light mode" aria-label="Light mode">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Flare.svg" alt="">
+                </button>
+                <button class="theme-btn" data-theme="dark" title="Dark mode" aria-label="Dark mode">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Moon.svg" alt="">
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="main-content">
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="page-eyebrow">
+        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Lightning.svg" alt="">
+        Legal
+    </div>
+    <h1 class="page-title">AI Policy</h1>
+    <p class="page-subtitle">Our commitment to ethical, transparent, and responsible use of artificial intelligence in development education.</p>
+    <div class="effective-date">
+        <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Calendar.svg" alt="">
+        Effective: January 2026 | Version 1.0
+    </div>
+</div>
+
+<!-- Section 1: Overview -->
+<section class="policy-section" id="overview">
+    <div class="section-header">
+        <div class="section-icon">
+            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Info.svg" alt="">
+        </div>
+        <h2 class="section-title">Overview</h2>
+    </div>
+    <div class="section-content">
+        <p>ImpactMojo is committed to harnessing the power of artificial intelligence to enhance development education while maintaining the highest standards of accuracy, ethics, and human oversight. This policy governs how we develop, deploy, and use AI technologies across our platform.</p>
+        
+        <div class="highlight-box">
+            <div class="highlight-title cyan">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Target.svg" alt="">
+                Our AI Philosophy
+            </div>
+            <p style="margin:0; color: var(--text-secondary);">AI should augment human learning and expertise, not replace critical thinking. We use AI as a tool to democratize access to PhD-level development education while maintaining rigorous fact-checking standards and academic integrity.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Section 2: Understanding AI -->
+<section class="policy-section" id="understanding">
+    <div class="section-header">
+        <div class="section-icon">
+            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Brain.svg" alt="">
+        </div>
+        <h2 class="section-title">Understanding AI at ImpactMojo</h2>
+    </div>
+    <div class="section-content">
+        <p>We use AI technologies thoughtfully and transparently. Here's how AI appears in our platform:</p>
+        
+        <div class="highlight-box green">
+            <div class="highlight-title green">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt="">
+                Current AI Applications
+            </div>
+            <ul style="margin: 0; padding-left: 1.25rem;">
+                <li><strong>NotebookLM AI Study Companions:</strong> Each flagship course includes an AI study companion powered by Google's NotebookLM, trained on curated academic papers and course materials.</li>
+                <li><strong>Content Development Support:</strong> AI assists our team in research synthesis and initial drafting, with all outputs verified by subject matter experts.</li>
+                <li><strong>Interactive Labs:</strong> Some labs use AI to provide personalized feedback on exercises and simulations.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Section 3: Guiding Principles -->
+<section class="policy-section" id="principles">
+    <div class="section-header">
+        <div class="section-icon">
+            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Compass.svg" alt="">
+        </div>
+        <h2 class="section-title">Guiding Principles</h2>
+    </div>
+    <div class="section-content">
+        <div class="principles-grid">
+            <div class="principle-card">
+                <div class="principle-icon">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Search.svg" alt="">
+                </div>
+                <h4>Accuracy First</h4>
+                <p>All AI-generated content undergoes rigorous fact-checking against primary sources. We prioritize peer-reviewed research and verified data.</p>
+            </div>
+            
+            <div class="principle-card">
+                <div class="principle-icon">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Eye.svg" alt="">
+                </div>
+                <h4>Transparency</h4>
+                <p>We clearly disclose when and how AI is used. Learners always know whether content is AI-assisted or human-authored.</p>
+            </div>
+            
+            <div class="principle-card">
+                <div class="principle-icon">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_User.svg" alt="">
+                </div>
+                <h4>Human Oversight</h4>
+                <p>Subject matter experts review all AI outputs. Final editorial decisions rest with our human team, never with AI systems alone.</p>
+            </div>
+            
+            <div class="principle-card">
+                <div class="principle-icon">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Globe_detailed.svg" alt="">
+                </div>
+                <h4>Context Sensitivity</h4>
+                <p>We ensure AI applications respect South Asian contexts, local knowledge systems, and the diverse realities of development practice.</p>
+            </div>
+            
+            <div class="principle-card">
+                <div class="principle-icon">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Shield.svg" alt="">
+                </div>
+                <h4>Privacy Protection</h4>
+                <p>We never use learner data to train AI models. Personal information is protected according to our Privacy Policy.</p>
+            </div>
+            
+            <div class="principle-card">
+                <div class="principle-icon">
+                    <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Scales.svg" alt="">
+                </div>
+                <h4>Equity & Access</h4>
+                <p>AI should reduce barriers to quality education, not create new ones. We design for accessibility across devices and connectivity levels.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 4: Approved Use Cases -->
+<section class="policy-section" id="approved-uses">
+    <div class="section-header">
+        <div class="section-icon">
+            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt="">
+        </div>
+        <h2 class="section-title">Approved Use Cases</h2>
+    </div>
+    <div class="section-content">
+        <p>The following AI applications are approved for use at ImpactMojo:</p>
+        
+        <div class="use-cases-grid">
+            <div class="use-case approved">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt="">
+                <span class="use-case-text">Research synthesis and literature review assistance</span>
+            </div>
+            <div class="use-case approved">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt="">
+                <span class="use-case-text">Initial content drafting with human review</span>
+            </div>
+            <div class="use-case approved">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt="">
+                <span class="use-case-text">Grammar and clarity improvements</span>
+            </div>
+            <div class="use-case approved">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt="">
+                <span class="use-case-text">Interactive study companions (NotebookLM)</span>
+            </div>
+            <div class="use-case approved">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt="">
+                <span class="use-case-text">Code assistance for interactive labs</span>
+            </div>
+            <div class="use-case approved">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Check_circle.svg" alt="">
+                <span class="use-case-text">Translation and localization support</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 5: Prohibited Uses -->
+<section class="policy-section" id="prohibited-uses">
+    <div class="section-header">
+        <div class="section-icon">
+            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Close_circle.svg" alt="">
+        </div>
+        <h2 class="section-title">Prohibited Uses</h2>
+    </div>
+    <div class="section-content">
+        <p>The following uses of AI are explicitly prohibited:</p>
+        
+        <div class="use-cases-grid">
+            <div class="use-case prohibited">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Close_circle.svg" alt="">
+                <span class="use-case-text">Publishing unverified AI-generated statistics or data</span>
+            </div>
+            <div class="use-case prohibited">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Close_circle.svg" alt="">
+                <span class="use-case-text">Using AI to generate academic citations without verification</span>
+            </div>
+            <div class="use-case prohibited">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Close_circle.svg" alt="">
+                <span class="use-case-text">Automated decision-making about learner progress</span>
+            </div>
+            <div class="use-case prohibited">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Close_circle.svg" alt="">
+                <span class="use-case-text">Training AI models on learner personal data</span>
+            </div>
+            <div class="use-case prohibited">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Close_circle.svg" alt="">
+                <span class="use-case-text">Creating deepfakes or misleading AI-generated media</span>
+            </div>
+            <div class="use-case prohibited">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Close_circle.svg" alt="">
+                <span class="use-case-text">Using AI to impersonate coaches or instructors</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 6: Quality Control -->
+<section class="policy-section" id="quality">
+    <div class="section-header">
+        <div class="section-icon">
+            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Checkmark.svg" alt="">
+        </div>
+        <h2 class="section-title">Quality Control</h2>
+    </div>
+    <div class="section-content">
+        <p>Every piece of AI-assisted content undergoes our quality assurance process:</p>
+        
+        <table class="policy-table">
+            <thead>
+                <tr>
+                    <th>Stage</th>
+                    <th>Process</th>
+                    <th>Responsible Party</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Initial Review</td>
+                    <td>Subject matter expert reviews AI output for accuracy</td>
+                    <td>Course Lead / SME</td>
+                </tr>
+                <tr>
+                    <td>Fact-Checking</td>
+                    <td>All statistics, citations, and claims verified against primary sources</td>
+                    <td>Research Team</td>
+                </tr>
+                <tr>
+                    <td>Context Check</td>
+                    <td>Ensure content is appropriate for South Asian development contexts</td>
+                    <td>Editorial Team</td>
+                </tr>
+                <tr>
+                    <td>Final Approval</td>
+                    <td>Sign-off before publication</td>
+                    <td>Founders (Varna/Vandana)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Section 7: Data Privacy -->
+<section class="policy-section" id="privacy">
+    <div class="section-header">
+        <div class="section-icon">
+            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Lock.svg" alt="">
+        </div>
+        <h2 class="section-title">Data Privacy & AI</h2>
+    </div>
+    <div class="section-content">
+        <div class="highlight-box">
+            <div class="highlight-title cyan">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Shield.svg" alt="">
+                Our Data Commitments
+            </div>
+            <ul style="margin: 0; padding-left: 1.25rem;">
+                <li>We do not use learner data to train AI models</li>
+                <li>Interactions with AI study companions are not stored for model training</li>
+                <li>We use only enterprise-tier AI services with data protection agreements</li>
+                <li>Personal information is handled according to our <a href="privacy.html" style="color: var(--accent-color);">Privacy Policy</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Section 8: Learner Guidelines -->
+<section class="policy-section" id="learners">
+    <div class="section-header">
+        <div class="section-icon">
+            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="">
+        </div>
+        <h2 class="section-title">Guidelines for Learners</h2>
+    </div>
+    <div class="section-content">
+        <p>We encourage learners to engage thoughtfully with AI tools:</p>
+        
+        <div class="highlight-box green">
+            <div class="highlight-title green">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Lightbulb.svg" alt="">
+                Best Practices for AI-Assisted Learning
+            </div>
+            <ul style="margin: 0; padding-left: 1.25rem;">
+                <li><strong>Critical Thinking:</strong> Always evaluate AI responses critically. AI can make mistakes or provide outdated information.</li>
+                <li><strong>Verify Important Information:</strong> Cross-check key facts, statistics, and citations against primary sources.</li>
+                <li><strong>Use as a Starting Point:</strong> AI study companions are excellent for exploring concepts, but deep understanding requires engaging with original texts.</li>
+                <li><strong>Academic Integrity:</strong> When using AI for assignments or professional work, follow your institution's policies on AI use and attribution.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Section 9: Risk Management -->
+<section class="policy-section" id="risks">
+    <div class="section-header">
+        <div class="section-icon">
+            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Warning.svg" alt="">
+        </div>
+        <h2 class="section-title">Risk Management</h2>
+    </div>
+    <div class="section-content">
+        <p>We actively monitor and mitigate AI-related risks:</p>
+        
+        <table class="policy-table">
+            <thead>
+                <tr>
+                    <th>Risk</th>
+                    <th>Mitigation Strategy</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hallucinations / Inaccuracies</td>
+                    <td>Multi-stage human review; citation verification; learner feedback channels</td>
+                </tr>
+                <tr>
+                    <td>Bias in AI Outputs</td>
+                    <td>Diverse review team; context sensitivity checks; regular bias audits</td>
+                </tr>
+                <tr>
+                    <td>Over-reliance on AI</td>
+                    <td>Clear disclosure; emphasis on critical thinking; human expertise highlighted</td>
+                </tr>
+                <tr>
+                    <td>Privacy Breaches</td>
+                    <td>Enterprise-tier services only; no personal data in AI training; regular security audits</td>
+                </tr>
+                <tr>
+                    <td>Accessibility Issues</td>
+                    <td>Testing across devices; offline alternatives; low-bandwidth options</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Section 10: Governance -->
+<section class="policy-section" id="governance">
+    <div class="section-header">
+        <div class="section-icon">
+            <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Settings.svg" alt="">
+        </div>
+        <h2 class="section-title">Governance & Updates</h2>
+    </div>
+    <div class="section-content">
+        <p>This policy is reviewed quarterly and updated as AI technology and best practices evolve. Changes are communicated through our website and newsletter.</p>
+        
+        <div class="highlight-box">
+            <div class="highlight-title cyan">
+                <img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Mail.svg" alt="">
+                Questions or Concerns?
+            </div>
+            <p style="margin:0; color: var(--text-secondary);">If you have questions about our AI use or want to report an issue, please contact us at <strong>hello@impactmojo.in</strong></p>
+        </div>
+        
+        <table class="policy-table" style="margin-top: 1.5rem;">
+            <thead>
+                <tr>
+                    <th>Version</th>
+                    <th>Date</th>
+                    <th>Changes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1.0</td>
+                    <td>January 2026</td>
+                    <td>Initial policy publication</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Acknowledgment -->
+<section class="policy-section">
+    <div class="highlight-box" style="text-align: center;">
+        <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">
+            This policy was developed with reference to the <a href="https://www.aiimpacthub.org/" target="_blank" rel="noopener" style="color: var(--accent-color);">AI Impact Hub</a> framework for non-profit AI governance.
+        </p>
+    </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <div class="footer-logo">
+                <img src="https://www.impactmojo.in/assets/images/ImpactMojo%20Logo.png" alt="ImpactMojo">
+            </div>
+            <p class="footer-tagline">Development Know-How for Social Impact</p>
+        </div>
+        
+        <div class="footer-section">
+            <h4>Courses</h4>
+            <a href="/courses/gandhi/">Gandhi Political Philosophy</a>
+            <a href="/courses/devecon/">Development Economics</a>
+            <a href="/courses/dataviz/">Data Visualization</a>
+            <a href="/courses/devai/">AI for Impact</a>
+            <a href="/courses/mel/">MEL</a>
+            <a href="/courses/poa/">Politics of Aspiration</a>
+        </div>
+        
+        <div class="footer-section">
+            <h4>Resources</h4>
+            <a href="/coaching.html">1:1 Coaching</a>
+            <a href="/#labs">Interactive Labs</a>
+            <a href="/catalog">Course Catalog</a>
+        </div>
+        
+        <div class="footer-section">
+            <h4>Legal</h4>
+            <a href="/terms.html">Terms of Use</a>
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/ai-policy.html">AI Policy</a>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        © 2026 ImpactMojo. Free for development professionals.
+    </div>
+</footer>
+
+<!-- Theme Toggle Script -->
+<script>
+(function() {
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+    
+    // Update active button
+    function updateActiveButton(theme) {
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.theme === theme);
+        });
+    }
+    
+    // Initialize
+    updateActiveButton(savedTheme);
+    
+    // Theme toggle handlers
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const theme = this.dataset.theme;
+            localStorage.setItem('theme', theme);
+            document.body.classList.toggle('dark-mode', theme === 'dark');
+            updateActiveButton(theme);
+        });
+    });
+})();
+</script>
+
+</body>
+</html>
