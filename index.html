@@ -5808,11 +5808,8 @@ footer::before {
 }
 
 /* Fix positioning of black overlay from premium.js */
-/* Move it down so it doesn't cover the tier badge (PRACTITIONER/PROFESSIONAL) */
-.premium-lock-overlay,
-.tier-lock-overlay,
-[data-required-tier] .card-lock-overlay,
-[data-required-tier] > div:last-child:not(.card-header):not(a) {
+/* Move it down so it doesn't cover the tier badge - CARDS ONLY */
+.card .premium-lock-overlay {
     top: 75px !important; /* Below the tier badge */
     border-radius: 0 0 16px 16px !important;
 }
@@ -5829,10 +5826,15 @@ footer::before {
     z-index: 10;
 }
 
-/* Ensure cards don't clip content */
-.card[data-required-tier],
-.modal-item[data-required-tier] {
+/* Ensure cards don't clip content - CARDS ONLY */
+.card[data-required-tier] {
     overflow: visible !important;
+}
+
+/* Modal items need hidden overflow so lock overlay stays contained */
+.modal-item[data-required-tier] {
+    position: relative;
+    overflow: hidden !important;
 }
 
 .card[data-required-tier] > *,
@@ -9369,7 +9371,7 @@ Workshops & Master Classes
 </div>
 <div class="coming-soon-item">
 <h4>
-<img src="https://cdn.jsdelivr.net/npm/sargam-icons@1.6.6/Icons/Line/si_Book.svg" alt="" class="v3-card-icon" loading="lazy">
+<svg class="icon-sm" viewbox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                             Smart Reading Lists
                             <span class="live-indicator">
                                 <span class="live-dot"></span>
@@ -13664,10 +13666,10 @@ document.addEventListener('DOMContentLoaded', function(){
   window.__MOJINI_COURSES__ = COURSES;
   window.__MOJINI_LABS__ = LABS;
 
-  // "" "" "" Helpers "" "" "" 
+  // Helpers
   const norm = s => String(s||"").toLowerCase();
-  const listCourses = () => COURSES.map(c=>`"¢ ${c.t} "" ${c.o}\n  ${c.u}`).join("\n");
-  const listLabs = () => LABS.map(l=>`"¢ ${l.t}\n  ${l.u}`).join("\n");
+  const listCourses = () => COURSES.map(c=>`• ${c.t} - ${c.o}\n  ${c.u}`).join("\n");
+  const listLabs = () => LABS.map(l=>`• ${l.t}\n  ${l.u}`).join("\n");
   const byTitle = (arr, text) => {
     const s = norm(text);
     return arr.find(x => s.includes(norm(x.t)) || norm(x.t).includes(s));
