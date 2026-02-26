@@ -43,6 +43,13 @@
       "link": "/courses/poa/"
     },
     {
+      "title": "Media for Development: Communication, Power & Practice",
+      "type": "Flagship",
+      "track": "Research Methods",
+      "level": "Advanced",
+      "link": "/courses/media/"
+    },
+    {
       "title": "English for Development",
       "type": "Course",
       "track": "Policy & Economics",
@@ -489,6 +496,13 @@
       "track": "Policy & Economics",
       "level": "Intro",
       "link": "https://101.impactmojo.in/CE"
+    },
+    {
+      "title": "VaniScribe: AI Transcription for Development",
+      "type": "Premium",
+      "track": "Research Methods",
+      "level": "Core",
+      "link": "https://101.impactmojo.in/vaniscribe"
     }
   ],
   "META": {
@@ -876,6 +890,18 @@
       "reviews": 124,
       "users": "2.1k",
       "quote": "Clear, focused, and immediately useful for policy analysis."
+    },
+    "Media for Development: Communication, Power & Practice": {
+      "desc": "Covers ethical representation, humanitarian communication, participatory media models (PARI, Khabar Lahariya), data journalism, and AI/deepfake considerations for development practitioners.",
+      "rating": 4.9,
+      "users": "1.2k",
+      "quote": "Completely changed how our team approaches field documentation and beneficiary representation. Essential for anyone producing development content."
+    },
+    "VaniScribe: AI Transcription for Development": {
+      "desc": "Transcribe field recordings in 10+ South Asian languages using Sarvam AI. Speaker diarization, timestamping, and structured exports for qualitative analysis.",
+      "rating": 4.9,
+      "users": "280",
+      "quote": "Transcribed 40 hours of Hindi FGDs in a weekend. Diarization was surprisingly accurate for group discussions."
     }
   }
 }
