@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constitution & Law Lexicon | ImpactMojo</title>
+    <meta name="description" content="Interactive glossary of 65 essential constitutional law terms for development professionals. From Basic Structure Doctrine to PIL and Digital Rights.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0F172A;
+            --secondary-bg: #1E293B;
+            --accent-color: #DC2626;
+            --accent-hover: #B91C1C;
+            --secondary-accent: #F59E0B;
+            --success-color: #10B981;
+            --warning-color: #F59E0B;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --card-bg: #1E293B;
+            --hover-bg: #334155;
+            --border-color: #334155;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-heading: 'Poppins', sans-serif;
+        }
+        
+        [data-theme="light"] {
+            --primary-bg: #FFFFFF;
+            --secondary-bg: #F8FAFC;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
+            --card-bg: #FFFFFF;
+            --hover-bg: #F1F5F9;
+            --border-color: #E2E8F0;
+        }
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-sans); background: var(--primary-bg); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        
+        .header { text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border-color); }
+        .header-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 1rem; background: rgba(220, 38, 38, 0.15); color: var(--accent-color); border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem; }
+        .header h1 { font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--accent-color) 0%, var(--secondary-accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .header p { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+        .header-meta { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
+        .header-meta-item { display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
+        .header-meta-item svg { width: 18px; height: 18px; stroke: var(--accent-color); }
+        
+        .controls { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .search-box { flex: 1; min-width: 280px; position: relative; }
+        .search-box input { width: 100%; padding: 0.85rem 1rem 0.85rem 2.75rem; background: var(--secondary-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary); font-size: 1rem; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+        .search-box input:focus { outline: none; border-color: var(--accent-color); box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15); }
+        .search-box input::placeholder { color: var(--text-muted); }
+        .search-box svg { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; stroke: var(--text-muted); }
+        
+        .filter-select { padding: 0.85rem 1rem; background: var(--secondary-bg); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary); font-size: 0.95rem; min-width: 200px; cursor: pointer; }
+        .filter-select:focus { outline: none; border-color: var(--accent-color); }
+        
+        .theme-toggle { padding: 0.85rem; background: var(--secondary-bg); border: 1px solid var(--border-color); border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+        .theme-toggle:hover { border-color: var(--accent-color); background: var(--hover-bg); }
+        .theme-toggle svg { width: 20px; height: 20px; stroke: var(--text-secondary); }
+        
+        .category-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+        .category-pill { padding: 0.4rem 0.85rem; background: var(--secondary-bg); border: 1px solid var(--border-color); border-radius: 20px; color: var(--text-secondary); font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 0.4rem; }
+        .category-pill:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        .category-pill.active { background: rgba(220, 38, 38, 0.15); border-color: var(--accent-color); color: var(--accent-color); font-weight: 600; }
+        .category-pill .count { font-size: 0.7rem; background: rgba(220, 38, 38, 0.2); padding: 0.1rem 0.4rem; border-radius: 10px; }
+        
+        .results-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border-color); }
+        .results-count { color: var(--text-muted); font-size: 0.9rem; }
+        .back-link { color: var(--accent-color); text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.35rem; }
+        .back-link:hover { text-decoration: underline; }
+        .back-link svg { width: 16px; height: 16px; }
+        
+        .terms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1rem; }
+        .term-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem; transition: all 0.2s ease; cursor: pointer; }
+        .term-card:hover { border-color: var(--accent-color); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+        .term-card.expanded { grid-column: 1 / -1; }
+        .term-name { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; color: var(--accent-color); margin-bottom: 0.25rem; }
+        .term-category { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.75rem; display: inline-flex; align-items: center; gap: 0.3rem; }
+        .term-category::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); }
+        .term-definition { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.65; }
+        .term-example { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem; font-style: italic; display: none; }
+        .term-card.expanded .term-example { display: block; }
+        .term-expand-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; display: flex; align-items: center; gap: 0.3rem; }
+        .term-card.expanded .term-expand-hint { display: none; }
+        
+        .no-results { text-align: center; padding: 3rem; color: var(--text-muted); }
+        .no-results svg { width: 48px; height: 48px; stroke: var(--border-color); margin-bottom: 1rem; }
+        
+        .footer { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem; }
+        .footer a { color: var(--accent-color); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .terms-grid { grid-template-columns: 1fr; }
+            .controls { flex-direction: column; }
+            .filter-select { min-width: 100%; }
+            .header-meta { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+                Constitution & Law for Development Practice
+            </div>
+            <h1>Constitutional Law Lexicon</h1>
+            <p>65 essential terms across 8 categories, from fundamental rights frameworks to comparative constitutional law.</p>
+            <div class="header-meta">
+                <div class="header-meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    65 Terms
+                </div>
+                <div class="header-meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                    8 Categories
+                </div>
+                <div class="header-meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                    South Asia Focus
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <input type="text" id="searchInput" placeholder="Search terms, definitions, or examples...">
+            </div>
+            <select class="filter-select" id="categoryFilter">
+                <option value="all">All Categories</option>
+            </select>
+            <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            </button>
+        </div>
+        
+        <div class="category-pills" id="categoryPills"></div>
+        
+        <div class="results-info">
+            <span class="results-count" id="resultsCount">Showing 65 of 65 terms</span>
+            <a href="../constitution.html" class="back-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Back to Course
+            </a>
+        </div>
+        
+        <div class="terms-grid" id="termsGrid"></div>
+        
+        <div class="no-results" id="noResults" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <p>No terms found matching your search.</p>
+        </div>
+        
+        <div class="footer">
+            <p>Part of the <a href="../../index.html">ImpactMojo</a> free development education platform. <a href="../constitution.html">Return to Constitution & Law Course</a></p>
+        </div>
+    </div>
+    
+    <script>
+        const lexiconData = [
+            {term:"Basic Structure Doctrine",category:"Constitutional Foundations",definition:"Judicial principle established in Kesavananda Bharati v. State of Kerala (1973) that Parliament's amending power under Article 368 cannot be used to destroy the essential features of the Constitution, including federalism, secularism, judicial review, and democracy.",example:"When the 99th Amendment creating the NJAC was struck down in 2015, the Court held that judicial independence is part of the basic structure and cannot be altered even by constitutional amendment."},
+            {term:"Constituent Assembly",category:"Constitutional Foundations",definition:"The body of 299 members that drafted the Indian Constitution over 2 years, 11 months, and 17 days (1946-1949). Chaired by Rajendra Prasad with B.R. Ambedkar heading the Drafting Committee.",example:"The Assembly debated 7,635 amendments across 165 days of deliberation, reflecting the diversity of newly independent India's aspirations."},
+            {term:"Preamble",category:"Constitutional Foundations",definition:"The introductory statement declaring India as a sovereign, socialist, secular, democratic republic committed to justice, liberty, equality, and fraternity. 'Socialist' and 'secular' were added by the 42nd Amendment (1976).",example:"The Supreme Court in S.R. Bommai (1994) held that secularism is part of the basic structure, derived from the Preamble's vision."},
+            {term:"Constitutional Morality",category:"Constitutional Foundations",definition:"Ambedkar's concept requiring adherence to constitutional forms and processes over majoritarian social morality. Invoked by the Supreme Court in Navtej Singh Johar (2018) to strike down Section 377.",example:"In the Sabarimala case (2018), the majority held that constitutional morality must prevail when religious custom conflicts with fundamental rights of equality and non-discrimination."},
+            {term:"Seventh Schedule",category:"Constitutional Foundations",definition:"Divides legislative subjects into three lists: Union List (97+ items, Parliament), State List (66 items, state legislatures), and Concurrent List (47 items, both). Central law prevails in case of conflict on concurrent subjects.",example:"GST required the 101st Amendment (2016) because taxation was split across Union and State lists, necessitating a unified framework."},
+            {term:"Amendment Process",category:"Constitutional Foundations",definition:"Article 368 provides three tiers: simple majority (e.g., creating new states), special majority of 2/3 present and voting (most amendments), and special majority plus ratification by half the state legislatures (changes to federal structure).",example:"The 73rd and 74th Amendments (1992) required state ratification because they altered the federal structure by constitutionalizing local governance."},
+            {term:"Article 14",category:"Fundamental Rights",definition:"Right to equality before the law and equal protection of the laws. Permits reasonable classification based on intelligible differentia and rational nexus to the object sought, but prohibits arbitrary state action.",example:"In E.P. Royappa v. State of Tamil Nadu (1974), the Court held that arbitrariness is the antithesis of Article 14, expanding equality beyond formal classification tests."},
+            {term:"Article 19",category:"Fundamental Rights",definition:"Guarantees six freedoms to citizens: speech and expression, assembly, association, movement, residence, and profession. Each subject to 'reasonable restrictions' under specified grounds (sovereignty, public order, decency, etc.).",example:"In Shreya Singhal v. UOI (2015), the Court struck down Section 66A of the IT Act as an unreasonable restriction on Article 19(1)(a) free speech."},
+            {term:"Article 21",category:"Fundamental Rights",definition:"No person shall be deprived of life or personal liberty except according to procedure established by law. Expanded from narrow procedural reading (A.K. Gopalan, 1950) to substantive due process (Maneka Gandhi, 1978).",example:"Article 21 now encompasses rights to livelihood, shelter, education, health, clean environment, food, privacy, and dignity through decades of judicial interpretation."},
+            {term:"Article 32",category:"Fundamental Rights",definition:"Right to constitutional remedies. Empowers the Supreme Court to issue writs (habeas corpus, mandamus, certiorari, prohibition, quo warranto) for enforcement of fundamental rights. Called the 'soul of the Constitution' by Ambedkar.",example:"PIL petitions under Article 32 have secured mid-day meals for schoolchildren (PUCL v. UOI, 2001) and protected forest cover (T.N. Godavarman, 1996-ongoing)."},
+            {term:"Writ Jurisdiction",category:"Fundamental Rights",definition:"Power of the Supreme Court (Art. 32) and High Courts (Art. 226) to issue prerogative writs. Article 226 is broader than Article 32 as it extends to enforcement of legal rights beyond fundamental rights.",example:"A habeas corpus petition can secure release of illegally detained persons; mandamus can compel a government officer to perform a statutory duty like processing an RTI application."},
+            {term:"Reasonable Restrictions",category:"Fundamental Rights",definition:"Grounds on which fundamental freedoms under Article 19 may be limited: sovereignty and integrity, security of the state, friendly relations with foreign states, public order, decency or morality, contempt of court, defamation, incitement to offence.",example:"The Court applies a proportionality test: the restriction must be narrowly tailored, serve a legitimate aim, and use the least restrictive means available."},
+            {term:"Right to Privacy",category:"Fundamental Rights",definition:"Recognized as a fundamental right under Article 21 in K.S. Puttaswamy v. UOI (2017). Subject to a three-fold test: legality (prescribed by law), legitimate aim (proper state objective), and proportionality (suitable, necessary, balanced).",example:"The Puttaswamy framework was applied in the Aadhaar judgment (2018) to uphold biometric authentication for government subsidies but strike down mandatory linking for private services."},
+            {term:"Untouchability Abolition",category:"Fundamental Rights",definition:"Article 17 abolishes untouchability 'in any form' and makes its practice a punishable offence. One of the few fundamental rights that operates horizontally (binds private individuals, not just the state).",example:"The Protection of Civil Rights Act (1955) and the SC/ST Prevention of Atrocities Act (1989) provide criminal penalties for caste discrimination and violence."},
+            {term:"Directive Principles",category:"State Policy & Governance",definition:"Non-justiciable guidelines in Part IV directing the state toward social and economic justice. Include provisions on adequate livelihood (Art. 39), equal pay (Art. 39(d)), free legal aid (Art. 39A), and uniform civil code (Art. 44).",example:"DPSP Article 47 (nutrition and public health) provided the constitutional basis for the National Food Security Act (2013) covering 800 million people."},
+            {term:"DPSP-Fundamental Rights Harmonization",category:"State Policy & Governance",definition:"The judicial doctrine that DPSPs and Fundamental Rights are complementary, not conflicting. Courts read DPSPs into the expansive interpretation of Article 21, effectively making non-justiciable principles enforceable.",example:"The right to education (Art. 21A) began as DPSP Art. 45, was read into Art. 21 by Unni Krishnan (1993), then formalized as a fundamental right by the 86th Amendment (2002)."},
+            {term:"Fundamental Duties",category:"State Policy & Governance",definition:"Part IVA (Article 51A), added by 42nd Amendment (1976). Eleven duties including respecting the Constitution, promoting harmony, protecting environment, developing scientific temper, and safeguarding public property.",example:"Courts have used fundamental duties to support restrictions on activities like animal sacrifice and environmental destruction, though duties are not independently enforceable."},
+            {term:"Panchayati Raj",category:"State Policy & Governance",definition:"Three-tier local self-governance system constitutionalized by the 73rd Amendment (1992). Mandates elected gram panchayats, block panchayats, and district panchayats with reserved seats for SC/ST and women (minimum one-third).",example:"India has 2.5 lakh+ gram panchayats with approximately 14 lakh elected women representatives, the largest democratic experiment in local governance globally."},
+            {term:"Finance Commission",category:"State Policy & Governance",definition:"Constitutional body (Art. 280) recommending distribution of tax revenues between Union and states. Appointed every five years. The 15th Finance Commission (2021-26) recommended 41% devolution to states.",example:"The 14th Finance Commission's increase from 32% to 42% devolution significantly expanded state fiscal autonomy, changing the Centre-state financial relationship."},
+            {term:"Article 356",category:"State Policy & Governance",definition:"President's Rule provision allowing central takeover of state governance on grounds of constitutional machinery failure. Used over 100 times since 1950, often for political purposes rather than genuine emergencies.",example:"S.R. Bommai v. UOI (1994) established that Article 356 is subject to judicial review and that the floor of the legislature, not the Governor's assessment, determines majority."},
+            {term:"Public Interest Litigation",category:"Judicial System",definition:"Judicial innovation allowing any person to approach the court on behalf of those unable to do so, relaxing traditional locus standi requirements. Pioneered by Justices Bhagwati and Krishna Iyer in the late 1970s.",example:"Hussainara Khatoon (1979) initiated PIL by addressing undertrial prisoners' rights. Olga Tellis (1985) used PIL to recognize pavement dwellers' right to livelihood."},
+            {term:"Collegium System",category:"Judicial System",definition:"Mechanism for judicial appointments where the Chief Justice and four senior-most judges recommend appointments and transfers. Established by the Second (1993) and Third Judges Cases (1998), not by constitutional text.",example:"The NJAC (99th Amendment, 2015) attempted to replace the Collegium with executive-judicial committee but was struck down as violating judicial independence (basic structure)."},
+            {term:"Judicial Review",category:"Judicial System",definition:"Power of courts to examine legislative and executive action for constitutional validity. Considered part of the basic structure (L. Chandra Kumar, 1997). Exercised under Articles 13, 32, 226, and 136.",example:"Judicial review has struck down over 100 central and state laws as unconstitutional, from sedition provisions (Shreya Singhal, 2015) to privacy violations (Puttaswamy, 2017)."},
+            {term:"Pendency Crisis",category:"Judicial System",definition:"Over 5 crore cases pending across Indian courts: ~80,000 in Supreme Court, ~60 lakh in High Courts, ~4.4 crore in district courts. Average disposal time exceeds 3-5 years in many jurisdictions.",example:"India has approximately 21 judges per million population compared to 51 in the UK and 100+ in Germany, a structural deficit driving the pendency crisis."},
+            {term:"Lok Adalat",category:"Judicial System",definition:"People's courts established under the Legal Services Authorities Act (1987) for conciliation-based dispute resolution. Decisions are binding, final, and non-appealable. No court fees charged.",example:"Lok Adalats settle 1.87 crore+ cases annually, primarily in motor accident claims, matrimonial disputes, and utility payment cases, significantly reducing court burden."},
+            {term:"Gram Nyayalaya",category:"Judicial System",definition:"Village courts established under the Gram Nyayalayas Act (2008) to bring justice closer to rural communities at the panchayat level. Have jurisdiction over petty civil and criminal matters.",example:"Despite the target of thousands, only about 500 Gram Nyayalayas were functioning by 2023, reflecting the persistent gap between legislative intent and implementation."},
+            {term:"Reservation Policy",category:"Social Justice",definition:"Constitutional framework for affirmative action through Articles 15(4), 16(4), 330, and 332. Provides reserved seats in education, government employment, and legislatures for SC, ST, and OBC communities.",example:"The Indra Sawhney judgment (1992) established the 50% ceiling on total reservations and introduced the 'creamy layer' exclusion for OBCs."},
+            {term:"Creamy Layer",category:"Social Justice",definition:"Economic threshold above which OBC individuals are excluded from reservation benefits. Currently set at Rs. 8 lakh annual family income for central government reservations. Does not apply to SC/ST categories.",example:"The concept was introduced in Indra Sawhney (1992) to ensure reservation benefits reach the most disadvantaged within OBC communities rather than being captured by the affluent."},
+            {term:"EWS Reservation",category:"Social Justice",definition:"10% reservation for Economically Weaker Sections among unreserved categories, introduced by the 103rd Amendment (2019). Upheld by the Supreme Court in Janhit Abhiyan v. UOI (2022) by 3:2 majority.",example:"EWS reservation applies to those with annual family income below Rs. 8 lakh and not belonging to SC, ST, or OBC categories, the first economic-only reservation in Indian constitutional history."},
+            {term:"Sub-Classification of SCs",category:"Social Justice",definition:"The principle that states may create sub-categories within Scheduled Castes for preferential treatment of the most marginalized. Permitted by the Supreme Court in State of Punjab v. Davinder Singh (2024).",example:"This allows states to prioritize communities like Valmikis, Mazhabi Sikhs, or Arunthathiyars who have historically been excluded even within the SC category from reservation benefits."},
+            {term:"Political Reservation",category:"Social Justice",definition:"Reserved seats in Parliament (Arts. 330-331) and state legislatures (Arts. 332-333) for SC and ST communities, proportional to population. Extended periodically, most recently to 2030.",example:"Pande (2003, AER) found that political reservation for SCs in state legislatures increased targeted public goods spending in constituencies with SC representatives."},
+            {term:"RTI Act",category:"Rights-Based Legislation",definition:"Right to Information Act (2005). Provides citizens the right to request information from public authorities within 30 days. Information Commissions can impose penalties of Rs. 250 per day for non-compliance.",example:"RTI generates 40-60 lakh applications annually. Peisakhin & Pinto (2010) found that attaching RTI requests to service applications reduced bureaucratic delays significantly."},
+            {term:"MGNREGA",category:"Rights-Based Legislation",definition:"Mahatma Gandhi National Rural Employment Guarantee Act (2005). Guarantees 100 days of wage employment per rural household per year. Demand-driven design with unemployment allowance for unmet demand.",example:"Imbert & Papp (2015, AER) showed MGNREGA raised private-sector wages by 4.7%, demonstrating its market equilibrium effects beyond direct employment."},
+            {term:"Forest Rights Act",category:"Rights-Based Legislation",definition:"Scheduled Tribes and Other Traditional Forest Dwellers (Recognition of Forest Rights) Act, 2006. Recognizes individual and community rights over forest land occupied before December 2005.",example:"Section 4(5) requires Gram Sabha consent before forest land diversion for development projects, providing communities a constitutional veto over displacement."},
+            {term:"RTE Act",category:"Rights-Based Legislation",definition:"Right of Children to Free and Compulsory Education Act (2009). Implements Article 21A by mandating free education for children aged 6-14, including 25% reservation in private unaided schools for disadvantaged children.",example:"ASER 2023 data shows near-universal enrollment but only 65% of Grade 5 children can read a Grade 2 text, highlighting the quality gap that legislation alone cannot address."},
+            {term:"NFSA",category:"Rights-Based Legislation",definition:"National Food Security Act (2013). Provides subsidized foodgrains (rice at Rs. 3/kg, wheat at Rs. 2/kg, coarse grains at Rs. 1/kg) to approximately 800 million people through the Public Distribution System.",example:"Dreze & Khera (2017) documented that PDS reform (biometric authentication, digitization) improved delivery in some states but created exclusion errors where technology failed."},
+            {term:"Social Audit",category:"Rights-Based Legislation",definition:"Community-led verification process where beneficiaries examine government records, verify physical works, and identify discrepancies. Mandated under MGNREGA since 2011 amendments.",example:"Andhra Pradesh's institutionalized social audit system (SSAAT) has recovered over Rs. 400 crore in misappropriated funds, demonstrating the model's effectiveness when properly resourced."},
+            {term:"BNS/BNSS/BSA",category:"Criminal Justice",definition:"Bharatiya Nyaya Sanhita, Bharatiya Nagarik Suraksha Sanhita, and Bharatiya Sakshya Adhiniyam (2023), replacing the IPC, CrPC, and Indian Evidence Act respectively. Effective July 2024.",example:"Key changes include community service as punishment, electronic evidence provisions, and zero FIR (filing at any police station). Critics note that many colonial-era provisions were retained with minimal change."},
+            {term:"Undertrial Crisis",category:"Criminal Justice",definition:"Approximately 77% of India's 5+ lakh prisoners are undertrials (awaiting trial). Many serve longer in jail awaiting trial than the maximum sentence for their alleged offence.",example:"Section 479 BNSS mandates release of undertrials who have served half the maximum sentence, but implementation remains poor due to inadequate legal aid and judicial capacity."},
+            {term:"Custodial Violence",category:"Criminal Justice",definition:"Torture, abuse, or death of persons in police or judicial custody. D.K. Basu v. State of WB (1997) established mandatory guidelines including medical examination, informing family, and maintaining arrest records.",example:"NHRC receives thousands of custodial death complaints annually. Despite D.K. Basu guidelines, India has not ratified the UN Convention Against Torture."},
+            {term:"Police Reform",category:"Criminal Justice",definition:"Structural changes to policing mandated by Prakash Singh v. UOI (2006): fixed tenure for DGP, State Security Commissions, separation of investigation from law and order, Police Establishment Boards, and Police Complaints Authorities.",example:"Commonwealth Human Rights Initiative reports show most states have only partially implemented Prakash Singh directives, with political control over police transfers remaining pervasive."},
+            {term:"EIA Notification",category:"Environmental Law",definition:"Environmental Impact Assessment Notification (2006) under the Environment Protection Act requires prior environmental clearance for major development projects across eight categories through screening, scoping, public hearing, and expert appraisal.",example:"The draft EIA 2020 proposed allowing post-facto clearance and reducing public participation, generating over 2 million public comments, overwhelmingly opposing the dilutions."},
+            {term:"NGT",category:"Environmental Law",definition:"National Green Tribunal, established under the NGT Act (2010). Specialized environmental court with jurisdiction over civil cases involving environmental protection, forest conservation, and natural resources.",example:"NGT orders have banned commercial activity near rivers, regulated construction in eco-sensitive zones, and imposed environmental compensation on polluting industries."},
+            {term:"Polluter Pays Principle",category:"Environmental Law",definition:"Principle that the cost of pollution should be borne by the entity causing it, adopted as Indian law in Vellore Citizens Welfare Forum v. UOI (1996) alongside the precautionary principle.",example:"In Vellore, tanneries discharging effluents into the Palar River were ordered to pay compensation and remediation costs, establishing the principle's enforceability."},
+            {term:"Public Trust Doctrine",category:"Environmental Law",definition:"Principle that the state holds natural resources (rivers, forests, shorelines, air) as trustee for the public and cannot permit their unrestricted private exploitation. Adopted in M.C. Mehta v. Kamal Nath (1997).",example:"The doctrine was used to prevent private encroachment on riverbed land and has been applied to protect commons like village grazing lands and water bodies."},
+            {term:"Absolute Liability",category:"Environmental Law",definition:"Standard established in M.C. Mehta v. UOI (1987, Oleum Gas Leak) that enterprises engaged in inherently dangerous activities owe an absolute duty of care to the community. No defenses of due diligence or act of God available.",example:"Goes beyond the British strict liability rule from Rylands v. Fletcher. The larger and more profitable the enterprise, the greater the compensation it must pay."},
+            {term:"Forest Conservation",category:"Environmental Law",definition:"Forest Conservation Act (1980) requires central government approval for diversion of any forest land for non-forest purposes. T.N. Godavarman (1996-ongoing) expanded this to all forests regardless of classification.",example:"CAMPA fund has accumulated Rs. 54,000+ crore for compensatory afforestation, though utilization rates remain around 30%, and the FC Amendment Act 2023 exempts certain categories."},
+            {term:"Aadhaar",category:"Digital Rights",definition:"12-digit biometric identity number issued to 1.3+ billion residents. Constitutional status established in Puttaswamy (Aadhaar, 2018): upheld for government subsidies (money bill), struck down Section 57 (private use).",example:"Dreze & Khera documented biometric authentication failures excluding legitimate beneficiaries from PDS rations, particularly among the elderly, manual laborers, and those with worn fingerprints."},
+            {term:"DPDP Act",category:"Digital Rights",definition:"Digital Personal Data Protection Act (2023). Consent-based framework for processing personal data. Establishes Data Protection Board. Significant exemptions for government agencies on grounds of sovereignty, security, and public order.",example:"Unlike GDPR, the DPDP Act does not require data localization or provide a right to data portability. Government exemptions from most provisions have raised concerns about surveillance potential."},
+            {term:"Internet Shutdowns",category:"Digital Rights",definition:"Government-ordered suspension of internet services. India leads globally with 116 shutdowns in 2022 alone. Anuradha Bhasin v. UOI (2020) established that shutdown orders must be proportionate, time-limited, and published.",example:"The Kashmir shutdown (August 2019 to March 2020) was the longest in any democracy. The Supreme Court held it disproportionate but stopped short of ordering full restoration."},
+            {term:"Digital Public Infrastructure",category:"Digital Rights",definition:"India Stack combining Aadhaar (identity), UPI (payments), DigiLocker (documents), and Account Aggregator (financial data). G20-endorsed model for digital transformation with constitutional questions about data governance.",example:"UPI processes 13+ billion transactions monthly, transforming financial inclusion but concentrating payment data in government and a few private platforms without comprehensive privacy protections."},
+            {term:"Right to Be Forgotten",category:"Digital Rights",definition:"The right to have personal information removed from public access. Not explicitly in DPDP Act but recognized by some High Courts. Puttaswamy's informational privacy framework provides the constitutional basis.",example:"The Karnataka High Court in 2017 ordered removal of a woman's name from a criminal case judgment after acquittal, recognizing the right in the context of digital permanence."},
+            {term:"Bangladesh Constitution",category:"Comparative South Asia",definition:"1972 Constitution established on four pillars: nationalism, socialism, democracy, secularism. Basic structure doctrine adopted in Anwar Hossain Chowdhury v. Bangladesh (1989). Turbulent amendment history.",example:"The 2024 crisis led to PM Hasina's resignation and an interim government under Muhammad Yunus, illustrating constitutional fragility when institutional norms erode."},
+            {term:"Nepal Constitution",category:"Comparative South Asia",definition:"2015 Constitution establishing a federal democratic republic with 31 fundamental rights, 7 provinces, and proportional representation. Replaced the 2007 interim constitution after a decade of political transition.",example:"Nepal's Constitution includes justiciable socio-economic rights (food, housing, health, employment) that India keeps as non-justiciable DPSPs, offering a contrasting approach."},
+            {term:"Sri Lanka Constitution",category:"Comparative South Asia",definition:"1978 Constitution creating an executive presidential system. 13th Amendment (1987) introduced provincial devolution. 21st Amendment (2022) restored parliamentary checks after the Aragalaya crisis.",example:"The 2022 economic crisis demonstrated how executive power concentration (strengthened by the 20th Amendment) eliminated institutional checks that might have prevented catastrophic policy decisions."},
+            {term:"Pakistan Constitution",category:"Comparative South Asia",definition:"1973 Constitution establishing a federal parliamentary democracy with Islamic provisions. 18th Amendment (2010) decentralized significant powers to provinces. History of military interventions suspending constitutional governance.",example:"The 18th Amendment transferred 47 subjects from the Federal Legislative List to provinces and abolished the Concurrent List entirely, making it Pakistan's most significant devolution reform."},
+            {term:"Asymmetric Federalism",category:"Comparative South Asia",definition:"Constitutional arrangement where different constituent units have different levels of autonomy or powers. India's Articles 370 (now effectively abrogated), 371A-J, Fifth and Sixth Schedules exemplify this.",example:"Nagaland under Article 371A retains protection of Naga customary law, land ownership patterns, and religious practices, meaning national legislation may not apply without state legislature consent."},
+            {term:"PESA",category:"Rights-Based Legislation",definition:"Panchayats (Extension to Scheduled Areas) Act, 1996. Extends panchayat governance to Fifth Schedule tribal areas with special provisions: Gram Sabha consent for land acquisition, ownership of minor forest produce, and control over money lending.",example:"PESA gives Gram Sabhas the power to approve or reject plans for development projects in Scheduled Areas, a constitutional veto frequently ignored in practice by mining and industrial interests."},
+            {term:"Article 300A",category:"Fundamental Rights",definition:"Right to property. Originally a fundamental right (Art. 19(1)(f) and Art. 31), downgraded to constitutional right by the 44th Amendment (1978). Persons can only be deprived of property by authority of law.",example:"Land acquisition for development projects must follow the Right to Fair Compensation and Transparency in Land Acquisition Act (2013), which replaced the colonial-era Land Acquisition Act (1894)."},
+            {term:"Precautionary Principle",category:"Environmental Law",definition:"Where there is a threat of serious or irreversible environmental damage, lack of full scientific certainty should not be used as a reason for postponing measures to prevent degradation. Adopted in Vellore Citizens (1996).",example:"Under the precautionary principle, the burden of proof shifts to the developer: if a project might cause environmental harm, the proponent must prove it is safe rather than opponents proving it is harmful."},
+            {term:"PIL Abuse",category:"Judicial System",definition:"Criticism that PIL has been captured by elite interests, used for personal grievances rather than public interest, and enables judicial overreach into policy domains. Documented by Anuj Bhuwania in 'Courting the People' (2017).",example:"The Supreme Court itself has noted PIL abuse, imposing costs on frivolous petitioners and warning that PIL should not become 'publicity interest litigation' or 'private interest litigation.'"},
+            {term:"Article 21A",category:"Fundamental Rights",definition:"Right to education for children aged 6-14, inserted by the 86th Amendment (2002). Emerged from DPSP Article 45 through judicial reading into Article 21 in Unni Krishnan (1993).",example:"The pathway from aspiration to enforceable right took 52 years: DPSP Art. 45 (1950) to judicial recognition (1993) to constitutional amendment (2002) to legislation (RTE Act, 2009)."},
+            {term:"Fiscal Federalism",category:"State Policy & Governance",definition:"Constitutional framework for sharing financial resources between Centre and states through Finance Commission recommendations, GST Council decisions, and centrally sponsored schemes.",example:"The 101st Amendment (2016) created the GST Council where Centre and states jointly decide tax rates, representing a fundamental shift in India's fiscal federal architecture."},
+            {term:"Anti-Defection Law",category:"State Policy & Governance",definition:"Tenth Schedule (added by 52nd Amendment, 1985) disqualifies legislators who defect from their party. The Speaker/Chairman decides disqualification petitions, creating potential bias concerns.",example:"Kihoto Hollohan v. Zachillhu (1992) upheld the Tenth Schedule but the Court noted concerns about the Speaker's dual role as political actor and quasi-judicial authority on defection questions."},
+            {term:"Climate Litigation",category:"Environmental Law",definition:"Legal action invoking constitutional rights to address climate change. M.K. Ranjitsinh v. UOI (2024) recognized the right to be free from adverse climate effects under Articles 14 and 21.",example:"The M.K. Ranjitsinh judgment opens the door to climate litigation in India, potentially enabling challenges to inadequate government action on emissions reduction and climate adaptation."}
+        ];
+        
+        const categories = [...new Set(lexiconData.map(item => item.category))];
+        const categoryCounts = categories.map(cat => ({name: cat, count: lexiconData.filter(item => item.category === cat).length}));
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryFilter = document.getElementById('categoryFilter');
+            categories.forEach(cat => { const option = document.createElement('option'); option.value = cat; option.textContent = cat; categoryFilter.appendChild(option); });
+            
+            const pillsContainer = document.getElementById('categoryPills');
+            const allPill = document.createElement('button');
+            allPill.className = 'category-pill active';
+            allPill.dataset.category = 'all';
+            allPill.innerHTML = `All <span class="count">${lexiconData.length}</span>`;
+            allPill.onclick = () => filterByCategory('all');
+            pillsContainer.appendChild(allPill);
+            
+            categoryCounts.forEach(cat => {
+                const pill = document.createElement('button');
+                pill.className = 'category-pill';
+                pill.dataset.category = cat.name;
+                pill.innerHTML = `${cat.name} <span class="count">${cat.count}</span>`;
+                pill.onclick = () => filterByCategory(cat.name);
+                pillsContainer.appendChild(pill);
+            });
+            
+            renderTerms(lexiconData);
+            
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            document.getElementById('categoryFilter').addEventListener('change', function() { filterByCategory(this.value); });
+            document.getElementById('themeToggle').addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                document.documentElement.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+            });
+        });
+        
+        let currentCategory = 'all';
+        
+        function filterByCategory(category) {
+            currentCategory = category;
+            document.getElementById('categoryFilter').value = category;
+            document.querySelectorAll('.category-pill').forEach(p => p.classList.toggle('active', p.dataset.category === category));
+            applyFilters();
+        }
+        
+        function applyFilters() {
+            const search = document.getElementById('searchInput').value.toLowerCase().trim();
+            let filtered = lexiconData;
+            if (currentCategory !== 'all') filtered = filtered.filter(t => t.category === currentCategory);
+            if (search) filtered = filtered.filter(t => t.term.toLowerCase().includes(search) || t.definition.toLowerCase().includes(search) || t.example.toLowerCase().includes(search) || t.category.toLowerCase().includes(search));
+            renderTerms(filtered);
+        }
+        
+        function renderTerms(terms) {
+            const grid = document.getElementById('termsGrid');
+            const noResults = document.getElementById('noResults');
+            const countEl = document.getElementById('resultsCount');
+            
+            if (terms.length === 0) { grid.innerHTML = ''; noResults.style.display = 'block'; countEl.textContent = 'No terms found'; return; }
+            noResults.style.display = 'none';
+            countEl.textContent = `Showing ${terms.length} of ${lexiconData.length} terms`;
+            
+            grid.innerHTML = terms.map(t => `
+                <div class="term-card" onclick="this.classList.toggle('expanded')">
+                    <div class="term-name">${t.term}</div>
+                    <div class="term-category">${t.category}</div>
+                    <div class="term-definition">${t.definition}</div>
+                    <div class="term-example"><strong>Example:</strong> ${t.example}</div>
+                    <div class="term-expand-hint">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="M19 9l-7 7-7-7"/></svg>
+                        Click to see example
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
