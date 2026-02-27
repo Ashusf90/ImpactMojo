@@ -8473,33 +8473,118 @@ Join the PLC on WhatsApp
   </div>
   <style>
   .imx-tracks-badgelist{padding:2.5rem 0;background:radial-gradient(900px 500px at 15% -10%, rgba(14,165,233,.08), transparent 60%), radial-gradient(900px 500px at 100% 110%, rgba(99,102,241,.08), transparent 60%)}
-  .imx-wrap{max-width:1200px;margin:0 auto;padding:0 1rem}
-  .imx-heading{display:flex;align-items:baseline;gap:1rem;margin-bottom:1rem}
+  .imx-wrap{max-width:1200px;margin:0 auto;padding:0 1.5rem}
+  .imx-heading{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.25rem}
   .imx-kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;color:var(--text-secondary)}
   .imx-h2{font-family:Poppins,system-ui,sans-serif;font-size:1.9rem;letter-spacing:.1px;margin:.1rem 0 .1rem;background:linear-gradient(135deg,#0EA5E9,#6366F1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-  .imx-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem}
-  @media (max-width:1400px){ .imx-row{grid-template-columns:repeat(3,1fr)} }
-  @media (max-width:900px){ .imx-row{grid-template-columns:repeat(2,1fr)} }
+  .imx-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+  @media (max-width:1100px){ .imx-row{grid-template-columns:repeat(2,1fr)} }
   @media (max-width:600px){ .imx-row{grid-template-columns:1fr} }
-  .imx-card{display:flex;flex-direction:column;min-height:320px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:16px;padding:1rem;transition:transform .15s ease,border-color .15s ease}
+  .imx-card{display:flex;flex-direction:column;background:var(--card-bg);border:1px solid var(--border-color);border-radius:16px;padding:1.25rem 1.5rem;transition:transform .15s ease,border-color .15s ease}
   .imx-card:hover{transform:translateY(-2px);border-color:var(--accent-color)}
-  .imx-card-h{display:flex;align-items:center;gap:.6rem;margin-bottom:.4rem}
+  .imx-card-h{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
+  .imx-ico-wrap{flex-shrink:0}
   .imx-ico{width:22px;height:22px}
-  .imx-tracks-badgelist .imx-card-title{margin:0;font-weight:800;letter-spacing:.1px;font-size:0.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .imx-list{list-style:none;margin:.25rem 0 0;padding:0;display:flex;flex-direction:column;gap:.35rem;flex:1}
-  .imx-link{text-decoration:none;color:var(--text-primary);display:flex;align-items:center;gap:.45rem}
-  .imx-text{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .imx-tracks-badgelist .imx-card-title{margin:0;font-weight:800;letter-spacing:.1px;font-size:0.95rem;white-space:normal;line-height:1.3}
+  .imx-list{list-style:none;margin:.25rem 0 0;padding:0;display:flex;flex-direction:column;gap:.4rem;flex:1}
+  .imx-link{text-decoration:none;color:var(--text-primary);display:flex;align-items:baseline;gap:.5rem;padding:.15rem 0;border-radius:6px;transition:background .1s}
+  .imx-link:hover{background:var(--hover-bg, rgba(148,163,184,.08));padding-left:.35rem}
+  .imx-text{font-weight:500;white-space:normal;line-height:1.35;font-size:.875rem}
   .imx-empty{color:var(--text-secondary)}
-  .badge{display:inline-block;border:1px solid var(--border-color);border-radius:999px;font-size:.72rem;padding:.12rem .45rem;color:var(--text-secondary);white-space:nowrap;flex:0 0 auto}
+  .badge{display:inline-block;border:1px solid var(--border-color);border-radius:999px;font-size:.68rem;padding:.15rem .5rem;color:var(--text-secondary);white-space:nowrap;flex:0 0 auto}
   .badge-courses{border-color:#60A5FA33;color:#60A5FA}
   .badge-labs{border-color:#34D39933;color:#34D399}
   .badge-games{border-color:#F59E0B33;color:#F59E0B}
   .badge-premium{border-color:#F472B633;color:#F472B6}
   .badge-resources{border-color:#A78BFA33;color:#A78BFA}
-  .imx-actions{margin-top:.6rem}
-  .imx-btn{display:inline-block;border:1px solid var(--border-color);border-radius:10px;padding:.4rem .65rem;text-decoration:none;color:var(--text-primary)}
+  .imx-actions{margin-top:.75rem;padding-top:.6rem;border-top:1px solid var(--border-color)}
+  .imx-btn{display:inline-block;border:1px solid var(--border-color);border-radius:10px;padding:.4rem .75rem;text-decoration:none;color:var(--text-primary);font-size:.85rem}
   .imx-btn:hover{border-color:var(--accent-color);color:var(--accent-color)}
   
+/* Floating Section Navigator */
+.section-nav-float {
+    position: fixed;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.section-nav-float.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+.section-nav-dot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    text-decoration: none;
+    padding: 0.3rem 0;
+    cursor: pointer;
+}
+.section-nav-dot-circle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-muted, #64748b);
+    opacity: 0.4;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+.section-nav-dot:hover .section-nav-dot-circle,
+.section-nav-dot.active .section-nav-dot-circle {
+    opacity: 1;
+    width: 10px;
+    height: 10px;
+    background: var(--accent-color, #0EA5E9);
+    box-shadow: 0 0 6px rgba(14, 165, 233, 0.5);
+}
+.section-nav-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted, #64748b);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(4px);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+    background: var(--card-bg, #1e293b);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color, #334155);
+}
+.section-nav-dot:hover .section-nav-label,
+.section-nav-dot.active .section-nav-label {
+    opacity: 1;
+    transform: translateX(0);
+}
+.section-nav-dot.active .section-nav-label {
+    color: var(--accent-color, #0EA5E9);
+}
+@media (max-width: 900px) {
+    .section-nav-float {
+        right: 0.4rem;
+    }
+    .section-nav-label {
+        display: none;
+    }
+    .section-nav-dot-circle {
+        width: 6px;
+        height: 6px;
+    }
+    .section-nav-dot:hover .section-nav-dot-circle,
+    .section-nav-dot.active .section-nav-dot-circle {
+        width: 8px;
+        height: 8px;
+    }
+}
+
 /* Rich Comparison Modal Styles */
 .imx-compare-card-rich { padding: 1.5rem; min-height: 400px; }
 .imx-compare-type-badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 1rem; }
@@ -14692,6 +14777,19 @@ PASTE THIS ENTIRE BLOCK JUST BEFORE
 
 <!-- ImpactMojo Feature FABs and Modals -->
 <!-- Speed Dial Tools Button -->
+<!-- Floating Section Navigator -->
+<nav class="section-nav-float" id="sectionNavFloat" aria-label="Page sections">
+    <a href="#home" class="section-nav-dot active" data-section="home"><span class="section-nav-label">Home</span><span class="section-nav-dot-circle"></span></a>
+    <a href="#flagship-courses" class="section-nav-dot" data-section="flagship-courses"><span class="section-nav-label">Flagships</span><span class="section-nav-dot-circle"></span></a>
+    <a href="#case-studies" class="section-nav-dot" data-section="case-studies"><span class="section-nav-label">Case Studies</span><span class="section-nav-dot-circle"></span></a>
+    <a href="#tracks" class="section-nav-dot" data-section="tracks"><span class="section-nav-label">Tracks</span><span class="section-nav-dot-circle"></span></a>
+    <a href="#categories" class="section-nav-dot" data-section="categories"><span class="section-nav-label">Courses</span><span class="section-nav-dot-circle"></span></a>
+    <a href="#premium" class="section-nav-dot" data-section="premium"><span class="section-nav-label">Premium</span><span class="section-nav-dot-circle"></span></a>
+    <a href="#whats-new" class="section-nav-dot" data-section="whats-new"><span class="section-nav-label">What's New</span><span class="section-nav-dot-circle"></span></a>
+    <a href="#wall-of-love" class="section-nav-dot" data-section="wall-of-love"><span class="section-nav-label">Testimonials</span><span class="section-nav-dot-circle"></span></a>
+    <a href="#about" class="section-nav-dot" data-section="about"><span class="section-nav-label">About</span><span class="section-nav-dot-circle"></span></a>
+</nav>
+
 <div class="imx-speed-dial" id="imxSpeedDial">
     <!-- Main Toggle Button -->
     <button class="imx-speed-dial-toggle" id="imxSpeedDialToggle" onclick="IMX.SpeedDial.toggle()" title="Learning Tools" aria-label="Open learning tools menu">
@@ -17892,6 +17990,62 @@ waitForDependencies(patchSaveFunctions);
     } else {
         init();
     }
+})();
+</script>
+
+<script>
+// Section Navigator scroll-spy
+(function() {
+    var floatNav = document.getElementById('sectionNavFloat');
+    if (!floatNav) return;
+    var dots = floatNav.querySelectorAll('.section-nav-dot');
+    var sectionIds = [];
+    dots.forEach(function(d) { sectionIds.push(d.getAttribute('data-section')); });
+
+    var ticking = false;
+    function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function() {
+            // Show/hide nav based on scroll position
+            if (window.scrollY > 400) {
+                floatNav.classList.add('visible');
+            } else {
+                floatNav.classList.remove('visible');
+            }
+            // Find current section
+            var current = sectionIds[0];
+            var scrollPos = window.scrollY + window.innerHeight * 0.35;
+            for (var i = sectionIds.length - 1; i >= 0; i--) {
+                var el = document.getElementById(sectionIds[i]);
+                if (el && el.offsetTop <= scrollPos) {
+                    current = sectionIds[i];
+                    break;
+                }
+            }
+            dots.forEach(function(d) {
+                if (d.getAttribute('data-section') === current) {
+                    d.classList.add('active');
+                } else {
+                    d.classList.remove('active');
+                }
+            });
+            ticking = false;
+        });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Smooth scroll on click
+    dots.forEach(function(d) {
+        d.addEventListener('click', function(e) {
+            e.preventDefault();
+            var target = document.getElementById(d.getAttribute('data-section'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
 })();
 </script>
 
