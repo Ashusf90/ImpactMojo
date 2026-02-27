@@ -5928,24 +5928,22 @@ footer::before {
    Badge:   .premium-tier-badge  { position:absolute; top:0.5rem; z-index:10 }
    Border:  .premium-locked::after { position:absolute; inset:0; z-index:5 }  */
 
-/* 1. Cards contain all positioned children; taller to fit content cleanly. */
+/* === CARD SHELL === */
 .card[data-required-tier],
 .card.premium-locked {
     overflow: hidden !important;
-    min-height: 260px;
     padding: 1.5rem !important;
-    display: flex;
-    flex-direction: column;
 }
 
-/* 2. Soften the dashed-border pseudo from premium.js */
+/* Soften the dashed-border pseudo from premium.js */
 .premium-locked::after {
     border-radius: inherit !important;
-    border-color: rgba(148, 163, 184, 0.12) !important;
+    border-color: rgba(148, 163, 184, 0.10) !important;
+    border-width: 1px !important;
+    border-style: solid !important;
 }
 
-/* 3. The <a> wrapper inside premium cards: positioned stacking layer
-   ABOVE the overlay so ALL its children render on top. */
+/* === ALL CARD CONTENT ABOVE OVERLAY === */
 .card[data-required-tier] > a {
     position: relative !important;
     z-index: 25 !important;
@@ -5954,88 +5952,108 @@ footer::before {
     flex: 1;
 }
 
-/* 4. Card header: compact row for PREMIUM badge + learner count */
 .card[data-required-tier] .card-header {
     position: relative !important;
     z-index: 25 !important;
-    margin-bottom: 0.6rem !important;
+    margin-bottom: 0.5rem !important;
 }
 
-/* 5. Tier badge above overlay */
+.card[data-required-tier] .card-title {
+    position: relative;
+    z-index: 26;
+    font-size: 1rem !important;
+    font-weight: 700;
+    color: var(--text-primary, #f8fafc);
+    margin-bottom: 0.25rem;
+    line-height: 1.35;
+}
+
+.card[data-required-tier] .star-rating {
+    position: relative;
+    z-index: 26;
+    margin-bottom: 0.25rem;
+}
+
+.card[data-required-tier] .card-description {
+    position: relative;
+    z-index: 26;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--text-secondary, #94a3b8);
+}
+
+/* Tier badge above overlay */
 .premium-tier-badge {
     z-index: 30 !important;
 }
 
-/* 6. Title: prominent, allows wrapping */
-.card[data-required-tier] .card-title {
-    position: relative;
-    z-index: 26;
-    font-size: 1.05rem !important;
-    font-weight: 700;
-    color: var(--text-primary, #f8fafc);
-    margin-bottom: 0.3rem;
-    line-height: 1.35;
-}
-
-/* 7. Stars: compact inline */
-.card[data-required-tier] .star-rating {
-    position: relative;
-    z-index: 26;
-    margin-bottom: 0.3rem;
-}
-.card[data-required-tier] .star-rating .star-icon {
-    width: 12px;
-    height: 12px;
-}
-.card[data-required-tier] .rating-text,
-.card[data-required-tier] .rating-count {
-    font-size: 0.7rem;
-}
-
-/* 8. Description: two-line clamp, readable above overlay */
-.card[data-required-tier] .card-description {
-    position: relative;
-    z-index: 26;
-    font-size: 0.78rem;
-    line-height: 1.45;
-    color: var(--text-secondary, #94a3b8);
-    margin-top: auto;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-/* 9. Lock overlay: starts well below content so title+stars are clear. */
+/* === OVERLAY: thin bottom strip, not a wall === */
 .premium-lock-overlay {
-    top: 155px !important;
+    top: auto !important;
+    bottom: 0 !important;
+    height: 52px !important;
     border-radius: 0 0 12px 12px !important;
     background: linear-gradient(
         180deg,
-        rgba(15, 23, 42, 0.15) 0%,
-        rgba(15, 23, 42, 0.55) 50%,
-        rgba(15, 23, 42, 0.75) 100%
+        rgba(15, 23, 42, 0.0) 0%,
+        rgba(15, 23, 42, 0.85) 40%,
+        rgba(15, 23, 42, 0.95) 100%
     ) !important;
-    backdrop-filter: blur(4px) saturate(120%) !important;
-    -webkit-backdrop-filter: blur(4px) saturate(120%) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    padding-bottom: 0.6rem !important;
 }
 
-/* 10. Lock content box (the unlock prompt inside overlay) */
+/* === LOCK CONTENT: hide everything except the CTA button === */
 .premium-lock-content {
-    background: rgba(15, 23, 42, 0.5) !important;
-    border-radius: 10px !important;
-    padding: 0.75rem 1rem !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1) !important;
-    font-size: 0.78rem !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    max-height: 40px !important;
+    overflow: hidden !important;
 }
 
-/* 11. Modal items with premium gating */
+/* Hide ALL direct children */
+.premium-lock-content > * {
+    display: none !important;
+}
+
+/* Show ONLY the CTA (a or button, direct or nested) */
+.premium-lock-content > a,
+.premium-lock-content > button,
+.premium-lock-content > div > a,
+.premium-lock-content > div > button,
+.premium-lock-content > a[href],
+.premium-lock-content [onclick] {
+    display: inline-flex !important;
+    font-size: 0.72rem !important;
+    padding: 0.35rem 1rem !important;
+    border-radius: 20px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+}
+/* If the CTA is inside a wrapper div, show that wrapper */
+.premium-lock-content > div:last-child {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+/* === MODAL ITEMS === */
 .modal-item[data-required-tier] {
     overflow: hidden !important;
 }
 
-/* 12. Premium cards grid: wider cards, 3-col max on large screens */
+/* === GRID: 3-col on desktop === */
 #premium .cards-grid {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
     gap: 1.25rem !important;
@@ -6427,25 +6445,17 @@ footer::before {
     .card[data-required-tier] {
         position: relative !important;
         overflow: hidden !important;
-        min-height: 220px !important;
         padding: 1.25rem !important;
     }
     .card[data-required-tier] > a {
         position: relative !important;
         z-index: 25 !important;
     }
-    .card[data-required-tier] .card-title {
-        font-size: 0.95rem !important;
-    }
     .premium-lock-overlay {
-        top: 130px !important;
+        height: 48px !important;
     }
     #premium .cards-grid {
         grid-template-columns: 1fr !important;
-    }
-    /* Premium tier summary boxes stack on mobile */
-    #premium > div[style*="display: flex"] {
-        flex-direction: column !important;
     }
     
     /* === HIDE ON MOBILE === */
