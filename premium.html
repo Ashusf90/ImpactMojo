@@ -426,6 +426,143 @@ body.light-mode .header {
     color: white;
 }
 
+/* Tier detail anchor link inside pricing cards */
+.tier-detail-link {
+    display: block;
+    text-align: center;
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.tier-detail-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+/* Tier Details Section */
+.tier-details-section {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+}
+
+.tier-detail-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    scroll-margin-top: 5rem;
+}
+
+.tier-detail-header {
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tier-detail-header.explorer-header {
+    background: linear-gradient(135deg, rgba(100, 116, 139, 0.15), rgba(100, 116, 139, 0.05));
+    border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.tier-detail-header.practitioner-header {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(14, 165, 233, 0.05));
+    border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+.tier-detail-header.professional-header {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(99, 102, 241, 0.05));
+    border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.tier-detail-header.organization-header {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+    border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.tier-detail-label {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.tier-detail-price {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.tier-detail-body {
+    padding: 1.5rem 2rem 2rem;
+}
+
+.detail-includes {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.detail-item {
+    margin-bottom: 1.25rem;
+}
+
+.detail-item:last-child {
+    margin-bottom: 0;
+}
+
+.detail-item h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+}
+
+.detail-item p {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.detail-item a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.detail-item a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .tier-details-section {
+        padding: 0 1rem 3rem;
+    }
+
+    .tier-detail-header {
+        padding: 1rem 1.25rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tier-detail-body {
+        padding: 1.25rem;
+    }
+}
+
 /* How It Works Section */
 .how-it-works {
     position: relative;
@@ -1011,46 +1148,21 @@ body.user-authenticated .auth-logged-out { display: none !important; }
                 </svg>
             </div>
             <div class="tier-name">Explorer</div>
-            <div class="tier-desc">Full access to PhD-level development education, completely free</div>
+            <div class="tier-desc">PhD-level education, completely free</div>
             <div class="tier-price">
                 <span class="price-amount free">Free</span>
                 <span class="price-period">Forever</span>
             </div>
             <ul class="tier-features">
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    All 9 flagship courses: DevEcon, Gandhi, MEL, DataViz, DevAI, PoA, Media, Law, SEL
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    30+ foundational courses across policy, methods, data, and practice
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    Interactive labs, economics simulations, and strategy games
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    AI study companions (NotebookLM) for every flagship course
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    Progress tracking, bookmarks, personal notes, and ImpactLex dictionary
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    WhatsApp Professional Learning Community (free peer support)
-                </li>
-                <li class="disabled">
-                    <svg class="x" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                    Premium research tools, AI assistants & datasets
-                </li>
-                <li class="disabled">
-                    <svg class="x" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                    Completion certificates & Discord/Telegram community
-                </li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>All 9 flagship courses</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>30+ foundational courses, labs & games</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>AI study companions & ImpactLex</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Dev Case Studies Library (200 studies, 117 countries)</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>WhatsApp Professional Learning Community</li>
+                <li class="disabled"><svg class="x" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Premium tools & certificates</li>
             </ul>
             <a href="signup.html" class="tier-cta outline">Get Started Free</a>
+            <a href="#detail-explorer" class="tier-detail-link">See everything included &darr;</a>
         </div>
 
         <!-- Practitioner -->
@@ -1061,38 +1173,20 @@ body.user-authenticated .auth-logged-out { display: none !important; }
                 </svg>
             </div>
             <div class="tier-name">Practitioner</div>
-            <div class="tier-desc">Real tools for the field: sharpen your research design, build theories of change, and earn certificates</div>
+            <div class="tier-desc">Research design, TOC, and certificates</div>
             <div class="tier-price">
                 <span class="price-currency">₹</span><span class="price-amount">399</span>
                 <span class="price-period">/month</span>
             </div>
             <ul class="tier-features">
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    Everything in Explorer, plus:
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Field Notes from a Development Economist</strong> &ndash; behind-the-scenes analysis of real programs, procurement dynamics, and implementation trade-offs you won't find in textbooks
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>RQ Builder Pro</strong> &ndash; guided research question builder that helps you move from a vague idea to a testable, fundable question with proper PICO/SPIDER framing
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>TOC Workbench Pro</strong> &ndash; build, iterate, and export publication-ready theories of change with assumption mapping and evidence linkage
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Completion certificates</strong> for all flagship courses, shareable on LinkedIn
-                </li>
-                <li class="highlight">
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Discord & Telegram community</strong> &ndash; curated peer group of development practitioners across South Asia
-                </li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Everything in Explorer</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Field Notes from a Dev Economist</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>RQ Builder Pro & TOC Workbench Pro</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Completion certificates (LinkedIn)</li>
+                <li class="highlight"><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Discord & Telegram community</li>
             </ul>
             <button class="tier-cta primary" onclick="scrollToPayment()">Subscribe Now</button>
+            <a href="#detail-practitioner" class="tier-detail-link">See everything included &darr;</a>
         </div>
 
         <!-- Professional -->
@@ -1103,50 +1197,20 @@ body.user-authenticated .auth-logged-out { display: none !important; }
                 </svg>
             </div>
             <div class="tier-name">Professional</div>
-            <div class="tier-desc">The full research toolkit: AI-powered analysis, synthetic datasets, and production-ready visualization for M&E leads and senior researchers</div>
+            <div class="tier-desc">AI tools, datasets & production analysis</div>
             <div class="tier-price">
                 <span class="price-currency">₹</span><span class="price-amount">999</span>
                 <span class="price-period">/month</span>
             </div>
             <ul class="tier-features">
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    Everything in Practitioner, plus:
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Qualitative Research Lab</strong> &ndash; AI-assisted coding, thematic analysis, and memo generation for interview and FGD transcripts
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Statistical Analysis Assistant</strong> &ndash; interactive regression diagnostics, effect size calculators, and power analysis. Covers OLS, logit, DiD, RDD, and IV estimation
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Statistical Code Convertor</strong> &ndash; translate analysis scripts between Stata, R, Python, and SPSS instantly
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>VaniScribe AI Transcription</strong> &ndash; transcribe field interviews and FGDs in Hindi, Tamil, Bengali, Marathi, Telugu, Kannada, and 5+ more South Asian languages
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>DevData Practice</strong> &ndash; 36 realistic dataset generators producing 840,000+ rows modeled on DHS, NFHS, ASER, and MGNREGA structures for safe analysis practice
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Visualization Cookbook</strong> &ndash; 14 chart types with question-driven recipes, production-ready code in R, Python, and Excel
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>DevEconomics Toolkit</strong> &ndash; 11 interactive Shiny apps for poverty measurement (FGT), inequality decomposition (Theil), cost-effectiveness, and benefit incidence analysis
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Priority coaching</strong> from Varna and Vandana, plus early access to all new tools and courses
-                </li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Everything in Practitioner</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Qual Lab, Stats Assistant & Code Convertor</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>VaniScribe AI (10+ languages)</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>DevData, Viz Cookbook & DevEcon Toolkit</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Priority coaching & early access</li>
             </ul>
             <button class="tier-cta primary" onclick="scrollToPayment()">Subscribe Now</button>
+            <a href="#detail-professional" class="tier-detail-link">See everything included &darr;</a>
         </div>
 
         <!-- Organization -->
@@ -1159,38 +1223,171 @@ body.user-authenticated .auth-logged-out { display: none !important; }
                 </svg>
             </div>
             <div class="tier-name">Organization</div>
-            <div class="tier-desc">Upskill your entire M&E or program team with structured learning paths, progress dashboards, and dedicated support</div>
+            <div class="tier-desc">Team dashboards, learning paths & support</div>
             <div class="tier-price">
                 <span class="price-currency">₹</span><span class="price-amount">1,499</span>
                 <span class="price-period">/user/month</span>
             </div>
             <ul class="tier-features">
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    Everything in Professional for every team member
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Team dashboard</strong> &ndash; track completion rates, quiz scores, and engagement across your staff
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Custom learning paths</strong> &ndash; curated course sequences aligned to your program's capacity needs
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Bulk certificate management</strong> &ndash; branded certificates with organization logo, exportable for HR records
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Dedicated account manager</strong> &ndash; onboarding support, quarterly check-ins, and content recommendations
-                </li>
-                <li>
-                    <svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    <strong>Invoice billing</strong> &ndash; PO and bank transfer options for organizations that can't use UPI
-                </li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Everything in Professional</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Team dashboard & progress analytics</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Custom learning paths</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Branded certificates & invoice billing</li>
+                <li><svg class="check" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Dedicated account manager</li>
             </ul>
             <a href="/cdn-cgi/l/email-protection#dfb7bab3b3b09fb6b2afbebcabb2b0b5b0f1b6b1e0acaabdb5babcabe290adb8beb1b6a5beabb6b0b1faedef8fb3beb1faedef96b1aeaab6ada6" class="tier-cta premium">Contact Us</a>
+            <a href="#detail-organization" class="tier-detail-link">See everything included &darr;</a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     DETAILED TIER BREAKDOWNS
+     ============================================================ -->
+<section class="tier-details-section">
+    <h2 class="section-title">What's Included in Each Tier</h2>
+    <p class="section-subtitle">Every tool, every resource, explained</p>
+
+    <!-- EXPLORER DETAIL -->
+    <div class="tier-detail-card" id="detail-explorer">
+        <div class="tier-detail-header explorer-header">
+            <div class="tier-detail-label">Explorer</div>
+            <div class="tier-detail-price">Free forever</div>
+        </div>
+        <div class="tier-detail-body">
+            <div class="detail-item">
+                <h4>9 Flagship Courses</h4>
+                <p>Complete, multi-module courses in Development Economics, Gandhian Political Philosophy, Monitoring Evaluation & Learning (MEL), Data Visualization, AI for Impact, Program on Accountability (PoA), Media for Development, Constitution & Law, and Social-Emotional Learning. Each course includes 12+ modules, interactive assessments, and coach callouts from Varna and Vandana.</p>
+            </div>
+            <div class="detail-item">
+                <h4>30+ Foundational Courses</h4>
+                <p>101-level courses across policy, research methods, data literacy, and field practice. Covers everything from climate science and gender studies to behavioral economics and impact storytelling.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Interactive Labs, Simulations & Games</h4>
+                <p>Hands-on learning through economics simulations, TOC Workbench, MLE Framework Lab, and strategy games like The Real Middle (wealth inequality), Risk & Reward (prospect theory), and Cooperation Paradox (game theory).</p>
+            </div>
+            <div class="detail-item">
+                <h4>AI Study Companions</h4>
+                <p>NotebookLM-powered study companions for every flagship course. Ask questions, get explanations, and review concepts in a conversational format grounded in the course material.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Dev Case Studies Library</h4>
+                <p>200 evidence-based case studies from 117 countries, spanning 10 development themes and 7 global regions. Every claim is fully cited with links to original research. Searchable by country, region, topic, or keyword. Covers financial inclusion, health systems, education, governance, climate adaptation, gender, and more. <a href="https://varnasr.github.io/dev-case-studies/" target="_blank" rel="noopener noreferrer">Browse the library &rarr;</a></p>
+            </div>
+            <div class="detail-item">
+                <h4>WhatsApp Professional Learning Community</h4>
+                <p>Free peer support group connecting development practitioners, researchers, and changemakers. Share resources, discuss fieldwork challenges, and learn from each other.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Progress Tracking & ImpactLex</h4>
+                <p>Bookmarks, personal notes, and progress tracking across all courses. ImpactLex provides an interactive glossary of 500+ development terms with contextual definitions.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRACTITIONER DETAIL -->
+    <div class="tier-detail-card" id="detail-practitioner">
+        <div class="tier-detail-header practitioner-header">
+            <div class="tier-detail-label">Practitioner</div>
+            <div class="tier-detail-price">₹399/month &middot; ₹3,990/year (2 months free)</div>
+        </div>
+        <div class="tier-detail-body">
+            <p class="detail-includes">Includes everything in Explorer, plus:</p>
+            <div class="detail-item">
+                <h4>Field Notes from a Development Economist</h4>
+                <p>Behind-the-scenes analysis of real development programs. Covers procurement dynamics, implementation trade-offs, political economy constraints, and the gap between program design and field reality. Written from direct experience working across South Asian contexts.</p>
+            </div>
+            <div class="detail-item">
+                <h4>RQ Builder Pro</h4>
+                <p>A guided research question builder that helps you move from a vague idea to a testable, fundable question. Walks you through PICO/SPIDER framing, ensures your question is scoped to available data, and suggests appropriate methods. Useful for proposal writing, thesis design, and evaluation planning.</p>
+            </div>
+            <div class="detail-item">
+                <h4>TOC Workbench Pro</h4>
+                <p>Build, iterate, and export publication-ready theories of change. Includes assumption mapping, evidence linkage for each causal pathway, and export to PDF/PNG for donor reports and proposals. Goes well beyond the free TOC lab with version history and collaborative features.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Completion Certificates</h4>
+                <p>Earn certificates for every flagship course, shareable on LinkedIn and verifiable by employers. Each certificate lists the modules completed and assessment scores.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Discord & Telegram Community</h4>
+                <p>A curated, moderated peer group of development practitioners, M&E specialists, and researchers across South Asia. Channels organized by topic, with regular AMAs and resource sharing. Spam-free and professionally maintained.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFESSIONAL DETAIL -->
+    <div class="tier-detail-card" id="detail-professional">
+        <div class="tier-detail-header professional-header">
+            <div class="tier-detail-label">Professional</div>
+            <div class="tier-detail-price">₹999/month &middot; ₹9,990/year (2 months free)</div>
+        </div>
+        <div class="tier-detail-body">
+            <p class="detail-includes">Includes everything in Practitioner, plus:</p>
+            <div class="detail-item">
+                <h4>Qualitative Research Lab</h4>
+                <p>AI-assisted qualitative analysis for interview and FGD transcripts. Upload transcripts and get thematic coding suggestions, memo generation, pattern identification, and cross-case comparisons. Supports iterative coding with human-in-the-loop validation. Built for development researchers who need rigorous qual analysis without NVivo licensing costs.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Statistical Analysis Assistant</h4>
+                <p>Interactive tools for regression diagnostics, effect size calculation, and statistical power analysis. Covers OLS, logistic regression, difference-in-differences, regression discontinuity, and instrumental variables estimation. Input your parameters and get sample size requirements, minimum detectable effects, and diagnostic plots.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Statistical Code Convertor</h4>
+                <p>Translate analysis scripts between Stata, R, Python, and SPSS instantly. Paste your do-file and get equivalent R or Python code with package recommendations. Particularly useful for teams transitioning between statistical software or collaborating across platforms.</p>
+            </div>
+            <div class="detail-item">
+                <h4>VaniScribe AI Transcription</h4>
+                <p>Transcribe field interviews and focus group discussions in Hindi, Tamil, Bengali, Marathi, Telugu, Kannada, Malayalam, Gujarati, Odia, Punjabi, and more South Asian languages. Speaker diarization separates voices automatically. Export clean transcripts ready for qualitative coding.</p>
+            </div>
+            <div class="detail-item">
+                <h4>DevData Practice</h4>
+                <p>36 realistic dataset generators producing 840,000+ rows modeled on the structure of DHS, NFHS, ASER, MGNREGA, and other major development surveys. Practice cleaning, merging, and analyzing data without confidentiality concerns. Each generator includes a data dictionary and suggested analysis exercises.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Visualization Cookbook</h4>
+                <p>14 chart types with question-driven recipes. Start with what you want to show ("How has enrollment changed over time?") and get production-ready code in R (ggplot2), Python (matplotlib/seaborn), and Excel. Each recipe includes design rationale, accessibility guidance, and export options for reports and presentations.</p>
+            </div>
+            <div class="detail-item">
+                <h4>DevEconomics Toolkit</h4>
+                <p>11 interactive Shiny apps covering core development economics methods: RCT power calculator, DiD event study simulator, RDD bandwidth selector, synthetic control builder, Foster-Greer-Thorbecke (FGT) poverty measures, Theil/MPI inequality decomposition, cost-effectiveness analysis, benefit incidence analysis, and more. Each app includes worked examples from South Asian datasets.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Priority Coaching & Early Access</h4>
+                <p>Direct coaching access to Varna and Vandana for research design questions, career guidance, and methodology support. Plus early access to every new tool, course, and feature before public release.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ORGANIZATION DETAIL -->
+    <div class="tier-detail-card" id="detail-organization">
+        <div class="tier-detail-header organization-header">
+            <div class="tier-detail-label">Organization</div>
+            <div class="tier-detail-price">₹1,499/user/month &middot; Custom annual pricing</div>
+        </div>
+        <div class="tier-detail-body">
+            <p class="detail-includes">Includes everything in Professional for every team member, plus:</p>
+            <div class="detail-item">
+                <h4>Team Dashboard</h4>
+                <p>Track completion rates, quiz scores, time-on-task, and engagement metrics across your staff. Identify skill gaps, monitor onboarding progress, and generate reports for donors or HR. Filterable by team, project, or individual.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Custom Learning Paths</h4>
+                <p>Curated course sequences aligned to your program's specific capacity needs. Whether you need your field team trained on MEL basics or your research unit skilled in DiD estimation, we build pathways that map directly to your organizational goals.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Bulk Certificate Management</h4>
+                <p>Branded certificates with your organization's logo, exportable for HR records and donor reporting. Batch-generate certificates for training cohorts with verification URLs.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Dedicated Account Manager</h4>
+                <p>Personalized onboarding support for your team, quarterly check-ins to review learning progress, and content recommendations based on your program portfolio. Your account manager understands the development sector and can help align learning with project timelines.</p>
+            </div>
+            <div class="detail-item">
+                <h4>Invoice Billing</h4>
+                <p>Purchase orders and bank transfer options for organizations that cannot use UPI. Quarterly and annual billing cycles available. We work with your procurement team to meet compliance requirements.</p>
+            </div>
         </div>
     </div>
 </section>
