@@ -190,9 +190,7 @@ function toggleMobileDropdown(event, element) {
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <!-- Cache Control - Force fresh content -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="-1">
+<!-- Cache headers now handled by Cloudflare/server headers instead of meta tags -->
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="version" content="9.11.0.20260226">
 
@@ -232,18 +230,21 @@ function toggleMobileDropdown(event, element) {
 })();
 </script>
 
-<meta name="description" content="Free, practical MEAL, theory of change, research methods, and gender 101 courses for NGOs and impact teams across South Asia."/>
-<meta property="og:title" content="Free MEAL &amp; TOC Courses for NGOs | ImpactMojo">
-<meta property="og:description" content="Free, practical MEAL, theory of change, research methods, and gender 101 courses for NGOs and impact teams across South Asia.">
+<meta name="description" content="Free development economics education: 9 flagship courses covering MEAL, data visualization, AI for impact, Gandhian philosophy, political economy and more. PhD-level rigor at zero cost for practitioners across South Asia."/>
+<meta property="og:title" content="ImpactMojo | Free Development Economics & Policy Education">
+<meta property="og:description" content="Free development economics education: 9 flagship courses covering MEAL, data visualization, AI for impact, Gandhian philosophy, political economy and more. PhD-level rigor at zero cost.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.impactmojo.in/">
 <meta property="og:image" content="https://www.impactmojo.in/assets/images/ImpactMojo%20Logo.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free MEAL &amp; TOC Courses for NGOs | ImpactMojo">
-<meta name="twitter:description" content="Free, practical MEAL, theory of change, research methods, and gender 101 courses for NGOs and impact teams across South Asia.">
+<meta name="twitter:title" content="ImpactMojo | Free Development Economics & Policy Education">
+<meta name="twitter:description" content="Free development economics education: 9 flagship courses covering MEAL, data visualization, AI for impact, Gandhian philosophy, political economy and more.">
 <meta name="twitter:image" content="https://www.impactmojo.in/assets/images/ImpactMojo%20Logo.png">
+<link rel="canonical" href="https://www.impactmojo.in/">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="keywords" content="development economics, MEAL course, monitoring evaluation learning, data visualization, AI for development, South Asia, free courses, impact evaluation, theory of change, Gandhian philosophy, political economy">
 
-<title>Free MEAL &amp; TOC Courses for NGOs | ImpactMojo</title>
+<title>ImpactMojo | Free Development Economics & Policy Education for South Asia</title>
 <!-- Favicons -->
 <link href="assets/images/favicon.png" rel="icon" type="image/png"/>
 <link href="assets/images/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
@@ -256,7 +257,10 @@ function toggleMobileDropdown(event, element) {
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://cdn.jsdelivr.net" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://calendar.google.com" rel="dns-prefetch"/>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Poppins:wght@600;700;800&amp;display=swap" as="style"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Poppins:wght@600;700;800&amp;display=swap" rel="stylesheet"/></noscript>
 <style>
         * {
             margin: 0;
@@ -326,6 +330,9 @@ function toggleMobileDropdown(event, element) {
             --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
             --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
+
+        html { scroll-behavior: smooth; }
+        section[id] { scroll-margin-top: 80px; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -5907,31 +5914,56 @@ footer::before {
 
 
 /* ========== PREMIUM TIER CARD STYLING ========== */
-/* Hide legacy tooltip pseudo-elements */
+/* Hide the pink tooltip completely - black overlay from premium.js is sufficient */
 [data-required-tier]::before,
 [data-required-tier]::after {
     display: none !important;
     content: none !important;
 }
 
-/* Card positioning context */
+/* Fix positioning of black overlay from premium.js */
+/* Move it down so it doesn't cover the tier badge (PRACTITIONER/PROFESSIONAL) */
+.premium-lock-overlay,
+.tier-lock-overlay,
+[data-required-tier] .card-lock-overlay,
+[data-required-tier] > div:last-child:not(.card-header):not(a) {
+    top: 75px !important; /* Below the tier badge */
+    border-radius: 0 0 16px 16px !important;
+}
+
+/* Ensure the black overlay links to premium page */
+.card[data-required-tier] {
+    position: relative;
+    overflow: visible;
+}
+
+/* Keep tier badge visible above overlay */
+.card[data-required-tier] .card-header {
+    position: relative;
+    z-index: 10;
+}
+
+/* Ensure cards don't clip content */
 .card[data-required-tier],
 .modal-item[data-required-tier] {
-    position: relative;
+    overflow: visible !important;
 }
 
-/* Keep header visible above the glass overlay */
-.card[data-required-tier] .card-header,
-.card[data-required-tier] .premium-tier-badge {
+.card[data-required-tier] > *,
+.modal-item[data-required-tier] > * {
     position: relative;
-    z-index: 25;
+    z-index: 1;
 }
 
-/* Glass overlay: sits below the card header, covers body content */
+/* Ensure card content doesn't overlap */
+.card[data-required-tier] > a,
+.card[data-required-tier] > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- GLASSMORPHISM: override premium.js 85% opaque background ---- */
 .premium-lock-overlay {
-    top: 70px !important;
-    inset-inline: 0 !important;
-    bottom: 0 !important;
     background: linear-gradient(
         135deg,
         rgba(15, 23, 42, 0.45) 0%,
@@ -5939,21 +5971,6 @@ footer::before {
     ) !important;
     backdrop-filter: blur(6px) saturate(120%) !important;
     -webkit-backdrop-filter: blur(6px) saturate(120%) !important;
-    border-radius: 0 0 16px 16px !important;
-}
-
-/* Lock icon container floats on the glass */
-.premium-lock-content {
-    background: rgba(15, 23, 42, 0.55) !important;
-    border-radius: 12px !important;
-    padding: 1rem 1.5rem !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12) !important;
-}
-
-/* Softer dashed border on locked cards */
-.premium-locked::after {
-    border-color: rgba(148, 163, 184, 0.15) !important;
 }
 
 
@@ -6784,6 +6801,46 @@ body.dark-mode .v3-dot {
 /* END V3 DESIGN SYSTEM */
 
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "ImpactMojo",
+      "url": "https://www.impactmojo.in",
+      "logo": "https://www.impactmojo.in/assets/images/ImpactMojo%20Logo.png",
+      "description": "Free development economics and policy education platform offering PhD-level rigor at zero cost for practitioners across South Asia.",
+      "sameAs": [
+        "https://varna.substack.com",
+        "https://www.linkedin.com/company/impactmojo"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "name": "ImpactMojo",
+      "url": "https://www.impactmojo.in",
+      "publisher": { "@type": "Organization", "name": "ImpactMojo" }
+    },
+    {
+      "@type": "ItemList",
+      "name": "Flagship Courses",
+      "numberOfItems": 9,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "item": { "@type": "Course", "name": "Gandhian Political Philosophy", "url": "https://www.impactmojo.in/courses/gandhi/", "provider": { "@type": "Organization", "name": "ImpactMojo" }, "isAccessibleForFree": true } },
+        { "@type": "ListItem", "position": 2, "item": { "@type": "Course", "name": "Development Economics", "url": "https://www.impactmojo.in/courses/devecon/", "provider": { "@type": "Organization", "name": "ImpactMojo" }, "isAccessibleForFree": true } },
+        { "@type": "ListItem", "position": 3, "item": { "@type": "Course", "name": "Data Visualization for Impact", "url": "https://www.impactmojo.in/courses/dataviz/", "provider": { "@type": "Organization", "name": "ImpactMojo" }, "isAccessibleForFree": true } },
+        { "@type": "ListItem", "position": 4, "item": { "@type": "Course", "name": "AI for Impact", "url": "https://www.impactmojo.in/courses/devai/", "provider": { "@type": "Organization", "name": "ImpactMojo" }, "isAccessibleForFree": true } },
+        { "@type": "ListItem", "position": 5, "item": { "@type": "Course", "name": "Monitoring, Evaluation & Learning", "url": "https://www.impactmojo.in/courses/mel/", "provider": { "@type": "Organization", "name": "ImpactMojo" }, "isAccessibleForFree": true } },
+        { "@type": "ListItem", "position": 6, "item": { "@type": "Course", "name": "Politics of Aspiration", "url": "https://www.impactmojo.in/courses/poa/", "provider": { "@type": "Organization", "name": "ImpactMojo" }, "isAccessibleForFree": true } },
+        { "@type": "ListItem", "position": 7, "item": { "@type": "Course", "name": "Media for Development", "url": "https://www.impactmojo.in/courses/media/", "provider": { "@type": "Organization", "name": "ImpactMojo" }, "isAccessibleForFree": true } },
+        { "@type": "ListItem", "position": 8, "item": { "@type": "Course", "name": "Constitution & Law", "url": "https://www.impactmojo.in/courses/law/", "provider": { "@type": "Organization", "name": "ImpactMojo" }, "isAccessibleForFree": true } },
+        { "@type": "ListItem", "position": 9, "item": { "@type": "Course", "name": "Social-Emotional Learning", "url": "https://www.impactmojo.in/courses/sel/", "provider": { "@type": "Organization", "name": "ImpactMojo" }, "isAccessibleForFree": true } }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <!-- SVG Symbol Definitions (star icons used ~510 times) -->
@@ -7182,7 +7239,7 @@ body.dark-mode .v3-dot {
 </div>
 
 <!-- V3 Category Badges with Sargam Icons -->
-<section class="v3-categories">
+<section class="v3-categories" id="categories">
     <div class="v3-category-grid">
         <a href="#courses" class="v3-category-badge" style="--rotation: -2deg;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="v3-badge-icon"><use href="#si_Globe_detailed"/></svg>
@@ -7222,7 +7279,7 @@ body.dark-mode .v3-dot {
 
 <!-- ImpactLex Banner -->
 
-<section class="whatsapp-plc-section">
+<section class="whatsapp-plc-section" id="community">
 <div class="whatsapp-plc-badge">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="width: 14px; height: 14px; filter: brightness(0) saturate(100%) invert(68%) sepia(74%) saturate(409%) hue-rotate(93deg) brightness(92%) contrast(98%);"><use href="#si_Chat"/></svg>
 Professional Learning Community
@@ -8510,6 +8567,8 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
     border-radius: 16px;
     padding: 1.5rem;
     max-width: 340px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     z-index: 10001;
     animation: imxTourPop 0.3s ease;
@@ -8746,7 +8805,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 
 <!-- END imx: Tracks section -->
 <!-- Track Quiz CTA -->
-<section class="track-quiz-cta">
+<section class="track-quiz-cta" id="quiz">
   <div class="track-quiz-inner">
     <h2>Not sure where to start?</h2>
     <p>Answer five quick questions and we will suggest a starting track and key 101 decks for you.</p>
@@ -8893,7 +8952,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 </div>
 </section>
 <!-- Labs Section -->
-<section class="section">
+<section class="section" id="labs">
 <h2 class="section-title">Interactive Labs</h2>
 <p class="section-subtitle">Hands-on tools for practical development work</p>
 <div class="cards-grid">
@@ -9021,7 +9080,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 </div>
 </section>
 <!-- Games Section -->
-<section class="section">
+<section class="section" id="games">
 <h2 class="section-title">Interactive Economics Games</h2>
 <p class="section-subtitle">Learn economic concepts through engaging simulations</p>
 <div class="cards-grid">
@@ -9499,7 +9558,7 @@ Workshops & Master Classes
 </div>
 </section>
 <!-- Premium Section -->
-<section class="section">
+<section class="section" id="premium">
 <h2 class="section-title">Premium Offerings</h2>
 <p class="section-subtitle">Advanced tools and in-depth content for serious practitioners</p>
 <div class="cards-grid">
@@ -10147,7 +10206,7 @@ Workshops & Master Classes
 <!-- WhatsApp Professional Learning Community -->
 
 <!-- Newsletter Section -->
-<section class="newsletter-section">
+<section class="newsletter-section" id="newsletter">
 <h3>Research Rundown Newsletter</h3>
 <p>Join our Substack newsletter for weekly insights on development research, field notes, and impact analysis from around the world.</p>
 <a class="newsletter-btn" href="https://varna.substack.com/subscribe" target="_blank">
@@ -12647,9 +12706,9 @@ Workshops & Master Classes
 </div>
 </footer>
 
-<!-- Google Calendar Integration -->
-<link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet"/>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async="" src="https://calendar.google.com/calendar/scheduling-button-script.js"></script>
+<!-- Google Calendar Integration (non-blocking) -->
+<link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet" media="print" onload="this.media='all'"/>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async="" src="https://calendar.google.com/calendar/scheduling-button-script.js"></script>
 <!-- Mojini FAB moved into Speed Dial toolbox -->
 <script>
         // Cookie Consent
@@ -16626,14 +16685,16 @@ IMX.Tour = {
         
         var self = this;
         
-        // Simple scroll: put target in view with some breathing room
+        // Scroll target into view with room for tooltip below
         if (!isFixed) {
             var targetRect = target.getBoundingClientRect();
-            var scrollTarget = window.scrollY + targetRect.top - 100;
+            // Leave 120px above target for nav, and ensure space below for tooltip (~250px)
+            var scrollTarget = window.scrollY + targetRect.top - 120;
             window.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
         }
         
-        setTimeout(function() {
+        // Wait for scroll to settle (smooth scroll can take 500-800ms)
+        var positionTooltip = function() {
             var rect = target.getBoundingClientRect();
             var padding = 8;
             var viewportWidth = window.innerWidth;
@@ -16729,20 +16790,34 @@ IMX.Tour = {
                 tooltipLeft = rect.left + (rect.width / 2) - (actualTooltipWidth / 2);
             }
             
-            // Keep on screen
+            // Keep on screen horizontally
             if (tooltipLeft + actualTooltipWidth > viewportWidth - 20) tooltipLeft = viewportWidth - actualTooltipWidth - 20;
             if (tooltipLeft < 20) tooltipLeft = 20;
             var minTop = isFixed ? 20 : window.scrollY + 20;
             if (tooltipTop < minTop) tooltipTop = minTop;
             
+            // Keep on screen vertically: ensure tooltip bottom doesn't exceed viewport
+            var maxTop = isFixed ? (viewportHeight - actualTooltipHeight - 20) : (window.scrollY + viewportHeight - actualTooltipHeight - 20);
+            if (tooltipTop > maxTop) tooltipTop = maxTop;
+            
             self.tooltip.className = 'imx-tour-tooltip';
             self.tooltip.style.top = tooltipTop + 'px';
             self.tooltip.style.left = tooltipLeft + 'px';
             
+            // If tooltip is still partially off-screen, do a corrective scroll
+            if (!isFixed) {
+                var tooltipBottom = tooltipTop - window.scrollY + actualTooltipHeight;
+                if (tooltipBottom > viewportHeight - 10) {
+                    window.scrollTo({ top: window.scrollY + (tooltipBottom - viewportHeight) + 40, behavior: 'smooth' });
+                }
+            }
+            
             // Hide the overly complex arrow connector
             if (self.arrow) self.arrow.style.display = 'none';
             
-        }, 450);
+        };
+        // Use 700ms to let smooth scroll settle (takes 500-800ms in most browsers)
+        setTimeout(positionTooltip, 700);
     },
     
     next: function() {
