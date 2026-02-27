@@ -5928,32 +5928,37 @@ footer::before {
    Badge:   .premium-tier-badge  { position:absolute; top:0.5rem; z-index:10 }
    Border:  .premium-locked::after { position:absolute; inset:0; z-index:5 }  */
 
-/* 1. Cards MUST contain all positioned children within bounds. */
+/* 1. Cards contain all positioned children; taller to fit content cleanly. */
 .card[data-required-tier],
 .card.premium-locked {
     overflow: hidden !important;
+    min-height: 260px;
+    padding: 1.5rem !important;
+    display: flex;
+    flex-direction: column;
 }
 
 /* 2. Soften the dashed-border pseudo from premium.js */
 .premium-locked::after {
     border-radius: inherit !important;
-    border-color: rgba(148, 163, 184, 0.15) !important;
+    border-color: rgba(148, 163, 184, 0.12) !important;
 }
 
-/* 3. The <a> wrapper inside premium cards: make it a positioned
-   stacking layer ABOVE the overlay so ALL its children (header,
-   title, stars, description) render on top. This is the key fix:
-   one rule elevates everything inside the link above the overlay. */
+/* 3. The <a> wrapper inside premium cards: positioned stacking layer
+   ABOVE the overlay so ALL its children render on top. */
 .card[data-required-tier] > a {
     position: relative !important;
     z-index: 25 !important;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
-/* 4. Card header also above overlay (belt+suspenders) */
+/* 4. Card header: compact row for PREMIUM badge + learner count */
 .card[data-required-tier] .card-header {
     position: relative !important;
     z-index: 25 !important;
+    margin-bottom: 0.6rem !important;
 }
 
 /* 5. Tier badge above overlay */
@@ -5961,39 +5966,79 @@ footer::before {
     z-index: 30 !important;
 }
 
-/* 6. Lock overlay: pushed below header+title so users see what
-   the card is. Title area ~120px, overlay starts below that. */
+/* 6. Title: prominent, allows wrapping */
+.card[data-required-tier] .card-title {
+    position: relative;
+    z-index: 26;
+    font-size: 1.05rem !important;
+    font-weight: 700;
+    color: var(--text-primary, #f8fafc);
+    margin-bottom: 0.3rem;
+    line-height: 1.35;
+}
+
+/* 7. Stars: compact inline */
+.card[data-required-tier] .star-rating {
+    position: relative;
+    z-index: 26;
+    margin-bottom: 0.3rem;
+}
+.card[data-required-tier] .star-rating .star-icon {
+    width: 12px;
+    height: 12px;
+}
+.card[data-required-tier] .rating-text,
+.card[data-required-tier] .rating-count {
+    font-size: 0.7rem;
+}
+
+/* 8. Description: two-line clamp, readable above overlay */
+.card[data-required-tier] .card-description {
+    position: relative;
+    z-index: 26;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--text-secondary, #94a3b8);
+    margin-top: auto;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 9. Lock overlay: starts well below content so title+stars are clear. */
 .premium-lock-overlay {
-    top: 120px !important;
-    border-radius: 0 0 16px 16px !important;
+    top: 155px !important;
+    border-radius: 0 0 12px 12px !important;
     background: linear-gradient(
         180deg,
-        rgba(15, 23, 42, 0.35) 0%,
-        rgba(15, 23, 42, 0.65) 40%,
-        rgba(15, 23, 42, 0.8) 100%
+        rgba(15, 23, 42, 0.15) 0%,
+        rgba(15, 23, 42, 0.55) 50%,
+        rgba(15, 23, 42, 0.75) 100%
     ) !important;
-    backdrop-filter: blur(6px) saturate(120%) !important;
-    -webkit-backdrop-filter: blur(6px) saturate(120%) !important;
+    backdrop-filter: blur(4px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(4px) saturate(120%) !important;
 }
 
-/* 7. Lock content box (the unlock prompt inside overlay) */
+/* 10. Lock content box (the unlock prompt inside overlay) */
 .premium-lock-content {
-    background: rgba(15, 23, 42, 0.55) !important;
-    border-radius: 12px !important;
-    padding: 1rem 1.5rem !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12) !important;
+    background: rgba(15, 23, 42, 0.5) !important;
+    border-radius: 10px !important;
+    padding: 0.75rem 1rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1) !important;
+    font-size: 0.78rem !important;
 }
 
-/* 8. Modal items with premium gating */
+/* 11. Modal items with premium gating */
 .modal-item[data-required-tier] {
     overflow: hidden !important;
 }
 
-/* 9. Hover tooltip: positioned by JS to avoid overflow:hidden clipping.
-   See premium-tooltip script near end of file. */
-.card[data-required-tier] {
-    cursor: pointer;
+/* 12. Premium cards grid: wider cards, 3-col max on large screens */
+#premium .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 1.25rem !important;
 }
 .imx-premium-tooltip {
     position: fixed;
@@ -6043,36 +6088,18 @@ footer::before {
     letter-spacing: 0.03em;
 }
 
-/* 10. Premium card content: title, stars, description always visible
-   above the overlay. The > a wrapper at z-index:25 handles this,
-   but we also make sure individual elements are positioned. */
-.card[data-required-tier] .card-title {
-    position: relative;
-    z-index: 26;
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--text-primary, #f8fafc);
-    margin-bottom: 0.35rem;
-    line-height: 1.3;
-}
-.card[data-required-tier] .star-rating {
-    position: relative;
-    z-index: 26;
-}
-.card[data-required-tier] .card-description {
-    position: relative;
-    z-index: 26;
-    font-size: 0.82rem;
-    line-height: 1.45;
-    color: var(--text-secondary, #94a3b8);
-    margin-top: 0.25rem;
-}
-
 
 /* ============================================================
    COMPREHENSIVE MOBILE EXPERIENCE - CLEAN & FUNCTIONAL
    Version: 2.0.0 | December 2025
    ============================================================ */
+
+/* 13. Hover tooltip: positioned by JS to avoid overflow:hidden clipping.
+   See premium-tooltip script near end of file. */
+.card[data-required-tier] {
+    cursor: pointer;
+}
+.imx-premium-tooltip {
 
 /* ---------- MOBILE BASE (768px and below) ---------- */
 @media screen and (max-width: 768px) {
@@ -6401,10 +6428,25 @@ footer::before {
     .card[data-required-tier] {
         position: relative !important;
         overflow: hidden !important;
+        min-height: 220px !important;
+        padding: 1.25rem !important;
     }
     .card[data-required-tier] > a {
         position: relative !important;
         z-index: 25 !important;
+    }
+    .card[data-required-tier] .card-title {
+        font-size: 0.95rem !important;
+    }
+    .premium-lock-overlay {
+        top: 130px !important;
+    }
+    #premium .cards-grid {
+        grid-template-columns: 1fr !important;
+    }
+    /* Premium tier summary boxes stack on mobile */
+    #premium > div[style*="display: flex"] {
+        flex-direction: column !important;
     }
     
     /* === HIDE ON MOBILE === */
@@ -8001,8 +8043,7 @@ Join the PLC on WhatsApp
 
             <a href="/courses/sel/" class="flagship-card" style="text-decoration: none; display: block; background: var(--card-bg, #ffffff); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); transition: all 0.3s ease; border: 1px solid rgba(236, 72, 153, 0.1); position: relative;">
                 
-                <!-- Coming Soon badge -->
-                <div style="position: absolute; top: 1rem; right: 1rem; z-index: 5; background: rgba(236, 72, 153, 0.9); color: white; font-size: 0.65rem; font-weight: 700; padding: 0.3rem 0.75rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.08em;">Coming Soon</div>
+                <!-- SEL is now live -->
                 
                 <!-- Card Header with Icon -->
                 <div style="background: linear-gradient(135deg, #EC4899 0%, #BE185D 100%); padding: 2rem; position: relative; overflow: hidden;">
@@ -8052,7 +8093,7 @@ Join the PLC on WhatsApp
                     
                     <!-- CTA -->
                     <div class="imx-card-footer">
-                        <span style="font-weight: 600; color: #EC4899; font-size: 0.9rem;">Coming Soon &#8594;</span>
+                        <span style="font-weight: 600; color: #EC4899; font-size: 0.9rem;">Start Learning &#8594;</span>
                         <span class="imx-card-time">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                             ~5 hours
@@ -8176,6 +8217,9 @@ Join the PLC on WhatsApp
 <li><a class="imx-link" href="https://101.impactmojo.in/policy-advocacy-lab" title="Policy Advocacy Lab"><span class="badge badge-labs">Lab</span><span class="imx-text">Policy Advocacy Lab</span></a></li>
 <li><a class="imx-link" href="https://101.impactmojo.in/network-effects-game" title="Network Effects (Game)"><span class="badge badge-games">Game</span><span class="imx-text">Network Effects (Game)</span></a></li>
 <li><a class="imx-link" href="https://101.impactmojo.in/opportunity-cost-game" title="Opportunity Cost (Game)"><span class="badge badge-games">Game</span><span class="imx-text">Opportunity Cost (Game)</span></a></li>
+<li><a class="imx-link" href="https://therealmiddle.netlify.app" title="The Real Middle (Game)"><span class="badge badge-games">Game</span><span class="imx-text">The Real Middle (Game)</span></a></li>
+<li><a class="imx-link" href="https://risk-reward-be.netlify.app" title="Risk & Reward (Game)"><span class="badge badge-games">Game</span><span class="imx-text">Risk &amp; Reward (Game)</span></a></li>
+<li><a class="imx-link" href="https://cooperationparadox.netlify.app/" title="Cooperation Paradox (Game)"><span class="badge badge-games">Game</span><span class="imx-text">Cooperation Paradox (Game)</span></a></li>
 <li><a class="imx-link" href="/courses/devecon/" title="Development Economics"><span class="badge badge-courses" style="background:#F97316;">Flagship</span><span class="imx-text">Development Economics</span></a></li>
 <li><a class="imx-link" href="/courses/poa/" title="Politics of Aspiration"><span class="badge badge-courses" style="background:#D129C3;">Flagship</span><span class="imx-text">Politics of Aspiration</span></a></li>
         </ul>
@@ -8199,6 +8243,10 @@ Join the PLC on WhatsApp
 <li><a class="imx-link" href="https://101.impactmojo.in/research-ethics" title="Research Ethics"><span class="badge badge-courses">Course</span><span class="imx-text">Research Ethics</span></a></li>
 <li><a class="imx-link" href="https://101.impactmojo.in/mel-design-lab" title="Mel Design Lab"><span class="badge badge-labs">Lab</span><span class="imx-text">Mel Design Lab</span></a></li>
 <li><a class="imx-link" href="https://101.impactmojo.in/mel-plan-lab" title="Mel Plan Lab"><span class="badge badge-labs">Lab</span><span class="imx-text">Mel Plan Lab</span></a></li>
+<li><a class="imx-link" href="https://101.impactmojo.in/climate-essentials" title="Climate Science 101"><span class="badge badge-courses">Course</span><span class="imx-text">Climate Science 101</span></a></li>
+<li><a class="imx-link" href="https://101.impactmojo.in/toc-workbench" title="TOC Workbench"><span class="badge badge-labs">Lab</span><span class="imx-text">TOC Workbench</span></a></li>
+<li><a class="imx-link" href="https://101.impactmojo.in/mle-framework-lab" title="MLE Framework Lab"><span class="badge badge-labs">Lab</span><span class="imx-text">MLE Framework Lab</span></a></li>
+<li><a class="imx-link" href="https://101.impactmojo.in/storytelling-lab" title="Impact Storytelling Lab"><span class="badge badge-labs">Lab</span><span class="imx-text">Impact Storytelling Lab</span></a></li>
 <li><a class="imx-link" href="/courses/media/" title="Media for Development"><span class="badge badge-courses" style="background:#14B8A6;">Flagship</span><span class="imx-text">Media for Development</span></a></li>
         </ul>
         <div class="imx-actions">
@@ -10218,15 +10266,15 @@ Workshops & Master Classes
             <div class="whats-new-card-title">Constitution & Law</div>
             <div class="whats-new-card-desc">New flagship: Indian Constitution, fundamental rights, judicial review, and rights-based development frameworks. 13 modules.</div>
             <span class="whats-new-card-tag tag-new">New Course</span>
-            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Covers:</strong><ul><li>Constitutional design and the basic structure doctrine</li><li>Fundamental rights, DPSPs, and their intersection with development</li><li>Judicial activism, PIL, and environmental jurisprudence</li><li>Interactive lexicon with 60+ constitutional and legal terms</li></ul></div><a href="/courses/law/" class="whats-new-card-action" onclick="event.stopPropagation();"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Preview Course</a></div>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Covers:</strong><ul><li>Constitutional design and the basic structure doctrine</li><li>Fundamental rights, DPSPs, and their intersection with development</li><li>Judicial activism, PIL, and environmental jurisprudence</li><li>Interactive lexicon with 60+ constitutional and legal terms</li></ul></div><a href="/courses/law/" class="whats-new-card-action" onclick="event.stopPropagation();"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Start Course</a></div>
         </div>
         <div class="whats-new-card card-streak" onclick="toggleWhatsNewCard(this)">
             <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
             <div class="whats-new-card-icon icon-streak"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Heart_broken"/></svg></div>
             <div class="whats-new-card-title">Social-Emotional Learning</div>
             <div class="whats-new-card-desc">New flagship for development practitioners: burnout prevention, empathy, resilience, and team wellbeing. 13 modules.</div>
-            <span class="whats-new-card-tag tag-new">Coming Soon</span>
-            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Covers:</strong><ul><li>Burnout prevention and compassion fatigue in development work</li><li>Emotional regulation, team dynamics, and conflict resolution</li><li>Self-care frameworks grounded in South Asian contexts</li><li>Interactive lexicon with 55+ SEL and wellbeing terms</li></ul></div><a href="/courses/sel/" class="whats-new-card-action" onclick="event.stopPropagation();"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Preview Course</a></div>
+            <span class="whats-new-card-tag tag-new">New Course</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Covers:</strong><ul><li>Burnout prevention and compassion fatigue in development work</li><li>Emotional regulation, team dynamics, and conflict resolution</li><li>Self-care frameworks grounded in South Asian contexts</li><li>Interactive lexicon with 55+ SEL and wellbeing terms</li></ul></div><a href="/courses/sel/" class="whats-new-card-action" onclick="event.stopPropagation();"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Start Course</a></div>
         </div>
         <div class="whats-new-card card-bookmarks" onclick="toggleWhatsNewCard(this)">
             <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
@@ -14302,7 +14350,7 @@ document.addEventListener('DOMContentLoaded', function(){
       a: "**Constitution & Law for Development Practice** is our flagship course on rights, institutions and justice in South Asia. 13 modules covering the Indian Constitution, fundamental rights, PIL, Article 21, reservations, rights-based legislation, criminal justice, environmental law, digital rights, and comparative constitutional systems. Visit: /courses/law/" },
     // Social-Emotional Learning
     { re: /sel|social.*emotional|practitioner.*wellbeing|facilitation.*skill|conflict.*resolution|reflective.*practice/i,
-      a: "**Social-Emotional Learning for Practitioners** is an upcoming flagship course on practitioner wellbeing, facilitation skills, conflict resolution, trauma-informed approaches, and reflective practice for development professionals. Coming soon!" },
+      a: "**Social-Emotional Learning for Practitioners** is our flagship course on practitioner wellbeing, burnout prevention, empathy, resilience, facilitation skills, conflict resolution, and reflective practice. 13 modules with 55+ term interactive lexicon. Visit: /courses/sel/" },
     // VaniScribe
     { re: /vaniscribe|transcri|field.*interview|fgd.*transcri|kii.*transcri|south.*asian.*language|sarvam|diarization/i,
       a: "**VaniScribe** is our premium AI transcription tool for development researchers. Transcribe field interviews, FGDs, and KIIs in Hindi, Tamil, Bengali, and 10+ South Asian languages using Sarvam AI. Features speaker diarization, auto-timestamping, and export to structured formats for qualitative analysis. Visit: https://101.impactmojo.in/vaniscribe" },
