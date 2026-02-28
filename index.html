@@ -3875,13 +3875,17 @@ function toggleMobileDropdown(event, element) {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    color: white;
 }
 .devdiscourses-banner-icon svg {
     width: 26px;
     height: 26px;
     stroke: white;
-    stroke-width: 2;
+    stroke-width: 1.5;
     fill: none;
+}
+.devdiscourses-banner-icon svg path {
+    stroke: white;
 }
 .devdiscourses-banner-content {
     flex: 1;
@@ -7770,7 +7774,7 @@ Join the PLC on WhatsApp
 <div class="casestudies-banner" id="case-studies">
     <a href="https://varnasr.github.io/dev-case-studies/" target="_blank" rel="noopener noreferrer" class="casestudies-banner-inner">
         <div class="casestudies-banner-icon">
-            <svg viewBox="0 0 24 24">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
             </svg>
@@ -7790,7 +7794,7 @@ Join the PLC on WhatsApp
         </div>
         <div class="casestudies-banner-cta">
             Browse Library
-            <svg viewBox="0 0 24 24">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
             </svg>
@@ -7801,9 +7805,8 @@ Join the PLC on WhatsApp
 <div class="devdiscourses-banner" id="dev-discourses">
     <a href="https://on-web.link/DevDiscourses" target="_blank" rel="noopener noreferrer" class="devdiscourses-banner-inner">
         <div class="devdiscourses-banner-icon">
-            <svg viewBox="0 0 24 24">
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="white" stroke-width="1.5">
+                <use href="#si_Library_books"/>
             </svg>
         </div>
         <div class="devdiscourses-banner-content">
@@ -7820,9 +7823,8 @@ Join the PLC on WhatsApp
         </div>
         <div class="devdiscourses-banner-cta">
             Explore Library
-            <svg viewBox="0 0 24 24">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <use href="#si_Arrow_right"/>
             </svg>
         </div>
     </a>
@@ -10434,8 +10436,12 @@ Workshops & Master Classes
 <line x1="8" y1="14" x2="12" y2="14"></line>
 </svg>
                             Research Library
+                            <span class="live-indicator">
+                                <span class="live-dot"></span>
+                                Live
+                            </span>
                         </h4>
-<p>Searchable repository of development research papers, reports, and case studies from leading organizations</p>
+<p>500+ curated open-access papers, books, and grey literature on development and public policy. <a href="https://on-web.link/DevDiscourses" target="_blank" rel="noopener noreferrer" style="color: var(--accent-color);">Browse DevDiscourses</a></p>
 </div>
 
 
