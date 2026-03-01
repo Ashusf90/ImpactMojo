@@ -6350,8 +6350,23 @@ footer::before {
 
 /* === GRID: 3-col on desktop === */
 #premium .cards-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
-    gap: 1.25rem !important;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+    gap: 1.5rem !important;
+}
+#premium .card {
+    padding: 1.5rem;
+}
+#premium .card-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+#premium .learner-badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    white-space: nowrap;
+}
+#premium .card-title {
+    font-size: 1.05rem;
 }
 .imx-premium-tooltip {
     position: fixed;
@@ -7996,6 +8011,122 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 
 
 
+/* === Free Resources Uniform Grid === */
+.imx-resource-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+@media (max-width: 900px) { .imx-resource-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .imx-resource-grid { grid-template-columns: 1fr; } }
+
+.imx-resource-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  position: relative;
+}
+.imx-resource-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  border-color: var(--accent-color);
+}
+.imx-resource-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem;
+}
+.imx-resource-icon svg {
+  stroke: currentColor; fill: none; stroke-width: 1.5;
+}
+.imx-resource-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem; font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.imx-resource-desc {
+  font-size: 0.82rem; color: var(--text-secondary);
+  line-height: 1.55; flex: 1;
+}
+.imx-resource-stats {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.75rem; color: var(--text-muted);
+}
+.imx-resource-stats span {
+  background: var(--hover-bg); padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+.imx-resource-stats strong { color: var(--text-primary); }
+.imx-resource-cta {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  margin-top: 1rem;
+  font-size: 0.82rem; font-weight: 600;
+  color: var(--accent-color);
+}
+.imx-resource-cta svg {
+  stroke: var(--accent-color); fill: none; stroke-width: 2;
+}
+
+/* === Quiz CTA Fix === */
+.track-quiz-inner .imx-btn {
+  display: inline-flex !important;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  padding: 0.9rem 2.25rem;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.2s;
+}
+.track-quiz-inner .imx-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* === Community Section Fix === */
+.imx-connect-grid {
+  align-items: stretch !important;
+}
+.imx-community-col {
+  display: flex;
+  flex-direction: column;
+}
+.imx-community-col .whatsapp-plc-section {
+  flex: 1;
+}
+.imx-community-extra-link {
+  padding: 1rem 1.25rem;
+  font-size: 0.9rem;
+}
+.imx-community-extra-link svg {
+  stroke: var(--accent-color); fill: none; stroke-width: 1.5;
+  flex-shrink: 0;
+}
+
+/* === Premium Tiers Box === */
+.imx-premium-tiers {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 600px) {
+  .imx-premium-tiers { grid-template-columns: 1fr; }
+}
+
 /* END V3 DESIGN SYSTEM */
 
 </style>
@@ -8207,8 +8338,8 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 </a>
 <ul class="dropdown-menu" id="learn-dropdown">
 <li id="nav-flagship"><a href="#flagship-courses" style="color: #6366F1; font-weight: 600;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="v3-inline-icon"><use href="#si_Flare"/></svg> Flagship Courses</a></li>
-<li id="nav-casestudies"><a href="#case-studies" style="color: #0EA5E9; font-weight: 600;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="v3-inline-icon"><use href="#si_Book"/></svg> Case Studies Library <span style="font-size: 0.7rem; background: #10B981; color: white; padding: 2px 6px; border-radius: 4px; margin-left: 4px;">FREE</span></a></li>
-<li id="nav-devdiscourses"><a href="#dev-discourses" style="color: #8B5CF6; font-weight: 600;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="v3-inline-icon"><use href="#si_Library_books"/></svg> Development Discourses <span style="font-size: 0.7rem; background: #10B981; color: white; padding: 2px 6px; border-radius: 4px; margin-left: 4px;">FREE</span></a></li>
+<li id="nav-casestudies"><a href="#case-studies" style="color: #0EA5E9; font-weight: 600;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="v3-inline-icon"><use href="#si_Book"/></svg> Global Case Studies <span style="font-size: 0.7rem; background: #10B981; color: white; padding: 2px 6px; border-radius: 4px; margin-left: 4px;">FREE</span></a></li>
+<li id="nav-devdiscourses"><a href="#dev-discourses" style="color: #8B5CF6; font-weight: 600;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="v3-inline-icon"><use href="#si_Article"/></svg> DevDiscourses <span style="font-size: 0.7rem; background: #10B981; color: white; padding: 2px 6px; border-radius: 4px; margin-left: 4px;">FREE</span></a></li>
 <li class="dropdown-divider"></li>
 <li id="nav-courses"><a onclick="openModal('coursesModal')">Courses</a></li>
 <li id="nav-labs"><a onclick="openModal('labsModal')">Labs</a></li>
@@ -8439,34 +8570,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 </div>
 
 <!-- V3 Category Badges with Sargam Icons -->
-<section class="v3-categories" id="categories">
-    <div class="v3-category-grid">
-        <a href="#courses" class="v3-category-badge" style="--rotation: -2deg;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="v3-badge-icon"><use href="#si_Globe_detailed"/></svg>
-            Development Economics
-        </a>
-        <a href="#courses" class="v3-category-badge" style="--rotation: 1deg;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="v3-badge-icon"><use href="#si_Heart"/></svg>
-            Gender Studies
-        </a>
-        <a href="#courses" class="v3-category-badge" style="--rotation: -1deg;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="v3-badge-icon"><use href="#si_Bar_chart"/></svg>
-            MEAL & Evaluation
-        </a>
-        <a href="#courses" class="v3-category-badge" style="--rotation: 2deg;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="v3-badge-icon"><use href="#si_Activity"/></svg>
-            Policy & Governance
-        </a>
-        <a href="#labs" class="v3-category-badge" style="--rotation: -1.5deg;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="v3-badge-icon"><use href="#si_Search"/></svg>
-            Research Methods
-        </a>
-        <a href="#labs" class="v3-category-badge" style="--rotation: 1.5deg;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="v3-badge-icon"><use href="#si_Crosshair_detailed"/></svg>
-            Impact Measurement
-        </a>
-    </div>
-</section>
+<!-- Category pills removed -->
 
 <!-- Surprise Me Button -->
 <div style="text-align: center; margin: 1.5rem auto;">
@@ -8477,97 +8581,52 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
     <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Discover something random to learn</p>
 </div>
 
-<!-- ImpactLex Banner -->
-
-
-
-
 <section class="imx-libraries-grid-section" id="free-resources">
-<h2 class="section-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 0.4rem;"><use href="#si_Library_books"/></svg>Free Resources & Libraries</h2>
+<h2 class="section-title"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 0.4rem;"><use href="#si_Library_books"/></svg>Free Resources</h2>
 <p class="section-subtitle">Searchable, cited, open-access. No paywalls, no logins.</p>
-<div class="imx-libraries-grid">
-<div class="impactlex-banner">
-    <a href="https://on-web.link/ImpactLex" target="_blank" rel="noopener noreferrer" class="impactlex-banner-inner">
-        <div class="impactlex-banner-icon">
-            <svg viewBox="0 0 24 24">
-                <path d="M9 12l2 2 4-4"></path>
-                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
-            </svg>
+<div class="imx-resource-grid">
+
+    <a href="https://on-web.link/ImpactLex" target="_blank" rel="noopener noreferrer" class="imx-resource-card">
+        <div class="imx-resource-icon" style="background: rgba(14, 165, 233, 0.1); color: #0EA5E9;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><use href="#si_Search"/></svg>
         </div>
-        <div class="impactlex-banner-content">
-            <div class="impactlex-banner-badge">
-                <span class="impactlex-banner-badge-dot"></span>
-                New App Launch
-            </div>
-            <h3 class="impactlex-banner-title">Introducing <span>ImpactLex</span></h3>
-            <p class="impactlex-banner-desc">A searchable glossary of development sector terminology and concepts. Quickly find definitions, decode acronyms, and navigate the language of social impact work.</p>
+        <h3 class="imx-resource-title">ImpactLex</h3>
+        <p class="imx-resource-desc">Searchable glossary of 500+ development sector terms, acronyms, and formulas. Decode the language of social impact work.</p>
+        <div class="imx-resource-stats">
+            <span><strong>500+</strong> Terms</span>
+            <span><strong>Formulas</strong> & Frameworks</span>
         </div>
-        <div class="impactlex-banner-cta">
-            Try ImpactLex
-            <svg viewBox="0 0 24 24">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-        </div>
+        <span class="imx-resource-cta">Open ImpactLex <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><use href="#si_Arrow_right"/></svg></span>
     </a>
-</div>
-<div class="casestudies-banner" id="case-studies">
-    <a href="https://varnasr.github.io/dev-case-studies/" target="_blank" rel="noopener noreferrer" class="casestudies-banner-inner">
-        <div class="casestudies-banner-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
+
+    <a href="https://varnasr.github.io/dev-case-studies/" target="_blank" rel="noopener noreferrer" class="imx-resource-card" id="case-studies">
+        <div class="imx-resource-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><use href="#si_Book"/></svg>
         </div>
-        <div class="casestudies-banner-content">
-            <div class="casestudies-banner-badge">
-                Free Resource
-            </div>
-            <h3 class="casestudies-banner-title">Dev <span>Case Studies</span> Library</h3>
-            <p class="casestudies-banner-desc">200 cited development case studies from 117 countries. Searchable evidence on financial inclusion, health, education, governance, and more. Every claim grounded in research.</p>
-            <div class="casestudies-banner-stats">
-                <span class="casestudies-banner-stat"><strong>200</strong> Case Studies</span>
-                <span class="casestudies-banner-stat"><strong>117</strong> Countries</span>
-                <span class="casestudies-banner-stat"><strong>10</strong> Topics</span>
-                <span class="casestudies-banner-stat"><strong>7</strong> Regions</span>
-            </div>
+        <h3 class="imx-resource-title">Global Case Studies</h3>
+        <p class="imx-resource-desc">200 cited development case studies from 117 countries. Evidence on financial inclusion, health, education, governance, and more.</p>
+        <div class="imx-resource-stats">
+            <span><strong>200</strong> Cases</span>
+            <span><strong>117</strong> Countries</span>
+            <span><strong>10</strong> Topics</span>
         </div>
-        <div class="casestudies-banner-cta">
-            Browse Library
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-        </div>
+        <span class="imx-resource-cta">Browse Cases <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><use href="#si_Arrow_right"/></svg></span>
     </a>
-</div>
-<div class="devdiscourses-banner" id="dev-discourses">
-    <a href="https://on-web.link/DevDiscourses" target="_blank" rel="noopener noreferrer" class="devdiscourses-banner-inner">
-        <div class="devdiscourses-banner-icon">
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="white" stroke-width="1.5">
-                <use href="#si_Library_books"/>
-            </svg>
+
+    <a href="https://on-web.link/DevDiscourses" target="_blank" rel="noopener noreferrer" class="imx-resource-card" id="dev-discourses">
+        <div class="imx-resource-icon" style="background: rgba(139, 92, 246, 0.1); color: #8B5CF6;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><use href="#si_Article"/></svg>
         </div>
-        <div class="devdiscourses-banner-content">
-            <div class="devdiscourses-banner-badge">
-                Free Open-Access Library
-            </div>
-            <h3 class="devdiscourses-banner-title"><span>Development Discourses</span></h3>
-            <p class="devdiscourses-banner-desc">500+ curated research papers, books, and grey literature on development, social impact, and public policy. Open-access resources you can read, cite, and share without paywalls.</p>
-            <div class="devdiscourses-banner-stats">
-                <span class="devdiscourses-banner-stat"><strong>500+</strong> Resources</span>
-                <span class="devdiscourses-banner-stat"><strong>Papers</strong> Books &amp; Grey Lit</span>
-                <span class="devdiscourses-banner-stat"><strong>Open</strong> Access</span>
-            </div>
+        <h3 class="imx-resource-title">DevDiscourses</h3>
+        <p class="imx-resource-desc">500+ curated open-access research papers, books, and grey literature on development and public policy. Read, cite, and share freely.</p>
+        <div class="imx-resource-stats">
+            <span><strong>500+</strong> Papers</span>
+            <span><strong>Open</strong> Access</span>
+            <span><strong>Grey</strong> Literature</span>
         </div>
-        <div class="devdiscourses-banner-cta">
-            Explore Library
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5">
-                <use href="#si_Arrow_right"/>
-            </svg>
-        </div>
+        <span class="imx-resource-cta">Explore Collection <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><use href="#si_Arrow_right"/></svg></span>
     </a>
-</div>
+
 </div>
 </section>
 
@@ -9428,19 +9487,11 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <a href="https://101.impactmojo.in/gender-studies" data-fallback="https://gender-studies-101-lzno8k1.gamma.site/" target="_blank" rel="noopener noreferrer">
 <div class="card-header">
 <span class="card-number">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M12 14l9-5-9-5-9 5z"></path>
-<path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Book"/></svg>
                                 C7
                             </span>
 <span class="learner-badge">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-<circle cx="9" cy="7" r="4"></circle>
-<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg>
                                 2.3K Learners
                             </span>
 </div>
@@ -9467,19 +9518,11 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <a href="https://101.impactmojo.in/mel-basics" data-fallback="https://meal-mel-101-2g0t5o7.gamma.site/" rel="noopener noreferrer" target="_blank">
 <div class="card-header">
 <span class="card-number">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M12 14l9-5-9-5-9 5z"></path>
-<path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Book"/></svg>
                                 C12
                             </span>
 <span class="learner-badge">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-<circle cx="9" cy="7" r="4"></circle>
-<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg>
                                 3.1K Learners
                             </span>
 </div>
@@ -9506,19 +9549,11 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <a href="https://101.impactmojo.in/climate-essentials" data-fallback="https://climate-science-101-qy4r9r6.gamma.site/" rel="noopener noreferrer" target="_blank">
 <div class="card-header">
 <span class="card-number">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M12 14l9-5-9-5-9 5z"></path>
-<path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Book"/></svg>
                                 C3
                             </span>
 <span class="learner-badge">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-<circle cx="9" cy="7" r="4"></circle>
-<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg>
                                 1.8K Learners
                             </span>
 </div>
@@ -9544,12 +9579,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 </div>
 <div class="action-buttons">
 <button class="btn btn-primary" onclick="openModal('coursesModal')">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<rect height="7" width="7" x="3" y="3"></rect>
-<rect height="7" width="7" x="14" y="3"></rect>
-<rect height="7" width="7" x="14" y="14"></rect>
-<rect height="7" width="7" x="3" y="14"></rect>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Library_books"/></svg>
                     View All 48 Courses
                 </button>
 </div>
@@ -9563,17 +9593,11 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <a href="https://101.impactmojo.in/toc-workbench" data-fallback="https://toc-workbench.netlify.app/" rel="noopener noreferrer" target="_blank">
 <div class="card-header">
 <span class="card-number">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="3"></circle>
-<path d="M12 1v6m0 6v6m4.22-13.22l4.24 4.24M1.54 1.54l4.24 4.24M12 1l4.24 4.24M7.76 7.76l4.24 4.24"></path>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Crosshair_detailed"/></svg>
                                 L10
                             </span>
 <span class="learner-badge">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-<circle cx="9" cy="7" r="4"></circle>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg>
                                 1.5K Users
                             </span>
 </div>
@@ -9600,17 +9624,11 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <a href="https://101.impactmojo.in/mle-framework-lab" data-fallback="https://mle-frameworkdesign.netlify.app/" rel="noopener noreferrer" target="_blank">
 <div class="card-header">
 <span class="card-number">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="3"></circle>
-<path d="M12 1v6m0 6v6m4.22-13.22l4.24 4.24M1.54 1.54l4.24 4.24M12 1l4.24 4.24M7.76 7.76l4.24 4.24"></path>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Crosshair_detailed"/></svg>
                                 L5
                             </span>
 <span class="learner-badge">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-<circle cx="9" cy="7" r="4"></circle>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg>
                                 2.1K Users
                             </span>
 </div>
@@ -9637,17 +9655,11 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <a href="https://101.impactmojo.in/storytelling-lab" data-fallback="https://impact-storytelling.netlify.app/" target="_blank" rel="noopener noreferrer">
 <div class="card-header">
 <span class="card-number">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="3"></circle>
-<path d="M12 1v6m0 6v6m4.22-13.22l4.24 4.24M1.54 1.54l4.24 4.24M12 1l4.24 4.24M7.76 7.76l4.24 4.24"></path>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Crosshair_detailed"/></svg>
                                 L8
                             </span>
 <span class="learner-badge">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-<circle cx="9" cy="7" r="4"></circle>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg>
                                 890 Users
                             </span>
 </div>
@@ -9673,11 +9685,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 </div>
 <div class="action-buttons">
 <button class="btn btn-primary" onclick="openModal('labsModal')">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<circle cx="12" cy="5" r="2"></circle>
-<circle cx="12" cy="12" r="2"></circle>
-<circle cx="12" cy="19" r="2"></circle>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Library_books"/></svg>
                     View All 10 Labs
                 </button>
 </div>
@@ -9691,123 +9699,7 @@ body:has(.imx-tour-overlay.active) .dropdown-menu li {
 <a href="https://therealmiddle.netlify.app" rel="noopener noreferrer" target="_blank">
 <div class="card-header">
 <span class="card-number">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<rect height="6" width="6" x="4" y="4"></rect>
-<rect height="6" width="6" x="14" y="4"></rect>
-<path d="M4 14h6v6H4zM14 14h6v6h-6z"></path>
-</svg>
-                                G1
-                            </span>
-<span class="learner-badge">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-<circle cx="9" cy="7" r="4"></circle>
-</svg>
-                                850 Players
-                            </span>
-</div>
-<h3 class="card-title">The Real Middle</h3>
-<div class="star-rating">
-<div class="stars">
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-<svg class="star-icon empty" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-</div>
-<span class="rating-text">4.0</span>
-<span class="rating-count">(126 reviews)</span>
-</div>
-<p class="card-description">Understand who the "middle-class" really is in India through wealth inequality dynamics</p>
-<div class="card-testimonial">
-                            "Eye-opening visualization of wealth distribution. Changed how I think about economic policy targeting."
-                            <span class="card-testimonial-author">— Prof. Ashok Mishra, Economics Faculty</span>
-</div>
-</a>
-</div>
-<div class="card">
-<a href="https://risk-reward-be.netlify.app" rel="noopener noreferrer" target="_blank">
-<div class="card-header">
-<span class="card-number">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<rect height="6" width="6" x="4" y="4"></rect>
-<rect height="6" width="6" x="14" y="4"></rect>
-<path d="M4 14h6v6H4zM14 14h6v6h-6z"></path>
-</svg>
-                                G2
-                            </span>
-<span class="learner-badge">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-<circle cx="9" cy="7" r="4"></circle>
-</svg>
-                                1.2K Players
-                            </span>
-</div>
-<h3 class="card-title">Risk &amp; Reward Explorer</h3>
-<div class="star-rating">
-<div class="stars">
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-</div>
-<span class="rating-text">4.5</span>
-<span class="rating-count">(189 reviews)</span>
-</div>
-<p class="card-description">Experience behavioral economics through prospect theory and cognitive biases in South Asian contexts</p>
-<div class="card-testimonial">
-                            "Perfect for teaching behavioral economics concepts. Students finally understand framing effects!"
-                            <span class="card-testimonial-author">— Meera Rao, Behavioral Researcher</span>
-</div>
-</a>
-</div>
-<div class="card">
-<a href="https://cooperationparadox.netlify.app/" rel="noopener noreferrer" target="_blank">
-<div class="card-header">
-<span class="card-number">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<rect height="6" width="6" x="4" y="4"></rect>
-<rect height="6" width="6" x="14" y="4"></rect>
-<path d="M4 14h6v6H4zM14 14h6v6h-6z"></path>
-</svg>
-                                G5
-                            </span>
-<span class="learner-badge">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-<circle cx="9" cy="7" r="4"></circle>
-</svg>
-                                920 Players
-                            </span>
-</div>
-<h3 class="card-title">Cooperation Paradox</h3>
-<div class="star-rating">
-<div class="stars">
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-<svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-<svg class="star-icon empty" viewBox="0 0 24 24"><use href="#imx-star"/></svg>
-</div>
-<span class="rating-text">4.0</span>
-<span class="rating-count">(143 reviews)</span>
-</div>
-<p class="card-description">Explore game theory concepts through strategic decision-making scenarios</p>
-<div class="card-testimonial">
-                            "Makes game theory accessible and practical. Great for understanding cooperation dynamics in development."
-                            <span class="card-testimonial-author">— Harpreet Singh, Program Manager</span>
-</div>
-</a>
-</div>
-</div>
-<div class="action-buttons">
-<button class="btn btn-primary" onclick="openModal('gamesModal')">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<rect height="14" rx="2" ry="2" width="20" x="2" y="7"></rect>
-<path d="M16 7V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v3"></path>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Activity"/></svg>
                     View All 12 Games
                 </button>
 </div>
@@ -9852,13 +9744,13 @@ Join the PLC on WhatsApp
 </div>
 
 <!-- Right: Coaching summary -->
-<div style="background: var(--card-bg, var(--bg-secondary)); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem;">
+<div style="background: var(--card-bg, var(--bg-secondary)); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; display: flex; flex-direction: column;">
     <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#si_Briefcase"/></svg>
         Coaching & Training
     </h3>
     <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.6;">Personalised guidance from Dr. Varna and Vandana. Sliding-scale pricing available.</p>
-    <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem;">
+    <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; flex: 1;">
         <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem;"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); flex-shrink: 0;"></span> Development Career Counselling</div>
         <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem;"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); flex-shrink: 0;"></span> Research Design Consultation</div>
         <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem;"><span style="width: 6px; height: 6px; border-radius: 50%; background: var(--accent-color); flex-shrink: 0;"></span> 3-Day MEAL Intensive Workshops</div>
@@ -9878,14 +9770,14 @@ Join the PLC on WhatsApp
 <section class="section" id="premium">
 <h2 class="section-title">Premium Offerings</h2>
 <p class="section-subtitle">Advanced tools and in-depth content for serious practitioners</p>
-<div style="max-width: 800px; margin: 0 auto 2rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
-    <div style="flex: 1; min-width: 220px; padding: 1rem 1.25rem; border-radius: 12px; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.15);">
-        <div style="font-weight: 700; font-size: 0.85rem; color: #a5b4fc; margin-bottom: 0.4rem;">Practitioner Tier</div>
-        <div style="font-size: 0.78rem; color: var(--text-secondary, #94a3b8); line-height: 1.5;">Field Notes, RQ Builder Pro, completion certificates, and community access</div>
+<div class="imx-premium-tiers">
+    <div style="padding: 1.25rem 1.5rem; border-radius: 12px; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.15);">
+        <div style="font-weight: 700; font-size: 0.88rem; color: #a5b4fc; margin-bottom: 0.4rem;">Practitioner Tier</div>
+        <div style="font-size: 0.8rem; color: var(--text-secondary, #94a3b8); line-height: 1.5;">Field Notes, RQ Builder Pro, completion certificates, and community access</div>
     </div>
-    <div style="flex: 1; min-width: 220px; padding: 1rem 1.25rem; border-radius: 12px; background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.15);">
-        <div style="font-weight: 700; font-size: 0.85rem; color: #c4b5fd; margin-bottom: 0.4rem;">Professional Tier</div>
-        <div style="font-size: 0.78rem; color: var(--text-secondary, #94a3b8); line-height: 1.5;">Qual Lab, Stats Assistant, VaniScribe AI, DevData Practice, Viz Cookbook, DevEcon Toolkit, and priority coaching</div>
+    <div style="padding: 1.25rem 1.5rem; border-radius: 12px; background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.15);">
+        <div style="font-weight: 700; font-size: 0.88rem; color: #c4b5fd; margin-bottom: 0.4rem;">Professional Tier</div>
+        <div style="font-size: 0.8rem; color: var(--text-secondary, #94a3b8); line-height: 1.5;">Qual Lab, Stats Assistant, VaniScribe AI, DevData Practice, Viz Cookbook, DevEcon Toolkit, and priority coaching</div>
     </div>
 </div>
 <div class="cards-grid">
@@ -9893,16 +9785,11 @@ Join the PLC on WhatsApp
 <a href="https://marginmuse.space/themarginmuse" rel="noopener noreferrer" target="_blank">
 <div class="card-header">
 <span class="card-number premium">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Flare"/></svg>
                                 PREMIUM
                             </span>
 <span class="learner-badge">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-<circle cx="9" cy="7" r="4"></circle>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg>
                                 450 Subscribers
                             </span>
 </div>
@@ -9925,16 +9812,11 @@ Join the PLC on WhatsApp
 <a href="https://101.impactmojo.in/IMQualLab" rel="noopener noreferrer" target="_blank">
 <div class="card-header">
 <span class="card-number premium">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Flare"/></svg>
                                 PREMIUM
                             </span>
 <span class="learner-badge">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-<circle cx="9" cy="7" r="4"></circle>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg>
                                 680 Users
                             </span>
 </div>
@@ -9957,16 +9839,11 @@ Join the PLC on WhatsApp
 <a href="https://101.impactmojo.in/IMStatsAssist" rel="noopener noreferrer" target="_blank">
 <div class="card-header">
 <span class="card-number premium">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Flare"/></svg>
                                 PREMIUM
                             </span>
 <span class="learner-badge">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-<circle cx="9" cy="7" r="4"></circle>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg>
                                 920 Users
                             </span>
 </div>
@@ -9989,7 +9866,7 @@ Join the PLC on WhatsApp
 <a href="https://varnasr.github.io/devdata-practice/" rel="noopener noreferrer" target="_blank">
 <div class="card-header">
 <span class="card-number premium"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#imx-star"/></svg> PREMIUM</span>
-<span class="learner-badge"><svg class="icon-sm" viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg> 840k+ Rows</span>
+<span class="learner-badge"><svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg> 840k+ Rows</span>
 </div>
 <h3 class="card-title">DevData Practice: Development Datasets</h3>
 <div class="star-rating"><div class="stars"><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg></div><span class="rating-text">5.0</span><span class="rating-count">(New)</span></div>
@@ -10000,7 +9877,7 @@ Join the PLC on WhatsApp
 <a href="https://101.impactmojo.in/vaniscribe" rel="noopener noreferrer" target="_blank">
 <div class="card-header">
 <span class="card-number premium"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#imx-star"/></svg> PREMIUM</span>
-<span class="learner-badge"><svg class="icon-sm" viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg> 10+ Languages</span>
+<span class="learner-badge"><svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg> 10+ Languages</span>
 </div>
 <h3 class="card-title">VaniScribe: AI Transcription</h3>
 <div class="star-rating"><div class="stars"><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon half" viewBox="0 0 24 24"><use href="#imx-star"/></svg></div><span class="rating-text">4.9</span><span class="rating-count">(New)</span></div>
@@ -10011,7 +9888,7 @@ Join the PLC on WhatsApp
 <a href="https://varnasr.github.io/devdata-practice/charts.html" rel="noopener noreferrer" target="_blank">
 <div class="card-header">
 <span class="card-number premium"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#imx-star"/></svg> PREMIUM</span>
-<span class="learner-badge"><svg class="icon-sm" viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg> 14 Chart Types</span>
+<span class="learner-badge"><svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg> 14 Chart Types</span>
 </div>
 <h3 class="card-title">Visualization Cookbook</h3>
 <div class="star-rating"><div class="stars"><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg></div><span class="rating-text">5.0</span><span class="rating-count">(New)</span></div>
@@ -10022,7 +9899,7 @@ Join the PLC on WhatsApp
 <a href="https://varnasr.github.io/deveconomics-toolkit/" rel="noopener noreferrer" target="_blank">
 <div class="card-header">
 <span class="card-number premium"><svg class="icon-sm" viewBox="0 0 24 24"><use href="#imx-star"/></svg> PREMIUM</span>
-<span class="learner-badge"><svg class="icon-sm" viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg> 11 Apps</span>
+<span class="learner-badge"><svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_User_alt_4"/></svg> 11 Apps</span>
 </div>
 <h3 class="card-title">DevEconomics Toolkit: Interactive Shiny Apps</h3>
 <div class="star-rating"><div class="stars"><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg><svg class="star-icon" viewBox="0 0 24 24"><use href="#imx-star"/></svg></div><span class="rating-text">5.0</span><span class="rating-count">(New)</span></div>
@@ -10031,9 +9908,7 @@ Join the PLC on WhatsApp
 </div>
 <div class="action-buttons">
 <button class="btn btn-premium" onclick="openModal('premiumModal')">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Flare"/></svg>
                     View All Premium Content
                 </button>
 </div>
@@ -10044,10 +9919,9 @@ Join the PLC on WhatsApp
 <p>AI learning assistant, smart course notes, certification system, and more are in the works.</p>
 <a href="/updates"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 0.2rem;"><use href="#si_Arrow_right"/></svg>View Full Roadmap &amp; Updates</a>
 </div>
-<!-- Wall of Love Section -->
-<!-- Wall of Love moved to standalone /testimonials page -->
 
-<!-- What's New moved to standalone /updates page -->
+
+
 
 <!-- Enhanced Support Section -->
 <section class="enhanced-support-section" id="support-us">
@@ -10281,9 +10155,7 @@ Join the PLC on WhatsApp
 <div class="coaching-services-grid">
 <div class="service-item">
 <h4>
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Flare"/></svg>
                                 Development Career Counselling
                             </h4>
 <p>One-on-one guidance for your development sector career journey.</p>
@@ -10293,10 +10165,7 @@ Join the PLC on WhatsApp
 </div>
 <div class="service-item">
 <h4>
-<svg class="icon-sm" viewbox="0 0 24 24">
-<circle cx="12" cy="12" r="3"></circle>
-<path d="M12 1v6m0 6v6m4.22-13.22l4.24 4.24M1.54 1.54l4.24 4.24M12 1l4.24 4.24M7.76 7.76l4.24 4.24"></path>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Crosshair_detailed"/></svg>
                                 Research Design Consultation
                             </h4>
 <p>Expert consultation on research methodology and sampling strategies.</p>
@@ -10306,11 +10175,7 @@ Join the PLC on WhatsApp
 </div>
 <div class="service-item">
 <h4>
-<svg class="icon-sm" viewbox="0 0 24 24">
-<line x1="18" x2="18" y1="20" y2="10"></line>
-<line x1="12" x2="12" y1="20" y2="4"></line>
-<line x1="6" x2="6" y1="20" y2="14"></line>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Bar_chart"/></svg>
                                 Data Analysis Consultation
                             </h4>
 <p>Statistical analysis support and visualization guidance.</p>
@@ -10320,11 +10185,7 @@ Join the PLC on WhatsApp
 </div>
 <div class="service-item">
 <h4>
-<svg class="icon-sm" viewbox="0 0 24 24">
-<rect height="18" rx="2" ry="2" width="18" x="3" y="3"></rect>
-<line x1="9" x2="15" y1="9" y2="9"></line>
-<line x1="9" x2="15" y1="15" y2="15"></line>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Activity"/></svg>
                                 Three-Day Intensive Workshops
                             </h4>
 <p>Deep-dive workshop on any ImpactMojo course topic.</p>
@@ -10373,10 +10234,7 @@ Join the PLC on WhatsApp
 <p><strong>Duration:</strong> 3 days (6 hours/day)</p>
 <p class="price">₹6,000 (Sliding scale: ₹3,000-₹8,000)</p>
 <button class="btn btn-primary" onclick="closeModal('coachingModal'); setTimeout(function(){ openModal('contactModal'); }, 300);">
-<svg class="icon-sm" viewbox="0 0 24 24">
-<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-<polyline points="22,6 12,13 2,6"></polyline>
-</svg>
+<svg class="icon-sm" viewBox="0 0 24 24" fill="none"><use href="#si_Mail"/></svg>
                                 Contact for Workshop
                             </button>
 </div>
