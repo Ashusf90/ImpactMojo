@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Updates & Roadmap | ImpactMojo</title>
+<meta name="description" content="Latest updates, new courses, platform features, and roadmap for ImpactMojo's free development education platform.">
+<meta property="og:title" content="Updates & Roadmap | ImpactMojo">
+<meta property="og:description" content="See what's new on ImpactMojo: new flagship courses, premium tools, platform features, and what's coming next.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.impactmojo.in/updates">
+<link rel="icon" href="/assets/images/ImpactMojo%20Logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+    --primary-bg: #FFFFFF;
+    --secondary-bg: #F8FAFC;
+    --accent-color: #0EA5E9;
+    --accent-hover: #0284C7;
+    --secondary-accent: #6366F1;
+    --success-color: #10B981;
+    --warning-color: #F59E0B;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    --card-bg: #FFFFFF;
+    --hover-bg: #F1F5F9;
+    --border-color: #E2E8F0;
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+}
+body.dark-mode {
+    --primary-bg: #0F172A;
+    --secondary-bg: #1E293B;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --card-bg: #1E293B;
+    --hover-bg: #334155;
+    --border-color: #334155;
+    --nav-bg: rgba(15, 23, 42, 0.95);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+}
+html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Nav */
+.nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+}
+.nav-left { display: flex; align-items: center; gap: 0.75rem; }
+.nav-left a { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--text-primary); font-weight: 700; font-size: 1.1rem; }
+.nav-left img { width: 36px; height: 36px; border-radius: 8px; }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.nav-link { text-decoration: none; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; transition: color 0.15s; }
+.nav-link:hover { color: var(--accent-color); }
+.theme-toggle {
+    background: none; border: 1px solid var(--border-color); border-radius: 8px;
+    padding: 0.4rem; cursor: pointer; color: var(--text-secondary);
+    display: flex; align-items: center; justify-content: center;
+}
+.theme-toggle:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+/* Page Header */
+.page-header {
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    background: radial-gradient(800px 400px at 30% 0%, rgba(14,165,233,.06), transparent),
+                radial-gradient(600px 300px at 80% 100%, rgba(99,102,241,.05), transparent);
+}
+.page-header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #0EA5E9, #6366F1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+.page-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Jump Nav */
+.jump-nav {
+    display: flex; justify-content: center; gap: 0.75rem;
+    margin-top: 1.5rem; flex-wrap: wrap;
+}
+.jump-pill {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.4rem 1rem; border-radius: 20px;
+    font-size: 0.82rem; font-weight: 600;
+    text-decoration: none;
+    background: var(--card-bg); border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    transition: all 0.15s;
+}
+.jump-pill:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+/* Section */
+.content-section {
+    max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem;
+}
+.section-label {
+    text-transform: uppercase; letter-spacing: 0.14em;
+    font-size: 0.75rem; font-weight: 600; color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+.section-heading {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem; font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.section-sub {
+    color: var(--text-secondary); font-size: 0.9rem;
+    margin-bottom: 2rem; max-width: 700px;
+}
+
+/* What's New Grid */
+.whats-new-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+}
+@media (max-width: 700px) { .whats-new-grid { grid-template-columns: 1fr; } }
+
+.whats-new-card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    overflow: hidden;
+}
+.whats-new-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--card-accent, linear-gradient(135deg, #0EA5E9, #6366F1));
+    border-radius: 14px 14px 0 0;
+}
+.whats-new-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+.whats-new-toggle-icon {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    width: 24px; height: 24px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+}
+.whats-new-card.expanded .whats-new-toggle-icon { transform: rotate(180deg); }
+.whats-new-toggle-icon svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+.whats-new-card-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.75rem;
+    background: rgba(14, 165, 233, 0.12);
+}
+.whats-new-card-icon svg { stroke: currentColor; fill: none; stroke-width: 1.5; }
+.whats-new-card-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; padding-right: 2rem; }
+.whats-new-card-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+.whats-new-card-tag {
+    display: inline-block; margin-top: 0.6rem;
+    padding: 0.15rem 0.6rem; border-radius: 20px;
+    font-size: 0.7rem; font-weight: 600;
+}
+.tag-new { background: rgba(16, 185, 129, 0.15); color: #10B981; }
+.tag-improved { background: rgba(14, 165, 233, 0.15); color: #0EA5E9; }
+
+/* Card accent colours */
+.card-notes { --card-accent: linear-gradient(135deg, #14B8A6, #0D9488); }
+.card-streak { --card-accent: linear-gradient(135deg, #EC4899, #DB2777); }
+.card-pwa { --card-accent: linear-gradient(135deg, #8B5CF6, #6366F1); }
+.card-tour { --card-accent: linear-gradient(135deg, #F59E0B, #D97706); }
+.card-compare { --card-accent: linear-gradient(135deg, #8B5CF6, #7C3AED); }
+.card-bookmarks { --card-accent: linear-gradient(135deg, #F97316, #EA580C); }
+.card-analytics { --card-accent: linear-gradient(135deg, #6366F1, #4F46E5); }
+.card-reading { --card-accent: linear-gradient(135deg, #F59E0B, #D97706); }
+.card-casestudies { --card-accent: linear-gradient(135deg, #10B981, #059669); }
+.card-devdiscourses { --card-accent: linear-gradient(135deg, #8B5CF6, #6366F1); }
+
+.icon-notes { background: rgba(20, 184, 166, 0.15); }
+.icon-streak { background: rgba(236, 72, 153, 0.15); }
+.icon-pwa { background: rgba(139, 92, 246, 0.15); }
+.icon-devdiscourses { background: rgba(139, 92, 246, 0.15); }
+.icon-tour { background: rgba(245, 158, 11, 0.15); }
+.icon-compare { background: rgba(139, 92, 246, 0.15); }
+.icon-bookmarks { background: rgba(249, 115, 22, 0.15); }
+.icon-analytics { background: rgba(99, 102, 241, 0.15); }
+.icon-reading { background: rgba(245, 158, 11, 0.15); }
+
+/* Expand panel */
+.whats-new-card-expand {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s ease, margin 0.35s ease, opacity 0.25s ease;
+    opacity: 0;
+}
+.whats-new-card.expanded .whats-new-card-expand {
+    max-height: 500px; opacity: 1;
+    margin-top: 1rem; padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+.whats-new-card-expand-content { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+.whats-new-card-expand-content ul { margin: 0.5rem 0 0.75rem 1.25rem; padding: 0; }
+.whats-new-card-expand-content li { margin-bottom: 0.3rem; }
+.whats-new-card-action {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 0.5rem; padding: 0.4rem 0.8rem;
+    background: var(--accent-color); color: white;
+    border: none; border-radius: 8px;
+    font-size: 0.8rem; font-weight: 600;
+    text-decoration: none; cursor: pointer;
+    transition: background 0.15s;
+}
+.whats-new-card-action:hover { background: var(--accent-hover); }
+.whats-new-card-action svg { width: 14px; height: 14px; stroke: white; fill: none; stroke-width: 2; }
+
+/* Roadmap */
+.roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+@media (max-width: 600px) { .roadmap-grid { grid-template-columns: 1fr; } }
+.roadmap-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+.roadmap-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+.roadmap-item h4 {
+    font-size: 0.95rem; font-weight: 700;
+    display: flex; align-items: center; gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.roadmap-item h4 svg { width: 18px; height: 18px; stroke: var(--accent-color); fill: none; stroke-width: 2; flex-shrink: 0; }
+.roadmap-item p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+
+/* Footer */
+.page-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+.page-footer a { color: var(--accent-color); text-decoration: none; }
+.page-footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<!-- SVG Sprites -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<symbol id="si_Flare" viewBox="0 0 24 24"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+<symbol id="si_Library_books" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="si_Flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="4" y1="22" x2="4" y2="15" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="si_Album" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></symbol>
+<symbol id="si_Bar_chart" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="12" y1="20" x2="12" y2="4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="6" y1="20" x2="6" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+<symbol id="si_Activity" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="si_Lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 11V7a5 5 0 0110 0v4" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="si_Chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="si_Balance" viewBox="0 0 24 24"><path d="M12 3v18M3 7l9-4 9 4M3 7l3 9h0a5 5 0 006 0h0l3-9m0 0l3 9h0a5 5 0 006 0h0l3-9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="si_Heart_broken" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="si_Search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="si_Settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+</svg>
+
+<!-- Nav -->
+<nav class="nav">
+    <div class="nav-left">
+        <a href="/">
+            <img src="/assets/images/ImpactMojo%20Logo.png" alt="ImpactMojo" width="36" height="36">
+            ImpactMojo
+        </a>
+    </div>
+    <div class="nav-right">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/handouts" class="nav-link">Handouts</a>
+        <a href="/catalog" class="nav-link">Catalog</a>
+        <a href="/testimonials" class="nav-link">Testimonials</a>
+        <button class="theme-toggle" onclick="document.body.classList.toggle('dark-mode'); localStorage.setItem('imx-theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');" aria-label="Toggle theme">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+    </div>
+</nav>
+
+<!-- Header -->
+<div class="page-header">
+    <h1>Updates & Roadmap</h1>
+    <p>Latest launches, platform features, and what we're building next for development practitioners.</p>
+    <div class="jump-nav">
+        <a href="#whats-new" class="jump-pill">What's New</a>
+        <a href="#roadmap" class="jump-pill">Roadmap</a>
+    </div>
+</div>
+
+<!-- What's New -->
+<div class="content-section" id="whats-new">
+    <div class="section-label">Latest</div>
+    <h2 class="section-heading">What's New</h2>
+    <p class="section-sub">Recent launches across courses, premium content, and platform features</p>
+
+    <div class="whats-new-grid">
+        <div class="whats-new-card card-pwa" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-pwa"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Library_books"/></svg></div>
+            <div class="whats-new-card-title">9 Flagship Courses Live</div>
+            <div class="whats-new-card-desc">PhD-level development education: Gandhi, DevEcon, DataViz, DevAI, MEL, Politics of Aspiration, Media for Development, Constitution & Law, and Social-Emotional Learning.</div>
+            <span class="whats-new-card-tag tag-new">Expanded</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Each flagship includes:</strong><ul><li>12-13 modules with South Asian case studies</li><li>Interactive lexicon (55-70 terms per course)</li><li>NotebookLM AI study companion and downloadable Excel resources</li><li>Coach callouts from both founders</li></ul></div><a href="/#flagship-courses" class="whats-new-card-action">Browse Flagships &rarr;</a></div>
+        </div>
+
+        <div class="whats-new-card card-notes" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-notes"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Flag"/></svg></div>
+            <div class="whats-new-card-title">Politics of Aspiration</div>
+            <div class="whats-new-card-desc">New flagship: NREGA, RTI, NFSA, Forest Rights Act, India's rights architecture. 13 modules + 60-term lexicon.</div>
+            <span class="whats-new-card-tag tag-new">New Course</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Covers:</strong><ul><li>India's social legislation and rights architecture</li><li>MGNREGA implementation, RTI activism, forest rights movements</li><li>60-term interactive lexicon and AI study companion</li></ul></div><a href="/courses/poa/" class="whats-new-card-action">Start Course &rarr;</a></div>
+        </div>
+
+        <div class="whats-new-card card-streak" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-streak"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Album"/></svg></div>
+            <div class="whats-new-card-title">Media for Development</div>
+            <div class="whats-new-card-desc">Ethics of representation, participatory media, data journalism, humanitarian communication. 12 modules.</div>
+            <span class="whats-new-card-tag tag-new">New Course</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Highlights:</strong><ul><li>P. Sainath and PARI, Khabar Lahariya, Video Volunteers</li><li>Data journalism, AI in media, decolonising narratives</li><li>65-term lexicon on media ethics and development communication</li></ul></div><a href="/courses/media/" class="whats-new-card-action">Start Course &rarr;</a></div>
+        </div>
+
+        <div class="whats-new-card card-notes" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-notes"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Balance"/></svg></div>
+            <div class="whats-new-card-title">Constitution & Law</div>
+            <div class="whats-new-card-desc">Indian Constitution, fundamental rights, judicial review, and rights-based development frameworks. 13 modules.</div>
+            <span class="whats-new-card-tag tag-new">New Course</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Covers:</strong><ul><li>Constitutional design and the basic structure doctrine</li><li>Fundamental rights, DPSPs, and their intersection with development</li><li>Judicial activism, PIL, and environmental jurisprudence</li><li>Interactive lexicon with 60+ constitutional and legal terms</li></ul></div><a href="/courses/law/" class="whats-new-card-action">Start Course &rarr;</a></div>
+        </div>
+
+        <div class="whats-new-card card-streak" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-streak"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Heart_broken"/></svg></div>
+            <div class="whats-new-card-title">Social-Emotional Learning</div>
+            <div class="whats-new-card-desc">New flagship for development practitioners: burnout prevention, empathy, resilience, and team wellbeing. 13 modules.</div>
+            <span class="whats-new-card-tag tag-new">New Course</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Covers:</strong><ul><li>Burnout prevention and compassion fatigue in development work</li><li>Emotional regulation, team dynamics, and conflict resolution</li><li>Self-care frameworks grounded in South Asian contexts</li><li>Interactive lexicon with 55+ SEL and wellbeing terms</li></ul></div><a href="/courses/sel/" class="whats-new-card-action">Start Course &rarr;</a></div>
+        </div>
+
+        <div class="whats-new-card card-compare" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-compare"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Bar_chart"/></svg></div>
+            <div class="whats-new-card-title">DevData Practice</div>
+            <div class="whats-new-card-desc">36 dataset generators producing 840k+ rows of realistic development economics data with practice exercises.</div>
+            <span class="whats-new-card-tag tag-new">Premium</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Datasets include:</strong><ul><li>LSMS-style household surveys (75k rows), multi-arm RCTs (25k), DHS-style health (35k)</li><li>Education, agriculture, gender, climate, WASH, humanitarian response, IRT psychometrics</li><li>Practice exercises organized by difficulty</li><li><strong>NEW: Visualization Cookbook</strong> with 14 chart types and production-ready Python code</li></ul></div><a href="https://varnasr.github.io/devdata-practice/" target="_blank" rel="noopener noreferrer" class="whats-new-card-action">Open DevData Practice &rarr;</a></div>
+        </div>
+
+        <div class="whats-new-card card-compare" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-compare"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Activity"/></svg></div>
+            <div class="whats-new-card-title">DevEconomics Toolkit</div>
+            <div class="whats-new-card-desc">11 interactive Shiny apps: RCT power, DiD, RDD, synthetic control, Gini/MPI, CBA, LogFrame, WDI dashboard.</div>
+            <span class="whats-new-card-tag tag-new">Premium</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Tools include:</strong><ul><li>Impact evaluation: RCT power calculator, DiD simulator, RDD explorer, synthetic control</li><li>Poverty and inequality: Gini/Lorenz curves, MPI explorer, poverty line analysis</li><li>Program design: ToC visualizer, cost-benefit analysis, LogFrame builder, WDI dashboard</li></ul></div><a href="https://varnasr.github.io/deveconomics-toolkit/" target="_blank" rel="noopener noreferrer" class="whats-new-card-action">Open Toolkit &rarr;</a></div>
+        </div>
+
+        <div class="whats-new-card card-tour" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-tour"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Lock"/></svg></div>
+            <div class="whats-new-card-title">Premium Content</div>
+            <div class="whats-new-card-desc">Field toolkits, AI-powered tools, DevData Practice datasets, DevEconomics Toolkit, and advanced practitioner materials.</div>
+            <span class="whats-new-card-tag tag-improved">Updated</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Premium includes:</strong><ul><li>Field Notes from a Development Economist (Practitioner tier)</li><li>Qualitative Research Lab and Statistical Analysis Assistant (Professional)</li><li>VaniScribe AI Transcription for 10+ South Asian languages (Professional)</li><li>DevData Practice: 36 dataset generators with 840k+ rows (Professional)</li><li>DevEconomics Toolkit: 11 interactive Shiny apps (Professional)</li></ul></div><a href="/premium" class="whats-new-card-action">Explore Premium &rarr;</a></div>
+        </div>
+
+        <div class="whats-new-card card-pwa" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-pwa"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Library_books"/></svg></div>
+            <div class="whats-new-card-title">Dev Case Studies Library</div>
+            <div class="whats-new-card-desc">200 cited case studies from 117 countries covering financial inclusion, health, education, governance, and more.</div>
+            <span class="whats-new-card-tag tag-new">Free</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Library features:</strong><ul><li>200 evidence-based case studies with full citations</li><li>Searchable by country, region, and topic</li><li>Covers 10 development themes across 7 global regions</li></ul></div><a href="https://varnasr.github.io/dev-case-studies/" target="_blank" rel="noopener noreferrer" class="whats-new-card-action">Browse Case Studies &rarr;</a></div>
+        </div>
+
+        <div class="whats-new-card card-devdiscourses" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-devdiscourses"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Library_books"/></svg></div>
+            <div class="whats-new-card-title">Development Discourses</div>
+            <div class="whats-new-card-desc">500+ curated open-access papers, books, and grey literature on development and public policy.</div>
+            <span class="whats-new-card-tag tag-new">New</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>What's inside:</strong><ul><li>500+ research papers, books, and grey literature</li><li>Filter by topic, type, author, or keyword</li><li>Open-access priority: read, cite, and share freely</li></ul></div><a href="https://on-web.link/DevDiscourses" target="_blank" rel="noopener noreferrer" class="whats-new-card-action">Explore DevDiscourses &rarr;</a></div>
+        </div>
+
+        <div class="whats-new-card card-analytics" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-analytics"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Search"/></svg></div>
+            <div class="whats-new-card-title">ImpactLex Dictionary</div>
+            <div class="whats-new-card-desc">Searchable glossary of 500+ development sector terms, acronyms, and formulas.</div>
+            <span class="whats-new-card-tag tag-new">App</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>ImpactLex includes:</strong><ul><li>500+ terms with clear definitions and case studies</li><li>Economics and MEAL formulas and frameworks</li><li>"Finance Word of the Day" feature</li></ul></div><a href="https://on-web.link/ImpactLex" target="_blank" rel="noopener noreferrer" class="whats-new-card-action">Open ImpactLex &rarr;</a></div>
+        </div>
+
+        <div class="whats-new-card card-reading" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-reading"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Settings"/></svg></div>
+            <div class="whats-new-card-title">Platform Tools</div>
+            <div class="whats-new-card-desc">Personal notes, learning streak, bookmarks, compare tool, analytics, and smart reading lists.</div>
+            <span class="whats-new-card-tag tag-improved">All Live</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Built-in tools:</strong><ul><li><strong>Personal Notes</strong>: Create, search, and export study notes</li><li><strong>Learning Streak</strong>: Track daily visits, earn milestone badges</li><li><strong>Compare Tool</strong>, <strong>Smart Bookmarks</strong>, <strong>Learning Analytics</strong></li><li><strong>Smart Reading Lists</strong>: Curated from UNDP, World Bank, J-PAL</li></ul></div></div>
+        </div>
+
+        <div class="whats-new-card card-bookmarks" onclick="toggleCard(this)">
+            <span class="whats-new-toggle-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <div class="whats-new-card-icon icon-bookmarks"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><use href="#si_Chat"/></svg></div>
+            <div class="whats-new-card-title">WhatsApp PLC</div>
+            <div class="whats-new-card-desc">Professional Learning Community for development practitioners across South Asia.</div>
+            <span class="whats-new-card-tag tag-new">Join</span>
+            <div class="whats-new-card-expand"><div class="whats-new-card-expand-content"><strong>Community features:</strong><ul><li>Peer learning with practitioners, researchers, and changemakers</li><li>Resource sharing and curated discussion threads</li><li>South Asia focus with cross-sector perspectives</li></ul></div><a href="https://chat.whatsapp.com/EsBjbKaQfupG1HbtajTjHM" target="_blank" rel="noopener noreferrer" class="whats-new-card-action">Join WhatsApp PLC &rarr;</a></div>
+        </div>
+    </div>
+</div>
+
+<!-- Roadmap -->
+<div class="content-section" id="roadmap" style="border-top: 1px solid var(--border-color);">
+    <div class="section-label">Coming Soon</div>
+    <h2 class="section-heading">Roadmap</h2>
+    <p class="section-sub">Features and tools we're building to push development education forward</p>
+
+    <div class="roadmap-grid">
+        <div class="roadmap-item">
+            <h4><svg viewBox="0 0 24 24"><rect height="14" rx="2" ry="2" width="20" x="2" y="3"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>AI Learning Assistant</h4>
+            <p>Personalised AI tutor for development concepts, available 24/7 to answer questions and provide guidance</p>
+        </div>
+        <div class="roadmap-item">
+            <h4><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></svg>Learning Pathways</h4>
+            <p>Structured credential tracks combining courses, labs, and games into coherent professional development journeys</p>
+        </div>
+        <div class="roadmap-item">
+            <h4><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>Vernacular Content</h4>
+            <p>Full courses in Hindi, Tamil, Telugu, Bengali, and Marathi for citizen-facing education</p>
+        </div>
+        <div class="roadmap-item">
+            <h4><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Team Training Packages</h4>
+            <p>Custom organisational training combining ImpactMojo courses with facilitator guides, assessment rubrics, and cohort management</p>
+        </div>
+        <div class="roadmap-item">
+            <h4><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Interactive Assessments</h4>
+            <p>Auto-graded quizzes, portfolio submissions, and peer review for flagship courses</p>
+        </div>
+        <div class="roadmap-item">
+            <h4><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>Qualitative Data Lab</h4>
+            <p>Browser-based coding, memo writing, and analysis tools for qualitative development research</p>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer">
+    <p>&copy; 2025 ImpactMojo. Free development education for practitioners across South Asia.</p>
+    <p style="margin-top: 0.5rem;"><a href="/">Home</a> &middot; <a href="/testimonials">Testimonials</a> &middot; <a href="/handouts">Handouts</a> &middot; <a href="/catalog">Catalog</a></p>
+</footer>
+
+<script>
+// Theme
+if (localStorage.getItem('imx-theme') === 'dark') document.body.classList.add('dark-mode');
+
+// Card toggle
+function toggleCard(card) {
+    document.querySelectorAll('.whats-new-card.expanded').forEach(function(c) {
+        if (c !== card) c.classList.remove('expanded');
+    });
+    card.classList.toggle('expanded');
+}
+</script>
+</body>
+</html>
