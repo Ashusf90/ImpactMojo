@@ -18,11 +18,9 @@ import { create, getNumericDate } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
 const TIER_RESOURCES: Record<string, string[]> = {
   explorer: [],
   practitioner: [
-    "field-notes",      // Field Notes (marginmuse.space)
     "rq-builder",       // RQ Builder Pro (researchquestions.netlify.app)
   ],
   professional: [
-    "field-notes",
     "rq-builder",
     "code-convert-pro", // Code Converter Pro (stats-assist.netlify.app)
     "qual-insights",    // Qual Insights Lab Pro (qual-lab.netlify.app)
@@ -32,7 +30,6 @@ const TIER_RESOURCES: Record<string, string[]> = {
     "devecon-toolkit",  // DevEcon Toolkit (varnasr.github.io)
   ],
   organization: [
-    "field-notes",
     "rq-builder",
     "code-convert-pro",
     "qual-insights",

@@ -19,7 +19,6 @@
   // so the ?token= query param reaches the auth-gate / token-gate.
   const RESOURCE_URLS = {
     // Practitioner tier
-    'field-notes':      'https://marginmuse.space/themarginmuse',
     'rq-builder':       'https://researchquestions.netlify.app/',
     // Professional tier
     'code-convert-pro': 'https://stats-assist.netlify.app/',
