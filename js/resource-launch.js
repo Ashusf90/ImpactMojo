@@ -105,4 +105,21 @@
     RESOURCE_URLS,
     version: '1.0.0',
   };
+
+  // ── Auto-intercept clicks on links with data-resource-id ─────────
+  // Works with premium.js: when locked, premium.js captures the click
+  // first (capture phase) and shows the upgrade modal. When unlocked,
+  // this handler runs and routes through the JWT launcher.
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[data-resource-id]');
+    if (!link) return;
+
+    // If premium.js has locked the parent card, let it handle the click
+    var card = link.closest('[data-locked-tier]');
+    if (card) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    launch(link.dataset.resourceId);
+  });
 })();
