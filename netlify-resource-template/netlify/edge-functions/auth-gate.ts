@@ -5,7 +5,9 @@
 //
 // Required env vars (set in Netlify dashboard → Site settings → Environment variables):
 //   RESOURCE_TOKEN_SECRET  — same HMAC secret used in the Supabase Edge Function
-//   RESOURCE_ID            — unique slug for this resource site (e.g. "poa", "mel", "devai")
+//   RESOURCE_ID            — unique slug for this resource (e.g. "code-convert-pro",
+//                            "vaniscribe", "qual-lab", "stats-assistant", "rq-builder",
+//                            "qual-insights", "ce-tool")
 
 import type { Context } from "https://edge.netlify.com";
 

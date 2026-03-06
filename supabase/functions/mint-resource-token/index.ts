@@ -12,12 +12,41 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 import { create, getNumericDate } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
 
 // ── Tier → resource ACL ──────────────────────────────────────────────
-// Matches existing tiers in profiles.subscription_tier
+// Matches existing tiers in profiles.subscription_tier.
+// Resource IDs correspond to premium-only tools (NOT flagship courses,
+// which are free for everyone).
 const TIER_RESOURCES: Record<string, string[]> = {
   explorer: [],
-  practitioner: ["poa"],
-  professional: ["poa", "mel", "devai", "dataviz", "gandhi", "devecon"],
-  organization: ["poa", "mel", "devai", "dataviz", "gandhi", "devecon"],
+  practitioner: [
+    "field-notes",      // Field Notes from a Development Economist (marginmuse.space)
+    "rq-builder",       // RQ Builder Pro
+  ],
+  professional: [
+    "field-notes",
+    "rq-builder",
+    "code-convert-pro", // Statistical Code Convertor Pro
+    "qual-insights",    // Qualitative Insights Lab Pro
+    "vaniscribe",       // VaniScribe: AI Transcription
+    "qual-lab",         // Qualitative Research Lab
+    "stats-assistant",  // Statistical Analysis Assistant
+    "devdata-practice", // DevData Practice: Development Datasets
+    "viz-cookbook",      // Visualization Cookbook
+    "devecon-toolkit",  // DevEconomics Toolkit: Interactive Shiny Apps
+    "ce-tool",          // Cost-Effectiveness Analysis Tool
+  ],
+  organization: [
+    "field-notes",
+    "rq-builder",
+    "code-convert-pro",
+    "qual-insights",
+    "vaniscribe",
+    "qual-lab",
+    "stats-assistant",
+    "devdata-practice",
+    "viz-cookbook",
+    "devecon-toolkit",
+    "ce-tool",
+  ],
 };
 
 // ── CORS headers (allow the main site) ───────────────────────────────

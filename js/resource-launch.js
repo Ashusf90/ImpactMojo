@@ -6,7 +6,7 @@
  * Supabase Edge Function and opens the gated resource in a new tab.
  *
  * Usage:
- *   <button onclick="ImpactMojoResource.launch('poa')">Open POA Course</button>
+ *   <button onclick="ImpactMojoResource.launch('vaniscribe')">Open VaniScribe</button>
  *
  * Depends on: js/auth.js (provides `supabaseClient` and `ImpactMojoAuth`)
  */
@@ -14,15 +14,24 @@
 (function () {
   'use strict';
 
-  // ── Map resource IDs to their Netlify deployment URLs ──────────────
-  // Update these when you add new resource sites.
+  // ── Map resource IDs to their deployment URLs ──────────────────────
+  // These are the actual premium resources (NOT flagship courses).
+  // Resources on 101.impactmojo.in can use the Netlify auth-gate.
+  // Resources on GitHub Pages need their own verification layer.
   const RESOURCE_URLS = {
-    poa:     'https://poa-impactmojo.netlify.app',
-    mel:     'https://mel-impactmojo.netlify.app',
-    devai:   'https://devai-impactmojo.netlify.app',
-    dataviz: 'https://dataviz-impactmojo.netlify.app',
-    gandhi:  'https://gandhi-impactmojo.netlify.app',
-    devecon: 'https://devecon-impactmojo.netlify.app',
+    // Practitioner tier
+    'field-notes':      'https://marginmuse.space/themarginmuse',
+    'rq-builder':       'https://101.impactmojo.in/researchQ-pro',
+    // Professional tier
+    'code-convert-pro': 'https://101.impactmojo.in/code-convert-pro',
+    'qual-insights':    'https://101.impactmojo.in/qual-insights',
+    'vaniscribe':       'https://101.impactmojo.in/vaniscribe',
+    'qual-lab':         'https://101.impactmojo.in/IMQualLab',
+    'stats-assistant':  'https://101.impactmojo.in/IMStatsAssist',
+    'ce-tool':          'https://101.impactmojo.in/CE',
+    'devdata-practice': 'https://varnasr.github.io/devdata-practice/',
+    'viz-cookbook':      'https://varnasr.github.io/devdata-practice/charts.html',
+    'devecon-toolkit':  'https://varnasr.github.io/deveconomics-toolkit/',
   };
 
   // Supabase Edge Function URL (auto-derived from the Supabase project URL in auth.js)
