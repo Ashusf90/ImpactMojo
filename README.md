@@ -34,10 +34,12 @@ We provide accessible, high-quality educational materials grounded in South Asia
 ## Features
 
 ### Learning Platform
-- 📚 **10+ Courses** — MEAL 101, Theory of Change, Research Methods, Gender Studies, Development Economics, Climate Change, Public Health, and more
-- 🔬 **Interactive Labs** — Hands-on tools for practical application
-- 🎮 **Learning Games** — Gamified concept reinforcement
-- 📖 **ImpactLex Dictionary** — PWA-enabled terminology reference
+- 📚 **48 Courses** — 9 flagship + 39 foundational courses across 6 learning tracks
+- 🔬 **10 Interactive Labs** — Hands-on workbenches for MEL, policy, partnerships, and more
+- 🎮 **12 Learning Games** — Economics simulations and behavioral experiments
+- 📖 **ImpactLex Dictionary** — 500+ development terms, PWA-enabled
+- 📄 **Dev Case Studies** — 200 evidence-based case studies from 117 countries
+- 📚 **DevDiscourses** — 500+ open-access research papers and books
 
 ### User Features
 - 🔖 **Bookmarks** — Save courses and content for later
@@ -210,30 +212,92 @@ The `router.js` script handles client-side navigation after Netlify serves `inde
 
 ## Content & Courses
 
-### Available Courses
+### Flagship Courses (9)
+
+Deep, comprehensive learning tracks — free for all users:
 
 | Course | Description |
 |--------|-------------|
-| **MEAL 101** | Monitoring, Evaluation, Accountability & Learning fundamentals |
-| **Theory of Change** | Building effective theories of change and logic models |
-| **Research Methods** | Qualitative and quantitative research design |
-| **Gender Studies 101** | Feminist theory, intersectionality, and South Asian context |
-| **Development Economics 101** | Growth, inequality, institutions, and policy |
-| **Climate Change 101** | IPCC basics, vulnerability, adaptation, and climate justice |
-| **Public Health 101** | Health systems, epidemiology, and health equity |
-| **Data Feminism 101** | Challenging dominant data narratives |
-| **Social Safety Nets 101** | India's welfare architecture (PDS, NREGA, Aadhaar) |
-| **Decent Work 101** | Labor rights, informality, and fair livelihoods |
+| **MEL for Development** | Monitoring, Evaluation & Learning — frameworks, indicators, data use |
+| **Seeing Data: Visualization for Impact** | Data storytelling, chart design, accessibility |
+| **AI for Impact: Data Monitoring & Evaluation** | AI/ML applications in development M&E |
+| **Understanding Development: An Economics Perspective** | Growth, inequality, institutions, trade |
+| **Gandhi's Political Thought: Philosophy for Praxis** | Swaraj, satyagraha, applied Gandhian thought |
+| **Politics of Aspiration** | Rights, insurance, social mobility, and aspirational politics |
+| **Media for Development** | Communication, power, narrative, and practice |
+| **Social-Emotional Learning for Development** | SEL frameworks for development contexts |
+| **Constitution & Law** | Constitutional governance and development law |
+
+### Foundational Courses (39)
+
+Shorter introductory courses covering the breadth of development practice:
+
+| Track | Courses |
+|-------|---------|
+| **MEL & Research** | MEL Fundamentals, Qualitative Research Methods, Research Ethics, Observation to Insight, EDA for Humanitarian/Health/Social Data, Bivariate Analysis, Multivariate Analysis, Item Response Theory, Cost Effectiveness 101 |
+| **Economics & Policy** | Economics 101, Development Economics, Political Economy, Econometrics 101, Poverty and Inequality, Global Development Architecture, Fundraising Fundamentals |
+| **Gender & Equity** | Gender Studies 101, Women's Economic Empowerment, Sexual Rights and Health, Care Economy and Unpaid Work, Marginalized Identities and Development, Data Feminism |
+| **Governance & Society** | Indian Constitution and Development, Post-Truth Politics, Decolonizing Development, Community-Led Development, Environmental Justice |
+| **Health & Wellbeing** | Public Health 101, Climate Essentials, Social Emotional Learning, Decent Work for All, Livelihoods Fundamentals |
+| **Communication & Data** | English for Development, Visual Ethnography, Data Literacy for Development, BCC and Communications, Advocacy Fundamentals, Digital Development Ethics, Education and Pedagogy |
+
+### Interactive Labs (10)
+
+Hands-on workbenches for practical application:
+
+- **MEL Design Lab** — Theory of change and evaluation framework builder
+- **MEL Plan Lab** — Operational planning tool for monitoring systems
+- **Qual Insights Lab** — Thematic analysis workbench for interview/FGD data
+- **Risk Mitigation Lab** — Scenario planning and risk identification
+- **Policy Advocacy Lab** — Strategic planning for advocacy campaigns
+- **Resource Sustainability Lab** — Resource flow analysis and sustainability modeling
+- **Impact Partnerships Lab** — Partnership mapping and collaboration design
+- **Design Thinking Lab** — Structured facilitation for problem-solving
+- **Storytelling Lab** — Crafting evidence-based impact narratives
+- **Community Engagement Lab** — Participatory engagement strategy design
+
+### Learning Games (12)
+
+Economics simulations and behavioral experiments:
+
+- **Public Good Game** — Free-rider problems and collective action
+- **Prisoners' Dilemma** — Strategic interdependence and rationality
+- **Opportunity Cost Game** — Resource scarcity and trade-off decisions
+- **Network Effects Game** — Value creation and network scale
+- **Cooperation Paradox** — Self-interest vs. cooperation tensions
+- **Risk and Reward** — Risk assessment and portfolio management
+- **Bidding Wars** — Auction simulation and winner's curse
+- **Information Asymmetry** — Adverse selection and moral hazard
+- **Economics Concepts** — Supply-demand, elasticity puzzles
+- **Externality Game** — Positive and negative externalities
+- **Commons Crisis** — Tragedy of the commons and governance
+- **Real Middle India** — India's middle-class socioeconomic data explorer
+
+### Premium Tools
+
+Available to Practitioner and Professional tier subscribers:
+
+| Tool | Tier | Description |
+|------|------|-------------|
+| **Field Notes from a Dev Economist** | Free | Behind-the-scenes analysis of real development programs |
+| **RQ Builder Pro** | Practitioner | Guided research question formulation (PICO/SPIDER) |
+| **TOC Workbench Pro** | Practitioner | Publication-ready theories of change with export |
+| **Code Convert Pro** | Professional | Translate scripts between Stata, R, Python, SPSS |
+| **Qual Insights Lab Pro** | Professional | AI-assisted qualitative analysis for transcripts |
+| **VaniScribe AI** | Professional | Transcription in 10+ South Asian languages |
+| **DevData Practice** | Professional | 36 dataset generators, 840K+ rows modeled on DHS/NFHS/ASER |
+| **Visualization Cookbook** | Professional | 14 chart types with question-driven recipes |
+| **DevEconomics Toolkit** | Professional | 11 interactive Shiny apps for development econometrics |
+
+### Other Resources
+
+- **ImpactLex** — 500+ development terms with contextual definitions (PWA)
+- **Dev Case Studies Library** — 200 evidence-based case studies from 117 countries
+- **DevDiscourses** — 500+ curated open-access research papers, books, and grey literature
 
 ### Multilingual Support
 
-Content is available in:
-- 🇬🇧 English
-- 🇮🇳 Hindi (हिंदी)
-- 🇮🇳 Tamil (தமிழ்)
-- 🇮🇳 Bengali (বাংলা)
-- 🇮🇳 Telugu (తెలుగు)
-- 🇮🇳 Marathi (मराठी)
+Content available in 6 languages: English, Hindi, Tamil, Bengali, Telugu, Marathi
 
 ---
 
