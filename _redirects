@@ -1,5 +1,5 @@
 # ImpactMojo Clean URL Redirects
-# Version 1.4.0 - December 3, 2025
+# Version 1.5.0 - March 7, 2026
 
 # ===========================================
 # EXTERNAL REDIRECTS
@@ -26,6 +26,38 @@
 /login              /login.html         301
 /signup             /signup.html        301
 /account            /account.html       301
+/forgot-password    /forgot-password.html  301
+
+# Content pages (clean URL -> .html file)
+/catalog            /catalog.html       301
+/dojos              /dojos.html         301
+/faq                /faq.html           301
+/grievance          /grievance.html     301
+/handouts           /handouts.html      301
+/podcast            /podcast.html       301
+/sitemap            /sitemap.html       301
+/updates            /updates.html       301
+/workshops          /workshops.html     301
+
+# Legal/policy pages
+/ai-policy          /ai-policy.html         301
+/data-protection    /data-protection.html   301
+/disclaimer         /disclaimer.html        301
+/privacy-policy     /privacy-policy.html    301
+/refund-policy      /refund-policy.html     301
+/terms-of-service   /terms-of-service.html  301
+
+# Legacy/short aliases (pages reference /privacy, /terms, /refund)
+/privacy            /privacy-policy.html    301
+/privacy/           /privacy-policy.html    301
+/terms              /terms-of-service.html  301
+/terms/             /terms-of-service.html  301
+/refund             /refund-policy.html     301
+/refund/            /refund-policy.html     301
+
+# Course SEL case-sensitivity fix (directory is /courses/SEL/)
+/courses/sel        /courses/SEL/index.html  301
+/courses/sel/       /courses/SEL/index.html  301
 
 # ===========================================
 # FEATURE URLs - Speed Dial tools
@@ -46,7 +78,7 @@
 /pomodoro/          /index.html         200
 
 # ===========================================
-# SECTION URLs - scroll to sections
+# SECTION URLs - scroll to sections on index.html
 # ===========================================
 /home               /index.html         200
 /home/              /index.html         200
