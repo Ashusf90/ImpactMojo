@@ -161,6 +161,17 @@ window.addEventListener('pageshow', function(event) {
    CSS VARIABLES - V3 Design System
    ======================================== */
 :root {
+    --primary-bg: #F8FAFC;
+    --secondary-bg: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --border-color: rgba(15, 23, 42, 0.1);
+    --gradient-secondary: linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 100%);
+}
+
+/* Dark Mode */
+body.dark-mode {
     /* Primary Colors - Sky Blue Accent */
     --primary-bg: #0F172A;
     --secondary-bg: #1E293B;
@@ -190,17 +201,6 @@ window.addEventListener('pageshow', function(event) {
     /* Typography */
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-heading: 'Poppins', 'Inter', sans-serif;
-}
-
-/* Light Mode */
-body.light-mode {
-    --primary-bg: #F8FAFC;
-    --secondary-bg: #FFFFFF;
-    --text-primary: #0F172A;
-    --text-secondary: #475569;
-    --text-muted: #64748B;
-    --border-color: rgba(15, 23, 42, 0.1);
-    --gradient-secondary: linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 100%);
 }
 
 /* ========================================
@@ -247,7 +247,7 @@ a:hover {
     z-index: 1000;
 }
 
-body.light-mode .header {
+body.dark-mode .header {
     background: rgba(248, 250, 252, 0.95);
 }
 
@@ -412,8 +412,8 @@ body.light-mode .header {
 .icon-sun { display: block; }
 .icon-moon { display: none; }
 
-body.light-mode .icon-sun { display: none; }
-body.light-mode .icon-moon { display: block; }
+body.dark-mode .icon-sun { display: none; }
+body.dark-mode .icon-moon { display: block; }
 
 /* Mobile Menu Toggle */
 .mobile-menu-toggle {
@@ -1640,7 +1640,7 @@ div[class*="acsb"],
         z-index: 1001;
     }
     
-    body.light-mode .nav-links {
+    body.dark-mode .nav-links {
         background: var(--primary-bg);
     }
     
@@ -2329,17 +2329,17 @@ div[class*="acsb"],
 <script>
 // Theme Management
 function toggleTheme() {
-    document.body.classList.toggle('light-mode');
-    const isLight = document.body.classList.contains('light-mode');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
 function initTheme() {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
-        document.body.classList.add('light-mode');
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.body.classList.add('dark-mode');
     }
 }
 
