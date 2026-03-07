@@ -393,7 +393,7 @@ function toggleMobileDropdown(event, element) {
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1rem 1.5rem;
+            padding: 1rem 1.5rem 0.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -744,6 +744,12 @@ function toggleMobileDropdown(event, element) {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            width: 100%;
+            justify-content: flex-end;
+            padding-top: 0.4rem;
+            margin-top: 0.25rem;
+            border-top: 1px solid var(--border-color);
+            order: 10;
         }
 
         /* Auth Button Styles */
@@ -3213,6 +3219,10 @@ function toggleMobileDropdown(event, element) {
                 order: 2;
                 gap: 0.35rem;
                 flex-shrink: 0;
+                width: auto;
+                border-top: none;
+                padding-top: 0;
+                margin-top: 0;
             }
 
             .nav-buttons .tour-toggle,
@@ -6477,6 +6487,13 @@ footer::before {
     .nav-container > .auth-btn,
     header .auth-btn:not(.mobile-auth-btn) {
         display: none !important;
+    }
+
+    .nav-buttons {
+        width: auto !important;
+        border-top: none !important;
+        padding-top: 0 !important;
+        margin-top: 0 !important;
     }
     
     /* === HAMBURGER MENU BUTTON === */
@@ -13562,8 +13579,12 @@ PASTE THIS ENTIRE BLOCK JUST BEFORE
         gap: 0.25rem !important;
         margin-left: auto !important;
         margin-right: 0.5rem !important;
+        width: auto !important;
+        border-top: none !important;
+        padding-top: 0 !important;
+        margin-top: 0 !important;
     }
-    
+
     /* FAB BUTTONS - FORCE VISIBLE AND ALIGNED */
     #imxSpeedDial {
         display: block !important;
