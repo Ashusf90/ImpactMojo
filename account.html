@@ -2786,6 +2786,19 @@ window.addEventListener('authStateChanged', (e) => {
 
     if (e.detail.isLoggedIn) {
         loadingOverlay.style.display = 'none';
+        // Check for signup extras stored during registration
+        var signupExtras = sessionStorage.getItem('impactmojo_signup_extras');
+        if (signupExtras) {
+            try {
+                var extras = JSON.parse(signupExtras);
+                sessionStorage.removeItem('impactmojo_signup_extras');
+                ImpactMojoAuth.updateProfile(extras).then(function() {
+                    updatePageData();
+                });
+            } catch (err) {
+                console.error('Failed to apply signup extras:', err);
+            }
+        }
         updatePageData();
         updateSavedItemsDisplay();
     } else {
