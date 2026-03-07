@@ -2756,10 +2756,13 @@ async function signOut() {
     }
 }
 
-// Auth State Listener
+// Auth State Listener - only act on auth changes AFTER initial auth is ready
 window.addEventListener('authStateChanged', (e) => {
+    // Ignore early events before auth is fully ready (prevents OAuth redirect race)
+    if (!ImpactMojoAuth.isAuthReady) return;
+
     const loadingOverlay = document.getElementById('loadingOverlay');
-    
+
     if (e.detail.isLoggedIn) {
         loadingOverlay.style.display = 'none';
         updatePageData();
@@ -2770,25 +2773,38 @@ window.addEventListener('authStateChanged', (e) => {
 });
 
 // Initialization
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     initTheme();
     updateSavedItemsDisplay();
-    
-    // Auth is initialized via auth.js automatically
-    // The authStateChanged event will trigger updatePageData when ready
-    // Show loading state until auth is confirmed
+
     const loadingOverlay = document.getElementById('loadingOverlay');
-    
-    // Set a timeout to hide loading if auth takes too long
+
+    // Wait for auth to fully initialize (handles OAuth callback tokens in URL)
+    try {
+        await ImpactMojoAuth.waitForAuthReady();
+    } catch (e) {
+        console.error('Auth ready wait failed:', e);
+    }
+
+    // Now we know the true auth state
+    if (ImpactMojoAuth.isLoggedIn()) {
+        loadingOverlay.style.display = 'none';
+        updatePageData();
+        updateSavedItemsDisplay();
+    } else {
+        // Only redirect to login if auth is ready and user is truly not logged in
+        window.location.href = 'login.html';
+    }
+
+    // Safety timeout in case auth never resolves
     setTimeout(function() {
         if (loadingOverlay.style.display !== 'none') {
             loadingOverlay.style.display = 'none';
-            // Check if user is logged in after timeout
             if (!ImpactMojoAuth.isLoggedIn()) {
                 window.location.href = 'login.html';
             }
         }
-    }, 5000);
+    }, 10000);
 });
 
 // Close dropdowns when clicking outside
