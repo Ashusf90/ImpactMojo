@@ -49,51 +49,74 @@ const ImpactMojoAuth = {
     user: null,
     profile: null,
     isInitialized: false,
+    isAuthReady: false,
+    _authReadyPromise: null,
+    _authReadyResolve: null,
     isSyncing: false,
 
     // Initialize auth and check session
     async init() {
         if (this.isInitialized) return;
-        
+
+        // Create a promise that resolves when auth state is fully determined
+        // This is critical for OAuth redirects where tokens are in the URL hash
+        this._authReadyPromise = new Promise(resolve => {
+            this._authReadyResolve = resolve;
+        });
+
         try {
-            // Get current session
-            const { data: { session }, error } = await supabaseClient.auth.getSession();
-            
-            if (error) {
-                console.error('Auth init error:', error);
-                return;
-            }
-
-            if (session?.user) {
-                this.user = session.user;
-                await this.fetchProfile();
-                // Auto-sync on init if logged in
-                await this.syncFromCloud();
-            }
-
-            // Listen for auth changes
+            // Listen for auth changes FIRST - this is what processes OAuth callbacks
+            // Supabase fires INITIAL_SESSION first, then SIGNED_IN if OAuth tokens are in URL
             supabaseClient.auth.onAuthStateChange(async (event, session) => {
                 console.log('Auth state changed:', event);
-                
-                if (event === 'SIGNED_IN' && session?.user) {
+
+                if (event === 'INITIAL_SESSION') {
+                    // Initial session check complete - set user if session exists
+                    if (session?.user) {
+                        this.user = session.user;
+                        await this.fetchProfile();
+                        await this.syncFromCloud();
+                    }
+                    // Mark auth as ready - we now know the true auth state
+                    this.isAuthReady = true;
+                    if (this._authReadyResolve) this._authReadyResolve();
+                    this.updateUI();
+                } else if (event === 'SIGNED_IN' && session?.user) {
                     this.user = session.user;
                     await this.fetchProfile();
                     // Sync data when user signs in
                     await this.syncAll();
+                    // If auth wasn't ready yet (OAuth callback), mark it ready now
+                    if (!this.isAuthReady) {
+                        this.isAuthReady = true;
+                        if (this._authReadyResolve) this._authReadyResolve();
+                    }
                     this.updateUI();
                 } else if (event === 'SIGNED_OUT') {
                     this.user = null;
                     this.profile = null;
+                    if (!this.isAuthReady) {
+                        this.isAuthReady = true;
+                        if (this._authReadyResolve) this._authReadyResolve();
+                    }
                     this.updateUI();
                 }
             });
 
             this.isInitialized = true;
-            this.updateUI();
-            
+
         } catch (err) {
             console.error('Auth initialization failed:', err);
+            // Ensure auth ready resolves even on error
+            this.isAuthReady = true;
+            if (this._authReadyResolve) this._authReadyResolve();
         }
+    },
+
+    // Wait for auth to be fully ready (use this before redirecting based on auth state)
+    waitForAuthReady() {
+        if (this.isAuthReady) return Promise.resolve();
+        return this._authReadyPromise || Promise.resolve();
     },
 
     // Fetch user profile from database

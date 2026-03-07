@@ -674,9 +674,9 @@
             }
         });
 
-        // Check if already logged in
+        // Check if already logged in (wait for auth to be fully ready first)
         window.addEventListener('authStateChanged', (e) => {
-            if (e.detail.isLoggedIn) {
+            if (ImpactMojoAuth.isAuthReady && e.detail.isLoggedIn) {
                 ImpactMojoAuth.redirectAfterLogin();
             }
         });
