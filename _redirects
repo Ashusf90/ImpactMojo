@@ -55,6 +55,18 @@
 /refund             /refund-policy.html     301
 /refund/            /refund-policy.html     301
 
+# Aliases that redirect to standalone pages
+/wall-of-love       /testimonials.html  301
+/wall-of-love/      /testimonials.html  301
+/reviews            /testimonials.html  301
+/reviews/           /testimonials.html  301
+/whats-new          /updates.html       301
+/whats-new/         /updates.html       301
+/new                /updates.html       301
+/new/               /updates.html       301
+/roadmap            /updates.html       301
+/roadmap/           /updates.html       301
+
 # Course SEL case-sensitivity fix (directory is /courses/SEL/)
 /courses/sel        /courses/SEL/index.html  301
 /courses/sel/       /courses/SEL/index.html  301
@@ -84,8 +96,6 @@
 /home/              /index.html         200
 /tracks             /index.html         200
 /tracks/            /index.html         200
-/roadmap            /index.html         200
-/roadmap/           /index.html         200
 /courses            /index.html         200
 /courses/           /index.html         200
 /labs               /index.html         200
@@ -98,16 +108,6 @@
 /premium/           /index.html         200
 /coaching           /index.html         200
 /coaching/          /index.html         200
-/testimonials       /index.html         200
-/testimonials/      /index.html         200
-/wall-of-love       /index.html         200
-/wall-of-love/      /index.html         200
-/reviews            /index.html         200
-/reviews/           /index.html         200
-/whats-new          /index.html         200
-/whats-new/         /index.html         200
-/new                /index.html         200
-/new/               /index.html         200
 /support            /index.html         200
 /support/           /index.html         200
 /support-us         /index.html         200
