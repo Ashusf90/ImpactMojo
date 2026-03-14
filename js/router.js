@@ -52,6 +52,7 @@
         
         // Note: /impactlex, /dictionary, /community are handled by _redirects (301)
     };
+  
 
     // Get current path without trailing slash
     function getCurrentPath() {
@@ -311,6 +312,81 @@
         
         console.log('ImpactMojo Router initialized');
     }
+  // --------------------------------------------------
+// Keyboard Shortcuts for BCT Repository
+// Issue #41
+// --------------------------------------------------
+
+document.addEventListener("keydown", function (e) {
+
+  // Do not trigger shortcuts while typing in inputs
+  const tag = document.activeElement.tagName;
+  if (tag === "INPUT" || tag === "TEXTAREA") return;
+
+  // J → Next technique card
+  if (e.key === "j" || e.key === "J") {
+    const cards = document.querySelectorAll(".technique-card");
+    const selected = document.querySelector(".technique-card.selected");
+
+    if (!cards.length) return;
+
+    let index = Array.from(cards).indexOf(selected);
+    index = Math.min(index + 1, cards.length - 1);
+
+    cards.forEach(card => card.classList.remove("selected"));
+    cards[index].classList.add("selected");
+
+    cards[index].scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  }
+
+  // K → Previous technique card
+  if (e.key === "k" || e.key === "K") {
+    const cards = document.querySelectorAll(".technique-card");
+    const selected = document.querySelector(".technique-card.selected");
+
+    if (!cards.length) return;
+
+    let index = Array.from(cards).indexOf(selected);
+    index = Math.max(index - 1, 0);
+
+    cards.forEach(card => card.classList.remove("selected"));
+    cards[index].classList.add("selected");
+
+    cards[index].scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  }
+
+  // Enter → Open selected technique
+  if (e.key === "Enter") {
+    const selected = document.querySelector(".technique-card.selected");
+    if (selected) selected.click();
+  }
+
+  // Esc → Close modal
+  if (e.key === "Escape") {
+    const modal = document.querySelector(".modal.open");
+    if (modal) modal.classList.remove("open");
+  }
+
+  // / → Focus search
+  if (e.key === "/") {
+    e.preventDefault();
+    const search = document.querySelector("input[type='search']");
+    if (search) search.focus();
+  }
+
+  // ? → Toggle help overlay
+  if (e.key === "?") {
+    const help = document.getElementById("shortcut-help");
+    if (help) help.classList.toggle("show");
+  }
+
+});
 
     // Run when DOM is ready
     if (document.readyState === 'loading') {
